@@ -1,6 +1,6 @@
 <?php
 
-class inReach_KML_Feed extends Waymark_Class {
+class inReach_KML_Feed extends Feed_Beast_Request {
 
 	public $parameters = [
 		'mapshare_identifier' => null,
