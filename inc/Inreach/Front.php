@@ -7,7 +7,7 @@ class Feed_Beast_Inreach_Front {
 	}
 	
 	function shortcode_handler($attributes) {
-		require_once('Inreach_KML_Request.php');
+		require_once('Feed_Beast_Inreach.php');
 
 		$attributes = shortcode_atts(array(
 			'mapshare_identifier' => false,
@@ -17,8 +17,8 @@ class Feed_Beast_Inreach_Front {
 		if($attributes['mapshare_identifier']) {					
 			echo do_shortcode('[Waymark]');
 		
-			$inReach_KML_Feed = new inReach_KML_Feed($attributes);
-			$response_geojson_string = $inReach_KML_Feed->response_geojson();
+			$Feed_Beast_Inreach = new Feed_Beast_Inreach($attributes);
+			$response_geojson_string = $Feed_Beast_Inreach->response_geojson();
 		
 			Waymark_JS::add_call("
 				setTimeout(function() {

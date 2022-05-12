@@ -133,12 +133,16 @@ class Feed_Beast_Types {
 			return;
 		}
 			
-		$data = Feed_Beast_Helper::flatten_meta(get_post_meta($post->ID));
+// 		$data = Feed_Beast_Helper::flatten_meta(get_post_meta($post->ID));
 								
 		//Create Feed meta input
-		$Feed = new Feed_Beast_Feed($post->ID);		
-		$Feed->set_data($data);
-		echo $Feed->create_form();		
+		$Feed = new Feed_Beast_Inreach($post->ID);		
+// 		$Feed->set_data($data);
+		echo $Feed->create_form();	
+		
+		if($response_string = $Feed->response_string) {
+			echo '<textarea>' . $response_string . '</textarea>';
+		}	
 	}	
 
 	function save_feed_form() {
@@ -147,7 +151,7 @@ class Feed_Beast_Types {
 		if(is_object($post) && ! (wp_is_post_revision($post->ID) || wp_is_post_autosave($post->ID))) {
 			switch($post->post_type) {
 				case 'feed_beast_feed' :									
-					$Feed = new Feed_Beast_Feed($post->ID);		
+					$Feed = new Feed_Beast_Inreach($post->ID);		
 					$Feed->set_data($_POST);	
 					
 // 					Feed_Beast_Helper::debug($_POST);

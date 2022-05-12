@@ -9,7 +9,7 @@ class Feed_Beast_Inreach_Admin {
 	}
 
 	function admin_init() {
-		require_once('Inreach_KML_Request.php');
+		require_once('Feed_Beast_Inreach.php');
 	}
 	
 	function current_screen() {
@@ -42,8 +42,8 @@ class Feed_Beast_Inreach_Admin {
 
 					//Inreach
 					if(isset($_POST['mapshare_identifier'])) {				
-						$inReach_KML_Feed = new inReach_KML_Feed($_POST);
-						$parameters_encoded = json_encode($inReach_KML_Feed->get_parameters());
+						$Feed_Beast_Inreach = new Feed_Beast_Inreach($_POST);
+						$parameters_encoded = json_encode($Feed_Beast_Inreach->get_parameters());
 
 						update_post_meta($post->ID, 'feed_beast_inreach_feed', $parameters_encoded);
 					}
@@ -61,8 +61,8 @@ class Feed_Beast_Inreach_Admin {
 	function display_inreach_meta($post) {	
  		$data = json_decode(get_post_meta($post->ID, 'feed_beast_inreach_feed', true));
 
-		$inReach_KML_Feed = new inReach_KML_Feed($data);
-		$response_geojson_string = $inReach_KML_Feed->response_geojson();
+		$Feed_Beast_Inreach = new Feed_Beast_Inreach($data);
+		$response_geojson_string = $Feed_Beast_Inreach->response_geojson();
 		
 		Waymark_JS::add_call("
 			setTimeout(function() {
@@ -82,7 +82,7 @@ class Feed_Beast_Inreach_Admin {
 			}, 250);
 		");
 		
-		echo $inReach_KML_Feed->create_form();
+		echo $Feed_Beast_Inreach->create_form();
 	}	
 }
 new Feed_Beast_Inreach_Admin;
