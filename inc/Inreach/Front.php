@@ -1,13 +1,13 @@
 <?php
 
-class Feed_Beast_Inreach_Front {
+class Beast_Inreach_Front {
 	
 	function __construct() {
 		add_shortcode('Feed_Beast', array($this, 'shortcode_handler'));
 	}
 	
 	function shortcode_handler($attributes) {
-		require_once('Feed_Beast_Inreach.php');
+		require_once('Beast_Inreach.php');
 
 		$attributes = shortcode_atts(array(
 			'mapshare_identifier' => false,
@@ -17,8 +17,8 @@ class Feed_Beast_Inreach_Front {
 		if($attributes['mapshare_identifier']) {					
 			echo do_shortcode('[Waymark]');
 		
-			$Feed_Beast_Inreach = new Feed_Beast_Inreach($attributes);
-			$response_geojson_string = $Feed_Beast_Inreach->response_geojson();
+			$Beast_Inreach = new Beast_Inreach($attributes);
+			$response_geojson_string = $Beast_Inreach->response_geojson();
 		
 			Waymark_JS::add_call("
 				setTimeout(function() {
@@ -36,4 +36,4 @@ class Feed_Beast_Inreach_Front {
 		}
 	}
 }
-new Feed_Beast_Inreach_Front;
+new Beast_Inreach_Front;

@@ -1,6 +1,6 @@
 <?php
 
-class Feed_Beast_Helper {
+class Beast_Helper {
 
 	static public function require($path = '') {
 		$path = plugin_dir_path(__DIR__) . $path;
@@ -19,9 +19,9 @@ class Feed_Beast_Helper {
 	static public function plugin_about() {
 		$out = '';
 		
-		$out .= '	<div id="' . Feed_Beast_Config::get_item('plugin_slug') . '-about">' . "\n";	
+		$out .= '	<div id="' . Beast_Config::get_item('plugin_slug') . '-about">' . "\n";	
 		$out .= '		<img alt="Joe\'s mug" src="https://www.morehawes.co.uk/assets/images/Joe1BW.jpg" />' . "\n";		
-		$out .= '		<p class="lead"><b>' . sprintf(esc_html__("Hi, I'm %s.", Feed_Beast_Config::get_item('plugin_slug')), "Joe") . '</b></p>' . "\n";		
+		$out .= '		<p class="lead"><b>' . sprintf(esc_html__("Hi, I'm %s.", Beast_Config::get_item('plugin_slug')), "Joe") . '</b></p>' . "\n";		
 		$out .= '	</div>' . "\n";		
 		
 		return $out;
@@ -29,25 +29,25 @@ class Feed_Beast_Helper {
 	
 	static public function logo($colour = 'dark', $width = '20', $height = '20', $title = false) {
 		if(! $title) {
-			$title = Feed_Beast_Config::get_name();
+			$title = Beast_Config::get_name();
 		}
-		return '<img class="' . Feed_Beast_Config::get_item('plugin_slug') . '-logo" alt="' . Feed_Beast_Config::get_name() . '" src="' . self::asset_url('img/' . Feed_Beast_Config::get_item('plugin_slug') . '-icon-' . $colour . '.png') . '" width="' . $width . '" height="' . $height . '" />';
+		return '<img class="' . Beast_Config::get_item('plugin_slug') . '-logo" alt="' . Beast_Config::get_name() . '" src="' . self::asset_url('img/' . Beast_Config::get_item('plugin_slug') . '-icon-' . $colour . '.png') . '" width="' . $width . '" height="' . $height . '" />';
 	}
 	
 	static public function site_url($url_path = '') {
-		return Feed_Beast_Config::get_item('site_url') . $url_path;
+		return Beast_Config::get_item('site_url') . $url_path;
 	}
 
 	static public function asset_url($file_path = '') {	
-		return plugin_dir_url('') . Feed_Beast_Config::get_item('plugin_slug') . '/assets/' . $file_path;
+		return plugin_dir_url('') . Beast_Config::get_item('plugin_slug') . '/assets/' . $file_path;
 	}
 
 	static public function plugin_path($append = '') {
-		return Feed_Beast_Config::get_item('site_url') . $url_path;
+		return Beast_Config::get_item('site_url') . $url_path;
 	}
 	
 	static public function http_url($data = array()) {
-		return trim(add_query_arg(array_merge(array(Feed_Beast_Config::get_item('plugin_slug') . '_http' => '1'), $data), home_url('/')), '/');
+		return trim(add_query_arg(array_merge(array(Beast_Config::get_item('plugin_slug') . '_http' => '1'), $data), home_url('/')), '/');
 	}
 	
 	static function array_random_assoc($arr, $num = 1) {
@@ -62,7 +62,7 @@ class Feed_Beast_Helper {
 	}	
 
 	static public function is_debug() {
-		return (true == Feed_Beast_Config::get_setting('misc', 'advanced', 'debug_mode'));
+		return (true == Beast_Config::get_setting('misc', 'advanced', 'debug_mode'));
 	}
 	
 	static public function debug($thing, $die = true) {
@@ -109,7 +109,7 @@ class Feed_Beast_Helper {
 			$array_out = array();
 		
 			foreach($value_in as $key => $value) {
-				$multi = explode(Feed_Beast_Config::get_item('multi_value_seperator'), $value);			
+				$multi = explode(Beast_Config::get_item('multi_value_seperator'), $value);			
 
 				$count = 0;
 				foreach($multi as $m) {
@@ -122,7 +122,7 @@ class Feed_Beast_Helper {
 			return $array_out;		
 		//String
 		} else {
-			return explode(Feed_Beast_Config::get_item('multi_value_seperator'), $value_in);			
+			return explode(Beast_Config::get_item('multi_value_seperator'), $value_in);			
 		}
 	}	
 
@@ -141,7 +141,7 @@ class Feed_Beast_Helper {
 			//Multiple values
 			} else {
 				//Single value, use that
-				$array_out[$key] = implode(Feed_Beast_Config::get_item('multi_value_seperator'), $value);
+				$array_out[$key] = implode(Beast_Config::get_item('multi_value_seperator'), $value);
 			}
 		}	
 		

@@ -1,6 +1,6 @@
 <?php 
 
-class Feed_Beast_Object extends Feed_Beast_Class {
+class Beast_Object extends Beast_Class {
 	public $post_type = null;
 	public $post_id = null;
 	public $post_title = null;	
@@ -13,7 +13,7 @@ class Feed_Beast_Object extends Feed_Beast_Class {
 	protected $parameter_groups = array();
 	protected $parameters = array();
 
-	protected $meta_prefix = 'feed_beast_';
+	protected $meta_prefix = 'beast_';
 	
 	function __construct($post_id = null) {
 		//If post ID set
@@ -119,7 +119,7 @@ class Feed_Beast_Object extends Feed_Beast_Class {
 	}	
 	
 	function create_form() {
-		return Feed_Beast_Input::create_parameter_groups($this->parameters, $this->parameter_groups, $this->data, $this->input_name_format, Feed_Beast_Config::get_item('plugin_slug') . '-parameters-' . $this->post_type);
+		return Beast_Input::create_parameter_groups($this->parameters, $this->parameter_groups, $this->data, $this->input_name_format, Beast_Config::get_item('plugin_slug') . '-parameters-' . $this->post_type);
 	}	
 	
 	function save_meta($post_id = null) {
@@ -135,7 +135,7 @@ class Feed_Beast_Object extends Feed_Beast_Class {
 				$param_value = $this->data[$param_defition['id']];
 				
 				//Process input
-				$param_value = Feed_Beast_Input::process_input($param_defition, $param_value);
+				$param_value = Beast_Input::process_input($param_defition, $param_value);
 
 				update_post_meta($post_id, $this->prefix($param_defition['id']), $param_value);
 			//No value exists

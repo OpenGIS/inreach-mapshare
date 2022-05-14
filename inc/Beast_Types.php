@@ -1,12 +1,12 @@
 <?php
 	
-class Feed_Beast_Types {
+class Beast_Types {
 	private $types;
 	
 	function __construct() {
 		$this->types = array(
 	 
-		 'feed_beast_feed' => array(
+		 'beast_feed' => array(
 				'label'                 => esc_html__('Feed', 'feed_beast'),
 				'description'           => '',
 				'labels'                => array(
@@ -56,12 +56,12 @@ class Feed_Beast_Types {
 		);
 
 		//Show if debug
-		if(Feed_Beast_Config::get_setting('misc', 'advanced', 'debug_mode') == true) {
-			$this->types['feed_beast_feed']['supports'][] = 'custom-fields';
+		if(Beast_Config::get_setting('misc', 'advanced', 'debug_mode') == true) {
+			$this->types['beast_feed']['supports'][] = 'custom-fields';
 		}
 
 		//Add Featured Image Support
-		//add_theme_support('post-thumbnails', array('feed_beast_feed'));
+		//add_theme_support('post-thumbnails', array('beast_feed'));
 	
 		add_action('init', array($this, 'register_types'), 0);			
 		
@@ -81,7 +81,7 @@ class Feed_Beast_Types {
 			register_post_type($type_id, $type_data);			
 		}
 
-		Feed_Beast_Config::set_item('custom_types', $types);			
+		Beast_Config::set_item('custom_types', $types);			
 	}
 
 	function delete_posts() {
@@ -114,13 +114,13 @@ class Feed_Beast_Types {
 		if(function_exists('get_current_screen')) {  
 			$current_screen = get_current_screen();
 			
-			$plugin_types = Feed_Beast_Config::get_item('custom_types');
+			$plugin_types = Beast_Config::get_item('custom_types');
 			
 			if(in_array($current_screen->post_type, $plugin_types)) {
 				switch($current_screen->post_type) {
 					//Map
-					case 'feed_beast_feed' :									
-						add_meta_box('feed_beast_feed_meta', esc_html__('Feed Editor', 'waymark'), array($this, 'display_feed_form'), $current_screen->post_type, 'normal', 'high');			
+					case 'beast_feed' :									
+						add_meta_box('beast_feed_meta', esc_html__('Feed Editor', 'waymark'), array($this, 'display_feed_form'), $current_screen->post_type, 'normal', 'high');			
 					
 						break;
 				}	
@@ -133,10 +133,10 @@ class Feed_Beast_Types {
 			return;
 		}
 			
-// 		$data = Feed_Beast_Helper::flatten_meta(get_post_meta($post->ID));
+// 		$data = Beast_Helper::flatten_meta(get_post_meta($post->ID));
 								
 		//Create Feed meta input
-		$Feed = new Feed_Beast_Inreach($post->ID);		
+		$Feed = new Beast_Inreach($post->ID);		
 // 		$Feed->set_data($data);
 		echo $Feed->create_form();	
 		
@@ -150,11 +150,11 @@ class Feed_Beast_Types {
 		
 		if(is_object($post) && ! (wp_is_post_revision($post->ID) || wp_is_post_autosave($post->ID))) {
 			switch($post->post_type) {
-				case 'feed_beast_feed' :									
-					$Feed = new Feed_Beast_Inreach($post->ID);		
+				case 'beast_feed' :									
+					$Feed = new Beast_Inreach($post->ID);		
 					$Feed->set_data($_POST);	
 					
-// 					Feed_Beast_Helper::debug($_POST);
+// 					Beast_Helper::debug($_POST);
 							
 					$Feed->save_meta($post->ID);
 										
@@ -163,4 +163,4 @@ class Feed_Beast_Types {
 		}
 	}	
 }
-new Feed_Beast_Types;	
+new Beast_Types;	

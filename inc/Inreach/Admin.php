@@ -1,6 +1,6 @@
 <?php
 
-class Feed_Beast_Inreach_Admin {
+class Beast_Inreach_Admin {
 	
 	function __construct() {
 		add_action('admin_init', array($this, 'admin_init'));
@@ -9,7 +9,7 @@ class Feed_Beast_Inreach_Admin {
 	}
 
 	function admin_init() {
-		require_once('Feed_Beast_Inreach.php');
+		require_once('Beast_Inreach.php');
 	}
 	
 	function current_screen() {
@@ -20,7 +20,7 @@ class Feed_Beast_Inreach_Admin {
 			switch($current_screen->post_type) {
 				//Map
 				case 'waymark_map' :									
- 					add_meta_box('feed_beast_inreach_meta', esc_html__('Inreach KML Feed', 'feed-beast'), array($this, 'display_inreach_meta'), 'waymark_map', 'normal', 'high');			
+ 					add_meta_box('beast_inreach_meta', esc_html__('Inreach KML Feed', 'feed-beast'), array($this, 'display_inreach_meta'), 'waymark_map', 'normal', 'high');			
 							
 					break;
 			}		
@@ -42,10 +42,10 @@ class Feed_Beast_Inreach_Admin {
 
 					//Inreach
 					if(isset($_POST['mapshare_identifier'])) {				
-						$Feed_Beast_Inreach = new Feed_Beast_Inreach($_POST);
-						$parameters_encoded = json_encode($Feed_Beast_Inreach->get_parameters());
+						$Beast_Inreach = new Beast_Inreach($_POST);
+						$parameters_encoded = json_encode($Beast_Inreach->get_parameters());
 
-						update_post_meta($post->ID, 'feed_beast_inreach_feed', $parameters_encoded);
+						update_post_meta($post->ID, 'beast_inreach_feed', $parameters_encoded);
 					}
 					
 					break;			
@@ -59,10 +59,10 @@ class Feed_Beast_Inreach_Admin {
 	 * ===========================================
 	 */	
 	function display_inreach_meta($post) {	
- 		$data = json_decode(get_post_meta($post->ID, 'feed_beast_inreach_feed', true));
+ 		$data = json_decode(get_post_meta($post->ID, 'beast_inreach_feed', true));
 
-		$Feed_Beast_Inreach = new Feed_Beast_Inreach($data);
-		$response_geojson_string = $Feed_Beast_Inreach->response_geojson();
+		$Beast_Inreach = new Beast_Inreach($data);
+		$response_geojson_string = $Beast_Inreach->response_geojson();
 		
 		Waymark_JS::add_call("
 			setTimeout(function() {
@@ -82,7 +82,7 @@ class Feed_Beast_Inreach_Admin {
 			}, 250);
 		");
 		
-		echo $Feed_Beast_Inreach->create_form();
+		echo $Beast_Inreach->create_form();
 	}	
 }
-new Feed_Beast_Inreach_Admin;
+new Beast_Inreach_Admin;

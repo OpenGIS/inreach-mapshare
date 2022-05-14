@@ -1,5 +1,5 @@
 <?php
-class Feed_Beast_Config {
+class Beast_Config {
 	//Set defaults
 	private static $data = array();
 	private static $default = array();
@@ -13,7 +13,7 @@ class Feed_Beast_Config {
 			'plugin_name_short' => 'Feed Beast',		
 			'custom_types' => array(),
 			'plugin_version' => '0.1',
-			'nonce_string' => 'Feed_Beast_Nonce',
+			'nonce_string' => 'Beast_Nonce',
 			'site_url' => 'https://wordpress.org/support/plugin/' . $slug . '/',
 			'directory_url' => 'https://wordpress.org/support/plugin/' . $slug . '/',
 			'multi_value_seperator' => '__multi__',
@@ -35,7 +35,7 @@ class Feed_Beast_Config {
 		self::$default = self::$data;
 	
 		//Read config options from DB
-		$settings_data = get_option('Feed_Beast_Settings');
+		$settings_data = get_option('Beast_Settings');
 
 		//Waymark_Helper::debug($settings_data);
 		
@@ -171,4 +171,4 @@ class Feed_Beast_Config {
 	}
 }
 
-Feed_Beast_Config::init();
+Beast_Config::init();

@@ -1,10 +1,10 @@
 <?php
 
-require_once('Feed_Beast_Object.php');
+require_once('Beast_Object.php');
 	
-class Feed_Beast_Feed extends Feed_Beast_Object {
+class Beast_Feed extends Beast_Object {
 	
-	public $post_type = 'feed_beast_feed';
+	public $post_type = 'beast_feed';
 
 	public $request_endpoint = '';
 	public $request_data = [];
@@ -22,7 +22,7 @@ class Feed_Beast_Feed extends Feed_Beast_Object {
 	
 	function execute_request() {
 		//Cached response	
-		$this->response_string = Feed_Beast_Cache::get_item($this->cache_id);
+		$this->response_string = Beast_Cache::get_item($this->cache_id);
 		
 		if($this->response_string === false) {
 			//Setup call
@@ -45,7 +45,7 @@ class Feed_Beast_Feed extends Feed_Beast_Object {
 				//MUST BE VALID KML to go into Cache
 				if(is_string($this->response_string) && simplexml_load_string($this->response_string)) {
 					//Insert into cache
-					Feed_Beast_Cache::set_item($this->cache_id, $this->response_string, 15);	//Minutes
+					Beast_Cache::set_item($this->cache_id, $this->response_string, 15);	//Minutes
 				}
 
 				curl_close($ch);

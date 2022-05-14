@@ -1,6 +1,6 @@
 <?php
 
-class Feed_Beast_Inreach extends Feed_Beast_Feed {
+class Beast_Inreach extends Beast_Feed {
 	function __construct($post_id = null) {
 		//Set groups
 		$this->parameter_groups = [
@@ -79,6 +79,6 @@ class Feed_Beast_Inreach extends Feed_Beast_Feed {
 		}	
 		
 		//Determine cache ID
-		$this->cache_id = Feed_Beast_Config::get_item('plugin_slug') . '_inreach_feed_' . md5($this->request_string);
+		$this->cache_id = Beast_Config::get_item('plugin_slug') . '_inreach_feed_' . md5($this->request_string);
 	}	
 }

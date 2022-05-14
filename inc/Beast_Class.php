@@ -1,6 +1,6 @@
 <?php 
 
-class Feed_Beast_Class {
+class Beast_Class {
 
 	function __construct($params_in = []) {
 		//Set passed params

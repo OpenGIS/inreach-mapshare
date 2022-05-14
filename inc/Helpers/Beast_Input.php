@@ -1,6 +1,6 @@
 <?php
 
-class Feed_Beast_Input {
+class Beast_Input {
 	
 	private static $username_bad = array('.', "\$", '!', '*');
 	private static $username_good = array('__dot__', '__dollar__', '__bang__', '__star__');
@@ -26,15 +26,15 @@ class Feed_Beast_Input {
 		//Boolean
 		if($field['type'] == 'boolean') {
 			if(! array_key_exists('class', $field)) {
-				$field['class'] = Feed_Beast_Config::get_item('plugin_slug') . '-short-input';
+				$field['class'] = Beast_Config::get_item('plugin_slug') . '-short-input';
 			} else {
-				$field['class'] .= ' ' . Feed_Beast_Config::get_item('plugin_slug') . '-short-input';				
+				$field['class'] .= ' ' . Beast_Config::get_item('plugin_slug') . '-short-input';				
 			}
 					
 			if(! array_key_exists('options', $field) || ! is_array($field['options'])) {
 				$field['options'] = array(
-					'1' => esc_attr__('Yes', Feed_Beast_Config::get_item('plugin_slug')),
-					'0' => esc_attr__('No', Feed_Beast_Config::get_item('plugin_slug'))
+					'1' => esc_attr__('Yes', Beast_Config::get_item('plugin_slug')),
+					'0' => esc_attr__('No', Beast_Config::get_item('plugin_slug'))
 				);
 			}
 		}		
@@ -44,13 +44,13 @@ class Feed_Beast_Input {
 		$add_class .= ' ' . $field['id'] . '-container';
 
 		//Container
-		$out .= '<div class="' . Feed_Beast_Config::get_item('plugin_slug') . '-control-group ' . Feed_Beast_Config::get_item('plugin_slug') . '-control-type-' . $field['type'] . $add_class . '">' . "\n";
+		$out .= '<div class="' . Beast_Config::get_item('plugin_slug') . '-control-group ' . Beast_Config::get_item('plugin_slug') . '-control-type-' . $field['type'] . $add_class . '">' . "\n";
 	
 		//Label
 		if($show_label && isset($field['title'])) {
-			$out .= '	<label class="' . Feed_Beast_Config::get_item('plugin_slug') . '-control-label" for="' . $field['name'] . '">' . $field['title'] .  '</label>' . "\n";		
+			$out .= '	<label class="' . Beast_Config::get_item('plugin_slug') . '-control-label" for="' . $field['name'] . '">' . $field['title'] .  '</label>' . "\n";		
 		}
-		$out .= '	<div class="' . Feed_Beast_Config::get_item('plugin_slug') . '-controls">' . "\n";				
+		$out .= '	<div class="' . Beast_Config::get_item('plugin_slug') . '-controls">' . "\n";				
 
 		//Prepend?		
 		if(array_key_exists('prepend', $field)) {
@@ -75,9 +75,9 @@ class Feed_Beast_Input {
 			
 			$out .= ' <a data-title="' . $field['tip'] . '';
 			if(array_key_exists('tip_link', $field)) {
-				$out .= ' ' . esc_attr__('Click here for more details.', Feed_Beast_Config::get_item('plugin_slug')) . '" href="' . $field['tip_link'] . '" target="_blank" class="' . Feed_Beast_Config::get_item('plugin_slug') . '-tooltip ' . Feed_Beast_Config::get_item('plugin_slug') . '-link"';					
+				$out .= ' ' . esc_attr__('Click here for more details.', Beast_Config::get_item('plugin_slug')) . '" href="' . $field['tip_link'] . '" target="_blank" class="' . Beast_Config::get_item('plugin_slug') . '-tooltip ' . Beast_Config::get_item('plugin_slug') . '-link"';					
 			} else {
-				$out .= '" href="#" onclick="return false;" class="' . Feed_Beast_Config::get_item('plugin_slug') . '-tooltip"';
+				$out .= '" href="#" onclick="return false;" class="' . Beast_Config::get_item('plugin_slug') . '-tooltip"';
 			}
 			$out .= '>?</a>';
 		}
@@ -105,7 +105,7 @@ class Feed_Beast_Input {
 		//Default
 		if(array_key_exists('default', $field)) {
 			if(is_array($field['default'])) {
-				$field['default'] = implode(Feed_Beast_Config::get_item('multi_value_seperator'), self::process_output($field, $field['default']));				
+				$field['default'] = implode(Beast_Config::get_item('multi_value_seperator'), self::process_output($field, $field['default']));				
 			} else {
 				$field['default'] = self::process_output($field, $field['default']);				
 			}
@@ -114,7 +114,7 @@ class Feed_Beast_Input {
 		//Process set value?
 		if($set_value !== null) {
 			if(is_array($set_value)) {
-				$set_value = implode(Feed_Beast_Config::get_item('multi_value_seperator'), self::process_output($field, $set_value));				
+				$set_value = implode(Beast_Config::get_item('multi_value_seperator'), self::process_output($field, $set_value));				
 			} else {
 				$set_value = self::process_output($field, $set_value);			
 			}
@@ -128,7 +128,7 @@ class Feed_Beast_Input {
 					$set_value = $field['default'];
 				}
 							
-				$out .= '		<select data-multi-value="' . $set_value . '" class="' . Feed_Beast_Config::get_item('plugin_slug') . '-input ' . Feed_Beast_Config::get_item('plugin_slug') . '-input-' . $field['id'] . '" name="' . $field['name'] . '" data-id="' . $field['id'] . '">' . "\n";
+				$out .= '		<select data-multi-value="' . $set_value . '" class="' . Beast_Config::get_item('plugin_slug') . '-input ' . Beast_Config::get_item('plugin_slug') . '-input-' . $field['id'] . '" name="' . $field['name'] . '" data-id="' . $field['id'] . '">' . "\n";
 				if(isset($field['options'])) {
 					foreach($field['options'] as $value => $description) {
 						//Always use strings
@@ -158,11 +158,11 @@ class Feed_Beast_Input {
 				//Is multi?
 				if(is_string($set_value) && strpos($set_value, ',')) {
 					$set_value = explode(',', $field['default']);
-				} elseif(is_string($set_value) && strpos($set_value, Feed_Beast_Config::get_item('multi_value_seperator'))) {
-					$set_value = explode(Feed_Beast_Config::get_item('multi_value_seperator'), $field['default']);
+				} elseif(is_string($set_value) && strpos($set_value, Beast_Config::get_item('multi_value_seperator'))) {
+					$set_value = explode(Beast_Config::get_item('multi_value_seperator'), $field['default']);
 				}
 				
-				$out .= '		<select multiple="multiple" class="' . Feed_Beast_Config::get_item('plugin_slug') . '-input ' . Feed_Beast_Config::get_item('plugin_slug') . '-input-' . $field['id'] . '" name="' . $field['name'] . '[]" data-id="' . $field['id'] . '">' . "\n";
+				$out .= '		<select multiple="multiple" class="' . Beast_Config::get_item('plugin_slug') . '-input ' . Beast_Config::get_item('plugin_slug') . '-input-' . $field['id'] . '" name="' . $field['name'] . '[]" data-id="' . $field['id'] . '">' . "\n";
 				
 				//If we have options
 				if(isset($field['options'])) {
@@ -186,7 +186,7 @@ class Feed_Beast_Input {
 
 				break;					
 			case 'textarea' :
-				$out .= '		<textarea class="' . Feed_Beast_Config::get_item('plugin_slug') . '-input ' . Feed_Beast_Config::get_item('plugin_slug') . '-input-' . $field['id'] . '" name="' . $field['name'] . '" data-id="' . $field['id'] . '">';
+				$out .= '		<textarea class="' . Beast_Config::get_item('plugin_slug') . '-input ' . Beast_Config::get_item('plugin_slug') . '-input-' . $field['id'] . '" name="' . $field['name'] . '" data-id="' . $field['id'] . '">';
 				//Do we have a value for this post?
 				if($value = htmlspecialchars($set_value)) {
 					$out .= $value;
@@ -207,7 +207,7 @@ class Feed_Beast_Input {
 				
 				
 				//Markup
-				//$out .= '		<textarea class="' . Feed_Beast_Config::get_item('plugin_slug') . '-input ' . Feed_Beast_Config::get_item('plugin_slug') . '-input-' . $field['id'] . '" name="' . $field['name'] . '" data-id="' . $field['id'] . '"></textarea>' . "\n";
+				//$out .= '		<textarea class="' . Beast_Config::get_item('plugin_slug') . '-input ' . Beast_Config::get_item('plugin_slug') . '-input-' . $field['id'] . '" name="' . $field['name'] . '" data-id="' . $field['id'] . '"></textarea>' . "\n";
 				
 				//Setup rich editor			
 				ob_start();	
@@ -224,16 +224,16 @@ class Feed_Beast_Input {
 				break;				
 			case 'submit' :
 				$value = explode(' ', $field['title'])[0];
-				$out .= '		<input type="submit" name="' . $field['name'] . '" value="' . $value . '" data-id="' . $field['id'] . '" class="' . Feed_Beast_Config::get_item('plugin_slug') . '-input ' . Feed_Beast_Config::get_item('plugin_slug') . '-input-' . $field['id'] . ' button-secondary" />' . "\n";
+				$out .= '		<input type="submit" name="' . $field['name'] . '" value="' . $value . '" data-id="' . $field['id'] . '" class="' . Beast_Config::get_item('plugin_slug') . '-input ' . Beast_Config::get_item('plugin_slug') . '-input-' . $field['id'] . ' button-secondary" />' . "\n";
 				
 				break;				
 			case 'file' :
-				$out .= '		<input class="' . Feed_Beast_Config::get_item('plugin_slug') . '-input ' . Feed_Beast_Config::get_item('plugin_slug') . '-input-' . $field['id'] . '" type="file" name="' . $field['name'] . '" data-id="' . $field['id'] . '" />' . "\n";
+				$out .= '		<input class="' . Beast_Config::get_item('plugin_slug') . '-input ' . Beast_Config::get_item('plugin_slug') . '-input-' . $field['id'] . '" type="file" name="' . $field['name'] . '" data-id="' . $field['id'] . '" />' . "\n";
 				
 				break;
 			case 'text' :
 			default :
-				$out .= '		<input class="' . Feed_Beast_Config::get_item('plugin_slug') . '-input ' . Feed_Beast_Config::get_item('plugin_slug') . '-input-' . $field['id'] . '" type="text" name="' . $field['name'] . '" data-id="' . $field['id'] . '"';
+				$out .= '		<input class="' . Beast_Config::get_item('plugin_slug') . '-input ' . Beast_Config::get_item('plugin_slug') . '-input-' . $field['id'] . '" type="text" name="' . $field['name'] . '" data-id="' . $field['id'] . '"';
 				//Do we have a value for this post?
 				if($set_value !== null) {
 					$out .= ' value="' . $set_value . '"';
@@ -280,14 +280,14 @@ class Feed_Beast_Input {
 		}		
 
 		$out = '<!-- START Repeatable Container -->' . "\n";
-		$out .= '<div class="' . Feed_Beast_Config::get_item('plugin_slug') . '-repeatable-container" data-count="' . $count . '">' . "\n";
+		$out .= '<div class="' . Beast_Config::get_item('plugin_slug') . '-repeatable-container" data-count="' . $count . '">' . "\n";
 		
 		$out .= $repeatable_parameter_groups;
 
 		//Template
-		$out .= self::create_parameter_groups($fields, $groups, [], $name . '[__count__][%s]', '', Feed_Beast_Config::get_item('plugin_slug') . '-repeatable-template');			
+		$out .= self::create_parameter_groups($fields, $groups, [], $name . '[__count__][%s]', '', Beast_Config::get_item('plugin_slug') . '-repeatable-template');			
 
-		$out .= '<button class="button ' . Feed_Beast_Config::get_item('plugin_slug') . '-repeatable-add" title="' . __('Add Query', Feed_Beast_Config::get_item('plugin_slug')) . '"><i class="ion ion-plus"></i></button>';
+		$out .= '<button class="button ' . Beast_Config::get_item('plugin_slug') . '-repeatable-add" title="' . __('Add Query', Beast_Config::get_item('plugin_slug')) . '"><i class="ion ion-plus"></i></button>';
 
 		$out .= '</div>' . "\n";
 		$out .= '<!-- END Repeatable Container -->' . "\n";
@@ -305,7 +305,7 @@ class Feed_Beast_Input {
 		$id = ($id) ? ' id="' . $id . '"' : '';
 		$class_append = ($class_append) ? ' ' . $class_append : '';		
 		
-		$out .= '<div' . $id . ' class="' . Feed_Beast_Config::get_item('plugin_slug') . '-parameters-container ' . Feed_Beast_Config::get_item('plugin_slug') . '-accordion-container' . $class_append . '">' . "\n";
+		$out .= '<div' . $id . ' class="' . Beast_Config::get_item('plugin_slug') . '-parameters-container ' . Beast_Config::get_item('plugin_slug') . '-accordion-container' . $class_append . '">' . "\n";
 
 		//Are we doing groups?
 		$by_group = false;		
@@ -342,11 +342,11 @@ class Feed_Beast_Input {
 					$out .= '<!-- END Parameter Group -->' . "\n";										
 				}
 				$out .= '<!-- START Parameter Group -->' . "\n";										
-				$out .= '	<div class="' . Feed_Beast_Config::get_item('plugin_slug') . '-parameter-group ' . Feed_Beast_Config::get_item('plugin_slug') . '-accordion-group ' . Feed_Beast_Config::get_item('plugin_slug') . '-parameter-group-' . $group_id . '" id="' . Feed_Beast_Config::get_item('plugin_slug') . '-parameter-group-' . $group_id . '">' . "\n";					
+				$out .= '	<div class="' . Beast_Config::get_item('plugin_slug') . '-parameter-group ' . Beast_Config::get_item('plugin_slug') . '-accordion-group ' . Beast_Config::get_item('plugin_slug') . '-parameter-group-' . $group_id . '" id="' . Beast_Config::get_item('plugin_slug') . '-parameter-group-' . $group_id . '">' . "\n";					
 				$out .= '		<legend title="Click to expand">' . $group['group_title'] . '</legend>' . "\n";
-				$out .= '		<div class="' . Feed_Beast_Config::get_item('plugin_slug') . '-accordion-group-content">' . "\n";
+				$out .= '		<div class="' . Beast_Config::get_item('plugin_slug') . '-accordion-group-content">' . "\n";
 				if(array_key_exists('group_description', $group)) {			
-					$out .= '			<p class="' . Feed_Beast_Config::get_item('plugin_slug') . '-parameter-group-description">' . $group['group_description'] . '</p>' . "\n";
+					$out .= '			<p class="' . Beast_Config::get_item('plugin_slug') . '-parameter-group-description">' . $group['group_description'] . '</p>' . "\n";
 				}
 				$current_group = $group_id;
 			}
