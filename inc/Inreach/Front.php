@@ -3,7 +3,9 @@
 class Beast_Inreach_Front {
 	
 	function __construct() {
-		add_shortcode('Feed_Beast', array($this, 'shortcode_handler'));
+		if(! is_admin()) {
+			add_shortcode('Feed_Beast', array($this, 'shortcode_handler'));
+		}
 	}
 	
 	function shortcode_handler($attributes) {
@@ -12,12 +14,18 @@ class Beast_Inreach_Front {
 		$attributes = shortcode_atts(array(
 			'mapshare_identifier' => false,
 			'mapshare_password' => false,
+			'mapshare_date_start' => false,
+			'mapshare_date_end' => false,
+			'waymark_type' => 'inreach'
 		), $attributes, 'feed_beast');
 	
 		if($attributes['mapshare_identifier']) {					
 			echo do_shortcode('[Waymark]');
 		
 			$Beast_Inreach = new Beast_Inreach($attributes);
+			
+// 			Waymark_Helper::debug($Beast_Inreach);
+			
 			$response_geojson_string = $Beast_Inreach->response_geojson();
 		
 			Waymark_JS::add_call("

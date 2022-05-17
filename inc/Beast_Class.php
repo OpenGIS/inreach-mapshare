@@ -2,40 +2,33 @@
 
 class Beast_Class {
 
+	public $data = array();
+	public $parameters = array();
+
 	function __construct($params_in = []) {
 		//Set passed params
 		foreach($params_in as $key => $value) {
 			//Only accept valid keys
 			//and String values (set in Child class)
 			if(array_key_exists($key, $this->parameters) && is_string($value)) {
-				$this->set_parameter($key, $value);			
+				$this->set_data($key, $value);			
 			}
 		}
 	}	
 
-	function get_parameter($key = null) {
+	function get_data($key = null) {
 		if(! $key) {
-			return $this->get_parameters();
+			return $this->data;
 		}
 		
-		if(array_key_exists($key, $this->parameters)) {
-			return $this->parameters[$key];
+		if(array_key_exists($key, $this->data)) {
+			return $this->data[$key];
 		} else {
-			return false;
+			return null;
 		}
-	}	
-
-	function get_parameters() {
-		$out = [];
-		
-		foreach($this->parameters as $key => $value) {
-			$out[$key] = $value;
-		}
-		
-		return $out;
 	}
 	
-	function set_parameter($key, $value) {
-		$this->parameters[$key] = $value;		
+	function set_data($key, $value) {
+		$this->data[$key] = $value;		
 	}	
 }
