@@ -25,12 +25,7 @@ class Beast_Inreach extends Beast_Feed {
 		$this->parameters['mapshare_date_end'] = array(
 			'id' => 'mapshare_date_end',
 			'type' => 'date',				
-		);	
-
-		$this->parameters['waymark_type'] = array(
-			'id' => 'waymark_type',
-			'type' => 'text',				
-		);			
+		);		
 					
 		parent::__construct($params_in);
 	}
@@ -81,7 +76,7 @@ class Beast_Inreach extends Beast_Feed {
 
 			//We have Placemarks
 			if(isset($KML->Document->Folder->Placemark) && sizeof($KML->Document->Folder->Placemark)) {
-//  				Beast_Helper::debug(sizeof($KML->Document->Folder->Placemark));
+//   				Beast_Helper::debug($KML->Document->Folder);
 
 				//Each
 				for($i = 0; $i < sizeof($KML->Document->Folder->Placemark); $i++) {
@@ -99,17 +94,14 @@ class Beast_Inreach extends Beast_Feed {
 						
 						$Feature = [
 							'type' => 'Feature',
-							'properties' => [],
+							'properties' => [
+								'type' => 'inreach_tracking'
+							],
 							'geometry' => [
 								'type' => 'Point',
 								'coordinates' => $coordinates
 							]
 						];
-
-						//Waymark Type?
-						if($type = $this->get_data('waymark_type')) {
-							$Feature['properties']['type'] = $type;
-						}
 
 						//Description
 						if(isset($Placemark->description) && $Placemark->description) {
@@ -118,7 +110,17 @@ class Beast_Inreach extends Beast_Feed {
 						
 						//When
 						if(isset($Placemark->TimeStamp->when)) {
-							$Feature['properties']['title'] = (String)$Placemark->TimeStamp->when;
+							$title = (String)$Placemark->TimeStamp->when;
+							$title = str_replace([
+								'T',
+								'Z'
+							],
+							[
+								' ',
+								' (UTC) [#' . $i . ']'
+							], $title);
+							
+							$Feature['properties']['title'] = $title;
 						}
 
 					// =========== LineString ===========
@@ -132,12 +134,15 @@ class Beast_Inreach extends Beast_Feed {
 
 							$Feature = [
 								'type' => 'Feature',
-								'properties' => [],
-								'geometry' => [
+									'properties' => [
+										'type' => 'inreach_tracking'
+									],
+									'geometry' => [
 									'type' => 'LineString'
 								]
 							];
-							
+
+							//Each Coordinate
 							foreach($coordinates as $point) {
 								$coords = explode(',', $point);													
 						

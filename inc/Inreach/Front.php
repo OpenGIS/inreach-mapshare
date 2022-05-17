@@ -15,17 +15,11 @@ class Beast_Inreach_Front {
 			'mapshare_identifier' => false,
 			'mapshare_password' => false,
 			'mapshare_date_start' => false,
-			'mapshare_date_end' => false,
-			'waymark_type' => 'inreach'
+			'mapshare_date_end' => false
 		), $attributes, 'feed_beast');
 	
 		if($attributes['mapshare_identifier']) {					
-			echo do_shortcode('[Waymark]');
-		
-			$Beast_Inreach = new Beast_Inreach($attributes);
-			
-// 			Waymark_Helper::debug($Beast_Inreach);
-			
+			$Beast_Inreach = new Beast_Inreach($attributes);		
 			$response_geojson_string = $Beast_Inreach->response_geojson();
 		
 			Waymark_JS::add_call("
