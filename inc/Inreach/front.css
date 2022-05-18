@@ -1,0 +1,7 @@
+.waymark-map .waymark-marker.waymark-marker-inreachmessage {
+	z-index: +1001 !important;
+}
+
+.waymark-map .waymark-info-description {
+	max-height: 200px !important;	
+}

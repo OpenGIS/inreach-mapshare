@@ -6,6 +6,14 @@ class Beast_Inreach_Front {
 		if(! is_admin()) {
 			add_shortcode('Feed_Beast', array($this, 'shortcode_handler'));
 		}
+
+		add_action('wp_enqueue_scripts', array($this, 'enqueue_scripts'));
+	}
+	
+	function enqueue_scripts() {
+		$css_url = plugin_dir_url('') . Beast_Config::get_item('plugin_slug') . '/inc/Inreach/front.css';
+
+	  wp_enqueue_style(Beast_Config::get_item('plugin_slug') . '-inreach-front', $css_url);	
 	}
 	
 	function shortcode_handler($attributes) {

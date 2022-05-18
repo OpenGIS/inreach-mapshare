@@ -78,10 +78,37 @@ class Beast_Inreach extends Beast_Feed {
 			if(isset($KML->Document->Folder->Placemark) && sizeof($KML->Document->Folder->Placemark)) {
 //   				Beast_Helper::debug($KML->Document->Folder);
 
-				//Each
+				//Each Placemark
 				for($i = 0; $i < sizeof($KML->Document->Folder->Placemark); $i++) {
 					$Placemark = $KML->Document->Folder->Placemark[$i];
 					
+					//Create Feature
+					$Feature = [
+						'type' => 'Feature',
+						'properties' => [],
+						'geometry' => []
+					];
+					
+					//Extended Data?
+					if(isset($Placemark->ExtendedData)) {
+						if(sizeof($Placemark->ExtendedData->Data)) {
+							$extended_data = [];
+							
+							//Each
+							for($j = 0; $j < sizeof($Placemark->ExtendedData->Data); $j++) {
+								$key = (string)$Placemark->ExtendedData->Data[$j]->attributes()->name;
+								$value = (string)$Placemark->ExtendedData->Data[$j]->value;
+								
+								//Store
+								$extended_data[$key] = $value;								
+							}
+							
+							if(sizeof($extended_data)) {
+								$Feature['properties']['description'] = Beast_Helper::assoc_array_table($extended_data);
+							}
+						}
+					}
+										
 					// =========== Point ===========
 					
 					if($Placemark->Point->coordinates) {
@@ -92,20 +119,34 @@ class Beast_Inreach extends Beast_Feed {
 							continue;						
 						}
 						
-						$Feature = [
-							'type' => 'Feature',
-							'properties' => [
-								'type' => 'inreach_tracking'
-							],
-							'geometry' => [
-								'type' => 'Point',
-								'coordinates' => $coordinates
-							]
-						];
+						$Feature['geometry']['type'] = 'Point';
+						$Feature['geometry']['coordinates'] = $coordinates;
+
+						//Type
+						$type = 'inreach_tracking';	
+/*
+						if(isset($extended_data['Event'])) {
+							switch($extended_data['Event']) {
+
+// Quick Text to MapShare received
+// Tracking turned on from device.
+// Tracking message received.
+// Tracking turned off from device.
+// 
+// 
+								case 'Quick Text to MapShare received';
+									break;
+							}										
+						}
+*/						
+						$Feature['properties']['type'] = $type;
 
 						//Description
-						if(isset($Placemark->description) && $Placemark->description) {
-							$Feature['properties']['description'] = (String)$Placemark->description;
+						if(isset($Placemark->description) && (string)$Placemark->description) {
+							$Feature['properties']['type'] = 'inreach_message';
+
+							//Prepend
+							$Feature['properties']['description'] = '<p>' . (String)$Placemark->description . '</p>' . $Feature['properties']['description'];
 						}
 						
 						//When
@@ -132,15 +173,8 @@ class Beast_Inreach extends Beast_Feed {
 						//Valid array
 						if(sizeof($coordinates)) {
 
-							$Feature = [
-								'type' => 'Feature',
-									'properties' => [
-										'type' => 'inreach_tracking'
-									],
-									'geometry' => [
-									'type' => 'LineString'
-								]
-							];
+							$Feature['geometry']['type'] = 'LineString';
+							$Feature['properties']['type'] = 'inreach_tracking';
 
 							//Each Coordinate
 							foreach($coordinates as $point) {
