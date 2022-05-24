@@ -1,34 +1,34 @@
 <?php
 
-class Beast_Inreach_Front {
+class Inreach_Mapshare_Inreach_Front {
 	
 	function __construct() {
 		if(! is_admin()) {
-			add_shortcode('Feed_Beast', array($this, 'shortcode_handler'));
+			add_shortcode(Inreach_Mapshare_Config::get_item('shortcode'), array($this, 'shortcode_handler'));
 		}
 
 		add_action('wp_enqueue_scripts', array($this, 'enqueue_scripts'));
 	}
 	
 	function enqueue_scripts() {
-		$css_url = plugin_dir_url('') . Beast_Config::get_item('plugin_slug') . '/inc/Inreach/front.css';
+		$css_url = plugin_dir_url('') . Inreach_Mapshare_Config::get_item('plugin_slug') . '/inc/Inreach/front.css';
 
-	  wp_enqueue_style(Beast_Config::get_item('plugin_slug') . '-inreach-front', $css_url);	
+	  wp_enqueue_style(Inreach_Mapshare_Config::get_item('plugin_slug') . '-inreach-front', $css_url);	
 	}
 	
 	function shortcode_handler($attributes) {
-		require_once('Beast_Inreach.php');
+		require_once('Inreach_Mapshare_Inreach.php');
 
 		$attributes = shortcode_atts(array(
 			'mapshare_identifier' => false,
 			'mapshare_password' => false,
 			'mapshare_date_start' => false,
 			'mapshare_date_end' => false
-		), $attributes, 'feed_beast');
+		), $attributes, Inreach_Mapshare_Config::get_item('shortcode'));
 	
 		if($attributes['mapshare_identifier']) {					
-			$Beast_Inreach = new Beast_Inreach($attributes);		
-			$response_geojson_string = $Beast_Inreach->response_geojson();
+			$Inreach_Mapshare_Inreach = new Inreach_Mapshare_Inreach($attributes);		
+			$response_geojson_string = $Inreach_Mapshare_Inreach->response_geojson();
 		
 			Waymark_JS::add_call("
 				setTimeout(function() {
@@ -46,4 +46,4 @@ class Beast_Inreach_Front {
 		}
 	}
 }
-new Beast_Inreach_Front;
+new Inreach_Mapshare_Inreach_Front;

@@ -1,6 +1,6 @@
 <?php
 
-class Beast_Feed extends Beast_Class {
+class Inreach_Mapshare_Feed extends Inreach_Mapshare_Class {
 	
 	public $request_endpoint = '';
 	public $request_data = [];
@@ -22,7 +22,7 @@ class Beast_Feed extends Beast_Class {
 		//Request is setup
 		if($this->cache_id) {
 			//Cached response	
-			$this->response_string = Beast_Cache::get_item($this->cache_id);
+			$this->response_string = Inreach_Mapshare_Cache::get_item($this->cache_id);
 		
 			if($this->response_string === false) {
 				//Setup call
@@ -45,7 +45,7 @@ class Beast_Feed extends Beast_Class {
 					//MUST BE VALID KML to go into Cache
 					if(is_string($this->response_string) && simplexml_load_string($this->response_string)) {
 						//Insert into cache
-						Beast_Cache::set_item($this->cache_id, $this->response_string, 15);	//Minutes
+						Inreach_Mapshare_Cache::set_item($this->cache_id, $this->response_string, 15);	//Minutes
 					}
 
 					curl_close($ch);

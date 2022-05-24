@@ -1,23 +1,23 @@
 <?php
-class Beast_Config {
+class Inreach_Mapshare_Config {
 	//Set defaults
 	private static $data = array();
 	private static $default = array();
 	
 	public static function init() {
-		$slug = 'feed-beast';
+		$slug = 'inreach-mapshare';
 	
 		self::$data = array(
 			'plugin_slug' => $slug,
-			'plugin_name' => 'Feed Beast',
-			'plugin_name_short' => 'Feed Beast',		
+			'plugin_name' => 'Inreach Mapshare',
+			'plugin_name_short' => 'Inreach Mapshare',		
 			'custom_types' => array(),
-			'plugin_version' => '0.1',
-			'nonce_string' => 'Beast_Nonce',
+			'plugin_version' => '1.0',
+			'nonce_string' => 'Inreach_Mapshare_Nonce',
 			'site_url' => 'https://wordpress.org/support/plugin/' . $slug . '/',
 			'directory_url' => 'https://wordpress.org/support/plugin/' . $slug . '/',
 			'multi_value_seperator' => '__multi__',
-			'shortcode' => 'Feed_Beast',
+			'shortcode' => $slug,
 			
 			/**
 			 * ===========================================
@@ -35,7 +35,7 @@ class Beast_Config {
 		self::$default = self::$data;
 	
 		//Read config options from DB
-		$settings_data = get_option('Beast_Settings');
+		$settings_data = get_option('Inreach_Mapshare_Settings');
 
 		//Waymark_Helper::debug($settings_data);
 		
@@ -171,4 +171,4 @@ class Beast_Config {
 	}
 }
 
-Beast_Config::init();
+Inreach_Mapshare_Config::init();

@@ -1,6 +1,6 @@
 <?php
 
-class Beast_Inreach extends Beast_Feed {
+class Inreach_Mapshare_Inreach extends Inreach_Mapshare_Feed {
 	function __construct($params_in = []) {
 		$this->request_endpoint = 'https://explore.garmin.com/feed/share/';	
 	
@@ -8,13 +8,13 @@ class Beast_Inreach extends Beast_Feed {
 		$this->parameters['mapshare_identifier'] = array(
 			'id' => 'mapshare_identifier',
 			'type' => 'text',				
-			'title' => __('Identifier', 'feed-beast')
+			'title' => __('Identifier', 'inreach-mapshare')
 		);
 
 		$this->parameters['mapshare_password'] = array(
 			'id' => 'mapshare_password',
 			'type' => 'text',				
-			'title' => __('Password', 'feed-beast')
+			'title' => __('Password', 'inreach-mapshare')
 		);
 
 		$this->parameters['mapshare_date_start'] = array(
@@ -59,7 +59,7 @@ class Beast_Inreach extends Beast_Feed {
 		}	
 		
 		//Determine cache ID
-		$this->cache_id = Beast_Config::get_item('plugin_slug') . '_inreach_feed_' . md5($this->request_string);
+		$this->cache_id = Inreach_Mapshare_Config::get_item('plugin_slug') . '_inreach_feed_' . md5($this->request_string);
 	}	
 
 	function response_geojson($response_type = 'string') {
@@ -76,7 +76,7 @@ class Beast_Inreach extends Beast_Feed {
 
 			//We have Placemarks
 			if(isset($KML->Document->Folder->Placemark) && sizeof($KML->Document->Folder->Placemark)) {
-//   				Beast_Helper::debug($KML->Document->Folder);
+//   				Inreach_Mapshare_Helper::debug($KML->Document->Folder);
 
 				//Each Placemark
 				for($i = 0; $i < sizeof($KML->Document->Folder->Placemark); $i++) {
@@ -104,7 +104,7 @@ class Beast_Inreach extends Beast_Feed {
 							}
 							
 							if(sizeof($extended_data)) {
-								$Feature['properties']['description'] = Beast_Helper::assoc_array_table($extended_data);
+								$Feature['properties']['description'] = Inreach_Mapshare_Helper::assoc_array_table($extended_data);
 							}
 						}
 					}
@@ -193,7 +193,7 @@ class Beast_Inreach extends Beast_Feed {
 					$FeatureCollection['features'][] = $Feature;
 				}
 				
-//  				Beast_Helper::debug($FeatureCollection['features']);
+//  				Inreach_Mapshare_Helper::debug($FeatureCollection['features']);
 			}
 		}
 		

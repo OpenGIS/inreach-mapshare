@@ -1,6 +1,6 @@
 <?php 
 
-class Beast_Object extends Beast_Class {
+class Inreach_Mapshare_Object extends Inreach_Mapshare_Class {
 	public $post_type = null;
 	public $post_id = null;
 	public $post_title = null;	
@@ -13,9 +13,11 @@ class Beast_Object extends Beast_Class {
 	protected $parameter_groups = array();
 	protected $parameters = array();
 
-	protected $meta_prefix = 'beast_';
+	protected $meta_prefix = null;
 	
 	function __construct($post_id = null) {
+		$this->meta_prefix = Inreach_Mapshare_Config::get_item('plugin_slug');
+		
 		//If post ID set
 		if($post_id) {
 			//Valid post ID
@@ -119,7 +121,7 @@ class Beast_Object extends Beast_Class {
 	}	
 	
 	function create_form() {
-		return Beast_Input::create_parameter_groups($this->parameters, $this->parameter_groups, $this->data, $this->input_name_format, Beast_Config::get_item('plugin_slug') . '-parameters-' . $this->post_type);
+		return Inreach_Mapshare_Input::create_parameter_groups($this->parameters, $this->parameter_groups, $this->data, $this->input_name_format, Inreach_Mapshare_Config::get_item('plugin_slug') . '-parameters-' . $this->post_type);
 	}	
 	
 	function save_meta($post_id = null) {
@@ -135,7 +137,7 @@ class Beast_Object extends Beast_Class {
 				$param_value = $this->data[$param_defition['id']];
 				
 				//Process input
-				$param_value = Beast_Input::process_input($param_defition, $param_value);
+				$param_value = Inreach_Mapshare_Input::process_input($param_defition, $param_value);
 
 				update_post_meta($post_id, $this->prefix($param_defition['id']), $param_value);
 			//No value exists

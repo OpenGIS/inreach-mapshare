@@ -1,6 +1,6 @@
 <?php 
 
-class Beast_Class {
+class Inreach_Mapshare_Class {
 
 	public $data = array();
 	public $parameters = array();
