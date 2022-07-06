@@ -10,12 +10,14 @@ Author: Joe Hawes
 Author URI: https://www.morehawes.co.uk/
 */
 
-require_once('inc/Helpers/Inreach_Mapshare_Helper.php');
-require_once('inc/Helpers/Inreach_Mapshare_Cache.php');
-
-require_once('inc/Inreach_Mapshare_Config.php');
-require_once('inc/Inreach_Mapshare_Class.php');
-require_once('inc/Inreach_Mapshare_Feed.php');
-
-//Inreach
-require_once('inc/Inreach/Front.php');
+//Joe
+if(! class_exists('Joe_Config')) {
+	require_once('Joe/Joe.php');
+	
+	//Core	
+	require_once('App/Config.php');
+	require_once('App/Extend/Settings.php');		
+	require_once('App/Extend/Shortcode.php');	
+// 	require_once('App/Extend/Admin.php');
+// 	require_once('App/Extend/Front.php');
+}
