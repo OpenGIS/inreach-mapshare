@@ -4,10 +4,10 @@ $joe_plugin_slug = 'inreach-mapshare';
 	
 $config = [
 	'plugin_slug' => $joe_plugin_slug,
-	'plugin_text_domain' => 'joe',
+	'plugin_text_domain' => $joe_plugin_slug,
 	'plugin_name' => 'Inreach Mapshare',
-	'plugin_name_short' => 'Inreach Mapshare',		
 	'plugin_version' => '1.0',
+	'settings_id' => 'inreach_mapshare',
 	'site_url' => 'https://wordpress.org/support/plugin/' . $joe_plugin_slug . '/',
 	'directory_url' => 'https://wordpress.org/support/plugin/' . $joe_plugin_slug . '/',
 	'shortcode' => $joe_plugin_slug,
