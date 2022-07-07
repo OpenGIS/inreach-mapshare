@@ -4,7 +4,7 @@ class Waymark_Front extends Joe_Front {
 	function __construct() {
 		parent::__construct();
 
-		//Admin only
+		//Front only
 		if(is_admin()) {
 			return;
 		}

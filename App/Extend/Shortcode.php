@@ -2,6 +2,15 @@
 
 class InMap_Shortcode extends Joe_Shortcode {
 
+	function __construct() {
+		//Front only
+		if(is_admin()) {
+			return;
+		}
+		
+		parent::__construct();
+	}
+
 	public function handle_shortcode($shortcode_data, $content = null) {
 		$shortcode_data = shortcode_atts(array(
 			'mapshare_identifier' => false,
