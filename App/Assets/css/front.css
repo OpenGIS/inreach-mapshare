@@ -4,5 +4,17 @@
 .inmap-map .inmap-marker-icon {
   text-align: center;
   border-radius: 50%;
-  background: '#dd9933';
+  background: #d93;
+}
+.inmap-map .inmap-marker-icon.inmap-icon-message {
+  width: 25px !important;
+  height: 25px !important;
+  text-align: center;
+  background: #fff !important;
+  border: 2px solid #d93 !important;
+  z-index: 1000000 !important;
+}
+.inmap-map .inmap-marker-icon span,
+.inmap-map .inmap-marker-icon img {
+  vertical-align: middle !important;
 }

@@ -1,13 +1,23 @@
-@inmap-primary: '#dd9933';
+@inmap-primary: #d93;
 
 .inmap-map {
 	min-height: 300px;
 	
 	.inmap-marker-icon {
-// 		width: 20px !important;
-// 		height: 20px !important;		
 		text-align: center;
 		border-radius: 50%;
 		background: @inmap-primary;
+		&.inmap-icon-message {
+			width: 25px !important;
+			height: 25px !important;		
+			text-align: center;
+			background: #fff !important;
+			border: 2px solid @inmap-primary !important;
+			z-index: +1000000 !important;
+		}
+		
+		span, img {
+			vertical-align: middle !important;
+		}		
 	}
 }

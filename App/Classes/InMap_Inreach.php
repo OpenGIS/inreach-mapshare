@@ -108,8 +108,8 @@ class InMap_Inreach extends InMap_Feed {
 						//Style
 						$Feature['properties']['icon'] = [
 							'className' => 'inmap-marker-icon',
-							'iconSize' => 10,
-							'html' => Joe_Config::get_setting('map', 'styles', 'tracking_icon')
+							'iconSize' => [ 7, 7 ],
+							'html' => '<span></span>'
 						];						
 /*
 						if(isset($extended_data['Event'])) {
@@ -129,7 +129,7 @@ class InMap_Inreach extends InMap_Feed {
 						//Description
 						if(isset($Placemark->description) && (string)$Placemark->description) {
 							$Feature['properties']['icon']['html'] = Joe_Config::get_setting('map', 'styles', 'message_icon');
-							$Feature['properties']['icon']['iconSize'] = [40, 40];
+							$Feature['properties']['icon']['className'] .= ' inmap-icon-message';
 						
 							//Prepend
 							$Feature['properties']['description'] = '<p>' . (String)$Placemark->description . '</p>' . $Feature['properties']['description'];

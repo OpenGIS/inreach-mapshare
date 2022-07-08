@@ -64,7 +64,16 @@ class InMap_Settings extends Joe_Settings {
 							'tip' => esc_attr__('!!!.', Joe_Config::get_item('plugin_text_domain')),
 // !!!
 // 							'tip_link' => ''
-						]																														
+						],
+						'message_icon' => [
+							'id' => 'message_icon',
+							'default' => Joe_Config::get_setting('map', 'styles', 'message_icon'),
+							'class' => 'joe-short-input',										
+							'title' => esc_html__('Message Icon', Joe_Config::get_item('plugin_text_domain')),
+							'tip' => esc_attr__('!!!.', Joe_Config::get_item('plugin_text_domain')),
+// !!!
+// 							'tip_link' => ''
+						]																																										
 					]											
 				]
 			]
