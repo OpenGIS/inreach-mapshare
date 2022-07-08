@@ -39,8 +39,8 @@ class InMap_Settings extends Joe_Settings {
 			'name' => '',
 			'description' => '',
 			'sections' => [
-				'map' => [		
-					'title' => esc_html__('Map', Joe_Config::get_item('plugin_text_domain')),
+				'basemap' => [		
+					'title' => esc_html__('Basemap', Joe_Config::get_item('plugin_text_domain')),
 					'description' => '',
 					'fields' => [
 						'basemap_url' => [
@@ -50,21 +50,21 @@ class InMap_Settings extends Joe_Settings {
 // !!!
 // 							'tip_link' => ''
 						],
+					]
+				],
+				'styles' => [		
+					'title' => esc_html__('Styles', Joe_Config::get_item('plugin_text_domain')),
+					'description' => '',
+					'fields' => [						
 						'color_tracking' => [
 							'id' => 'color_tracking',
+							'default' => '#d23e00',
 							'class' => 'joe-short-input joe-colour-picker',										
 							'title' => esc_html__('Tracking Colour', Joe_Config::get_item('plugin_text_domain')),
 							'tip' => esc_attr__('!!!.', Joe_Config::get_item('plugin_text_domain')),
 // !!!
 // 							'tip_link' => ''
-						],
-						'basemap_url' => [
-							'id' => 'mapshare_identifier',
-							'title' => esc_html__('Basemap URL', Joe_Config::get_item('plugin_text_domain')),
-							'tip' => esc_attr__('!!!.', Joe_Config::get_item('plugin_text_domain')),
-// !!!
-// 							'tip_link' => ''
-						],																														
+						]																														
 					]											
 				]
 			]
