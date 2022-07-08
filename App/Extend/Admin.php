@@ -33,6 +33,7 @@ class InMap_Admin extends Joe_Admin {
 // 	}
 	
 	function load_assets() {
+		parent::load_assets();
 /*
 		//Leaflet CSS
 		Joe_Assets::css_enqueue(Joe_Helper::plugin_url('App/assets/css/leaflet.css'));	

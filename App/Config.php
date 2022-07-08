@@ -11,7 +11,6 @@ $config = [
 	'site_url' => 'https://wordpress.org/support/plugin/' . $joe_plugin_slug . '/',
 	'directory_url' => 'https://wordpress.org/support/plugin/' . $joe_plugin_slug . '/',
 	'shortcode' => $joe_plugin_slug,
-	'css_prefix' => 'inmap-',
 	'plugin_about' => '<img alt="Joe\'s mug" src="https://www.morehawes.co.uk/assets/images/Joe1BW.jpg" />',
 	
 	/**
