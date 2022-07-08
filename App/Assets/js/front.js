@@ -13,6 +13,14 @@ const inmap_create_map = function(map_hash = null, map_geojson = null) {
 	}).addTo(map);
 
 	var data_layer = L.geoJSON(map_geojson, {
+		//Read style from GeoJSON
+		style: function(feature) {
+			if(typeof feature.properties.style === 'object') {
+				return feature.properties.style;
+			}
+		},
+		
+		//Marker Icons
 		pointToLayer: function (feature, latlng) {
 
 				var icon = L.divIcon({
@@ -25,8 +33,9 @@ const inmap_create_map = function(map_hash = null, map_geojson = null) {
 				});		
 
 		},
+		
+		//Events
 		onEachFeature: function(feature, layer) {
-
 			//Description?
 			if(typeof feature.properties.description === 'string') {
 	 			layer.bindPopup(feature.properties.description);

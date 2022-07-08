@@ -173,6 +173,11 @@ class InMap_Inreach extends InMap_Feed {
 						}
 					}
 					
+					//Style
+					$Feature['properties']['style'] = [
+						'color' => Joe_Config::get_setting('map', 'styles', 'tracking_colour')
+					];
+					
 					$FeatureCollection['features'][] = $Feature;
 				}
 			}

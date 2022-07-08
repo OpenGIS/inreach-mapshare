@@ -56,9 +56,9 @@ class InMap_Settings extends Joe_Settings {
 					'title' => esc_html__('Styles', Joe_Config::get_item('plugin_text_domain')),
 					'description' => '',
 					'fields' => [						
-						'color_tracking' => [
-							'id' => 'color_tracking',
-							'default' => '#d23e00',
+						'tracking_colour' => [
+							'id' => 'tracking_colour',
+							'default' => Joe_Config::get_setting('map', 'styles', 'tracking_colour'),
 							'class' => 'joe-short-input joe-colour-picker',										
 							'title' => esc_html__('Tracking Colour', Joe_Config::get_item('plugin_text_domain')),
 							'tip' => esc_attr__('!!!.', Joe_Config::get_item('plugin_text_domain')),
@@ -71,7 +71,7 @@ class InMap_Settings extends Joe_Settings {
 		];
 
 		//Advanced
-		$this->tabs['advanced'] = [
+		$this->tabs['misc'] = [
 			'name' => '',
 			'description' => '',
 			'sections' => [
