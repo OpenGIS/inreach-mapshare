@@ -4,17 +4,79 @@ class InMap_Settings extends Joe_Settings {
 	public function __construct() {
 		parent::__construct();
 
-		$this->settings_nav = [
-			'joe-settings-tab-misc' => esc_html__('Misc', Joe_Config::get_item('plugin_text_domain')),
+
+// 			'mapshare_identifier' => null,
+// 			'mapshare_password' => null
+
+		//Defaults
+		$this->tabs['defaults'] = [
+			'name' => '',
+			'description' => '',
+			'sections' => [
+				'defaults' => [		
+					'title' => esc_html__('Defaults', Joe_Config::get_item('plugin_text_domain')),
+					'description' => '',
+					'fields' => [
+						'mapshare_identifier' => [
+							'id' => 'mapshare_identifier',
+							'title' => esc_html__('MapShare Identifier', Joe_Config::get_item('plugin_text_domain')),
+							'tip' => esc_attr__('!!!', Joe_Config::get_item('plugin_text_domain')),
+							'tip_link' => 'https://developer.mozilla.org/en-US/docs/Tools/Browser_Console'
+						],
+						'mapshare_password' => [
+							'id' => 'mapshare_password',
+							'title' => esc_html__('MapShare Password', Joe_Config::get_item('plugin_text_domain')),
+							'tip' => esc_attr__('The (optional) password for your MapShare page, set in MapShare Settings. This is *not* any kind of account password.', Joe_Config::get_item('plugin_text_domain')),
+							'tip_link' => 'https://explore.garmin.com/Social'
+						]																		
+					]											
+				]
+			]
+		];
+
+		//Map
+		$this->tabs['map'] = [
+			'name' => '',
+			'description' => '',
+			'sections' => [
+				'map' => [		
+					'title' => esc_html__('Map', Joe_Config::get_item('plugin_text_domain')),
+					'description' => '',
+					'fields' => [
+						'basemap_url' => [
+							'id' => 'mapshare_identifier',
+							'title' => esc_html__('Basemap URL', Joe_Config::get_item('plugin_text_domain')),
+							'tip' => esc_attr__('!!!.', Joe_Config::get_item('plugin_text_domain')),
+// !!!
+// 							'tip_link' => ''
+						],
+						'color_tracking' => [
+							'id' => 'color_tracking',
+							'class' => 'joe-short-input joe-colour-picker',										
+							'title' => esc_html__('Tracking Colour', Joe_Config::get_item('plugin_text_domain')),
+							'tip' => esc_attr__('!!!.', Joe_Config::get_item('plugin_text_domain')),
+// !!!
+// 							'tip_link' => ''
+						],
+						'basemap_url' => [
+							'id' => 'mapshare_identifier',
+							'title' => esc_html__('Basemap URL', Joe_Config::get_item('plugin_text_domain')),
+							'tip' => esc_attr__('!!!.', Joe_Config::get_item('plugin_text_domain')),
+// !!!
+// 							'tip_link' => ''
+						],																														
+					]											
+				]
+			]
 		];
 
 		//Advanced
-		$this->tabs['misc'] = [
-			'name' => esc_html__('Misc.', Joe_Config::get_item('plugin_text_domain')),
+		$this->tabs['advanced'] = [
+			'name' => '',
 			'description' => '',
 			'sections' => [
 				'advanced' => [		
-					'title' => esc_html__('Debug', Joe_Config::get_item('plugin_text_domain')),
+					'title' => esc_html__('Advanced', Joe_Config::get_item('plugin_text_domain')),
 					'description' => '',
 					'fields' => [
 						'debug_mode' => [
@@ -29,7 +91,13 @@ class InMap_Settings extends Joe_Settings {
 								'0' => esc_html__('Disable', Joe_Config::get_item('plugin_text_domain')),
 								'1' => esc_html__('Enable', Joe_Config::get_item('plugin_text_domain'))								
 							]
-						]												
+						],
+						'cache_minutes' => [
+							'id' => 'cache_minutes',
+							'class' => 'joe-short-input',
+							'title' => esc_html__('Cache Minutes', Joe_Config::get_item('plugin_text_domain')),
+							'tip' => esc_attr__('How often the feed is updated.', Joe_Config::get_item('plugin_text_domain'))
+						]																			
 					]											
 				]
 			]
