@@ -1,17 +1,35 @@
 const inmap_maps = [];
 
 const inmap_create_map = function(map_hash = null, map_geojson = null) {
-	if(! map_hash || ! map_geojson) {
+	if(! map_hash || ! map_geojson || ! jQuery) {
 		return false;
 	}
 	
-	var map = L.map('inmap-' + map_hash);
+	var map_id = 'inmap-' + map_hash;
+	
+	//CreateMap
+	var map_jq = jQuery('#' + map_id);
+	var map_l = L.map(map_id);
 
+	//Make accessible
+	map_jq.data('map_l', map_l)
+	inmap_maps[map_hash] = map_l;
+	
+	//UI
+	var info_jq = jQuery('<div />')
+		.attr({})
+		.addClass('inmap-info')
+	;
+	
+	map_jq.append(info_jq);
+	
+	//Basemap
 	var tiles = L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
 		maxZoom: 19,
 		attribution: '&copy; <a href="http://www.openstreetmap.org/copyright">OpenStreetMap</a>'
-	}).addTo(map);
+	}).addTo(map_l);
 
+	//Data layer
 	var data_layer = L.geoJSON(map_geojson, {
 		//Read style from GeoJSON
 		style: function(feature) {
@@ -36,13 +54,24 @@ const inmap_create_map = function(map_hash = null, map_geojson = null) {
 		onEachFeature: function(feature, layer) {
 			//Description?
 			if(typeof feature.properties.description === 'string') {
-	 			layer.bindPopup(feature.properties.description);
-	 		}
+			
+			}
 		}
 	});
 	
-	data_layer.addTo(map);
-	map.fitBounds(data_layer.getBounds());
+	//Add
+	data_layer.addTo(map_l);
 	
-	inmap_maps[map_hash] = map;
+	//Events
+	data_layer.on('click', function(e) {
+		var feature = e.layer.feature;
+		
+		//Description?
+		if(typeof feature.properties.description === 'string') {
+ 			info_jq.html(feature.properties.description);
+		}		
+	});
+	
+	map_l.fitBounds(data_layer.getBounds());
+	
 };

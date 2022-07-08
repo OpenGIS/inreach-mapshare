@@ -1,6 +1,7 @@
 @inmap-primary: #d93;
 
 .inmap-map {
+	position: relative;
 	min-height: 300px;
 	
 	.inmap-marker-icon {
@@ -13,11 +14,21 @@
 			text-align: center;
 			background: #fff !important;
 			border: 2px solid @inmap-primary !important;
-			z-index: +1000000 !important;
+			z-index: +1000 !important;
 		}
 		
 		span, img {
 			vertical-align: middle !important;
 		}		
+	}
+	
+	.inmap-info {
+		position: absolute;
+		top: 0;
+		right: 0;
+		width: 33%;
+		height: 100%;		
+		background: #fff;
+		z-index: +1000 !important;
 	}
 }

@@ -1,4 +1,5 @@
 .inmap-map {
+  position: relative;
   min-height: 300px;
 }
 .inmap-map .inmap-marker-icon {
@@ -12,9 +13,18 @@
   text-align: center;
   background: #fff !important;
   border: 2px solid #d93 !important;
-  z-index: 1000000 !important;
+  z-index: 1000 !important;
 }
 .inmap-map .inmap-marker-icon span,
 .inmap-map .inmap-marker-icon img {
   vertical-align: middle !important;
+}
+.inmap-map .inmap-info {
+  position: absolute;
+  top: 0;
+  right: 0;
+  width: 33%;
+  height: 100%;
+  background: #fff;
+  z-index: 1000 !important;
 }
