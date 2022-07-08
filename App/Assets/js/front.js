@@ -22,16 +22,14 @@ const inmap_create_map = function(map_hash = null, map_geojson = null) {
 		
 		//Marker Icons
 		pointToLayer: function (feature, latlng) {
-
-				var icon = L.divIcon({
-					className: 'inmap-marker-icon',
-					html: '&#128231;'
-				});
-				
+			if(typeof feature.properties.style === 'object') {
+				var icon = L.divIcon(feature.properties.icon);
 				return L.marker(latlng, {
 					icon: icon
 				});		
-
+			} else {
+				return L.marker(latlng);					
+			}				
 		},
 		
 		//Events

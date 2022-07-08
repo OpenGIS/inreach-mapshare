@@ -16,7 +16,9 @@ $config = [
 	
 	'map' => [
 		'styles' => [
-			'tracking_colour' => $inmap_colour_primary
+			'tracking_colour' => $inmap_colour_primary,
+			'tracking_icon' => 'T',
+			'message_icon' => 'M'
 		]
 	],
 	'misc' => [

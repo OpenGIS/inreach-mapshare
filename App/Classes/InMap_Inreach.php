@@ -105,8 +105,12 @@ class InMap_Inreach extends InMap_Feed {
 						$Feature['geometry']['type'] = 'Point';
 						$Feature['geometry']['coordinates'] = $coordinates;
 
-						//Type
-						$type = 'inreach_tracking';	
+						//Style
+						$Feature['properties']['icon'] = [
+							'className' => 'inmap-marker-icon',
+							'iconSize' => 10,
+							'html' => Joe_Config::get_setting('map', 'styles', 'tracking_icon')
+						];						
 /*
 						if(isset($extended_data['Event'])) {
 							switch($extended_data['Event']) {
@@ -122,12 +126,11 @@ class InMap_Inreach extends InMap_Feed {
 							}										
 						}
 */						
-						$Feature['properties']['type'] = $type;
-
 						//Description
 						if(isset($Placemark->description) && (string)$Placemark->description) {
-							$Feature['properties']['type'] = 'inreach_message';
-
+							$Feature['properties']['icon']['html'] = Joe_Config::get_setting('map', 'styles', 'message_icon');
+							$Feature['properties']['icon']['iconSize'] = [40, 40];
+						
 							//Prepend
 							$Feature['properties']['description'] = '<p>' . (String)$Placemark->description . '</p>' . $Feature['properties']['description'];
 						}
@@ -157,7 +160,6 @@ class InMap_Inreach extends InMap_Feed {
 						if(sizeof($coordinates)) {
 
 							$Feature['geometry']['type'] = 'LineString';
-							$Feature['properties']['type'] = 'inreach_tracking';
 
 							//Each Coordinate
 							foreach($coordinates as $point) {
@@ -174,9 +176,7 @@ class InMap_Inreach extends InMap_Feed {
 					}
 					
 					//Style
-					$Feature['properties']['style'] = [
-						'color' => Joe_Config::get_setting('map', 'styles', 'tracking_colour')
-					];
+					$Feature['properties']['style']['color'] = Joe_Config::get_setting('map', 'styles', 'tracking_colour');
 					
 					$FeatureCollection['features'][] = $Feature;
 				}
