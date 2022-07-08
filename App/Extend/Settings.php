@@ -4,6 +4,10 @@ class InMap_Settings extends Joe_Settings {
 	public function __construct() {
 		parent::__construct();
 
+		$this->settings_nav = [
+			'joe-settings-tab-misc' => esc_html__('Misc', Joe_Config::get_item('plugin_text_domain')),
+		];
+
 		//Advanced
 		$this->tabs['misc'] = [
 			'name' => esc_html__('Misc.', Joe_Config::get_item('plugin_text_domain')),

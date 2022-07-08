@@ -24,6 +24,6 @@ if(! class_exists('Joe_Config')) {
 	require_once('App/Config.php');
 	require_once('App/Extend/Settings.php');		
 	require_once('App/Extend/Shortcode.php');	
-// 	require_once('App/Extend/Admin.php');
+ 	require_once('App/Extend/Admin.php');
  	require_once('App/Extend/Front.php');
 }
