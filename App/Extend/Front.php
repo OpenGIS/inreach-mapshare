@@ -28,12 +28,12 @@ class InMap_Front extends Joe_Front {
 		]);
 
 		//InMap CSS
-		Joe_Assets::css_enqueue(Joe_Helper::plugin_url('App/assets/css/inmap.css'));	
+		Joe_Assets::css_enqueue(Joe_Helper::plugin_url('App/assets/css/front.min.css'));	
 		
 		//InMap JS
 		Joe_Assets::js_enqueue([
 			'id' => 'inmap_js',
-			'url' => Joe_Helper::plugin_url('App/assets/js/inmap.js'),
+			'url' => Joe_Helper::plugin_url('App/assets/js/front.min.js'),
 			'deps' => [ 'leaflet_js' ],
 			'data' => [
 // 				'lang' => []						

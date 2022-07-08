@@ -5,8 +5,6 @@ const inmap_create_map = function(map_hash = null, map_geojson = null) {
 		return false;
 	}
 	
-	console.log(map_geojson);
-	
 	var map = L.map('inmap-' + map_hash);
 
 	var tiles = L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
@@ -17,19 +15,19 @@ const inmap_create_map = function(map_hash = null, map_geojson = null) {
 	var data_layer = L.geoJSON(map_geojson, {
 		pointToLayer: function (feature, latlng) {
 
-// , {
-// 				icon: L.icon({
-// 					iconUrl: 'baseball-marker.png',
-// 					iconSize: [32, 37],
-// 					iconAnchor: [16, 37],
-// 					popupAnchor: [0, -28]
-// 				})			
-// 			}
+				var icon = L.divIcon({
+					className: 'inmap-marker-icon',
+					html: '&#128231;'
+				});
+				
+				return L.marker(latlng, {
+					icon: icon
+				});		
 
-			return L.marker(latlng);
 		},
 		onEachFeature: function(feature, layer) {
 
+			//Description?
 			if(typeof feature.properties.description === 'string') {
 	 			layer.bindPopup(feature.properties.description);
 	 		}
