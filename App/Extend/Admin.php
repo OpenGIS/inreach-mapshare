@@ -6,7 +6,6 @@ class InMap_Admin extends Joe_Admin {
 		parent::__construct();
 
 		//Admin only
-// 		if(! $this->is_admin()) {
 		if(! is_admin()) {
 			return;
 		}
@@ -14,23 +13,6 @@ class InMap_Admin extends Joe_Admin {
 		//Actions
 		add_action('admin_init', array($this, 'load_assets'));
 	}
-
-// 	function is_admin() {
-// 		global $pagenow;
-// 
-// 		switch($pagenow) {
-// 			case 'admin-ajax.php' :
-// 				return isset($_GET['waymark_security']);
-// 			case 'post.php' :
-// 				return true;
-// 			case 'term.php' :
-// 			case 'edit-tags.php' :
-// 			case 'edit.php' :
-// 				return isset($_GET['post_type']) && $_GET['post_type'] == 'waymark_map';				
-// 			default:
-// 				return false;
-// 		}
-// 	}
 	
 	function load_assets() {
 		parent::load_assets();

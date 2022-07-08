@@ -1,6 +1,6 @@
 <?php
 
-class Waymark_Front extends Joe_Front {
+class InMap_Front extends Joe_Front {
 	function __construct() {
 		parent::__construct();
 
@@ -41,4 +41,4 @@ class Waymark_Front extends Joe_Front {
 		]);
 	}		
 }	
-new Waymark_Front;
+new InMap_Front;
