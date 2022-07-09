@@ -19,22 +19,22 @@ $config = [
 // 		'Id',
 		'Time UTC',
 		'Time',
-		'Name',
+// 		'Name',
 		'Map Display Name',
-		'Device Type',
-		'IMEI',
+// 		'Device Type',
+// 		'IMEI',
 // 		'Incident Id',
 		'Latitude',
 		'Longitude',
 		'Elevation',
 		'Velocity',
-		'Course',
+// 		'Course',
 		'Valid GPS Fix',
 // 		'In Emergency',
 		'Text',
 		'Event',
 // 		'Device Identifier',
-		'SpatialRefSystem'			
+// 		'SpatialRefSystem'			
 	],
 	
 	'map' => [

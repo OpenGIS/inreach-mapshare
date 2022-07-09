@@ -65,9 +65,24 @@ const inmap_create_map = function(map_hash = null, map_geojson = null) {
 	//Events
 	data_layer.on('click', function(e) {
 		var feature = e.layer.feature;
+		var target_jq = jQuery(e.originalEvent.target);
 		
 		//Description?
 		if(typeof feature.properties.description === 'string') {
+			//Get target
+			if(! target_jq.hasClass('inmap-marker-icon')) {
+				target_jq = target_jq.parents('inmap-marker-icon');		
+		
+				if(! target_jq.length) {
+					return false;
+				}
+			}
+			
+			var markers = jQuery('.inmap-marker-icon');
+			markers.removeClass('inmap-active');
+			
+			//
+			target_jq.addClass('inmap-active');			
  			info_jq.html(feature.properties.description);
 		}		
 	});

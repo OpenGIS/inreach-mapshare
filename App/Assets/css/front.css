@@ -7,12 +7,16 @@
   border-radius: 50%;
   background: #d93;
 }
+.inmap-map .inmap-marker-icon.inmap-active {
+  background: red !important;
+  border-color: red !important;
+}
 .inmap-map .inmap-marker-icon.inmap-icon-message {
   width: 25px !important;
   height: 25px !important;
   text-align: center;
-  background: #fff !important;
-  border: 2px solid #d93 !important;
+  background: #fff;
+  border: 2px solid #d93;
   z-index: 1000 !important;
 }
 .inmap-map .inmap-marker-icon span,

@@ -8,12 +8,18 @@
 		text-align: center;
 		border-radius: 50%;
 		background: @inmap-primary;
+		
+		&.inmap-active {
+			background: red !important;
+			border-color: red !important;
+		}
+		
 		&.inmap-icon-message {
 			width: 25px !important;
 			height: 25px !important;		
 			text-align: center;
-			background: #fff !important;
-			border: 2px solid @inmap-primary !important;
+			background: #fff;
+			border: 2px solid @inmap-primary;
 			z-index: +1000 !important;
 		}
 		
