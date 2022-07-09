@@ -80,12 +80,17 @@ class InMap_Inreach extends InMap_Feed {
 							//Each
 							for($j = 0; $j < sizeof($Placemark->ExtendedData->Data); $j++) {
 								$key = (string)$Placemark->ExtendedData->Data[$j]->attributes()->name;
-								$value = (string)$Placemark->ExtendedData->Data[$j]->value;
 								
-								//Store
-								$extended_data[$key] = $value;								
+								//Must be a key we are interested in
+								if(in_array($key, Joe_Config::get_item('kml_data_include'))) {
+									$value = (string)$Placemark->ExtendedData->Data[$j]->value;
+								
+									//Store
+									$extended_data[$key] = $value;																
+								}								
 							}
 							
+							//We have data														
 							if(sizeof($extended_data)) {
 								$Feature['properties']['description'] = Joe_Helper::assoc_array_table($extended_data);
 							}

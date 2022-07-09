@@ -14,6 +14,29 @@ $config = [
 	'shortcode' => $inmap_plugin_slug,
 	'plugin_about' => '<img alt="Joe\'s mug" src="https://www.morehawes.co.uk/assets/images/Joe1BW.jpg" />',
 	
+	//KML
+	'kml_data_include' => [
+// 		'Id',
+		'Time UTC',
+		'Time',
+		'Name',
+		'Map Display Name',
+		'Device Type',
+		'IMEI',
+// 		'Incident Id',
+		'Latitude',
+		'Longitude',
+		'Elevation',
+		'Velocity',
+		'Course',
+		'Valid GPS Fix',
+// 		'In Emergency',
+		'Text',
+		'Event',
+// 		'Device Identifier',
+		'SpatialRefSystem'			
+	],
+	
 	'map' => [
 		'styles' => [
 			'tracking_colour' => $inmap_colour_primary,
