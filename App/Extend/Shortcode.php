@@ -34,7 +34,12 @@ class InMap_Shortcode extends Joe_Shortcode {
 			');
 			
 			//HTML
-			return '<div id="inmap-' . $hash . '" class="inmap-map"></div>';
+			$out = '<div class="inmap-wrap">';
+			$out .= '	<div id="inmap-' . $hash . '" class="inmap-map"></div>';
+			$out .= '	<div class="inmap-info"></div>';
+			$out .= '</div>';
+
+			return $out;
 		}	
 	}	
 }

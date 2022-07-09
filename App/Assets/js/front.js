@@ -16,12 +16,8 @@ const inmap_create_map = function(map_hash = null, map_geojson = null) {
 	inmap_maps[map_hash] = map_l;
 	
 	//UI
-	var info_jq = jQuery('<div />')
-		.attr({})
-		.addClass('inmap-info')
-	;
-	
-	map_jq.append(info_jq);
+	var wrap_jq = map_jq.parents('.inmap-wrap');
+	var info_jq = jQuery('.inmap-info', wrap_jq);
 	
 	//Basemap
 	var tiles = L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
@@ -88,5 +84,5 @@ const inmap_create_map = function(map_hash = null, map_geojson = null) {
 	});
 	
 	map_l.fitBounds(data_layer.getBounds());
-	
+	map_l.setMaxBounds(data_layer.getBounds());
 };

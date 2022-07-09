@@ -1,40 +1,60 @@
 @inmap-primary: #d93;
+@inmap-grey-light: #f7f7f7;
+@inmap-grey-dark: #ddd;
 
-.inmap-map {
+.inmap-wrap {
 	position: relative;
-	min-height: 300px;
+	border: 1px solid blue;
+	.inmap-map {
+		position: relative;
+		min-height: 500px;
+		width: 66.66%;
+		border: 1px solid @inmap-grey-dark;
 	
-	.inmap-marker-icon {
-		text-align: center;
-		border-radius: 50%;
-		background: @inmap-primary;
-		
-		&.inmap-active {
-			background: red !important;
-			border-color: red !important;
-		}
-		
-		&.inmap-icon-message {
-			width: 25px !important;
-			height: 25px !important;		
+		.inmap-marker-icon {
 			text-align: center;
-			background: #fff;
-			border: 2px solid @inmap-primary;
-			z-index: +1000 !important;
-		}
+			border-radius: 50%;
+			background: @inmap-primary;
 		
-		span, img {
-			vertical-align: middle !important;
-		}		
+			&.inmap-icon-message,
+			&.inmap-active {
+				z-index: +1000 !important;				
+			}
+		
+			&.inmap-icon-message {
+				width: 25px !important;
+				height: 25px !important;		
+				text-align: center;
+				background: #fff;
+				border: 2px solid @inmap-primary;
+			}
+
+			&.inmap-active {
+				background: red !important;
+				border-color: red !important;
+			}
+					
+			span, img {
+				vertical-align: middle !important;
+			}		
+		}
 	}
-	
 	.inmap-info {
 		position: absolute;
 		top: 0;
 		right: 0;
-		width: 33%;
+		width: 33.33%;
+		padding: 10px;
 		height: 100%;		
 		background: #fff;
 		z-index: +1000 !important;
+		border-left: 1px solid @inmap-grey-dark;
+		overflow: scroll;
+		table {
+			font-size: 13px;
+		}
+// 		p {
+// 			font-size: 130%;
+// 		}
 	}
 }
