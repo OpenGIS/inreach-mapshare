@@ -27,6 +27,7 @@ class InMap_Inreach extends Joe_Class {
 		$this->setup_request();
 		$this->execute_request();		
 		$this->process_kml();		
+		$this->build_geojson();
 	}
 	
 	function execute_request() {
@@ -108,74 +109,79 @@ class InMap_Inreach extends Joe_Class {
 
 	function process_kml() {
 		//Do we have a response?
-		if($this->response_string) {
-			$this->FeatureCollection = [
-				'type' => 'FeatureCollection',
-				'features' => []
-			];
-		
+		if($this->response_string) {		
 			$this->KML = simplexml_load_string($this->response_string);
-
-			//We have Placemarks
-			if(isset($this->KML->Document->Folder->Placemark) && sizeof($this->KML->Document->Folder->Placemark)) {
-				//Each Placemark
-				for($i = 0; $i < sizeof($this->KML->Document->Folder->Placemark); $i++) {
-					$Placemark = $this->KML->Document->Folder->Placemark[$i];
-					
-					//Create Feature
-					$Feature = [
-						'type' => 'Feature',
-						'properties' => [],
-						'geometry' => []
-					];
-					
-					//Extended Data?
-					if(isset($Placemark->ExtendedData)) {
-						if(sizeof($Placemark->ExtendedData->Data)) {
-							$extended_data = [];
+		}
+		
+		Joe_Helper::debug($this->KML);
+	}
+	
+	function build_geojson() {
+		$this->FeatureCollection = [
+			'type' => 'FeatureCollection',
+			'features' => []
+		];
+		
+		//We have Placemarks
+		if(isset($this->KML->Document->Folder->Placemark) && sizeof($this->KML->Document->Folder->Placemark)) {
+			//Each Placemark
+			for($i = 0; $i < sizeof($this->KML->Document->Folder->Placemark); $i++) {
+				$Placemark = $this->KML->Document->Folder->Placemark[$i];
+				
+				//Create Feature
+				$Feature = [
+					'type' => 'Feature',
+					'properties' => [],
+					'geometry' => []
+				];
+				
+				//Extended Data?
+				if(isset($Placemark->ExtendedData)) {
+					if(sizeof($Placemark->ExtendedData->Data)) {
+						$extended_data = [];
+						
+						//Each
+						for($j = 0; $j < sizeof($Placemark->ExtendedData->Data); $j++) {
+							$key = (string)$Placemark->ExtendedData->Data[$j]->attributes()->name;
 							
-							//Each
-							for($j = 0; $j < sizeof($Placemark->ExtendedData->Data); $j++) {
-								$key = (string)$Placemark->ExtendedData->Data[$j]->attributes()->name;
-								
-								//Must be a key we are interested in
-								if(in_array($key, Joe_Config::get_item('kml_data_include'))) {
-									$value = (string)$Placemark->ExtendedData->Data[$j]->value;
-								
-									//Store
-									$extended_data[$key] = $value;																
-								}								
-							}
+							//Must be a key we are interested in
+							if(in_array($key, Joe_Config::get_item('kml_data_include'))) {
+								$value = (string)$Placemark->ExtendedData->Data[$j]->value;
 							
-							//We have data														
-							if(sizeof($extended_data)) {
-								$Feature['properties']['description'] = Joe_Helper::assoc_array_table($extended_data);
-							}
+								//Store
+								$extended_data[$key] = $value;																
+							}								
+						}
+						
+						//We have data														
+						if(sizeof($extended_data)) {
+							$Feature['properties']['description'] = Joe_Helper::assoc_array_table($extended_data);
 						}
 					}
-										
-					// =========== Point ===========
+				}
+									
+				// =========== Point ===========
+				
+				if($Placemark->Point->coordinates) {
+					$coordinates = explode(',', (String)$Placemark->Point->coordinates);													
 					
-					if($Placemark->Point->coordinates) {
-						$coordinates = explode(',', (String)$Placemark->Point->coordinates);													
-						
-						//Invalid
-						if(sizeof($coordinates) < 2 || sizeof($coordinates) > 3) {
-							continue;						
-						}
-						
-						$Feature['geometry']['type'] = 'Point';
-						$Feature['geometry']['coordinates'] = $coordinates;
+					//Invalid
+					if(sizeof($coordinates) < 2 || sizeof($coordinates) > 3) {
+						continue;						
+					}
+					
+					$Feature['geometry']['type'] = 'Point';
+					$Feature['geometry']['coordinates'] = $coordinates;
 
-						//Style
-						$Feature['properties']['icon'] = [
-							'className' => 'inmap-marker-icon',
-							'iconSize' => [ 7, 7 ],
-							'html' => '<span></span>'
-						];						
+					//Style
+					$Feature['properties']['icon'] = [
+						'className' => 'inmap-marker-icon',
+						'iconSize' => [ 7, 7 ],
+						'html' => '<span></span>'
+					];						
 /*
-						if(isset($extended_data['Event'])) {
-							switch($extended_data['Event']) {
+					if(isset($extended_data['Event'])) {
+						switch($extended_data['Event']) {
 
 // Quick Text to MapShare received
 // Tracking turned on from device.
@@ -183,65 +189,64 @@ class InMap_Inreach extends Joe_Class {
 // Tracking turned off from device.
 // 
 // 
-								case 'Quick Text to MapShare received';
-									break;
-							}										
-						}
+							case 'Quick Text to MapShare received';
+								break;
+						}										
+					}
 */						
-						//Description
-						if(isset($Placemark->description) && (string)$Placemark->description) {
-							$Feature['properties']['icon']['html'] = Joe_Config::get_setting('map', 'styles', 'message_icon');
-							$Feature['properties']['icon']['className'] .= ' inmap-icon-message';
-						
-							//Prepend
-							$Feature['properties']['description'] = '<p>' . (String)$Placemark->description . '</p>' . $Feature['properties']['description'];
-						}
-						
-						//When
-						if(isset($Placemark->TimeStamp->when)) {
-							$title = (String)$Placemark->TimeStamp->when;
-							$title = str_replace([
-								'T',
-								'Z'
-							],
-							[
-								' ',
-								' (UTC) [#' . $i . ']'
-							], $title);
-							
-							$Feature['properties']['title'] = $title;
-						}
-
-					// =========== LineString ===========
+					//Description
+					if(isset($Placemark->description) && (string)$Placemark->description) {
+						$Feature['properties']['icon']['html'] = Joe_Config::get_setting('map', 'styles', 'message_icon');
+						$Feature['properties']['icon']['className'] .= ' inmap-icon-message';
 					
-					} elseif($Placemark->LineString->coordinates) {
-						$coordinates = (string)$Placemark->LineString->coordinates;
-						$coordinates = preg_split('/\r\n|\r|\n/', $coordinates);
-						
-						//Valid array
-						if(sizeof($coordinates)) {
-
-							$Feature['geometry']['type'] = 'LineString';
-
-							//Each Coordinate
-							foreach($coordinates as $point) {
-								$coords = explode(',', $point);													
-						
-								//Invalid
-								if(sizeof($coords) < 2 || sizeof($coords) > 3) {
-									continue;						
-								}	
-
-								$Feature['geometry']['coordinates'][] = $coords;
-							}
-						}
+						//Prepend
+						$Feature['properties']['description'] = '<p>' . (String)$Placemark->description . '</p>' . $Feature['properties']['description'];
 					}
 					
-					//Style
-					$Feature['properties']['style']['color'] = Joe_Config::get_setting('map', 'styles', 'tracking_colour');
+					//When
+					if(isset($Placemark->TimeStamp->when)) {
+						$title = (String)$Placemark->TimeStamp->when;
+						$title = str_replace([
+							'T',
+							'Z'
+						],
+						[
+							' ',
+							' (UTC) [#' . $i . ']'
+						], $title);
+						
+						$Feature['properties']['title'] = $title;
+					}
+
+				// =========== LineString ===========
+				
+				} elseif($Placemark->LineString->coordinates) {
+					$coordinates = (string)$Placemark->LineString->coordinates;
+					$coordinates = preg_split('/\r\n|\r|\n/', $coordinates);
 					
-					$this->FeatureCollection['features'][] = $Feature;
+					//Valid array
+					if(sizeof($coordinates)) {
+
+						$Feature['geometry']['type'] = 'LineString';
+
+						//Each Coordinate
+						foreach($coordinates as $point) {
+							$coords = explode(',', $point);													
+					
+							//Invalid
+							if(sizeof($coords) < 2 || sizeof($coords) > 3) {
+								continue;						
+							}	
+
+							$Feature['geometry']['coordinates'][] = $coords;
+						}
+					}
 				}
+				
+				//Style
+				$Feature['properties']['style']['color'] = Joe_Config::get_setting('map', 'styles', 'tracking_colour');
+				
+				$this->FeatureCollection['features'][] = $Feature;
 			}
 		}
 	}
