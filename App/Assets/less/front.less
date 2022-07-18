@@ -64,7 +64,21 @@
 			table {
 				border: 1px solid red;
 				font-size: 13px;
+				tr {
+					display: none;
+					&.joe-assoc_array-time {
+						display: table-row;
+					}
+				}
 			}
+			
+			&:hover,
+			&.inmap-active {
+				tr {
+					display: table-row;
+				}
+			}
+
 		}
 // 		p {
 // 			font-size: 130%;

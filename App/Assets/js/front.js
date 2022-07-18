@@ -59,6 +59,8 @@ const inmap_create_map = function(map_hash = null, map_geojson = null) {
 				.addClass('inmap-info-item')
 				.html(feature.properties.description)
 				.on('mouseenter', function() {
+					jQuery(this).addClass('inmap-hover');
+
 					//Remove active
 					jQuery('.inmap-point', map_jq).removeClass('inmap-active');
 		
@@ -66,6 +68,8 @@ const inmap_create_map = function(map_hash = null, map_geojson = null) {
 					jQuery(marker_l.getElement()).addClass('inmap-active');
 				})
 				.on('click', function() {
+					jQuery(this).addClass('inmap-active');
+					
 					map_l.setView(marker_l.getLatLng(), 14)
 				})
 

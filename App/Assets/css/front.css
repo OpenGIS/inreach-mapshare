@@ -56,3 +56,13 @@
   border: 1px solid red;
   font-size: 13px;
 }
+.inmap-wrap .inmap-info .inmap-info-item table tr {
+  display: none;
+}
+.inmap-wrap .inmap-info .inmap-info-item table tr.joe-assoc_array-time {
+  display: table-row;
+}
+.inmap-wrap .inmap-info .inmap-info-item:hover tr,
+.inmap-wrap .inmap-info .inmap-info-item.inmap-active tr {
+  display: table-row;
+}
