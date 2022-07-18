@@ -1,9 +1,16 @@
 <?php
 
-class InMap_Inreach extends InMap_Feed {
-	function __construct($params_in = []) {
-		$this->request_endpoint = 'https://explore.garmin.com/feed/share/';	
+class InMap_Inreach extends Joe_Class {
 
+	public $request_endpoint = 'https://explore.garmin.com/feed/share/';
+	
+	public $request_data = [];
+	public $cache_id = '';	
+
+	public $request_string = '';
+	public $response_string = '';
+	
+	function __construct($params_in = null) {
 		//Set parameters
 		$this->parameters = [
 			'mapshare_identifier' => null,
@@ -12,20 +19,58 @@ class InMap_Inreach extends InMap_Feed {
 			'mapshare_date_end' => null,									
 		];
 					
-		parent::__construct($params_in);		
+		parent::__construct($params_in);
+
+		$this->setup_request();
+		$this->execute_request();		
 	}
 	
-	function setup_request() {
-		$this->request_string = $this->request_endpoint;	
+	function execute_request() {
+		//Request is setup
+		if($this->cache_id) {
+			//Cached response	
+			$this->response_string = Joe_Cache::get_item($this->cache_id);
 
+			if($this->response_string === false) {
+				//Setup call
+				$ch = curl_init();
+				curl_setopt($ch, CURLOPT_URL, $this->request_string);
+				curl_setopt($ch, CURLOPT_POST, 1);
+				curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
+
+				if($auth_password = $this->get_parameter('mapshare_password')) {
+					curl_setopt($ch, CURLOPT_USERPWD, ":" . $auth_password);	//No username			
+				}
+
+				//Run it
+				curl_exec($ch);
+
+				//cURL success?
+				if(! curl_errno($ch)) {
+					$this->response_string = curl_multi_getcontent($ch);
+
+					//MUST BE VALID KML to go into Cache
+					if(is_string($this->response_string) && simplexml_load_string($this->response_string)) {
+						//Insert into cache
+						Joe_Cache::set_item($this->cache_id, $this->response_string, 15);	//Minutes
+					}
+
+					curl_close($ch);
+				}
+			}	
+		}
+	}
+
+	function setup_request() {
 		//Required
 		$url_identifier = $this->get_parameter('mapshare_identifier');
 				
 		if(! $url_identifier) {
-			return;		
+			return false;		
 		}
-		
-		$this->request_string .= $url_identifier;
+
+		//Start building the request
+		$this->request_string = $this->request_endpoint . $url_identifier;
 
 		//Start date
 		if($data_start = $this->get_parameter('mapshare_date_start')) {
@@ -45,6 +90,8 @@ class InMap_Inreach extends InMap_Feed {
 		
 		//Determine cache ID
 		$this->cache_id = Joe_Helper::slug_prefix(md5($this->request_string));
+		
+		return true;
 	}	
 
 	function response_geojson($response_type = 'string') {

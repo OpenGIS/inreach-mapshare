@@ -17,7 +17,6 @@ if(! class_exists('Joe_Config')) {
 	//Classes
 
 	//Helpers
-	require_once('App/Classes/InMap_Feed.php');
 	require_once('App/Classes/InMap_Inreach.php');
 	
 	//Core	
