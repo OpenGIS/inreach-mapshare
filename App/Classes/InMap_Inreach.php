@@ -2,13 +2,16 @@
 
 class InMap_Inreach extends Joe_Class {
 
-	public $request_endpoint = 'https://explore.garmin.com/feed/share/';
+	private $request_endpoint = 'https://explore.garmin.com/feed/share/';
 	
-	public $request_data = [];
-	public $cache_id = '';	
+	private $request_data = [];
+	private $cache_id = '';	
 
-	public $request_string = '';
-	public $response_string = '';
+	private $request_string = '';
+	private $response_string = '';
+	
+	private $KML = null;
+	private $FeatureCollection = [];
 	
 	function __construct($params_in = null) {
 		//Set parameters
@@ -23,6 +26,7 @@ class InMap_Inreach extends Joe_Class {
 
 		$this->setup_request();
 		$this->execute_request();		
+		$this->process_kml();		
 	}
 	
 	function execute_request() {
@@ -94,23 +98,29 @@ class InMap_Inreach extends Joe_Class {
 		return true;
 	}	
 
-	function response_geojson($response_type = 'string') {
-		$FeatureCollection = null;
+	function get_geojson($response_type = 'string') {
+		if($response_type == 'string') {
+			return json_encode($this->FeatureCollection);
+		}
+		
+		return $this->FeatureCollection;		
+	}
 
+	function process_kml() {
 		//Do we have a response?
 		if($this->response_string) {
-			$FeatureCollection = [
+			$this->FeatureCollection = [
 				'type' => 'FeatureCollection',
 				'features' => []
 			];
 		
-			$KML = simplexml_load_string($this->response_string);
+			$this->KML = simplexml_load_string($this->response_string);
 
 			//We have Placemarks
-			if(isset($KML->Document->Folder->Placemark) && sizeof($KML->Document->Folder->Placemark)) {
+			if(isset($this->KML->Document->Folder->Placemark) && sizeof($this->KML->Document->Folder->Placemark)) {
 				//Each Placemark
-				for($i = 0; $i < sizeof($KML->Document->Folder->Placemark); $i++) {
-					$Placemark = $KML->Document->Folder->Placemark[$i];
+				for($i = 0; $i < sizeof($this->KML->Document->Folder->Placemark); $i++) {
+					$Placemark = $this->KML->Document->Folder->Placemark[$i];
 					
 					//Create Feature
 					$Feature = [
@@ -230,16 +240,9 @@ class InMap_Inreach extends Joe_Class {
 					//Style
 					$Feature['properties']['style']['color'] = Joe_Config::get_setting('map', 'styles', 'tracking_colour');
 					
-					$FeatureCollection['features'][] = $Feature;
+					$this->FeatureCollection['features'][] = $Feature;
 				}
 			}
 		}
-		
-		//Response type
-		if($response_type == 'string') {
-			$FeatureCollection = json_encode($FeatureCollection);
-		}
-		
-		return $FeatureCollection;	
 	}
 }
