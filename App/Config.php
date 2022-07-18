@@ -16,7 +16,7 @@ $config = [
 	
 	//KML
 	'kml_data_include' => [
-// 		'Id',
+		'Id',
 		'Time UTC',
 		'Time',
 // 		'Name',

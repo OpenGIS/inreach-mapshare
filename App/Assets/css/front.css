@@ -52,6 +52,7 @@
   border-left: 1px solid #ddd;
   overflow: scroll;
 }
-.inmap-wrap .inmap-info table {
+.inmap-wrap .inmap-info .inmap-info-item table {
+  border: 1px solid red;
   font-size: 13px;
 }

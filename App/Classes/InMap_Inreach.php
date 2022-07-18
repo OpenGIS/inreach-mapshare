@@ -145,7 +145,15 @@ class InMap_Inreach extends Joe_Class {
 							//Must be a key we are interested in
 							if(in_array($key, Joe_Config::get_item('kml_data_include'))) {
 								$value = (string)$Placemark->ExtendedData->Data[$j]->value;
-							
+
+								//By Key
+								switch($key) {
+									case 'Id' :
+										$Feature['properties']['id'] = $value;
+
+										break;
+								}
+						
 								//Store
 								$extended_data[$key] = $value;																
 							}								
@@ -153,6 +161,7 @@ class InMap_Inreach extends Joe_Class {
 						
 						//We have data														
 						if(sizeof($extended_data)) {
+							
 							$Feature['properties']['description'] = Joe_Helper::assoc_array_table($extended_data);
 						}
 					}
