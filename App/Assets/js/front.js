@@ -66,15 +66,15 @@ const inmap_create_map = function(map_hash = null, map_geojson = null) {
 		//Description?
 		if(typeof feature.properties.description === 'string') {
 			//Get target
-			if(! target_jq.hasClass('inmap-marker-icon')) {
-				target_jq = target_jq.parents('inmap-marker-icon');		
+			if(! target_jq.hasClass('inmap-point')) {
+				target_jq = target_jq.parents('inmap-point');		
 		
 				if(! target_jq.length) {
 					return false;
 				}
 			}
 			
-			var markers = jQuery('.inmap-marker-icon');
+			var markers = jQuery('.inmap-point');
 			markers.removeClass('inmap-active');
 			
 			//

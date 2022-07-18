@@ -8,28 +8,36 @@
   width: 66.66%;
   border: 1px solid #ddd;
 }
-.inmap-wrap .inmap-map .inmap-marker-icon {
+.inmap-wrap .inmap-map .inmap-point {
   text-align: center;
   border-radius: 50%;
   background: #d93;
 }
-.inmap-wrap .inmap-map .inmap-marker-icon.inmap-icon-message,
-.inmap-wrap .inmap-map .inmap-marker-icon.inmap-active {
+.inmap-wrap .inmap-map .inmap-point.inmap-icon-message,
+.inmap-wrap .inmap-map .inmap-point.inmap-active {
   z-index: 1000 !important;
 }
-.inmap-wrap .inmap-map .inmap-marker-icon.inmap-icon-message {
+.inmap-wrap .inmap-map .inmap-point.inmap-icon-custom,
+.inmap-wrap .inmap-map .inmap-point.inmap-icon-quick {
   width: 25px !important;
   height: 25px !important;
   text-align: center;
   background: #fff;
   border: 2px solid #d93;
 }
-.inmap-wrap .inmap-map .inmap-marker-icon.inmap-active {
+.inmap-wrap .inmap-map .inmap-point.inmap-icon-custom {
+  border-color: blue !important;
+  z-index: 2000 !important;
+}
+.inmap-wrap .inmap-map .inmap-point.inmap-icon-tracking {
+  background: green !important;
+}
+.inmap-wrap .inmap-map .inmap-point.inmap-active {
   background: red !important;
   border-color: red !important;
 }
-.inmap-wrap .inmap-map .inmap-marker-icon span,
-.inmap-wrap .inmap-map .inmap-marker-icon img {
+.inmap-wrap .inmap-map .inmap-point span,
+.inmap-wrap .inmap-map .inmap-point img {
   vertical-align: middle !important;
 }
 .inmap-wrap .inmap-info {

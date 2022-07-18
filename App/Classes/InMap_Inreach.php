@@ -90,9 +90,9 @@ class InMap_Inreach extends Joe_Class {
 		//Append data
 		if(sizeof($this->request_data)) {
 			$this->request_string .= '?';
-			$this->request_string .= http_build_query($this->request_data, "", null,  PHP_QUERY_RFC3986);
+			$this->request_string .= http_build_query($this->request_data);
 		}	
-		
+
 		//Determine cache ID
 		$this->cache_id = Joe_Helper::slug_prefix(md5($this->request_string));
 		
@@ -111,9 +111,7 @@ class InMap_Inreach extends Joe_Class {
 		//Do we have a response?
 		if($this->response_string) {		
 			$this->KML = simplexml_load_string($this->response_string);
-		}
-		
-		Joe_Helper::debug($this->KML);
+		}		
 	}
 	
 	function build_geojson() {
@@ -175,33 +173,43 @@ class InMap_Inreach extends Joe_Class {
 
 					//Style
 					$Feature['properties']['icon'] = [
-						'className' => 'inmap-marker-icon',
+						'className' => 'inmap-point',
 						'iconSize' => [ 7, 7 ],
 						'html' => '<span></span>'
 					];						
-/*
-					if(isset($extended_data['Event'])) {
-						switch($extended_data['Event']) {
 
-// Quick Text to MapShare received
-// Tracking turned on from device.
-// Tracking message received.
-// Tracking turned off from device.
-// 
-// 
-							case 'Quick Text to MapShare received';
+					if(isset($extended_data['Event'])) {
+						//Remove periods!
+						$extended_data['Event'] = trim($extended_data['Event'], '.');
+
+						switch($extended_data['Event']) {
+							case 'Tracking turned on from device' :
+							case 'Tracking turned off from device' :
+							case 'Tracking interval received' :
+							case 'Tracking message received' :
+								$Feature['properties']['icon']['className'] .= ' inmap-icon-tracking';
+
+// 								$Feature['properties']['icon']['html'] = 't';
+
 								break;
+							case 'Msg to shared map received' :
+								$Feature['properties']['icon']['className'] .= ' inmap-icon-custom';
+								$Feature['properties']['icon']['html'] = Joe_Config::get_setting('map', 'styles', 'message_icon');
+			
+								break;
+							case 'Quick Text to MapShare received' :
+								$Feature['properties']['icon']['className'] .= ' inmap-icon-quick';
+								$Feature['properties']['icon']['html'] = 'Q';
+								
+								break;
+// 							default :
+//  								Joe_Helper::debug($extended_data);
+// 							
+// 								break;									
 						}										
 					}
-*/						
-					//Description
-					if(isset($Placemark->description) && (string)$Placemark->description) {
-						$Feature['properties']['icon']['html'] = Joe_Config::get_setting('map', 'styles', 'message_icon');
-						$Feature['properties']['icon']['className'] .= ' inmap-icon-message';
-					
-						//Prepend
-						$Feature['properties']['description'] = '<p>' . (String)$Placemark->description . '</p>' . $Feature['properties']['description'];
-					}
+
+// 					$Feature['properties']['icon']['html'] = Joe_Config::get_setting('map', 'styles', 'message_icon');
 					
 					//When
 					if(isset($Placemark->TimeStamp->when)) {
