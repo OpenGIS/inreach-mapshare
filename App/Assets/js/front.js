@@ -50,19 +50,19 @@ const inmap_create_map = function(map_hash = null, map_geojson = null) {
 		for(this_id in markers_l) {
 			//Update
 			if(this_id === update_id) {
-				//Add classes
-				markers_jq[this_id].addClass('inmap-' + update_status);		
-				infos_jq[this_id].addClass('inmap-' + update_status);						
-
-				//Zoom only
-				if(update_status == 'zoom') {
+				//Already active - Expand
+				if(update_status == 'active' && infos_jq[this_id].hasClass('inmap-active')) {
 					//Show extended info
 					infos_jq[this_id].removeClass('inmap-hide-extended');
 					
 					//Center & Zoom
 					map_l.setView(markers_l[this_id].getLatLng(), 14);
+				//Add classes
+				} else {
+					markers_jq[this_id].addClass('inmap-' + update_status);		
+					infos_jq[this_id].addClass('inmap-' + update_status);						
 				}
-				
+
 				//Active only
 				if(update_status == 'active') {
 					//Scroll to info
@@ -127,12 +127,9 @@ const inmap_create_map = function(map_hash = null, map_geojson = null) {
 						update_point_status(null, 'hover');
 					}
 				)
-				.on('click', function() {
+				.on('click dblclick', function() {
 					update_point_status(id, 'active');
 				})
-				.on('dblclick', function() {
-					update_point_status(id, 'zoom');
-				})				
 			;
 			info_jq.append(infos_jq[id]);		
 			

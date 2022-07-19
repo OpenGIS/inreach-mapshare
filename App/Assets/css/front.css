@@ -88,7 +88,7 @@
   display: table-row;
 }
 .inmap-wrap .inmap-info .inmap-info-item table tr th {
-  padding-left: 15px;
+  padding-left: 30px;
 }
 .inmap-wrap .inmap-info .inmap-info-item.inmap-hover {
   background-color: #f7f7f7;
