@@ -18,24 +18,21 @@ const inmap_create_map = function(map_hash = null, map_geojson = null) {
 	//UI
 	var wrap_jq = map_jq.parents('.inmap-wrap');
 	var info_jq = jQuery('.inmap-info', wrap_jq);
-
 	var markers_l = {};
 	var markers_jq = {};
-	var info_items_jq = {};
+	var infos_jq = {};
 
 	var update_point_update_status = function(update_id = null, update_status = 'active') {
-// 		console.log(id, update_status);
-
 		//Leaflet Markers
 		for(this_id in markers_l) {
 			//Update
 			if(this_id === update_id) {
 				//Add classes
 				markers_jq[this_id].addClass('inmap-' + update_status);		
-				info_items_jq[this_id].addClass('inmap-' + update_status);						
+				infos_jq[this_id].addClass('inmap-' + update_status);						
 
 				//Scroll to info
-				info_items_jq[this_id].get(0).scrollIntoView({
+				infos_jq[this_id].get(0).scrollIntoView({
 					behavior: "smooth",
 					block: "nearest",
 					inline: "nearest" 
@@ -50,7 +47,7 @@ const inmap_create_map = function(map_hash = null, map_geojson = null) {
 			} else {
 				//Remove classes
 				markers_jq[this_id].removeClass('inmap-' + update_status);
-				info_items_jq[this_id].removeClass('inmap-' + update_status);							
+				infos_jq[this_id].removeClass('inmap-' + update_status);							
 			}
 		}
 	};
@@ -86,7 +83,7 @@ const inmap_create_map = function(map_hash = null, map_geojson = null) {
 			}				
 
 			//Create Info Item
-			info_items_jq[id] = jQuery('<div />')
+			infos_jq[id] = jQuery('<div />')
 				.addClass('inmap-info-item')
 				.html(feature.properties.description)
 				.hover(
@@ -101,7 +98,7 @@ const inmap_create_map = function(map_hash = null, map_geojson = null) {
 					update_point_update_status(id);
 				})
 			;
-			info_jq.append(info_items_jq[id]);		
+			info_jq.append(infos_jq[id]);		
 			
 			return markers_l[id];			
 		},
