@@ -21,6 +21,32 @@ const inmap_create_map = function(map_hash = null, map_geojson = null) {
 	var markers_l = {};
 	var markers_jq = {};
 	var infos_jq = {};
+	
+	var setup_info = function() {
+		for(id in infos_jq) {
+			infos_jq[id].addClass('inmap-hide-extended');
+
+			jQuery('table tr', infos_jq[id]).each(function() {
+				var tr = jQuery(this);
+				var td = jQuery('td', tr);
+
+				var key = tr.attr('class').replace('joe-assoc_array-', '');
+				var value = td.text();
+				
+				switch(key) {
+					case 'valid_gps_fix' :
+						tr.addClass('inmap-info-extended');
+
+						if(value === 'True') {
+							infos_jq[id].addClass('inmap-valid-gps');
+						}
+						
+						break;
+				}
+				
+			});
+		}
+	};
 
 	var update_point_status = function(update_id = null, update_status = 'active') {
 		//Leaflet Markers
@@ -33,6 +59,9 @@ const inmap_create_map = function(map_hash = null, map_geojson = null) {
 
 				//Zoom only
 				if(update_status == 'zoom') {
+					//Show extended info
+					infos_jq[this_id].removeClass('inmap-hide-extended');
+					
 					//Center & Zoom
 					map_l.setView(markers_l[this_id].getLatLng(), 14);
 				}
@@ -138,5 +167,11 @@ const inmap_create_map = function(map_hash = null, map_geojson = null) {
 	
 	//Add
 	data_layer.addTo(map_l);
+	
+	//Once data layer loaded
+	data_layer.on('add', function() {
+		setup_info();
+	});
+	
 	map_l.fitBounds(data_layer.getBounds());
 };

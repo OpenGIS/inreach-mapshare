@@ -55,12 +55,18 @@
   padding-left: 15px;
   font-size: 13px;
   background-color: #fff;
-  background-image: url(../img/location-gps.svg);
+  background-image: url(../img/location.svg);
   background-size: 15px;
   background-position-x: 8px;
   background-position-y: center;
   background-repeat: no-repeat;
   border-bottom: 1px solid #ddd;
+}
+.inmap-wrap .inmap-info .inmap-info-item.inmap-hide-extended .inmap-info-extended {
+  display: none;
+}
+.inmap-wrap .inmap-info .inmap-info-item.inmap-valid-gps {
+  background-image: url(../img/location-gps.svg);
 }
 .inmap-wrap .inmap-info .inmap-info-item table {
   border-left: 1px solid #d93;
