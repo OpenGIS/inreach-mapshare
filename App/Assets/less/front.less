@@ -85,9 +85,19 @@
 					display: none;
 				}		
 			}
-			
-			&.inmap-valid-gps {
+
+			&.inmap-icon-gps {
 				background-image: url(../img/location-gps.svg);
+			}
+
+			&.inmap-icon-message {
+				background-image: url(../img/message.svg);
+				&.inmap-icon-custom {
+					background-image: url(../img/message-custom.svg);				
+				}
+				&.inmap-icon-quick {
+					background-image: url(../img/message-quick.svg);				
+				}				
 			}
 
 
@@ -110,11 +120,13 @@
 			table {
 				border-left: 1px solid @inmap-primary;					
 				tr {
-					padding-left: 15px;					
 					display: none;
 					background: none;
 					&.joe-assoc_array-time {
 						display: table-row;
+					}
+					th {
+						padding-left: 15px;									
 					}
 				}
 			}

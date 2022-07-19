@@ -186,7 +186,13 @@ class InMap_Inreach extends Joe_Class {
 						'iconSize' => [ 7, 7 ],
 						'html' => '<span></span>'
 					];						
-
+					
+					//Valid GPS
+					if(isset($extended_data['Valid GPS Fix']) && 'True' === $extended_data['Valid GPS Fix']) {
+						$Feature['properties']['icon']['className'] .= ' inmap-icon-gps';
+					}
+					
+					//By event
 					if(isset($extended_data['Event'])) {
 						//Remove periods!
 						$extended_data['Event'] = trim($extended_data['Event'], '.');
@@ -196,18 +202,15 @@ class InMap_Inreach extends Joe_Class {
 							case 'Tracking turned off from device' :
 							case 'Tracking interval received' :
 							case 'Tracking message received' :
-								$Feature['properties']['icon']['className'] .= ' inmap-icon-tracking';
-
-// 								$Feature['properties']['icon']['html'] = 't';
 
 								break;
 							case 'Msg to shared map received' :
-								$Feature['properties']['icon']['className'] .= ' inmap-icon-custom';
+								$Feature['properties']['icon']['className'] .= ' inmap-icon-message inmap-icon-custom';
 								$Feature['properties']['icon']['html'] = Joe_Config::get_setting('map', 'styles', 'message_icon');
 			
 								break;
 							case 'Quick Text to MapShare received' :
-								$Feature['properties']['icon']['className'] .= ' inmap-icon-quick';
+								$Feature['properties']['icon']['className'] .= ' inmap-icon-message inmap-icon-quick';
 								$Feature['properties']['icon']['html'] = 'Q';
 								
 								break;

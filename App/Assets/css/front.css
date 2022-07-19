@@ -65,19 +65,30 @@
 .inmap-wrap .inmap-info .inmap-info-item.inmap-hide-extended .inmap-info-extended {
   display: none;
 }
-.inmap-wrap .inmap-info .inmap-info-item.inmap-valid-gps {
+.inmap-wrap .inmap-info .inmap-info-item.inmap-icon-gps {
   background-image: url(../img/location-gps.svg);
+}
+.inmap-wrap .inmap-info .inmap-info-item.inmap-icon-message {
+  background-image: url(../img/message.svg);
+}
+.inmap-wrap .inmap-info .inmap-info-item.inmap-icon-message.inmap-icon-custom {
+  background-image: url(../img/message-custom.svg);
+}
+.inmap-wrap .inmap-info .inmap-info-item.inmap-icon-message.inmap-icon-quick {
+  background-image: url(../img/message-quick.svg);
 }
 .inmap-wrap .inmap-info .inmap-info-item table {
   border-left: 1px solid #d93;
 }
 .inmap-wrap .inmap-info .inmap-info-item table tr {
-  padding-left: 15px;
   display: none;
   background: none;
 }
 .inmap-wrap .inmap-info .inmap-info-item table tr.joe-assoc_array-time {
   display: table-row;
+}
+.inmap-wrap .inmap-info .inmap-info-item table tr th {
+  padding-left: 15px;
 }
 .inmap-wrap .inmap-info .inmap-info-item.inmap-hover {
   background-color: #f7f7f7;
