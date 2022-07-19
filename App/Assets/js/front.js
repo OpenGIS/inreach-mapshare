@@ -36,6 +36,12 @@ const inmap_create_map = function(map_hash = null, map_geojson = null) {
 					behavior: "smooth",
 					block: "center"
 				});
+
+				//Zoom only
+				if(update_status == 'zoom') {
+					//Center & Zoom
+					map_l.setView(markers_l[this_id].getLatLng(), 14);
+				}
 				
 				//Active only
 				if(update_status == 'active') {
@@ -94,8 +100,11 @@ const inmap_create_map = function(map_hash = null, map_geojson = null) {
 					}
 				)
 				.on('click', function() {
-					update_point_update_status(id);
+					update_point_update_status(id, 'active');
 				})
+				.on('dblclick', function() {
+					update_point_update_status(id, 'zoom');
+				})				
 			;
 			info_jq.append(infos_jq[id]);		
 			
