@@ -63,7 +63,6 @@
 		top: 0;
 		right: 0;
 		width: 33.33%;
-		padding: 10px;
 		height: 100%;		
 		background: #fff;
 		z-index: +1000 !important;
@@ -72,13 +71,27 @@
 		
 		//Info items
 		.inmap-info-item {
-			padding-left: 30px;
+			padding-left: 15px;
 			font-size: 13px;
+
 			background-color: #fff;
 			background-image: url(../img/location-gps.svg);
 			background-size: 15px;
-			background-position: center left;
+			background-position-x: 8px;
+			background-position-y: center;
 			background-repeat: no-repeat;
+
+
+// background-color: @inmap-primary;
+// mask-image: url(../img/location-gps.svg);
+// mask-repeat: no-repeat;
+// mask-size: 15px;
+
+
+
+
+
+
 			border-bottom: 1px solid @inmap-grey-dark;
 			
 			&:nth-child(odd) {
@@ -86,7 +99,9 @@
 			}
 
 			table {
+				border-left: 1px solid @inmap-primary;					
 				tr {
+					padding-left: 15px;					
 					display: none;
 					background: none;
 					&.joe-assoc_array-time {
