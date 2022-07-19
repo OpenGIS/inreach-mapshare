@@ -28,20 +28,6 @@ const inmap_create_map = function(map_hash = null, map_geojson = null) {
 
 		//Leaflet Markers
 		for(i in markers_l) {
-			if(typeof markers_jq[i] === 'undefined') {
-	 			markers_jq[i] = jQuery(markers_l[i]._icon)			
-					.data('id', i)
-	 				.hover(
-	 					function() {
-							update_point_status(jQuery(this).data('id'), 'hover');
-						},
-	 					function() {
-							update_point_status();
-						}
-					)						
-				;
-			}
-		
 			//Update
 			if(i === id) {
 				markers_jq[i].addClass('inmap-' + status);		
@@ -75,8 +61,6 @@ const inmap_create_map = function(map_hash = null, map_geojson = null) {
 			}
 		}
 	};
-	//Init
-	update_point_status();
 	
 	//Basemap
 	var tiles = L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
@@ -108,9 +92,6 @@ const inmap_create_map = function(map_hash = null, map_geojson = null) {
 			} else {
 				var marker_l = L.marker(latlng);					
 			}				
-			marker_l.on('click', function() {
-				update_point_status(id)
-			});
 			
 			//Access!
 			markers_l[id] = marker_l;
@@ -132,12 +113,29 @@ const inmap_create_map = function(map_hash = null, map_geojson = null) {
 		},
 		
 		//Events
-		onEachFeature: function(feature, layer) {}
+		onEachFeature: function(feature, layer) {
+			if(typeof feature.properties.id === 'undefined') {
+				return false;
+			}
+			var id = feature.properties.id.toString();
+			
+			//Added to DOM
+			layer.on('add', function(e) {
+				//Accessible jQuery reference
+				markers_jq[id] = jQuery(e.target.getElement())
+					.on('mouseenter', function() {
+						update_point_status(id, 'hover');
+					})
+					.on('click', function() {
+						update_point_status(id);
+					})
+				;
+			});
+		}
 	});
 	
 	//Add
 	data_layer.addTo(map_l);
-
 	map_l.fitBounds(data_layer.getBounds());
 // 	map_l.setMaxBounds(data_layer.getBounds());
 };
