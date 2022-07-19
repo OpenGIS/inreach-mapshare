@@ -23,41 +23,34 @@ const inmap_create_map = function(map_hash = null, map_geojson = null) {
 	var markers_jq = {};
 	var info_items_jq = {};
 
-	var update_point_status = function(id = null, status = 'active') {
-// 		console.log(id, status);
+	var update_point_update_status = function(update_id = null, update_status = 'active') {
+// 		console.log(id, update_status);
 
 		//Leaflet Markers
-		for(i in markers_l) {
+		for(this_id in markers_l) {
 			//Update
-			if(i === id) {
-				markers_jq[i].addClass('inmap-' + status);		
+			if(this_id === update_id) {
+				//Add classes
+				markers_jq[this_id].addClass('inmap-' + update_status);		
+				info_items_jq[this_id].addClass('inmap-' + update_status);						
+
+				//Scroll to info
+				info_items_jq[this_id].get(0).scrollIntoView({
+					behavior: "smooth",
+					block: "nearest",
+					inline: "nearest" 
+				});
 				
-				if(status == 'active') {
+				//Active only
+				if(update_status == 'active') {
 					//Center
-					map_l.setView(markers_l[i].getLatLng())				
+					map_l.setView(markers_l[this_id].getLatLng());
 				}
 			//Inactive
 			} else {
-				markers_jq[i].removeClass('inmap-' + status);
-			}
-		}
-
-		//Info Area
-		for(j in info_items_jq) {
-			//Update
-			if(j === id) {
-				info_items_jq[j].addClass('inmap-' + status);						
-				
-				if(status == 'active') {
-					info_items_jq[j].get(0).scrollIntoView({
-						behavior: "smooth",
-						block: "nearest",
-						inline: "nearest" 
-					});
-				}
-			//Inactive				
-			} else {
-				info_items_jq[j].removeClass('inmap-' + status);			
+				//Remove classes
+				markers_jq[this_id].removeClass('inmap-' + update_status);
+				info_items_jq[this_id].removeClass('inmap-' + update_status);							
 			}
 		}
 	};
@@ -96,11 +89,16 @@ const inmap_create_map = function(map_hash = null, map_geojson = null) {
 			info_items_jq[id] = jQuery('<div />')
 				.addClass('inmap-info-item')
 				.html(feature.properties.description)
-				.on('mouseenter', function() {
-					update_point_status(id, 'hover');
-				})
+				.hover(
+					function() {
+						update_point_update_status(id, 'hover');
+					},
+					function() {
+						update_point_update_status(null, 'hover');
+					}
+				)
 				.on('click', function() {
-					update_point_status(id);
+					update_point_update_status(id);
 				})
 			;
 			info_jq.append(info_items_jq[id]);		
@@ -119,11 +117,17 @@ const inmap_create_map = function(map_hash = null, map_geojson = null) {
 			layer.on('add', function(e) {
 				//Accessible jQuery reference
 				markers_jq[id] = jQuery(e.target.getElement())
-					.on('mouseenter', function() {
-						update_point_status(id, 'hover');
-					})
+					.data('marker_l', e.target)
+					.hover(
+						function() {
+							update_point_update_status(id, 'hover');
+						},
+						function() {
+							update_point_update_status(null, 'hover');
+						}
+					)
 					.on('click', function() {
-						update_point_status(id);
+						update_point_update_status(id);
 					})
 				;
 			});
@@ -133,5 +137,4 @@ const inmap_create_map = function(map_hash = null, map_geojson = null) {
 	//Add
 	data_layer.addTo(map_l);
 	map_l.fitBounds(data_layer.getBounds());
-// 	map_l.setMaxBounds(data_layer.getBounds());
 };
