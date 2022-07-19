@@ -22,7 +22,7 @@ const inmap_create_map = function(map_hash = null, map_geojson = null) {
 	var markers_jq = {};
 	var infos_jq = {};
 
-	var update_point_update_status = function(update_id = null, update_status = 'active') {
+	var update_point_status = function(update_id = null, update_status = 'active') {
 		//Leaflet Markers
 		for(this_id in markers_l) {
 			//Update
@@ -30,12 +30,6 @@ const inmap_create_map = function(map_hash = null, map_geojson = null) {
 				//Add classes
 				markers_jq[this_id].addClass('inmap-' + update_status);		
 				infos_jq[this_id].addClass('inmap-' + update_status);						
-
-				//Scroll to info
-				infos_jq[this_id].get(0).scrollIntoView({
-					behavior: "smooth",
-					block: "center"
-				});
 
 				//Zoom only
 				if(update_status == 'zoom') {
@@ -45,6 +39,12 @@ const inmap_create_map = function(map_hash = null, map_geojson = null) {
 				
 				//Active only
 				if(update_status == 'active') {
+					//Scroll to info
+					infos_jq[this_id].get(0).scrollIntoView({
+						behavior: "smooth",
+						block: "center"
+					});
+				
 					//Center
 					map_l.setView(markers_l[this_id].getLatLng());
 				}
@@ -93,17 +93,17 @@ const inmap_create_map = function(map_hash = null, map_geojson = null) {
 				.html(feature.properties.description)
 				.hover(
 					function() {
-						update_point_update_status(id, 'hover');
+						update_point_status(id, 'hover');
 					},
 					function() {
-						update_point_update_status(null, 'hover');
+						update_point_status(null, 'hover');
 					}
 				)
 				.on('click', function() {
-					update_point_update_status(id, 'active');
+					update_point_status(id, 'active');
 				})
 				.on('dblclick', function() {
-					update_point_update_status(id, 'zoom');
+					update_point_status(id, 'zoom');
 				})				
 			;
 			info_jq.append(infos_jq[id]);		
@@ -123,16 +123,11 @@ const inmap_create_map = function(map_hash = null, map_geojson = null) {
 				//Accessible jQuery reference
 				markers_jq[id] = jQuery(e.target.getElement())
 					.data('marker_l', e.target)
-					.hover(
-						function() {
-							update_point_update_status(id, 'hover');
-						},
-						function() {
-							update_point_update_status(null, 'hover');
-						}
-					)
+					.on('mouseenter', function() {
+						update_point_status(id, 'hover');
+					})
 					.on('click', function() {
-						update_point_update_status(id);
+						update_point_status(id, 'active');
 					})
 				;
 			});

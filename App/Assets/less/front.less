@@ -5,21 +5,36 @@
 .inmap-wrap {
 	position: relative;
 	border: 1px solid blue;
+
+	//Map
 	.inmap-map {
 		position: relative;
 		min-height: 500px;
 		width: 66.66%;
 		border: 1px solid @inmap-grey-dark;
-	
+		
+		//Markers
 		.inmap-point {
 			text-align: center;
 			border-radius: 50%;
 			background: @inmap-primary;
+
+			span {
+				display: inline-block;
+				vertical-align: middle;				
+			}
 		
 			&.inmap-icon-message,
 			&.inmap-hover,
 			&.inmap-active {
-				z-index: +1000 !important;				
+				z-index: +1000 !important;			
+			}
+
+			&.inmap-hover,
+			&.inmap-active {
+				padding: 5px;
+				background: #fff;
+				border: 2px solid @inmap-primary;
 			}
 
 			&.inmap-icon-custom,
@@ -36,25 +51,13 @@
 				z-index: +2000 !important;				
 			}
 
-			&.inmap-icon-tracking {
-				background: green !important;
-			}
-
-			&.inmap-active {
-				background: red !important;
-				border-color: red !important;
-			}
-			
-			&.inmap-hover {
-				background: blue !important;
-				border-color: blue !important;
-			}
-					
-			span, img {
-				vertical-align: middle !important;
-			}		
+// 			&.inmap-icon-tracking {
+// 				background: @inmap-primary !important;
+// 			}
 		}
 	}
+	
+	//Info
 	.inmap-info {
 		position: absolute;
 		top: 0;
@@ -66,25 +69,42 @@
 		z-index: +1000 !important;
 		border-left: 1px solid @inmap-grey-dark;
 		overflow: scroll;
+		
+		//Info items
 		.inmap-info-item {
+			padding-left: 30px;
+			font-size: 13px;
+			background-color: #fff;
+			background-image: url(../img/location-gps.svg);
+			background-size: 15px;
+			background-position: center left;
+			background-repeat: no-repeat;
+			border-bottom: 1px solid @inmap-grey-dark;
+			
+			&:nth-child(odd) {
+				background-color: @inmap-grey-light;
+			}
+
 			table {
-				border: 1px solid red;
-				font-size: 13px;
 				tr {
 					display: none;
+					background: none;
 					&.joe-assoc_array-time {
 						display: table-row;
 					}
 				}
 			}
 			
-			&:hover,
-			&.inmap-hover,
+// 			&:hover,
+// 			&.inmap-hover,
+
+			&.inmap-hover {
+				background-color: @inmap-grey-dark;
+			}
+
 			&.inmap-active {
 				tr {
-					&.joe-assoc_array-event {
-						display: table-row;
-					}
+					display: table-row;
 				}
 			}
 
