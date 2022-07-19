@@ -22,9 +22,9 @@ const inmap_create_map = function(map_hash = null, map_geojson = null) {
 	var markers_l = {};
 	var markers_jq = {};
 	var info_items_jq = {};
-	
+
 	var update_point_status = function(id = null, status = 'active') {
-		console.log(id, status);
+// 		console.log(id, status);
 
 		//Leaflet Markers
 		for(i in markers_l) {
@@ -84,17 +84,13 @@ const inmap_create_map = function(map_hash = null, map_geojson = null) {
 			}
 			var id = feature.properties.id.toString();
 			
-			if(typeof feature.properties.style === 'object') {
-				var icon = L.divIcon(feature.properties.icon);
-				var marker_l = L.marker(latlng, {
-					icon: icon
+			if(typeof feature.properties.icon === 'object') {
+				markers_l[id] = L.marker(latlng, {
+					icon: L.divIcon(feature.properties.icon)
 				});		
 			} else {
-				var marker_l = L.marker(latlng);					
+				markers_l[id] = L.marker(latlng);					
 			}				
-			
-			//Access!
-			markers_l[id] = marker_l;
 
 			//Create Info Item
 			info_items_jq[id] = jQuery('<div />')
@@ -109,7 +105,7 @@ const inmap_create_map = function(map_hash = null, map_geojson = null) {
 			;
 			info_jq.append(info_items_jq[id]);		
 			
-			return marker_l;			
+			return markers_l[id];			
 		},
 		
 		//Events
