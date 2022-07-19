@@ -18,7 +18,29 @@ const inmap_create_map = function(map_hash = null, map_geojson = null) {
 	//UI
 	var wrap_jq = map_jq.parents('.inmap-wrap');
 	var info_jq = jQuery('.inmap-info', wrap_jq);
-	var markers_jq = {};
+
+	var markers_l = {};
+	var info_items_jq = {};
+	
+	var point_active = function(id = null) {
+		//Clear all
+		for(i in markers_l) {
+			var marker_jq = jQuery(markers_l[i].getElement());
+
+			if(i === id) {
+				marker_jq.addClass('inmap-active');		
+			} else {
+				marker_jq.removeClass('inmap-active');
+			}
+		}
+		for(j in info_items_jq) {
+			if(j === id) {
+				info_items_jq[j].addClass('inmap-active');						
+			} else {
+				info_items_jq[j].removeClass('inmap-active');			
+			}
+		}
+	};
 	
 	//Basemap
 	var tiles = L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
@@ -50,30 +72,28 @@ const inmap_create_map = function(map_hash = null, map_geojson = null) {
 			} else {
 				var marker_l = L.marker(latlng);					
 			}				
-
-			//Make accessible			
-			markers_jq[id] = jQuery(marker_l.getElement());
+			marker_l.on('click', function() {
+				point_active(id)
+			});
+			markers_l[id] = marker_l;
 			
-			//Create info item
-			info_jq.append(jQuery('<div />')
+			//Create Info Item
+			info_items_jq[id] = jQuery(jQuery('<div />')
 				.addClass('inmap-info-item')
 				.html(feature.properties.description)
-				.on('mouseenter', function() {
-					jQuery(this).addClass('inmap-hover');
-
-					//Remove active
-					jQuery('.inmap-point', map_jq).removeClass('inmap-active');
-		
-					//Add active
-					jQuery(marker_l.getElement()).addClass('inmap-active');
-				})
+				.hover(
+					//On
+					point_active(id),
+					//Off
+					point_active()
+				)
 				.on('click', function() {
-					jQuery(this).addClass('inmap-active');
+					point_active(id),
 					
 					map_l.setView(marker_l.getLatLng(), 14)
 				})
-
 			);
+			info_jq.append(info_items_jq[id]);		
 			
 			return marker_l;			
 		},
@@ -84,32 +104,7 @@ const inmap_create_map = function(map_hash = null, map_geojson = null) {
 	
 	//Add
 	data_layer.addTo(map_l);
-	
-	//Events
-	data_layer.on('click', function(e) {
-		var feature = e.layer.feature;
-		var target_jq = jQuery(e.originalEvent.target);
-		
-		//Description?
-		if(typeof feature.properties.description === 'string') {
-			//Get target
-			if(! target_jq.hasClass('inmap-point')) {
-				target_jq = target_jq.parents('inmap-point');		
-		
-				if(! target_jq.length) {
-					return false;
-				}
-			}
-			
-			var markers = jQuery('.inmap-point');
-			markers.removeClass('inmap-active');
-			
-			//
-			target_jq.addClass('inmap-active');			
- 			info_jq.html(feature.properties.description);
-		}		
-	});
-	
+
 	map_l.fitBounds(data_layer.getBounds());
-	map_l.setMaxBounds(data_layer.getBounds());
+// 	map_l.setMaxBounds(data_layer.getBounds());
 };
