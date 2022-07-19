@@ -18,6 +18,65 @@ const inmap_create_map = function(map_hash = null, map_geojson = null) {
 	//UI
 	var wrap_jq = map_jq.parents('.inmap-wrap');
 	var info_jq = jQuery('.inmap-info', wrap_jq);
+
+	var markers_l = {};
+	var markers_jq = {};
+	var info_items_jq = {};
+	
+	var update_point_status = function(id = null, status = 'active') {
+		console.log(id, status);
+
+		//Leaflet Markers
+		for(i in markers_l) {
+			if(typeof markers_jq[i] === 'undefined') {
+	 			markers_jq[i] = jQuery(markers_l[i]._icon)			
+					.data('id', i)
+	 				.hover(
+	 					function() {
+							update_point_status(jQuery(this).data('id'), 'hover');
+						},
+	 					function() {
+							update_point_status();
+						}
+					)						
+				;
+			}
+		
+			//Update
+			if(i === id) {
+				markers_jq[i].addClass('inmap-' + status);		
+				
+				if(status == 'active') {
+					//Center
+					map_l.setView(markers_l[i].getLatLng())				
+				}
+			//Inactive
+			} else {
+				markers_jq[i].removeClass('inmap-' + status);
+			}
+		}
+
+		//Info Area
+		for(j in info_items_jq) {
+			//Update
+			if(j === id) {
+				info_items_jq[j].addClass('inmap-' + status);						
+				
+				if(status == 'active') {
+					info_items_jq[j].get(0).scrollIntoView({
+						behavior: "smooth",
+						block: "nearest",
+						inline: "nearest" 
+					});
+				}
+			//Inactive				
+			} else {
+				info_items_jq[j].removeClass('inmap-' + status);			
+			}
+		}
+	};
+	//Init
+	update_point_status();
 	
 	//Basemap
 	var tiles = L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
@@ -36,53 +95,49 @@ const inmap_create_map = function(map_hash = null, map_geojson = null) {
 		
 		//Marker Icons
 		pointToLayer: function (feature, latlng) {
+			if(typeof feature.properties.id === 'undefined') {
+				return false;
+			}
+			var id = feature.properties.id.toString();
+			
 			if(typeof feature.properties.style === 'object') {
 				var icon = L.divIcon(feature.properties.icon);
-				return L.marker(latlng, {
+				var marker_l = L.marker(latlng, {
 					icon: icon
 				});		
 			} else {
-				return L.marker(latlng);					
+				var marker_l = L.marker(latlng);					
 			}				
+			marker_l.on('click', function() {
+				update_point_status(id)
+			});
+			
+			//Access!
+			markers_l[id] = marker_l;
+
+			//Create Info Item
+			info_items_jq[id] = jQuery('<div />')
+				.addClass('inmap-info-item')
+				.html(feature.properties.description)
+				.on('mouseenter', function() {
+					update_point_status(id, 'hover');
+				})
+				.on('click', function() {
+					update_point_status(id);
+				})
+			;
+			info_jq.append(info_items_jq[id]);		
+			
+			return marker_l;			
 		},
 		
 		//Events
-		onEachFeature: function(feature, layer) {
-			//Description?
-			if(typeof feature.properties.description === 'string') {
-			
-			}
-		}
+		onEachFeature: function(feature, layer) {}
 	});
 	
 	//Add
 	data_layer.addTo(map_l);
-	
-	//Events
-	data_layer.on('click', function(e) {
-		var feature = e.layer.feature;
-		var target_jq = jQuery(e.originalEvent.target);
-		
-		//Description?
-		if(typeof feature.properties.description === 'string') {
-			//Get target
-			if(! target_jq.hasClass('inmap-marker-icon')) {
-				target_jq = target_jq.parents('inmap-marker-icon');		
-		
-				if(! target_jq.length) {
-					return false;
-				}
-			}
-			
-			var markers = jQuery('.inmap-marker-icon');
-			markers.removeClass('inmap-active');
-			
-			//
-			target_jq.addClass('inmap-active');			
- 			info_jq.html(feature.properties.description);
-		}		
-	});
-	
+
 	map_l.fitBounds(data_layer.getBounds());
-	map_l.setMaxBounds(data_layer.getBounds());
+// 	map_l.setMaxBounds(data_layer.getBounds());
 };

@@ -14,10 +14,7 @@ Author URI: https://www.morehawes.co.uk/
 if(! class_exists('Joe_Config')) {
 	require_once('Joe/Joe.php');
 	
-	//Classes
-
 	//Helpers
-	require_once('App/Classes/InMap_Feed.php');
 	require_once('App/Classes/InMap_Inreach.php');
 	
 	//Core	

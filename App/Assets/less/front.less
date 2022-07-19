@@ -11,7 +11,7 @@
 		width: 66.66%;
 		border: 1px solid @inmap-grey-dark;
 	
-		.inmap-marker-icon {
+		.inmap-point {
 			text-align: center;
 			border-radius: 50%;
 			background: @inmap-primary;
@@ -20,8 +20,9 @@
 			&.inmap-active {
 				z-index: +1000 !important;				
 			}
-		
-			&.inmap-icon-message {
+
+			&.inmap-icon-custom,
+			&.inmap-icon-quick {
 				width: 25px !important;
 				height: 25px !important;		
 				text-align: center;
@@ -29,9 +30,23 @@
 				border: 2px solid @inmap-primary;
 			}
 
+			&.inmap-icon-custom {
+				border-color: blue !important;
+				z-index: +2000 !important;				
+			}
+
+			&.inmap-icon-tracking {
+				background: green !important;
+			}
+
 			&.inmap-active {
 				background: red !important;
 				border-color: red !important;
+			}
+			
+			&.inmap-hover {
+				background: blue !important;
+				border-color: blue !important;
 			}
 					
 			span, img {
@@ -50,8 +65,28 @@
 		z-index: +1000 !important;
 		border-left: 1px solid @inmap-grey-dark;
 		overflow: scroll;
-		table {
-			font-size: 13px;
+		.inmap-info-item {
+			table {
+				border: 1px solid red;
+				font-size: 13px;
+				tr {
+					display: none;
+					&.joe-assoc_array-time {
+						display: table-row;
+					}
+				}
+			}
+			
+			&:hover,
+			&.inmap-hover,
+			&.inmap-active {
+				tr {
+					&.joe-assoc_array-event {
+						display: table-row;
+					}
+				}
+			}
+
 		}
 // 		p {
 // 			font-size: 130%;

@@ -32,7 +32,7 @@ class InMap_Front extends Joe_Front {
 
 		//InMap CSS
 		Joe_Assets::css_inline('
-			.inmap-map .inmap-marker-icon {
+			.inmap-map .inmap-point {
 				background: ' . Joe_Config::get_setting('map', 'styles', 'tracking_colour') . ';
 			}
 		');
