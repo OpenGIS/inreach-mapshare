@@ -20,16 +20,31 @@ const inmap_create_map = function(map_hash = null, map_geojson = null) {
 	var info_jq = jQuery('.inmap-info', wrap_jq);
 
 	var markers_l = {};
+	var markers_jq = {};
 	var info_items_jq = {};
 	
-	var update_point_status = function(id, status = 'active') {
+	var update_point_status = function(id = null, status = 'active') {
+		console.log(id, status);
+
 		//Leaflet Markers
 		for(i in markers_l) {
-			var marker_jq = jQuery(markers_l[i].getElement());
-
+			if(typeof markers_jq[i] === 'undefined') {
+	 			markers_jq[i] = jQuery(markers_l[i]._icon)			
+					.data('id', i)
+	 				.hover(
+	 					function() {
+							update_point_status(jQuery(this).data('id'), 'hover');
+						},
+	 					function() {
+							update_point_status();
+						}
+					)						
+				;
+			}
+		
 			//Update
 			if(i === id) {
-				marker_jq.addClass('inmap-' + status);		
+				markers_jq[i].addClass('inmap-' + status);		
 				
 				if(status == 'active') {
 					//Center
@@ -37,7 +52,7 @@ const inmap_create_map = function(map_hash = null, map_geojson = null) {
 				}
 			//Inactive
 			} else {
-				marker_jq.removeClass('inmap-' + status);
+				markers_jq[i].removeClass('inmap-' + status);
 			}
 		}
 
@@ -47,17 +62,21 @@ const inmap_create_map = function(map_hash = null, map_geojson = null) {
 			if(j === id) {
 				info_items_jq[j].addClass('inmap-' + status);						
 				
-				info_items_jq[j].get(0).scrollIntoView({
-					behavior: "smooth",
-					block: "nearest",
-					inline: "nearest" 
-				});
+				if(status == 'active') {
+					info_items_jq[j].get(0).scrollIntoView({
+						behavior: "smooth",
+						block: "nearest",
+						inline: "nearest" 
+					});
+				}
 			//Inactive				
 			} else {
 				info_items_jq[j].removeClass('inmap-' + status);			
 			}
 		}
 	};
+	//Init
+	update_point_status();
 	
 	//Basemap
 	var tiles = L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
@@ -92,11 +111,10 @@ const inmap_create_map = function(map_hash = null, map_geojson = null) {
 			marker_l.on('click', function() {
 				update_point_status(id)
 			});
-			marker_l.on('mouseenter', function() {
-				update_point_status(id, 'hover')
-			});			
-			markers_l[id] = marker_l;
 			
+			//Access!
+			markers_l[id] = marker_l;
+
 			//Create Info Item
 			info_items_jq[id] = jQuery('<div />')
 				.addClass('inmap-info-item')
