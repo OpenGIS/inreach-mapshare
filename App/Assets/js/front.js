@@ -35,6 +35,7 @@ const inmap_create_map = function(map_hash = null, map_geojson = null) {
 				
 				switch(key) {
 					//GPS
+					case 'time_utc' :
 					case 'valid_gps_fix' :
 						tr.addClass('inmap-info-extended');
 

@@ -107,32 +107,34 @@
 // mask-size: 15px;
 
 
-
-
-
-
 			border-bottom: 1px solid @inmap-grey-dark;
 			
 			&:nth-child(odd) {
-// 				background-color: @inmap-grey-light;
+ 				background-color: @inmap-grey-light;
 			}
 
 			table {
-				border-left: 1px solid @inmap-primary;					
+				margin-left: 20px;
 				tr {
 					display: none;
 					background: none;
+ 					border-left: 1px solid @inmap-primary;					
+					&.joe-assoc_array-id {
+						display: none;
+					}
 					&.joe-assoc_array-time {
 						display: table-row;
 					}
 					th {
-						padding-left: 30px;									
+					}
+					td {
+					
 					}
 				}
 			}
 
 			&.inmap-hover {
-				background-color: @inmap-grey-light;
+				background-color: @inmap-grey-dark;
 			}
 
 			&.inmap-active {

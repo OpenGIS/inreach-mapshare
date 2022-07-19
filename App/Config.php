@@ -20,7 +20,7 @@ $config = [
 		'Time UTC',
 		'Time',
 // 		'Name',
-		'Map Display Name',
+//		'Map Display Name',
 // 		'Device Type',
 // 		'IMEI',
 // 		'Incident Id',

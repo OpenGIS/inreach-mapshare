@@ -223,18 +223,12 @@ class InMap_Inreach extends Joe_Class {
 
 // 					$Feature['properties']['icon']['html'] = Joe_Config::get_setting('map', 'styles', 'message_icon');
 					
-					//When
+					//Title
+					$title = $i . ' &ndash; ';
 					if(isset($Placemark->TimeStamp->when)) {
-						$title = (String)$Placemark->TimeStamp->when;
-						$title = str_replace([
-							'T',
-							'Z'
-						],
-						[
-							' ',
-							' (UTC) [#' . $i . ']'
-						], $title);
-						
+// 						$title = $i . ' &ndash; ' . Joe_Helper::time_ago();
+						Waymark_Helper::debug($Placemark->TimeStamp->when);
+										
 						$Feature['properties']['title'] = $title;
 					}
 

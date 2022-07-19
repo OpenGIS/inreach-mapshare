@@ -77,21 +77,25 @@
 .inmap-wrap .inmap-info .inmap-info-item.inmap-icon-message.inmap-icon-quick {
   background-image: url(../img/message-quick.svg);
 }
+.inmap-wrap .inmap-info .inmap-info-item:nth-child(odd) {
+  background-color: #f7f7f7;
+}
 .inmap-wrap .inmap-info .inmap-info-item table {
-  border-left: 1px solid #d93;
+  margin-left: 20px;
 }
 .inmap-wrap .inmap-info .inmap-info-item table tr {
   display: none;
   background: none;
+  border-left: 1px solid #d93;
+}
+.inmap-wrap .inmap-info .inmap-info-item table tr.joe-assoc_array-id {
+  display: none;
 }
 .inmap-wrap .inmap-info .inmap-info-item table tr.joe-assoc_array-time {
   display: table-row;
 }
-.inmap-wrap .inmap-info .inmap-info-item table tr th {
-  padding-left: 30px;
-}
 .inmap-wrap .inmap-info .inmap-info-item.inmap-hover {
-  background-color: #f7f7f7;
+  background-color: #ddd;
 }
 .inmap-wrap .inmap-info .inmap-info-item.inmap-active tr {
   display: table-row;
