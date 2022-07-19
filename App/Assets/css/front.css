@@ -62,9 +62,6 @@
   background-repeat: no-repeat;
   border-bottom: 1px solid #ddd;
 }
-.inmap-wrap .inmap-info .inmap-info-item:nth-child(odd) {
-  background-color: #f7f7f7;
-}
 .inmap-wrap .inmap-info .inmap-info-item table {
   border-left: 1px solid #d93;
 }
@@ -77,7 +74,7 @@
   display: table-row;
 }
 .inmap-wrap .inmap-info .inmap-info-item.inmap-hover {
-  background-color: #ddd;
+  background-color: #f7f7f7;
 }
 .inmap-wrap .inmap-info .inmap-info-item.inmap-active tr {
   display: table-row;

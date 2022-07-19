@@ -90,6 +90,7 @@ const inmap_create_map = function(map_hash = null, map_geojson = null) {
 			//Create Info Item
 			infos_jq[id] = jQuery('<div />')
 				.addClass('inmap-info-item')
+				.attr('title', feature.properties.title)
 				.html(feature.properties.description)
 				.hover(
 					function() {
@@ -122,6 +123,7 @@ const inmap_create_map = function(map_hash = null, map_geojson = null) {
 			layer.on('add', function(e) {
 				//Accessible jQuery reference
 				markers_jq[id] = jQuery(e.target.getElement())
+					.attr('title', feature.properties.title)
 					.data('marker_l', e.target)
 					.on('mouseenter', function() {
 						update_point_status(id, 'hover');
