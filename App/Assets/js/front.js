@@ -22,22 +22,39 @@ const inmap_create_map = function(map_hash = null, map_geojson = null) {
 	var markers_l = {};
 	var info_items_jq = {};
 	
-	var point_active = function(id = null) {
-		//Clear all
+	var update_point_status = function(id, status = 'active') {
+		//Leaflet Markers
 		for(i in markers_l) {
 			var marker_jq = jQuery(markers_l[i].getElement());
 
+			//Update
 			if(i === id) {
-				marker_jq.addClass('inmap-active');		
+				marker_jq.addClass('inmap-' + status);		
+				
+				if(status == 'active') {
+					//Center
+					map_l.setView(markers_l[i].getLatLng())				
+				}
+			//Inactive
 			} else {
-				marker_jq.removeClass('inmap-active');
+				marker_jq.removeClass('inmap-' + status);
 			}
 		}
+
+		//Info Area
 		for(j in info_items_jq) {
+			//Update
 			if(j === id) {
-				info_items_jq[j].addClass('inmap-active');						
+				info_items_jq[j].addClass('inmap-' + status);						
+				
+				info_items_jq[j].get(0).scrollIntoView({
+					behavior: "smooth",
+					block: "nearest",
+					inline: "nearest" 
+				});
+			//Inactive				
 			} else {
-				info_items_jq[j].removeClass('inmap-active');			
+				info_items_jq[j].removeClass('inmap-' + status);			
 			}
 		}
 	};
@@ -73,26 +90,24 @@ const inmap_create_map = function(map_hash = null, map_geojson = null) {
 				var marker_l = L.marker(latlng);					
 			}				
 			marker_l.on('click', function() {
-				point_active(id)
+				update_point_status(id)
 			});
+			marker_l.on('mouseenter', function() {
+				update_point_status(id, 'hover')
+			});			
 			markers_l[id] = marker_l;
 			
 			//Create Info Item
-			info_items_jq[id] = jQuery(jQuery('<div />')
+			info_items_jq[id] = jQuery('<div />')
 				.addClass('inmap-info-item')
 				.html(feature.properties.description)
-				.hover(
-					//On
-					point_active(id),
-					//Off
-					point_active()
-				)
-				.on('click', function() {
-					point_active(id),
-					
-					map_l.setView(marker_l.getLatLng(), 14)
+				.on('mouseenter', function() {
+					update_point_status(id, 'hover');
 				})
-			);
+				.on('click', function() {
+					update_point_status(id);
+				})
+			;
 			info_jq.append(info_items_jq[id]);		
 			
 			return marker_l;			

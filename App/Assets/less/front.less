@@ -43,6 +43,11 @@
 				background: red !important;
 				border-color: red !important;
 			}
+			
+			&.inmap-hover {
+				background: blue !important;
+				border-color: blue !important;
+			}
 					
 			span, img {
 				vertical-align: middle !important;
@@ -75,7 +80,9 @@
 			&:hover,
 			&.inmap-active {
 				tr {
-					display: table-row;
+					&.joe-assoc_array-event {
+						display: table-row;
+					}
 				}
 			}
 
