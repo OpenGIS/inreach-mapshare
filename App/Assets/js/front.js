@@ -34,8 +34,7 @@ const inmap_create_map = function(map_hash = null, map_geojson = null) {
 				//Scroll to info
 				infos_jq[this_id].get(0).scrollIntoView({
 					behavior: "smooth",
-					block: "nearest",
-					inline: "nearest" 
+					block: "center"
 				});
 				
 				//Active only
