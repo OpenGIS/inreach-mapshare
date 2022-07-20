@@ -226,9 +226,9 @@ class InMap_Inreach extends Joe_Class {
 					}
 					
 					//Valid GPS
-// 					if(isset($extended_data['Valid GPS Fix']) && 'True' === $extended_data['Valid GPS Fix']) {
-// 						$Feature['properties']['icon']['className'] .= ' inmap-icon inmap-icon-gps';
-// 					}
+					if(isset($extended_data['Valid GPS Fix']) && 'True' === $extended_data['Valid GPS Fix']) {
+						$Feature['properties']['icon']['className'] .= ' inmap-icon inmap-icon-gps';
+					}
 					
 					//By event
 					if(isset($extended_data['Event'])) {

@@ -12,14 +12,15 @@
 	.inmap-icon {
 		width: 20px;
 		height: 20px;
-		background-size: 20px;
-		background-repeat: no-repeat;
-		background-position: center; 		
-		background-image: url(../img/location.svg);			
+		mask-size: 20px;
+		background-color: @inmap-primary;
+// 		background-repeat: no-repeat;
+		mask-position: center; 		
+		mask-image: url(../img/location.svg);			
 		
 		//GPS
 		&.inmap-icon-gps {
-			background-image: url(../img/location-gps.svg);			
+			mask-image: url(../img/location-gps.svg);			
 		}
 	
 		//Messages
@@ -28,11 +29,11 @@
 
 			z-index: +1000;		
 		
-			background-image: url(../img/message.svg);
+			mask-image: url(../img/message.svg);
 			
 			//Quick
 			&.inmap-icon-quick {
-				background-image: url(../img/message-quick.svg);				
+				mask-image: url(../img/message-quick.svg);				
 			}
 	
 			//Custom	
@@ -41,7 +42,7 @@
 
 				border: 1px solid green;
 
-				background-image: url(../img/message-custom.svg);				
+				mask-image: url(../img/message-custom.svg);				
 			}
 		}
 	}
@@ -58,7 +59,8 @@
 		.inmap-point {
 			text-align: center;
 			border-radius: 50%;
-			background: @inmap-primary;
+			background: #fff;
+			mask-size: 10px;
 
 			span {
 				display: inline-block;
@@ -180,6 +182,10 @@
 			//Active
 			&.inmap-active {
 				cursor: unset;
+				
+				.inmap-icon {
+					background: #fff;
+				}
 
 				.inmap-info-title {
 					margin-bottom: 5px;

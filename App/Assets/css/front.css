@@ -5,26 +5,26 @@
 .inmap-wrap .inmap-icon {
   width: 20px;
   height: 20px;
-  background-size: 20px;
-  background-repeat: no-repeat;
-  background-position: center;
-  background-image: url(../img/location.svg);
+  mask-size: 20px;
+  background-color: #d93;
+  mask-position: center;
+  mask-image: url(../img/location.svg);
 }
 .inmap-wrap .inmap-icon.inmap-icon-gps {
-  background-image: url(../img/location-gps.svg);
+  mask-image: url(../img/location-gps.svg);
 }
 .inmap-wrap .inmap-icon.inmap-icon-message {
   border: 1px solid blue;
   z-index: 1000;
-  background-image: url(../img/message.svg);
+  mask-image: url(../img/message.svg);
 }
 .inmap-wrap .inmap-icon.inmap-icon-message.inmap-icon-quick {
-  background-image: url(../img/message-quick.svg);
+  mask-image: url(../img/message-quick.svg);
 }
 .inmap-wrap .inmap-icon.inmap-icon-message.inmap-icon-custom {
   z-index: 2000 !important;
   border: 1px solid green;
-  background-image: url(../img/message-custom.svg);
+  mask-image: url(../img/message-custom.svg);
 }
 .inmap-wrap .inmap-map {
   position: relative;
@@ -35,7 +35,8 @@
 .inmap-wrap .inmap-map .inmap-point {
   text-align: center;
   border-radius: 50%;
-  background: #d93;
+  background: #fff;
+  mask-size: 10px;
 }
 .inmap-wrap .inmap-map .inmap-point span {
   display: inline-block;
@@ -127,6 +128,9 @@
 }
 .inmap-wrap .inmap-info .inmap-info-item.inmap-active {
   cursor: unset;
+}
+.inmap-wrap .inmap-info .inmap-info-item.inmap-active .inmap-icon {
+  background: #fff;
 }
 .inmap-wrap .inmap-info .inmap-info-item.inmap-active .inmap-info-title {
   margin-bottom: 5px;
