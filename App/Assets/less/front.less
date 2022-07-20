@@ -86,6 +86,16 @@
 			background-position-y: center;
 			background-repeat: no-repeat;
 
+			&.inmap-active {
+				.inmap-info-desc {
+					table {
+						tr {
+							display: table-row;
+						}
+					}
+				}
+			}
+
 			&.inmap-hide-extended {
 				.inmap-info-extended {
 					display: none;
@@ -110,12 +120,6 @@
 				background-color: @inmap-grey-dark;
 			}
 
-			&.inmap-active {
-				tr {
-					display: table-row;
-				}
-			}
-
 			//Description
 			.inmap-info-desc {	
 // 				background-color: @inmap-primary;
@@ -137,9 +141,6 @@
 						background: none;
 						&.joe-assoc_array-id {
 							display: none;
-						}
-						&.joe-assoc_array-time {
-							display: table-row;
 						}
 						th {
 						}

@@ -137,7 +137,7 @@ class InMap_Inreach extends Joe_Class {
 				
 				if($Placemark->Point->coordinates) {
 					//Title
-					$title = $i . '/' . $kml_point_count;
+					$title = $i + 1 . '/' . $kml_point_count;
 					if(isset($Placemark->TimeStamp->when)) {
 						$title .= ' - ' . Joe_Helper::time_ago(strtotime($Placemark->TimeStamp->when));						
 					}

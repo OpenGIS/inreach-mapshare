@@ -65,6 +65,9 @@
   background-position-y: center;
   background-repeat: no-repeat;
 }
+.inmap-wrap .inmap-info .inmap-info-item.inmap-active .inmap-info-desc table tr {
+  display: table-row;
+}
 .inmap-wrap .inmap-info .inmap-info-item.inmap-hide-extended .inmap-info-extended {
   display: none;
 }
@@ -83,9 +86,6 @@
 .inmap-wrap .inmap-info .inmap-info-item.inmap-hover {
   background-color: #ddd;
 }
-.inmap-wrap .inmap-info .inmap-info-item.inmap-active tr {
-  display: table-row;
-}
 .inmap-wrap .inmap-info .inmap-info-item .inmap-info-desc {
   margin-left: 20px;
   border-left: 1px solid #d93;
@@ -99,7 +99,4 @@
 }
 .inmap-wrap .inmap-info .inmap-info-item .inmap-info-desc table tr.joe-assoc_array-id {
   display: none;
-}
-.inmap-wrap .inmap-info .inmap-info-item .inmap-info-desc table tr.joe-assoc_array-time {
-  display: table-row;
 }
