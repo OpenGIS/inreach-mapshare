@@ -9,63 +9,42 @@
 	//Common
 
 	//Icons
-
-	//GPS
-	.inmap-icon-gps {
-		//Markers
-		.inmap-point {
-			background-image: url(../img/location-gps.svg);			
-		}
+	.inmap-icon {
+		width: 20px;
+		height: 20px;
+		background-size: 20px;
+		background-repeat: no-repeat;
+		background-position: center; 		
+		background-image: url(../img/location.svg);			
 		
-		//Info
-		.inmap-info-icon {
-			width: 20px;
-			height: 20px;
-			background-size: 20px;
-			background-repeat: no-repeat;
-			background-position: center; 
+		//GPS
+		&.inmap-icon-gps {
 			background-image: url(../img/location-gps.svg);			
 		}
-	}
 	
-	//Quick & Custom
-	.inmap-icon-message {
-		z-index: +1000;			
-		&.inmap-icon-custom,
-		&.inmap-icon-quick {
-			//Markers
-			.inmap-point {
-				width: 25px !important;
-				height: 25px !important;		
-				text-align: center;
-				background: #fff;
-				border: 2px solid @inmap-primary;
+		//Messages
+		&.inmap-icon-message {
+			border: 1px solid blue;
+
+			z-index: +1000;		
+		
+			background-image: url(../img/message.svg);
+			
+			//Quick
+			&.inmap-icon-quick {
+				background-image: url(../img/message-quick.svg);				
 			}
-		}
 	
-		//Custom	
-		&.inmap-icon-custom {
-			//Markers
-			.inmap-point {	
-				border-color: blue !important;
+			//Custom	
+			&.inmap-icon-custom {
 				z-index: +2000 !important;				
+
+				border: 1px solid green;
+
+				background-image: url(../img/message-custom.svg);				
 			}
 		}
 	}
-// 			&.inmap-icon-tracking {
-// 				background: @inmap-primary !important;
-// 			}
-
-// 	.inmap-icon-message {
-// 		background-image: url(../img/message.svg);
-// 		.inmap-icon-custom {
-// 			background-image: url(../img/message-custom.svg);				
-// 		}
-// 		.inmap-icon-quick {
-// 			background-image: url(../img/message-quick.svg);				
-// 		}				
-// 	}
-
 
 	//Map
 	.inmap-map {
@@ -123,33 +102,24 @@
 			background-color: @inmap-grey-light;
 		}
 
-		//Icons
-		.inmap-info-icon {
-			position: absolute;
-			top: 15px;
-			left: 15px;
-			width: 30px;
-			height: 30px;
-			border: 1px solid red;
-		}
-		
 		//Info items
 		.inmap-info-item {
 			position: relative;
-			padding-left: 15px;
- 			font-size: 11px;
+			padding-left: 0;
+ 			font-size: 12px;
 			border-bottom: 1px solid @inmap-grey-dark;
-			background-color: #fff;
-			background-image: url(../img/location.svg);
-			background-size: 15px;
-			background-position-x: 8px;
-			background-position-y: 8px;
-			background-repeat: no-repeat;
+	
+			.inmap-icon {
+				position: absolute;
+				top: 7.5px;
+				left: 7.5px;
+			}
 
 			//Description
 			.inmap-info-desc {	
-				padding: 5px 15px;
-				margin-left: 20px;
+				padding: 8px 15px;
+				min-height: 35px;
+				margin-left: 17.5px;
 				border-left: 1px solid @inmap-primary;					
 				.inmap-info-title {	
 					span {
@@ -184,7 +154,8 @@
 			&.inmap-last {
 				background-color: @inmap-primary !important;		
 				color: #fff;
-				.inmap-info-desc {	
+				.inmap-info-desc {
+					padding-top: 2px;	
 					border-color: #fff;				
 					.inmap-info-title {
 						font-size: 13px;
