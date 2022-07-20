@@ -92,7 +92,12 @@
 			}
 
 			&.inmap-hover {
-				cursor: pointer;				
+				cursor: pointer;
+				.inmap-info-title {
+					span {
+						color: unset !important;
+					}								
+				}
 			}
 
 			&.inmap-active {
@@ -110,23 +115,31 @@
 			
 				&.inmap-hide-extended {
 					cursor: help;
+					.inmap-info-desc {
+						&::after {
+							content: '[+]';
+							display: block;
+							text-align: center;
+							color: @inmap-primary;						
+						}
 				
-					th {
-						width: 80px;
-// 						display: none !important;
-					}
+						th {
+							width: 80px;
+	// 						display: none !important;
+						}
 					
-					th, td {
-						padding: 3px 0 !important;
-					}
+						th, td {
+							padding: 3px 0 !important;
+						}
 
-					tr.joe-assoc_array-elevation,
-					tr.joe-assoc_array-velocity,
-					tr.joe-assoc_array-valid_gps_fix,
-// 					tr.joe-assoc_array-event,
-					tr.joe-assoc_array-time_utc {
-						display: none !important;
-					}		
+						tr.joe-assoc_array-elevation,
+						tr.joe-assoc_array-velocity,
+						tr.joe-assoc_array-valid_gps_fix,
+	// 					tr.joe-assoc_array-event,
+						tr.joe-assoc_array-time_utc {
+							display: none !important;
+						}		
+					}
 				}
 
 				.inmap-info-desc {
@@ -134,6 +147,7 @@
 						margin-bottom: 5px;
 						padding-bottom: 5px;
 						border-bottom: 1px solid @inmap-primary;		
+						
 						span {
 							float: right;
 						}			

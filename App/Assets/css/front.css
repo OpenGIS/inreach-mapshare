@@ -72,6 +72,9 @@
 .inmap-wrap .inmap-info .inmap-info-item.inmap-hover {
   cursor: pointer;
 }
+.inmap-wrap .inmap-info .inmap-info-item.inmap-hover .inmap-info-title span {
+  color: unset !important;
+}
 .inmap-wrap .inmap-info .inmap-info-item.inmap-active {
   cursor: unset;
 }
@@ -86,17 +89,23 @@
 .inmap-wrap .inmap-info .inmap-info-item.inmap-active.inmap-hide-extended {
   cursor: help;
 }
-.inmap-wrap .inmap-info .inmap-info-item.inmap-active.inmap-hide-extended th {
+.inmap-wrap .inmap-info .inmap-info-item.inmap-active.inmap-hide-extended .inmap-info-desc::after {
+  content: '[+]';
+  display: block;
+  text-align: center;
+  color: #d93;
+}
+.inmap-wrap .inmap-info .inmap-info-item.inmap-active.inmap-hide-extended .inmap-info-desc th {
   width: 80px;
 }
-.inmap-wrap .inmap-info .inmap-info-item.inmap-active.inmap-hide-extended th,
-.inmap-wrap .inmap-info .inmap-info-item.inmap-active.inmap-hide-extended td {
+.inmap-wrap .inmap-info .inmap-info-item.inmap-active.inmap-hide-extended .inmap-info-desc th,
+.inmap-wrap .inmap-info .inmap-info-item.inmap-active.inmap-hide-extended .inmap-info-desc td {
   padding: 3px 0 !important;
 }
-.inmap-wrap .inmap-info .inmap-info-item.inmap-active.inmap-hide-extended tr.joe-assoc_array-elevation,
-.inmap-wrap .inmap-info .inmap-info-item.inmap-active.inmap-hide-extended tr.joe-assoc_array-velocity,
-.inmap-wrap .inmap-info .inmap-info-item.inmap-active.inmap-hide-extended tr.joe-assoc_array-valid_gps_fix,
-.inmap-wrap .inmap-info .inmap-info-item.inmap-active.inmap-hide-extended tr.joe-assoc_array-time_utc {
+.inmap-wrap .inmap-info .inmap-info-item.inmap-active.inmap-hide-extended .inmap-info-desc tr.joe-assoc_array-elevation,
+.inmap-wrap .inmap-info .inmap-info-item.inmap-active.inmap-hide-extended .inmap-info-desc tr.joe-assoc_array-velocity,
+.inmap-wrap .inmap-info .inmap-info-item.inmap-active.inmap-hide-extended .inmap-info-desc tr.joe-assoc_array-valid_gps_fix,
+.inmap-wrap .inmap-info .inmap-info-item.inmap-active.inmap-hide-extended .inmap-info-desc tr.joe-assoc_array-time_utc {
   display: none !important;
 }
 .inmap-wrap .inmap-info .inmap-info-item.inmap-active .inmap-info-desc .inmap-info-title {
