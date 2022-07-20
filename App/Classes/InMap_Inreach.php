@@ -136,10 +136,34 @@ class InMap_Inreach extends Joe_Class {
 				// =========== Point ===========
 				
 				if($Placemark->Point->coordinates) {
+					//Coordinates
+					$coordinates = explode(',', (String)$Placemark->Point->coordinates);																
+
+					//Invalid
+					if(sizeof($coordinates) < 2 || sizeof($coordinates) > 3) {
+						continue;						
+					}
+					
+					$Feature['geometry']['type'] = 'Point';
+					$Feature['geometry']['coordinates'] = $coordinates;
+
+					//Style
+					$Feature['properties']['icon'] = [
+						'className' => 'inmap-point',
+						'iconSize' => [ 7, 7 ],
+						'html' => '<span></span>'
+					];
+					
+					//First
+					if(! $i) {
+						//Active
+						$Feature['properties']['icon']['className'] .= ' inmap-active';
+					}					
+					
 					//Title
-					$title = $i + 1 . '/' . $kml_point_count;
+					$title = '[' . ($i + 1) . '/' . $kml_point_count . ']';
 					if(isset($Placemark->TimeStamp->when)) {
-						$title .= ' - ' . Joe_Helper::time_ago(strtotime($Placemark->TimeStamp->when));						
+						$title .= Joe_Helper::time_ago(strtotime($Placemark->TimeStamp->when));						
 					}
 					$Feature['properties']['title'] = $title;
 				
@@ -161,44 +185,31 @@ class InMap_Inreach extends Joe_Class {
 										case 'Id' :
 											$Feature['properties']['id'] = $value;
 
+											$extended_data[$key] = $value;																
+
+											break;
+										case 'Id' :
+											$Feature['properties']['id'] = $value;
+
+											$extended_data[$key] = $value;																
+
+											break;
+										case 'Text' :
+											//Skip empty text
+											if(! empty($value)) {
+												$extended_data[$key] = $value;																
+											}
+
+											break;
+										default :
+											$extended_data[$key] = $value;																
+
 											break;
 									}
-						
-									//Store
-									$extended_data[$key] = $value;																
 								}								
-							}
-						
-							//Description
-							$description = '<div class="inmap-info-desc">';
-							$description .= '<div class="inmap-info-title">' . $Feature['properties']['title'] . '</div>';
-						
-							//We have data														
-							if(sizeof($extended_data)) {
-								$description .= Joe_Helper::assoc_array_table($extended_data);
-							}
-							$description .= '</div>';
-
-							$Feature['properties']['description'] = $description;
+							}						
 						}
 					}
-				
-					$coordinates = explode(',', (String)$Placemark->Point->coordinates);													
-					
-					//Invalid
-					if(sizeof($coordinates) < 2 || sizeof($coordinates) > 3) {
-						continue;						
-					}
-					
-					$Feature['geometry']['type'] = 'Point';
-					$Feature['geometry']['coordinates'] = $coordinates;
-
-					//Style
-					$Feature['properties']['icon'] = [
-						'className' => 'inmap-point',
-						'iconSize' => [ 7, 7 ],
-						'html' => '<span></span>'
-					];						
 					
 					//Valid GPS
 					if(isset($extended_data['Valid GPS Fix']) && 'True' === $extended_data['Valid GPS Fix']) {
@@ -231,7 +242,19 @@ class InMap_Inreach extends Joe_Class {
 //  								Joe_Helper::debug($extended_data);
 // 							
 // 								break;									
-						}										
+						}
+
+						//Description
+						$description = '<div class="inmap-info-desc">';
+						$description .= '<div class="inmap-info-title">' . $Feature['properties']['title'] . '</div>';
+					
+						//We have data														
+						if(sizeof($extended_data)) {
+							$description .= Joe_Helper::assoc_array_table($extended_data);
+						}
+						$description .= '</div>';
+
+						$Feature['properties']['description'] = $description;																
 					}
 
 // 					$Feature['properties']['icon']['html'] = Joe_Config::get_setting('map', 'styles', 'message_icon');

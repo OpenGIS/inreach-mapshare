@@ -24,23 +24,27 @@ const inmap_create_map = function(map_hash = null, map_geojson = null) {
 	
 	var setup_info = function() {
 		for(id in infos_jq) {
+			var title_jq = jQuery('.inmap-info-title', infos_jq[id]);
+			var title_html = title_jq.text().replace('[', '<span>').replace(']', '</span>');
+			title_jq.html(title_html);
+			
 			infos_jq[id].addClass('inmap-hide-extended');
 
 			jQuery('table tr', infos_jq[id]).each(function() {
 				var tr = jQuery(this);
 				var td = jQuery('td', tr);
-				jQuery('th', tr).addClass('inmap-info-extended');
+// 				jQuery('th', tr).addClass('inmap-info-extended');
 				var key = tr.attr('class').replace('joe-assoc_array-', '');
 				var value = td.text();
 				
-				switch(key) {
-					//GPS
-					case 'time_utc' :
-					case 'valid_gps_fix' :
-						tr.addClass('inmap-info-extended');
-
-						break;
-				}
+// 				switch(key) {
+// 					//GPS
+// 					case 'time_utc' :
+// 					case 'valid_gps_fix' :
+// 						tr.addClass('inmap-info-extended');
+// 
+// 						break;
+// 				}
 				
 			});
 		}

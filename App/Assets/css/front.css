@@ -56,7 +56,7 @@
 }
 .inmap-wrap .inmap-info .inmap-info-item {
   padding-left: 15px;
-  font-size: 13px;
+  font-size: 11px;
   border-bottom: 1px solid #ddd;
   background-color: #fff;
   background-image: url(../img/location.svg);
@@ -65,11 +65,54 @@
   background-position-y: center;
   background-repeat: no-repeat;
 }
+.inmap-wrap .inmap-info .inmap-info-item.inmap-active,
+.inmap-wrap .inmap-info .inmap-info-item.inmap-hover {
+  background-color: #ddd;
+}
+.inmap-wrap .inmap-info .inmap-info-item.inmap-hover {
+  cursor: pointer;
+}
+.inmap-wrap .inmap-info .inmap-info-item.inmap-active {
+  cursor: unset;
+}
+.inmap-wrap .inmap-info .inmap-info-item.inmap-active .inmap-info-title {
+  margin-bottom: 5px;
+  padding-bottom: 5px;
+  border-bottom: 1px solid #d93;
+}
+.inmap-wrap .inmap-info .inmap-info-item.inmap-active .inmap-info-title span {
+  color: #fff !important;
+}
+.inmap-wrap .inmap-info .inmap-info-item.inmap-active.inmap-hide-extended {
+  cursor: help;
+}
+.inmap-wrap .inmap-info .inmap-info-item.inmap-active.inmap-hide-extended th {
+  width: 80px;
+}
+.inmap-wrap .inmap-info .inmap-info-item.inmap-active.inmap-hide-extended th,
+.inmap-wrap .inmap-info .inmap-info-item.inmap-active.inmap-hide-extended td {
+  padding: 3px 0 !important;
+}
+.inmap-wrap .inmap-info .inmap-info-item.inmap-active.inmap-hide-extended tr.joe-assoc_array-elevation,
+.inmap-wrap .inmap-info .inmap-info-item.inmap-active.inmap-hide-extended tr.joe-assoc_array-velocity,
+.inmap-wrap .inmap-info .inmap-info-item.inmap-active.inmap-hide-extended tr.joe-assoc_array-valid_gps_fix,
+.inmap-wrap .inmap-info .inmap-info-item.inmap-active.inmap-hide-extended tr.joe-assoc_array-time_utc {
+  display: none !important;
+}
+.inmap-wrap .inmap-info .inmap-info-item.inmap-active .inmap-info-desc .inmap-info-title {
+  margin-bottom: 5px;
+  padding-bottom: 5px;
+  border-bottom: 1px solid #d93;
+}
+.inmap-wrap .inmap-info .inmap-info-item.inmap-active .inmap-info-desc .inmap-info-title span {
+  float: right;
+}
 .inmap-wrap .inmap-info .inmap-info-item.inmap-active .inmap-info-desc table tr {
   display: table-row;
 }
-.inmap-wrap .inmap-info .inmap-info-item.inmap-hide-extended .inmap-info-extended {
-  display: none;
+.inmap-wrap .inmap-info .inmap-info-item.inmap-active .inmap-info-desc table tr th,
+.inmap-wrap .inmap-info .inmap-info-item.inmap-active .inmap-info-desc table tr td {
+  padding: 5px 0;
 }
 .inmap-wrap .inmap-info .inmap-info-item.inmap-icon-gps {
   background-image: url(../img/location-gps.svg);
@@ -83,15 +126,17 @@
 .inmap-wrap .inmap-info .inmap-info-item.inmap-icon-message.inmap-icon-quick {
   background-image: url(../img/message-quick.svg);
 }
-.inmap-wrap .inmap-info .inmap-info-item.inmap-hover {
-  background-color: #ddd;
-}
 .inmap-wrap .inmap-info .inmap-info-item .inmap-info-desc {
+  padding: 5px 15px;
   margin-left: 20px;
   border-left: 1px solid #d93;
 }
+.inmap-wrap .inmap-info .inmap-info-item .inmap-info-desc .inmap-info-title span {
+  float: right;
+  color: #ddd;
+}
 .inmap-wrap .inmap-info .inmap-info-item .inmap-info-desc .inmap-info-title {
-  color: red;
+  font-weight: bold;
 }
 .inmap-wrap .inmap-info .inmap-info-item .inmap-info-desc table tr {
   display: none;
