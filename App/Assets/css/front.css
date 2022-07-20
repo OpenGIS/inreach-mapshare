@@ -87,7 +87,7 @@
   color: #fff !important;
 }
 .inmap-wrap .inmap-info .inmap-info-item.inmap-active.inmap-hide-extended {
-  cursor: help;
+  cursor: pointer;
 }
 .inmap-wrap .inmap-info .inmap-info-item.inmap-active.inmap-hide-extended .inmap-info-desc::after {
   content: '[+]';

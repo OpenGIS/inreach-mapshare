@@ -51,6 +51,8 @@ const inmap_create_map = function(map_hash = null, map_geojson = null) {
 	};
 
 	var update_point_status = function(update_id = null, update_status = 'active') {
+		var expand_zoom_level = 14;
+		
 		//Leaflet Markers
 		for(this_id in markers_l) {
 			//Update
@@ -60,8 +62,13 @@ const inmap_create_map = function(map_hash = null, map_geojson = null) {
 					//Show extended info
 					infos_jq[this_id].removeClass('inmap-hide-extended');
 					
-					//Center & Zoom
-					map_l.setView(markers_l[this_id].getLatLng(), 14);
+					//Zoom in & center?
+					if(map_l.getZoom() < expand_zoom_level) {
+						map_l.setView(markers_l[this_id].getLatLng(), expand_zoom_level);
+					//Just center
+					} else {
+						map_l.setView(markers_l[this_id].getLatLng());					
+					}
 				//Add classes
 				} else {
 					markers_jq[this_id].addClass('inmap-' + update_status);		
