@@ -2,6 +2,32 @@
   position: relative;
   border: 1px solid blue;
 }
+.inmap-wrap .inmap-icon-gps .inmap-point {
+  background-image: url(../img/location-gps.svg);
+}
+.inmap-wrap .inmap-icon-gps .inmap-info-icon {
+  width: 20px;
+  height: 20px;
+  background-size: 20px;
+  background-repeat: no-repeat;
+  background-position: center;
+  background-image: url(../img/location-gps.svg);
+}
+.inmap-wrap .inmap-icon-message {
+  z-index: 1000;
+}
+.inmap-wrap .inmap-icon-message.inmap-icon-custom .inmap-point,
+.inmap-wrap .inmap-icon-message.inmap-icon-quick .inmap-point {
+  width: 25px !important;
+  height: 25px !important;
+  text-align: center;
+  background: #fff;
+  border: 2px solid #d93;
+}
+.inmap-wrap .inmap-icon-message.inmap-icon-custom .inmap-point {
+  border-color: blue !important;
+  z-index: 2000 !important;
+}
 .inmap-wrap .inmap-map {
   position: relative;
   min-height: 500px;
@@ -17,10 +43,9 @@
   display: inline-block;
   vertical-align: middle;
 }
-.inmap-wrap .inmap-map .inmap-point.inmap-icon-message,
 .inmap-wrap .inmap-map .inmap-point.inmap-hover,
 .inmap-wrap .inmap-map .inmap-point.inmap-active {
-  z-index: 1000 !important;
+  z-index: 1000;
 }
 .inmap-wrap .inmap-map .inmap-point.inmap-hover,
 .inmap-wrap .inmap-map .inmap-point.inmap-active {
@@ -30,18 +55,6 @@
   height: 15px !important;
   background: #fff;
   border: 2px solid #d93;
-}
-.inmap-wrap .inmap-map .inmap-point.inmap-icon-custom,
-.inmap-wrap .inmap-map .inmap-point.inmap-icon-quick {
-  width: 25px !important;
-  height: 25px !important;
-  text-align: center;
-  background: #fff;
-  border: 2px solid #d93;
-}
-.inmap-wrap .inmap-map .inmap-point.inmap-icon-custom {
-  border-color: blue !important;
-  z-index: 2000 !important;
 }
 .inmap-wrap .inmap-info {
   position: absolute;
@@ -57,7 +70,16 @@
 .inmap-wrap .inmap-info:nth-child(odd) {
   background-color: #f7f7f7;
 }
+.inmap-wrap .inmap-info .inmap-info-icon {
+  position: absolute;
+  top: 15px;
+  left: 15px;
+  width: 30px;
+  height: 30px;
+  border: 1px solid red;
+}
 .inmap-wrap .inmap-info .inmap-info-item {
+  position: relative;
   padding-left: 15px;
   font-size: 11px;
   border-bottom: 1px solid #ddd;
@@ -158,16 +180,4 @@
 .inmap-wrap .inmap-info .inmap-info-item.inmap-active .inmap-info-desc table tr th,
 .inmap-wrap .inmap-info .inmap-info-item.inmap-active .inmap-info-desc table tr td {
   padding: 5px 0;
-}
-.inmap-wrap .inmap-info .inmap-info-item.inmap-icon-gps {
-  background-image: url(../img/location-gps.svg);
-}
-.inmap-wrap .inmap-info .inmap-info-item.inmap-icon-message {
-  background-image: url(../img/message.svg);
-}
-.inmap-wrap .inmap-info .inmap-info-item.inmap-icon-message.inmap-icon-custom {
-  background-image: url(../img/message-custom.svg);
-}
-.inmap-wrap .inmap-info .inmap-info-item.inmap-icon-message.inmap-icon-quick {
-  background-image: url(../img/message-quick.svg);
 }

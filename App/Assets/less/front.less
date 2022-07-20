@@ -6,6 +6,67 @@
 	position: relative;
 	border: 1px solid blue;
 
+	//Common
+
+	//Icons
+
+	//GPS
+	.inmap-icon-gps {
+		//Markers
+		.inmap-point {
+			background-image: url(../img/location-gps.svg);			
+		}
+		
+		//Info
+		.inmap-info-icon {
+			width: 20px;
+			height: 20px;
+			background-size: 20px;
+			background-repeat: no-repeat;
+			background-position: center; 
+			background-image: url(../img/location-gps.svg);			
+		}
+	}
+	
+	//Quick & Custom
+	.inmap-icon-message {
+		z-index: +1000;			
+		&.inmap-icon-custom,
+		&.inmap-icon-quick {
+			//Markers
+			.inmap-point {
+				width: 25px !important;
+				height: 25px !important;		
+				text-align: center;
+				background: #fff;
+				border: 2px solid @inmap-primary;
+			}
+		}
+	
+		//Custom	
+		&.inmap-icon-custom {
+			//Markers
+			.inmap-point {	
+				border-color: blue !important;
+				z-index: +2000 !important;				
+			}
+		}
+	}
+// 			&.inmap-icon-tracking {
+// 				background: @inmap-primary !important;
+// 			}
+
+// 	.inmap-icon-message {
+// 		background-image: url(../img/message.svg);
+// 		.inmap-icon-custom {
+// 			background-image: url(../img/message-custom.svg);				
+// 		}
+// 		.inmap-icon-quick {
+// 			background-image: url(../img/message-quick.svg);				
+// 		}				
+// 	}
+
+
 	//Map
 	.inmap-map {
 		position: relative;
@@ -25,10 +86,10 @@
 				vertical-align: middle;				
 			}
 		
-			&.inmap-icon-message,
 			&.inmap-hover,
 			&.inmap-active {
-				z-index: +1000 !important;			
+				z-index: +1000;			
+// 				z-index: +1000 !important;			
 			}
 
 			&.inmap-hover,
@@ -41,24 +102,6 @@
 				background: #fff;
 				border: 2px solid @inmap-primary;
 			}
-
-			&.inmap-icon-custom,
-			&.inmap-icon-quick {
-				width: 25px !important;
-				height: 25px !important;		
-				text-align: center;
-				background: #fff;
-				border: 2px solid @inmap-primary;
-			}
-
-			&.inmap-icon-custom {
-				border-color: blue !important;
-				z-index: +2000 !important;				
-			}
-
-// 			&.inmap-icon-tracking {
-// 				background: @inmap-primary !important;
-// 			}
 		}
 	}
 	
@@ -79,9 +122,20 @@
 		&:nth-child(odd) {
 			background-color: @inmap-grey-light;
 		}
+
+		//Icons
+		.inmap-info-icon {
+			position: absolute;
+			top: 15px;
+			left: 15px;
+			width: 30px;
+			height: 30px;
+			border: 1px solid red;
+		}
 		
 		//Info items
 		.inmap-info-item {
+			position: relative;
 			padding-left: 15px;
  			font-size: 11px;
 			border-bottom: 1px solid @inmap-grey-dark;
@@ -108,14 +162,10 @@
 					display: none;
 				}				
 
-// 				background-color: @inmap-primary;
-// 				mask-image: url(../img/location-gps.svg);
-// 				mask-repeat: no-repeat;
-// 				mask-size: 15px;
 				.inmap-info-title {
 					font-weight: bold;
 				}
-				
+
 				table {
 					tr {
 						display: none;
@@ -125,11 +175,6 @@
 // 						}
 						&.joe-assoc_array-id {
 							display: none;
-						}
-						th {
-						}
-						td {
-					
 						}
 					}
 				}
@@ -185,7 +230,6 @@
 				
 						th {
 							width: 80px;
-	// 						display: none !important;
 						}
 					
 						th, td {
@@ -196,7 +240,6 @@
 						tr.joe-assoc_array-elevation,
 						tr.joe-assoc_array-velocity,
 						tr.joe-assoc_array-valid_gps_fix,
-	// 					tr.joe-assoc_array-event,
 						tr.joe-assoc_array-time_utc {
 							display: none !important;
 						}		
@@ -218,25 +261,10 @@
 							display: table-row;
 							th, td {
  								padding: 5px 0;
-// 								padding: 10px 0;
 							}
 						}
 					}
 				}
-			}
-
-			&.inmap-icon-gps {
-				background-image: url(../img/location-gps.svg);
-			}
-
-			&.inmap-icon-message {
-				background-image: url(../img/message.svg);
-				&.inmap-icon-custom {
-					background-image: url(../img/message-custom.svg);				
-				}
-				&.inmap-icon-quick {
-					background-image: url(../img/message-quick.svg);				
-				}				
 			}
 		}
 	}

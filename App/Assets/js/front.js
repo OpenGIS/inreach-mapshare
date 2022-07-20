@@ -29,13 +29,15 @@ const inmap_create_map = function(map_hash = null, map_geojson = null) {
 			title_jq.html(title_html);
 			
 			infos_jq[id].addClass('inmap-hide-extended');
+			infos_jq[id].append(jQuery('<div />').addClass('inmap-info-icon'));
 
-			jQuery('table tr', infos_jq[id]).each(function() {
-				var tr = jQuery(this);
-				var td = jQuery('td', tr);
+
+// 			jQuery('table tr', infos_jq[id]).each(function() {
+// 				var tr = jQuery(this);
+// 				var td = jQuery('td', tr);
 // 				jQuery('th', tr).addClass('inmap-info-extended');
-				var key = tr.attr('class').replace('joe-assoc_array-', '');
-				var value = td.text();
+// 				var key = tr.attr('class').replace('joe-assoc_array-', '');
+// 				var value = td.text();
 				
 // 				switch(key) {
 // 					//GPS
@@ -46,7 +48,7 @@ const inmap_create_map = function(map_hash = null, map_geojson = null) {
 // 						break;
 // 				}
 				
-			});
+// 			});
 		}
 	};
 
