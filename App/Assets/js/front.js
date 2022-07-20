@@ -30,12 +30,16 @@ const inmap_create_map = function(map_hash = null, map_geojson = null) {
 			
 			infos_jq[id].addClass('inmap-hide-extended');
 
-			jQuery('table tr', infos_jq[id]).each(function() {
-				var tr = jQuery(this);
-				var td = jQuery('td', tr);
+			//Info Icon
+			var info_icon = jQuery('.inmap-icon', markers_jq[id]);		
+			infos_jq[id].append(info_icon.clone());
+
+// 			jQuery('table tr', infos_jq[id]).each(function() {
+// 				var tr = jQuery(this);
+// 				var td = jQuery('td', tr);
 // 				jQuery('th', tr).addClass('inmap-info-extended');
-				var key = tr.attr('class').replace('joe-assoc_array-', '');
-				var value = td.text();
+// 				var key = tr.attr('class').replace('joe-assoc_array-', '');
+// 				var value = td.text();
 				
 // 				switch(key) {
 // 					//GPS
@@ -46,7 +50,7 @@ const inmap_create_map = function(map_hash = null, map_geojson = null) {
 // 						break;
 // 				}
 				
-			});
+// 			});
 		}
 	};
 
@@ -135,10 +139,9 @@ const inmap_create_map = function(map_hash = null, map_geojson = null) {
 				markers_l[id] = L.marker(latlng);					
 			}				
 
-			//Create Info Item
+			//Info Item
 			infos_jq[id] = jQuery('<div />')
-				.addClass('inmap-info-item')
-				.addClass(feature.properties.icon.className)
+ 				.addClass(feature.properties.className)
 				.attr('title', feature.properties.title)
 				.html(feature.properties.description)
 				.hover(
@@ -152,7 +155,9 @@ const inmap_create_map = function(map_hash = null, map_geojson = null) {
 				.on('click dblclick', function() {
 					update_point_status(id, 'active');
 				})
-			;
+			;	
+			
+			//Add Item to container
 			info_jq.append(infos_jq[id]);		
 			
 			return markers_l[id];			

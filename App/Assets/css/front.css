@@ -2,46 +2,68 @@
   position: relative;
   border: 1px solid blue;
 }
+.inmap-wrap .inmap-icon {
+  margin-left: 0;
+  margin-top: 0;
+  background-color: #dd9933;
+  mask-position: center;
+  mask-image: url(../img/location.svg);
+}
+.inmap-wrap .inmap-icon.inmap-icon-gps {
+  mask-image: url(../img/location-gps.svg);
+}
+.inmap-wrap .inmap-icon.inmap-icon-message {
+  z-index: 1000;
+  mask-image: url(../img/message.svg);
+}
 .inmap-wrap .inmap-map {
   position: relative;
   min-height: 500px;
   width: 66.66%;
   border: 1px solid #ddd;
 }
-.inmap-wrap .inmap-map .inmap-point {
+.inmap-wrap .inmap-map .inmap-marker {
+  width: 5px !important;
+  height: 5px !important;
+  margin-left: -2.5px !important;
+  margin-top: -2.5px !important;
+  background: #dd9933;
   text-align: center;
   border-radius: 50%;
-  background: #d93;
 }
-.inmap-wrap .inmap-map .inmap-point span {
-  display: inline-block;
-  vertical-align: middle;
+.inmap-wrap .inmap-map .inmap-marker .inmap-icon {
+  display: none;
 }
-.inmap-wrap .inmap-map .inmap-point.inmap-icon-message,
-.inmap-wrap .inmap-map .inmap-point.inmap-hover,
-.inmap-wrap .inmap-map .inmap-point.inmap-active {
-  z-index: 1000 !important;
+.inmap-wrap .inmap-map .inmap-marker.inmap-hover,
+.inmap-wrap .inmap-map .inmap-marker.inmap-active {
+  z-index: 1001 !important;
 }
-.inmap-wrap .inmap-map .inmap-point.inmap-hover,
-.inmap-wrap .inmap-map .inmap-point.inmap-active {
-  margin-top: -7.5px !important;
-  margin-left: -7.5px !important;
+.inmap-wrap .inmap-map .inmap-marker.inmap-hover,
+.inmap-wrap .inmap-map .inmap-marker.inmap-active {
   width: 15px !important;
   height: 15px !important;
-  background: #fff;
-  border: 2px solid #d93;
+  margin-left: -7.5px !important;
+  margin-top: -7.5px !important;
+  background: #dd9933;
+  border: 2px solid #dd9933;
 }
-.inmap-wrap .inmap-map .inmap-point.inmap-icon-custom,
-.inmap-wrap .inmap-map .inmap-point.inmap-icon-quick {
-  width: 25px !important;
-  height: 25px !important;
-  text-align: center;
+.inmap-wrap .inmap-map .inmap-marker.inmap-hover .inmap-icon,
+.inmap-wrap .inmap-map .inmap-marker.inmap-active .inmap-icon {
+  display: block;
+  width: 12px;
+  height: 12px;
+  margin-left: -0.5px;
+  margin-top: -0.5px;
+  mask-size: 12px;
   background: #fff;
-  border: 2px solid #d93;
 }
-.inmap-wrap .inmap-map .inmap-point.inmap-icon-custom {
-  border-color: blue !important;
-  z-index: 2000 !important;
+.inmap-wrap .inmap-map .inmap-marker.inmap-hover .inmap-icon.inmap-icon-message,
+.inmap-wrap .inmap-map .inmap-marker.inmap-active .inmap-icon.inmap-icon-message {
+  width: 8px;
+  height: 8px;
+  margin-left: 2px;
+  margin-top: 2px;
+  mask-size: 8px;
 }
 .inmap-wrap .inmap-info {
   position: absolute;
@@ -58,20 +80,24 @@
   background-color: #f7f7f7;
 }
 .inmap-wrap .inmap-info .inmap-info-item {
-  padding-left: 15px;
-  font-size: 11px;
+  position: relative;
+  padding-left: 0;
+  font-size: 12px;
   border-bottom: 1px solid #ddd;
-  background-color: #fff;
-  background-image: url(../img/location.svg);
-  background-size: 15px;
-  background-position-x: 8px;
-  background-position-y: 8px;
-  background-repeat: no-repeat;
+}
+.inmap-wrap .inmap-info .inmap-info-item .inmap-icon {
+  position: absolute;
+  width: 20px;
+  height: 20px;
+  mask-size: 20px;
+  top: 7.5px;
+  left: 7.5px;
 }
 .inmap-wrap .inmap-info .inmap-info-item .inmap-info-desc {
-  padding: 5px 15px;
-  margin-left: 20px;
-  border-left: 1px solid #d93;
+  padding: 8px 15px;
+  min-height: 35px;
+  margin-left: 17px;
+  border-left: 1px solid #dd9933;
 }
 .inmap-wrap .inmap-info .inmap-info-item .inmap-info-desc .inmap-info-title span {
   float: right;
@@ -91,10 +117,14 @@
   display: none;
 }
 .inmap-wrap .inmap-info .inmap-info-item.inmap-last {
-  background-color: #d93 !important;
+  background-color: #dd9933 !important;
   color: #fff;
 }
+.inmap-wrap .inmap-info .inmap-info-item.inmap-last .inmap-icon {
+  background-color: #fff !important;
+}
 .inmap-wrap .inmap-info .inmap-info-item.inmap-last .inmap-info-desc {
+  padding-top: 2px;
   border-color: #fff;
 }
 .inmap-wrap .inmap-info .inmap-info-item.inmap-last .inmap-info-desc .inmap-info-title {
@@ -115,10 +145,13 @@
 .inmap-wrap .inmap-info .inmap-info-item.inmap-active {
   cursor: unset;
 }
+.inmap-wrap .inmap-info .inmap-info-item.inmap-active .inmap-icon {
+  background: #dd9933;
+}
 .inmap-wrap .inmap-info .inmap-info-item.inmap-active .inmap-info-title {
   margin-bottom: 5px;
   padding: 5px;
-  border-bottom: 1px solid #d93;
+  border-bottom: 1px solid #dd9933;
 }
 .inmap-wrap .inmap-info .inmap-info-item.inmap-active.inmap-hide-extended {
   cursor: pointer;
@@ -127,8 +160,8 @@
   display: block;
   margin-top: 10px;
   text-align: center;
-  color: #d93;
-  border: 1px solid #d93;
+  color: #dd9933;
+  border: 1px solid #dd9933;
   background: #f7f7f7;
 }
 .inmap-wrap .inmap-info .inmap-info-item.inmap-active.inmap-hide-extended .inmap-info-desc th {
@@ -147,7 +180,7 @@
 .inmap-wrap .inmap-info .inmap-info-item.inmap-active .inmap-info-desc .inmap-info-title {
   margin-bottom: 5px;
   padding-bottom: 5px;
-  border-bottom: 1px solid #d93;
+  border-bottom: 1px solid #dd9933;
 }
 .inmap-wrap .inmap-info .inmap-info-item.inmap-active .inmap-info-desc .inmap-info-title span {
   float: right;
@@ -158,16 +191,4 @@
 .inmap-wrap .inmap-info .inmap-info-item.inmap-active .inmap-info-desc table tr th,
 .inmap-wrap .inmap-info .inmap-info-item.inmap-active .inmap-info-desc table tr td {
   padding: 5px 0;
-}
-.inmap-wrap .inmap-info .inmap-info-item.inmap-icon-gps {
-  background-image: url(../img/location-gps.svg);
-}
-.inmap-wrap .inmap-info .inmap-info-item.inmap-icon-message {
-  background-image: url(../img/message.svg);
-}
-.inmap-wrap .inmap-info .inmap-info-item.inmap-icon-message.inmap-icon-custom {
-  background-image: url(../img/message-custom.svg);
-}
-.inmap-wrap .inmap-info .inmap-info-item.inmap-icon-message.inmap-icon-quick {
-  background-image: url(../img/message-quick.svg);
 }
