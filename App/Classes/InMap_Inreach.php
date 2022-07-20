@@ -129,13 +129,16 @@ class InMap_Inreach extends Joe_Class {
 				//Create Feature
 				$Feature = [
 					'type' => 'Feature',
-					'properties' => [],
+					'properties' => [
+						'className' => 'inmap-info-item'
+					],
 					'geometry' => []
 				];
 
 				// =========== Point ===========
 				
 				if($Placemark->Point->coordinates) {
+					$icon_class = 'inmap-icon';
 					$time_ago = Joe_Helper::time_ago(strtotime($Placemark->TimeStamp->when));
 				
 					//Coordinates
@@ -149,13 +152,6 @@ class InMap_Inreach extends Joe_Class {
 					$Feature['geometry']['type'] = 'Point';
 					$Feature['geometry']['coordinates'] = $coordinates;
 
-					//Style
-					$Feature['properties']['icon'] = [
-						'className' => 'inmap-point',
-						'iconSize' => [ 7, 7 ],
-						'html' => '<span></span>'
-					];
-
 					//Title
 					$title = '[' . ($i + 1) . '/' . $kml_point_count . ']';
 					if(isset($Placemark->TimeStamp->when)) {
@@ -166,7 +162,7 @@ class InMap_Inreach extends Joe_Class {
 					//Classes
 					//First (oldest)
 					if($i === 0) {
-						$Feature['properties']['icon']['className'] .= ' inmap-first';
+						$Feature['properties']['className'] .= ' inmap-first';
 
 						//Most recent
 						$Feature['properties']['title'] = '[' . __('First', Joe_Config::get_item('plugin_text_domain')) . ']';
@@ -174,7 +170,7 @@ class InMap_Inreach extends Joe_Class {
 					//Last - *LATEST*
 					} elseif($i === sizeof($this->KML->Document->Folder->Placemark) - 2) {
 						//Active
-						$Feature['properties']['icon']['className'] .= ' inmap-last inmap-active';
+						$Feature['properties']['className'] .= ' inmap-last inmap-active';
 
 						//Most recent
 						$Feature['properties']['title'] = '[' . __('Latest', Joe_Config::get_item('plugin_text_domain')) . ']';
@@ -227,7 +223,7 @@ class InMap_Inreach extends Joe_Class {
 					
 					//Valid GPS
 					if(isset($extended_data['Valid GPS Fix']) && 'True' === $extended_data['Valid GPS Fix']) {
-						$Feature['properties']['icon']['className'] .= ' inmap-icon inmap-icon-gps';
+						$icon_class .= ' inmap-icon-gps';
 					}
 					
 					//By event
@@ -243,13 +239,11 @@ class InMap_Inreach extends Joe_Class {
 
 								break;
 							case 'Msg to shared map received' :
-								$Feature['properties']['icon']['className'] .= ' inmap-icon inmap-icon-message inmap-icon-custom';
-								$Feature['properties']['icon']['html'] = Joe_Config::get_setting('map', 'styles', 'message_icon');
+								$icon_class .= ' inmap-icon-message inmap-icon-custom';
 			
 								break;
 							case 'Quick Text to MapShare received' :
-								$Feature['properties']['icon']['className'] .= ' inmap-icon inmap-icon-message inmap-icon-quick';
-								$Feature['properties']['icon']['html'] = 'Q';
+								$icon_class .= ' inmap-icon-message inmap-icon-quick';
 								
 								break;
 // 							default :
@@ -257,6 +251,13 @@ class InMap_Inreach extends Joe_Class {
 // 							
 // 								break;									
 						}
+
+						//Icon
+						$Feature['properties']['icon'] = [
+							'className' => 'inmap-marker',
+							'iconSize' => [ 15, 15 ],
+							'html' => '<div class="' . $icon_class . '"></div>'
+						];
 
 						//Description
 						$description = '<div class="inmap-info-desc">';

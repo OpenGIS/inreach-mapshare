@@ -38,9 +38,8 @@
   background: #fff;
   mask-size: 10px;
 }
-.inmap-wrap .inmap-map .inmap-point span {
-  display: inline-block;
-  vertical-align: middle;
+.inmap-wrap .inmap-map .inmap-point .inmap-icon {
+  border: 1px solid pink;
 }
 .inmap-wrap .inmap-map .inmap-point.inmap-hover,
 .inmap-wrap .inmap-map .inmap-point.inmap-active {
