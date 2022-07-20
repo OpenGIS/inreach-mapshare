@@ -13,7 +13,8 @@
 		width: 66.66%;
 		border: 1px solid @inmap-grey-dark;
 		
-		//Markers
+		// ======== Markers ========
+		
 		.inmap-point {
 			text-align: center;
 			border-radius: 50%;
@@ -57,7 +58,8 @@
 		}
 	}
 	
-	//Info
+	// ======== Info ========
+
 	.inmap-info {
 		position: absolute;
 		top: 0;
@@ -86,6 +88,52 @@
 			background-position-y: center;
 			background-repeat: no-repeat;
 
+			//Description
+			.inmap-info-desc {	
+				padding: 5px 15px;
+				.inmap-info-title {	
+					span {
+						float: right;
+						color: @inmap-grey-dark;
+					}
+				}
+
+				.inmap-info-expand {
+					display: none;
+				}				
+
+// 				background-color: @inmap-primary;
+// 				mask-image: url(../img/location-gps.svg);
+// 				mask-repeat: no-repeat;
+// 				mask-size: 15px;
+
+					margin-left: 20px;
+						border-left: 1px solid @inmap-primary;					
+
+				
+				.inmap-info-title {
+					font-weight: bold;
+				}
+				
+				table {
+					tr {
+						display: none;
+ 						background: none;
+// 						&:nth-child(2n+1) {
+// 							background: @inmap-grey-light !important;
+// 						}
+						&.joe-assoc_array-id {
+							display: none;
+						}
+						th {
+						}
+						td {
+					
+						}
+					}
+				}
+			}
+
 			//Latest!
 			&.inmap-last {
 				position: relative;
@@ -110,17 +158,15 @@
 			&.inmap-active,
 			&.inmap-hover {
 				background-color: @inmap-grey-dark;
-			}
-
-			&.inmap-hover {
 				cursor: pointer;
 				.inmap-info-title {
 					span {
-						color: unset;
+						color: #fff !important;
 					}								
 				}
 			}
-
+			
+			//Active
 			&.inmap-active {
 				cursor: unset;
 
@@ -196,50 +242,6 @@
 				&.inmap-icon-quick {
 					background-image: url(../img/message-quick.svg);				
 				}				
-			}
-
-			//INACTIVE...
-			//Description
-			.inmap-info-desc {	
-				padding: 5px 15px;
-				.inmap-info-title {	
-					span {
-						float: right;
-						color: @inmap-grey-dark;
-					}
-				}
-
-				.inmap-info-expand {
-					display: none;
-				}				
-
-// 				background-color: @inmap-primary;
-// 				mask-image: url(../img/location-gps.svg);
-// 				mask-repeat: no-repeat;
-// 				mask-size: 15px;
-
-					margin-left: 20px;
-						border-left: 1px solid @inmap-primary;					
-
-				
-				.inmap-info-title {
-					font-weight: bold;
-				}
-				
-				table {
-					tr {
-						display: none;
-						background: none;
-						&.joe-assoc_array-id {
-							display: none;
-						}
-						th {
-						}
-						td {
-					
-						}
-					}
-				}
 			}
 		}
 	}

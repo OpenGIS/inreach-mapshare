@@ -65,6 +65,28 @@
   background-position-y: center;
   background-repeat: no-repeat;
 }
+.inmap-wrap .inmap-info .inmap-info-item .inmap-info-desc {
+  padding: 5px 15px;
+  margin-left: 20px;
+  border-left: 1px solid #d93;
+}
+.inmap-wrap .inmap-info .inmap-info-item .inmap-info-desc .inmap-info-title span {
+  float: right;
+  color: #ddd;
+}
+.inmap-wrap .inmap-info .inmap-info-item .inmap-info-desc .inmap-info-expand {
+  display: none;
+}
+.inmap-wrap .inmap-info .inmap-info-item .inmap-info-desc .inmap-info-title {
+  font-weight: bold;
+}
+.inmap-wrap .inmap-info .inmap-info-item .inmap-info-desc table tr {
+  display: none;
+  background: none;
+}
+.inmap-wrap .inmap-info .inmap-info-item .inmap-info-desc table tr.joe-assoc_array-id {
+  display: none;
+}
 .inmap-wrap .inmap-info .inmap-info-item.inmap-last {
   position: relative;
   padding-top: 30px;
@@ -87,12 +109,11 @@
 .inmap-wrap .inmap-info .inmap-info-item.inmap-active,
 .inmap-wrap .inmap-info .inmap-info-item.inmap-hover {
   background-color: #ddd;
-}
-.inmap-wrap .inmap-info .inmap-info-item.inmap-hover {
   cursor: pointer;
 }
+.inmap-wrap .inmap-info .inmap-info-item.inmap-active .inmap-info-title span,
 .inmap-wrap .inmap-info .inmap-info-item.inmap-hover .inmap-info-title span {
-  color: unset;
+  color: #fff !important;
 }
 .inmap-wrap .inmap-info .inmap-info-item.inmap-active {
   cursor: unset;
@@ -152,26 +173,4 @@
 }
 .inmap-wrap .inmap-info .inmap-info-item.inmap-icon-message.inmap-icon-quick {
   background-image: url(../img/message-quick.svg);
-}
-.inmap-wrap .inmap-info .inmap-info-item .inmap-info-desc {
-  padding: 5px 15px;
-  margin-left: 20px;
-  border-left: 1px solid #d93;
-}
-.inmap-wrap .inmap-info .inmap-info-item .inmap-info-desc .inmap-info-title span {
-  float: right;
-  color: #ddd;
-}
-.inmap-wrap .inmap-info .inmap-info-item .inmap-info-desc .inmap-info-expand {
-  display: none;
-}
-.inmap-wrap .inmap-info .inmap-info-item .inmap-info-desc .inmap-info-title {
-  font-weight: bold;
-}
-.inmap-wrap .inmap-info .inmap-info-item .inmap-info-desc table tr {
-  display: none;
-  background: none;
-}
-.inmap-wrap .inmap-info .inmap-info-item .inmap-info-desc table tr.joe-assoc_array-id {
-  display: none;
 }
