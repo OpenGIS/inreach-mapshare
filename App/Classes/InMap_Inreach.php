@@ -120,8 +120,8 @@ class InMap_Inreach extends Joe_Class {
 			'features' => []
 		];
 		
-		//We have Placemarks
-		if(isset($this->KML->Document->Folder->Placemark) && sizeof($this->KML->Document->Folder->Placemark)) {
+		//We have Points
+		if($kml_point_count = $this->kml_point_count($this->KML)) {
 			//Each Placemark
 			for($i = 0; $i < sizeof($this->KML->Document->Folder->Placemark); $i++) {
 				$Placemark = $this->KML->Document->Folder->Placemark[$i];
@@ -132,46 +132,13 @@ class InMap_Inreach extends Joe_Class {
 					'properties' => [],
 					'geometry' => []
 				];
-				
-				//Extended Data?
-				if(isset($Placemark->ExtendedData)) {
-					if(sizeof($Placemark->ExtendedData->Data)) {
-						$extended_data = [];
-						
-						//Each
-						for($j = 0; $j < sizeof($Placemark->ExtendedData->Data); $j++) {
-							$key = (string)$Placemark->ExtendedData->Data[$j]->attributes()->name;
-							
-							//Must be a key we are interested in
-							if(in_array($key, Joe_Config::get_item('kml_data_include'))) {
-								$value = (string)$Placemark->ExtendedData->Data[$j]->value;
 
-								//By Key
-								switch($key) {
-									case 'Id' :
-										$Feature['properties']['id'] = $value;
-
-										break;
-								}
-						
-								//Store
-								$extended_data[$key] = $value;																
-							}								
-						}
-						
-						//We have data														
-						if(sizeof($extended_data)) {
-							
-							$Feature['properties']['description'] = Joe_Helper::assoc_array_table($extended_data);
-						}
-					}
-				}
-									
 				// =========== Point ===========
 				
 				if($Placemark->Point->coordinates) {
-					$coordinates = explode(',', (String)$Placemark->Point->coordinates);													
-					
+					//Coordinates
+					$coordinates = explode(',', (String)$Placemark->Point->coordinates);																
+
 					//Invalid
 					if(sizeof($coordinates) < 2 || sizeof($coordinates) > 3) {
 						continue;						
@@ -185,8 +152,71 @@ class InMap_Inreach extends Joe_Class {
 						'className' => 'inmap-point',
 						'iconSize' => [ 7, 7 ],
 						'html' => '<span></span>'
-					];						
+					];
+					
+					//First
+					if(! $i) {
+						//Active
+						$Feature['properties']['icon']['className'] .= ' inmap-active';
+					}					
+					
+					//Title
+					$title = '[' . ($i + 1) . '/' . $kml_point_count . ']';
+					if(isset($Placemark->TimeStamp->when)) {
+						$title .= Joe_Helper::time_ago(strtotime($Placemark->TimeStamp->when));						
+					}
+					$Feature['properties']['title'] = $title;
+				
+					//Extended Data?
+					if(isset($Placemark->ExtendedData)) {
+						if(sizeof($Placemark->ExtendedData->Data)) {
+							$extended_data = [];
+						
+							//Each
+							for($j = 0; $j < sizeof($Placemark->ExtendedData->Data); $j++) {
+								$key = (string)$Placemark->ExtendedData->Data[$j]->attributes()->name;
+							
+								//Must be a key we are interested in
+								if(in_array($key, Joe_Config::get_item('kml_data_include'))) {
+									$value = (string)$Placemark->ExtendedData->Data[$j]->value;
 
+									//By Key
+									switch($key) {
+										case 'Id' :
+											$Feature['properties']['id'] = $value;
+
+											$extended_data[$key] = $value;																
+
+											break;
+										case 'Id' :
+											$Feature['properties']['id'] = $value;
+
+											$extended_data[$key] = $value;																
+
+											break;
+										case 'Text' :
+											//Skip empty text
+											if(! empty($value)) {
+												$extended_data[$key] = $value;																
+											}
+
+											break;
+										default :
+											$extended_data[$key] = $value;																
+
+											break;
+									}
+								}								
+							}						
+						}
+					}
+					
+					//Valid GPS
+					if(isset($extended_data['Valid GPS Fix']) && 'True' === $extended_data['Valid GPS Fix']) {
+						$Feature['properties']['icon']['className'] .= ' inmap-icon-gps';
+					}
+					
+					//By event
 					if(isset($extended_data['Event'])) {
 						//Remove periods!
 						$extended_data['Event'] = trim($extended_data['Event'], '.');
@@ -196,18 +226,15 @@ class InMap_Inreach extends Joe_Class {
 							case 'Tracking turned off from device' :
 							case 'Tracking interval received' :
 							case 'Tracking message received' :
-								$Feature['properties']['icon']['className'] .= ' inmap-icon-tracking';
-
-// 								$Feature['properties']['icon']['html'] = 't';
 
 								break;
 							case 'Msg to shared map received' :
-								$Feature['properties']['icon']['className'] .= ' inmap-icon-custom';
+								$Feature['properties']['icon']['className'] .= ' inmap-icon-message inmap-icon-custom';
 								$Feature['properties']['icon']['html'] = Joe_Config::get_setting('map', 'styles', 'message_icon');
 			
 								break;
 							case 'Quick Text to MapShare received' :
-								$Feature['properties']['icon']['className'] .= ' inmap-icon-quick';
+								$Feature['properties']['icon']['className'] .= ' inmap-icon-message inmap-icon-quick';
 								$Feature['properties']['icon']['html'] = 'Q';
 								
 								break;
@@ -215,26 +242,23 @@ class InMap_Inreach extends Joe_Class {
 //  								Joe_Helper::debug($extended_data);
 // 							
 // 								break;									
-						}										
+						}
+
+						//Description
+						$description = '<div class="inmap-info-desc">';
+						$description .= '<div class="inmap-info-title">' . $Feature['properties']['title'] . '</div>';
+					
+						//We have data														
+						if(sizeof($extended_data)) {
+							$description .= Joe_Helper::assoc_array_table($extended_data);
+						}
+						$description .= '</div>';
+
+						$Feature['properties']['description'] = $description;																
 					}
 
 // 					$Feature['properties']['icon']['html'] = Joe_Config::get_setting('map', 'styles', 'message_icon');
 					
-					//When
-					if(isset($Placemark->TimeStamp->when)) {
-						$title = (String)$Placemark->TimeStamp->when;
-						$title = str_replace([
-							'T',
-							'Z'
-						],
-						[
-							' ',
-							' (UTC) [#' . $i . ']'
-						], $title);
-						
-						$Feature['properties']['title'] = $title;
-					}
-
 				// =========== LineString ===========
 				
 				} elseif($Placemark->LineString->coordinates) {
@@ -265,6 +289,27 @@ class InMap_Inreach extends Joe_Class {
 				
 				$this->FeatureCollection['features'][] = $Feature;
 			}
+		//No points in KML
+		} else {
+
 		}
+	}
+	
+	function kml_point_count($KML = null) {
+		$count = 0;
+		
+		if(
+ 			is_object($KML)
+ 			&& isset($KML->Document->Folder->Placemark)
+ 			&& is_iterable($KML->Document->Folder->Placemark)	
+		) {
+			foreach($KML->Document->Folder->Placemark as $Placemark) {
+				if($Placemark->Point->coordinates) {
+					$count++;
+				}			
+			}
+		}
+		
+		return $count;
 	}
 }
