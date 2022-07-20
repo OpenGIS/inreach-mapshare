@@ -86,6 +86,27 @@
 			background-position-y: center;
 			background-repeat: no-repeat;
 
+			//Latest!
+			&.inmap-last {
+				position: relative;
+				padding-top: 30px;
+				.inmap-info-title {
+					position: absolute;
+					top: 0;
+					left: 0;
+					width: 100%;
+					padding: 10px;
+					padding-right: 15px !important;				
+					padding-left: 55px !important;				
+					background: @inmap-primary;		
+					font-size: 13px;
+					color: #fff;
+					span {
+						color: #fff !important;
+					}							
+				}
+			}
+
 			&.inmap-active,
 			&.inmap-hover {
 				background-color: @inmap-grey-dark;
@@ -95,7 +116,7 @@
 				cursor: pointer;
 				.inmap-info-title {
 					span {
-						color: unset !important;
+						color: unset;
 					}								
 				}
 			}
@@ -105,22 +126,20 @@
 
 				.inmap-info-title {
 					margin-bottom: 5px;
-					padding-bottom: 5px;
-					border-bottom: 1px solid @inmap-primary;		
-
-					span {
-						color: #fff !important;
-					}			
+					padding: 5px;
+					border-bottom: 1px solid @inmap-primary;					
 				}
-			
+
 				&.inmap-hide-extended {
 					cursor: pointer;
 					.inmap-info-desc {
-						&::after {
-							content: '[+]';
+						.inmap-info-expand {
 							display: block;
+							margin-top: 10px;
 							text-align: center;
-							color: @inmap-primary;						
+							color: @inmap-primary;
+							border: 1px solid @inmap-primary;
+							background: @inmap-grey-light;
 						}
 				
 						th {
@@ -129,9 +148,10 @@
 						}
 					
 						th, td {
-							padding: 3px 0 !important;
+							padding: 3px 5px !important;
 						}
-
+						
+						//Hide...
 						tr.joe-assoc_array-elevation,
 						tr.joe-assoc_array-velocity,
 						tr.joe-assoc_array-valid_gps_fix,
@@ -178,6 +198,7 @@
 				}				
 			}
 
+			//INACTIVE...
 			//Description
 			.inmap-info-desc {	
 				padding: 5px 15px;
@@ -187,6 +208,10 @@
 						color: @inmap-grey-dark;
 					}
 				}
+
+				.inmap-info-expand {
+					display: none;
+				}				
 
 // 				background-color: @inmap-primary;
 // 				mask-image: url(../img/location-gps.svg);

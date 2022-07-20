@@ -136,6 +136,8 @@ class InMap_Inreach extends Joe_Class {
 				// =========== Point ===========
 				
 				if($Placemark->Point->coordinates) {
+					$time_ago = Joe_Helper::time_ago(strtotime($Placemark->TimeStamp->when));
+				
 					//Coordinates
 					$coordinates = explode(',', (String)$Placemark->Point->coordinates);																
 
@@ -153,23 +155,32 @@ class InMap_Inreach extends Joe_Class {
 						'iconSize' => [ 7, 7 ],
 						'html' => '<span></span>'
 					];
-					
-					//First
-					if($i === 0) {
-						$Feature['properties']['icon']['className'] .= ' inmap-first';
-					//Last
-					} elseif($i === sizeof($this->KML->Document->Folder->Placemark) - 2) {
-						//Active
-						$Feature['properties']['icon']['className'] .= ' inmap-last inmap-active';					
-					}					
-					
+
 					//Title
 					$title = '[' . ($i + 1) . '/' . $kml_point_count . ']';
 					if(isset($Placemark->TimeStamp->when)) {
-						$title .= Joe_Helper::time_ago(strtotime($Placemark->TimeStamp->when));						
+						$title .= $time_ago;						
 					}
 					$Feature['properties']['title'] = $title;
-				
+					
+					//Classes
+					//First (oldest)
+					if($i === 0) {
+						$Feature['properties']['icon']['className'] .= ' inmap-first';
+
+						//Most recent
+						$Feature['properties']['title'] = '[' . __('First', Joe_Config::get_item('plugin_text_domain')) . ']';
+						$Feature['properties']['title'] .= $time_ago;	
+					//Last - *LATEST*
+					} elseif($i === sizeof($this->KML->Document->Folder->Placemark) - 2) {
+						//Active
+						$Feature['properties']['icon']['className'] .= ' inmap-last inmap-active';
+
+						//Most recent
+						$Feature['properties']['title'] = '[' . __('Latest', Joe_Config::get_item('plugin_text_domain')) . ']';
+						$Feature['properties']['title'] .= $time_ago;						
+					}					
+
 					//Extended Data?
 					if(isset($Placemark->ExtendedData)) {
 						if(sizeof($Placemark->ExtendedData->Data)) {
@@ -254,6 +265,8 @@ class InMap_Inreach extends Joe_Class {
 						//We have data														
 						if(sizeof($extended_data)) {
 							$description .= Joe_Helper::assoc_array_table($extended_data);
+	
+							$description .= '<div class="inmap-info-expand">+</div>';
 						}
 						$description .= '</div>';
 
@@ -292,10 +305,15 @@ class InMap_Inreach extends Joe_Class {
 				
 				$this->FeatureCollection['features'][] = $Feature;
 			}
+			
+			//Reverse order (most recent first)
+			$this->FeatureCollection['features'] = array_reverse($this->FeatureCollection['features']);
 		//No points in KML
 		} else {
 
 		}
+		
+		
 	}
 	
 	function kml_point_count($KML = null) {
