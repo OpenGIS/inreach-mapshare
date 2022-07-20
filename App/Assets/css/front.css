@@ -24,7 +24,10 @@
 }
 .inmap-wrap .inmap-map .inmap-point.inmap-hover,
 .inmap-wrap .inmap-map .inmap-point.inmap-active {
-  padding: 5px;
+  margin-top: -7.5px !important;
+  margin-left: -7.5px !important;
+  width: 15px !important;
+  height: 15px !important;
   background: #fff;
   border: 2px solid #d93;
 }
@@ -62,7 +65,7 @@
   background-image: url(../img/location.svg);
   background-size: 15px;
   background-position-x: 8px;
-  background-position-y: center;
+  background-position-y: 8px;
   background-repeat: no-repeat;
 }
 .inmap-wrap .inmap-info .inmap-info-item .inmap-info-desc {
@@ -88,22 +91,16 @@
   display: none;
 }
 .inmap-wrap .inmap-info .inmap-info-item.inmap-last {
-  position: relative;
-  padding-top: 30px;
-}
-.inmap-wrap .inmap-info .inmap-info-item.inmap-last .inmap-info-title {
-  position: absolute;
-  top: 0;
-  left: 0;
-  width: 100%;
-  padding: 10px;
-  padding-right: 15px !important;
-  padding-left: 55px !important;
-  background: #d93;
-  font-size: 13px;
+  background-color: #d93 !important;
   color: #fff;
 }
-.inmap-wrap .inmap-info .inmap-info-item.inmap-last .inmap-info-title span {
+.inmap-wrap .inmap-info .inmap-info-item.inmap-last .inmap-info-desc {
+  border-color: #fff;
+}
+.inmap-wrap .inmap-info .inmap-info-item.inmap-last .inmap-info-desc .inmap-info-title {
+  font-size: 13px;
+}
+.inmap-wrap .inmap-info .inmap-info-item.inmap-last .inmap-info-desc .inmap-info-title span {
   color: #fff !important;
 }
 .inmap-wrap .inmap-info .inmap-info-item.inmap-active,

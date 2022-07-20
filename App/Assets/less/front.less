@@ -33,7 +33,11 @@
 
 			&.inmap-hover,
 			&.inmap-active {
-				padding: 5px;
+				margin-top: -7.5px !important;
+				margin-left: -7.5px !important;
+				width: 15px !important;
+				height: 15px !important;
+// 				padding: 5px;
 				background: #fff;
 				border: 2px solid @inmap-primary;
 			}
@@ -85,12 +89,14 @@
 			background-image: url(../img/location.svg);
 			background-size: 15px;
 			background-position-x: 8px;
-			background-position-y: center;
+			background-position-y: 8px;
 			background-repeat: no-repeat;
 
 			//Description
 			.inmap-info-desc {	
 				padding: 5px 15px;
+				margin-left: 20px;
+				border-left: 1px solid @inmap-primary;					
 				.inmap-info-title {	
 					span {
 						float: right;
@@ -106,11 +112,6 @@
 // 				mask-image: url(../img/location-gps.svg);
 // 				mask-repeat: no-repeat;
 // 				mask-size: 15px;
-
-					margin-left: 20px;
-						border-left: 1px solid @inmap-primary;					
-
-				
 				.inmap-info-title {
 					font-weight: bold;
 				}
@@ -136,22 +137,16 @@
 
 			//Latest!
 			&.inmap-last {
-				position: relative;
-				padding-top: 30px;
-				.inmap-info-title {
-					position: absolute;
-					top: 0;
-					left: 0;
-					width: 100%;
-					padding: 10px;
-					padding-right: 15px !important;				
-					padding-left: 55px !important;				
-					background: @inmap-primary;		
-					font-size: 13px;
-					color: #fff;
-					span {
-						color: #fff !important;
-					}							
+				background-color: @inmap-primary !important;		
+				color: #fff;
+				.inmap-info-desc {	
+					border-color: #fff;				
+					.inmap-info-title {
+						font-size: 13px;
+						span {
+							color: #fff !important;
+						}							
+					}
 				}
 			}
 
