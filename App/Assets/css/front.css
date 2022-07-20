@@ -51,16 +51,19 @@
   border-left: 1px solid #ddd;
   overflow: scroll;
 }
+.inmap-wrap .inmap-info:nth-child(odd) {
+  background-color: #f7f7f7;
+}
 .inmap-wrap .inmap-info .inmap-info-item {
   padding-left: 15px;
   font-size: 13px;
+  border-bottom: 1px solid #ddd;
   background-color: #fff;
   background-image: url(../img/location.svg);
   background-size: 15px;
   background-position-x: 8px;
   background-position-y: center;
   background-repeat: no-repeat;
-  border-bottom: 1px solid #ddd;
 }
 .inmap-wrap .inmap-info .inmap-info-item.inmap-hide-extended .inmap-info-extended {
   display: none;
@@ -77,26 +80,26 @@
 .inmap-wrap .inmap-info .inmap-info-item.inmap-icon-message.inmap-icon-quick {
   background-image: url(../img/message-quick.svg);
 }
-.inmap-wrap .inmap-info .inmap-info-item:nth-child(odd) {
-  background-color: #f7f7f7;
-}
-.inmap-wrap .inmap-info .inmap-info-item table {
-  margin-left: 20px;
-}
-.inmap-wrap .inmap-info .inmap-info-item table tr {
-  display: none;
-  background: none;
-  border-left: 1px solid #d93;
-}
-.inmap-wrap .inmap-info .inmap-info-item table tr.joe-assoc_array-id {
-  display: none;
-}
-.inmap-wrap .inmap-info .inmap-info-item table tr.joe-assoc_array-time {
-  display: table-row;
-}
 .inmap-wrap .inmap-info .inmap-info-item.inmap-hover {
   background-color: #ddd;
 }
 .inmap-wrap .inmap-info .inmap-info-item.inmap-active tr {
+  display: table-row;
+}
+.inmap-wrap .inmap-info .inmap-info-item .inmap-info-desc {
+  margin-left: 20px;
+  border-left: 1px solid #d93;
+}
+.inmap-wrap .inmap-info .inmap-info-item .inmap-info-desc .inmap-info-title {
+  color: red;
+}
+.inmap-wrap .inmap-info .inmap-info-item .inmap-info-desc table tr {
+  display: none;
+  background: none;
+}
+.inmap-wrap .inmap-info .inmap-info-item .inmap-info-desc table tr.joe-assoc_array-id {
+  display: none;
+}
+.inmap-wrap .inmap-info .inmap-info-item .inmap-info-desc table tr.joe-assoc_array-time {
   display: table-row;
 }

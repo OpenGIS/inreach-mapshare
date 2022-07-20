@@ -69,10 +69,16 @@
 		border-left: 1px solid @inmap-grey-dark;
 		overflow: scroll;
 		
+		//Alternating BG
+		&:nth-child(odd) {
+			background-color: @inmap-grey-light;
+		}
+		
 		//Info items
 		.inmap-info-item {
 			padding-left: 15px;
 			font-size: 13px;
+			border-bottom: 1px solid @inmap-grey-dark;
 			background-color: #fff;
 			background-image: url(../img/location.svg);
 			background-size: 15px;
@@ -100,39 +106,6 @@
 				}				
 			}
 
-
-// background-color: @inmap-primary;
-// mask-image: url(../img/location-gps.svg);
-// mask-repeat: no-repeat;
-// mask-size: 15px;
-
-
-			border-bottom: 1px solid @inmap-grey-dark;
-			
-			&:nth-child(odd) {
- 				background-color: @inmap-grey-light;
-			}
-
-			table {
-				margin-left: 20px;
-				tr {
-					display: none;
-					background: none;
- 					border-left: 1px solid @inmap-primary;					
-					&.joe-assoc_array-id {
-						display: none;
-					}
-					&.joe-assoc_array-time {
-						display: table-row;
-					}
-					th {
-					}
-					td {
-					
-					}
-				}
-			}
-
 			&.inmap-hover {
 				background-color: @inmap-grey-dark;
 			}
@@ -140,6 +113,40 @@
 			&.inmap-active {
 				tr {
 					display: table-row;
+				}
+			}
+
+			//Description
+			.inmap-info-desc {	
+// 				background-color: @inmap-primary;
+// 				mask-image: url(../img/location-gps.svg);
+// 				mask-repeat: no-repeat;
+// 				mask-size: 15px;
+
+					margin-left: 20px;
+						border-left: 1px solid @inmap-primary;					
+
+				
+				.inmap-info-title {
+					color: red;
+				}
+				
+				table {
+					tr {
+						display: none;
+						background: none;
+						&.joe-assoc_array-id {
+							display: none;
+						}
+						&.joe-assoc_array-time {
+							display: table-row;
+						}
+						th {
+						}
+						td {
+					
+						}
+					}
 				}
 			}
 		}
