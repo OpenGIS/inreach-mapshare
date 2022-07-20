@@ -24,7 +24,10 @@
 }
 .inmap-wrap .inmap-map .inmap-point.inmap-hover,
 .inmap-wrap .inmap-map .inmap-point.inmap-active {
-  padding: 5px;
+  margin-top: -7.5px !important;
+  margin-left: -7.5px !important;
+  width: 15px !important;
+  height: 15px !important;
   background: #fff;
   border: 2px solid #d93;
 }
@@ -62,45 +65,78 @@
   background-image: url(../img/location.svg);
   background-size: 15px;
   background-position-x: 8px;
-  background-position-y: center;
+  background-position-y: 8px;
   background-repeat: no-repeat;
+}
+.inmap-wrap .inmap-info .inmap-info-item .inmap-info-desc {
+  padding: 5px 15px;
+  margin-left: 20px;
+  border-left: 1px solid #d93;
+}
+.inmap-wrap .inmap-info .inmap-info-item .inmap-info-desc .inmap-info-title span {
+  float: right;
+  color: #ddd;
+}
+.inmap-wrap .inmap-info .inmap-info-item .inmap-info-desc .inmap-info-expand {
+  display: none;
+}
+.inmap-wrap .inmap-info .inmap-info-item .inmap-info-desc .inmap-info-title {
+  font-weight: bold;
+}
+.inmap-wrap .inmap-info .inmap-info-item .inmap-info-desc table tr {
+  display: none;
+  background: none;
+}
+.inmap-wrap .inmap-info .inmap-info-item .inmap-info-desc table tr.joe-assoc_array-id {
+  display: none;
+}
+.inmap-wrap .inmap-info .inmap-info-item.inmap-last {
+  background-color: #d93 !important;
+  color: #fff;
+}
+.inmap-wrap .inmap-info .inmap-info-item.inmap-last .inmap-info-desc {
+  border-color: #fff;
+}
+.inmap-wrap .inmap-info .inmap-info-item.inmap-last .inmap-info-desc .inmap-info-title {
+  font-size: 13px;
+}
+.inmap-wrap .inmap-info .inmap-info-item.inmap-last .inmap-info-desc .inmap-info-title span {
+  color: #fff !important;
 }
 .inmap-wrap .inmap-info .inmap-info-item.inmap-active,
 .inmap-wrap .inmap-info .inmap-info-item.inmap-hover {
   background-color: #ddd;
-}
-.inmap-wrap .inmap-info .inmap-info-item.inmap-hover {
   cursor: pointer;
 }
+.inmap-wrap .inmap-info .inmap-info-item.inmap-active .inmap-info-title span,
 .inmap-wrap .inmap-info .inmap-info-item.inmap-hover .inmap-info-title span {
-  color: unset !important;
+  color: #fff !important;
 }
 .inmap-wrap .inmap-info .inmap-info-item.inmap-active {
   cursor: unset;
 }
 .inmap-wrap .inmap-info .inmap-info-item.inmap-active .inmap-info-title {
   margin-bottom: 5px;
-  padding-bottom: 5px;
+  padding: 5px;
   border-bottom: 1px solid #d93;
-}
-.inmap-wrap .inmap-info .inmap-info-item.inmap-active .inmap-info-title span {
-  color: #fff !important;
 }
 .inmap-wrap .inmap-info .inmap-info-item.inmap-active.inmap-hide-extended {
   cursor: pointer;
 }
-.inmap-wrap .inmap-info .inmap-info-item.inmap-active.inmap-hide-extended .inmap-info-desc::after {
-  content: '[+]';
+.inmap-wrap .inmap-info .inmap-info-item.inmap-active.inmap-hide-extended .inmap-info-desc .inmap-info-expand {
   display: block;
+  margin-top: 10px;
   text-align: center;
   color: #d93;
+  border: 1px solid #d93;
+  background: #f7f7f7;
 }
 .inmap-wrap .inmap-info .inmap-info-item.inmap-active.inmap-hide-extended .inmap-info-desc th {
   width: 80px;
 }
 .inmap-wrap .inmap-info .inmap-info-item.inmap-active.inmap-hide-extended .inmap-info-desc th,
 .inmap-wrap .inmap-info .inmap-info-item.inmap-active.inmap-hide-extended .inmap-info-desc td {
-  padding: 3px 0 !important;
+  padding: 3px 5px !important;
 }
 .inmap-wrap .inmap-info .inmap-info-item.inmap-active.inmap-hide-extended .inmap-info-desc tr.joe-assoc_array-elevation,
 .inmap-wrap .inmap-info .inmap-info-item.inmap-active.inmap-hide-extended .inmap-info-desc tr.joe-assoc_array-velocity,
@@ -134,23 +170,4 @@
 }
 .inmap-wrap .inmap-info .inmap-info-item.inmap-icon-message.inmap-icon-quick {
   background-image: url(../img/message-quick.svg);
-}
-.inmap-wrap .inmap-info .inmap-info-item .inmap-info-desc {
-  padding: 5px 15px;
-  margin-left: 20px;
-  border-left: 1px solid #d93;
-}
-.inmap-wrap .inmap-info .inmap-info-item .inmap-info-desc .inmap-info-title span {
-  float: right;
-  color: #ddd;
-}
-.inmap-wrap .inmap-info .inmap-info-item .inmap-info-desc .inmap-info-title {
-  font-weight: bold;
-}
-.inmap-wrap .inmap-info .inmap-info-item .inmap-info-desc table tr {
-  display: none;
-  background: none;
-}
-.inmap-wrap .inmap-info .inmap-info-item .inmap-info-desc table tr.joe-assoc_array-id {
-  display: none;
 }

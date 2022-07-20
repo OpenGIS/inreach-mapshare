@@ -13,7 +13,8 @@
 		width: 66.66%;
 		border: 1px solid @inmap-grey-dark;
 		
-		//Markers
+		// ======== Markers ========
+		
 		.inmap-point {
 			text-align: center;
 			border-radius: 50%;
@@ -32,7 +33,11 @@
 
 			&.inmap-hover,
 			&.inmap-active {
-				padding: 5px;
+				margin-top: -7.5px !important;
+				margin-left: -7.5px !important;
+				width: 15px !important;
+				height: 15px !important;
+// 				padding: 5px;
 				background: #fff;
 				border: 2px solid @inmap-primary;
 			}
@@ -57,7 +62,8 @@
 		}
 	}
 	
-	//Info
+	// ======== Info ========
+
 	.inmap-info {
 		position: absolute;
 		top: 0;
@@ -83,44 +89,98 @@
 			background-image: url(../img/location.svg);
 			background-size: 15px;
 			background-position-x: 8px;
-			background-position-y: center;
+			background-position-y: 8px;
 			background-repeat: no-repeat;
+
+			//Description
+			.inmap-info-desc {	
+				padding: 5px 15px;
+				margin-left: 20px;
+				border-left: 1px solid @inmap-primary;					
+				.inmap-info-title {	
+					span {
+						float: right;
+						color: @inmap-grey-dark;
+					}
+				}
+
+				.inmap-info-expand {
+					display: none;
+				}				
+
+// 				background-color: @inmap-primary;
+// 				mask-image: url(../img/location-gps.svg);
+// 				mask-repeat: no-repeat;
+// 				mask-size: 15px;
+				.inmap-info-title {
+					font-weight: bold;
+				}
+				
+				table {
+					tr {
+						display: none;
+ 						background: none;
+// 						&:nth-child(2n+1) {
+// 							background: @inmap-grey-light !important;
+// 						}
+						&.joe-assoc_array-id {
+							display: none;
+						}
+						th {
+						}
+						td {
+					
+						}
+					}
+				}
+			}
+
+			//Latest!
+			&.inmap-last {
+				background-color: @inmap-primary !important;		
+				color: #fff;
+				.inmap-info-desc {	
+					border-color: #fff;				
+					.inmap-info-title {
+						font-size: 13px;
+						span {
+							color: #fff !important;
+						}							
+					}
+				}
+			}
 
 			&.inmap-active,
 			&.inmap-hover {
 				background-color: @inmap-grey-dark;
-			}
-
-			&.inmap-hover {
 				cursor: pointer;
 				.inmap-info-title {
 					span {
-						color: unset !important;
+						color: #fff !important;
 					}								
 				}
 			}
-
+			
+			//Active
 			&.inmap-active {
 				cursor: unset;
 
 				.inmap-info-title {
 					margin-bottom: 5px;
-					padding-bottom: 5px;
-					border-bottom: 1px solid @inmap-primary;		
-
-					span {
-						color: #fff !important;
-					}			
+					padding: 5px;
+					border-bottom: 1px solid @inmap-primary;					
 				}
-			
+
 				&.inmap-hide-extended {
 					cursor: pointer;
 					.inmap-info-desc {
-						&::after {
-							content: '[+]';
+						.inmap-info-expand {
 							display: block;
+							margin-top: 10px;
 							text-align: center;
-							color: @inmap-primary;						
+							color: @inmap-primary;
+							border: 1px solid @inmap-primary;
+							background: @inmap-grey-light;
 						}
 				
 						th {
@@ -129,9 +189,10 @@
 						}
 					
 						th, td {
-							padding: 3px 0 !important;
+							padding: 3px 5px !important;
 						}
-
+						
+						//Hide...
 						tr.joe-assoc_array-elevation,
 						tr.joe-assoc_array-velocity,
 						tr.joe-assoc_array-valid_gps_fix,
@@ -176,45 +237,6 @@
 				&.inmap-icon-quick {
 					background-image: url(../img/message-quick.svg);				
 				}				
-			}
-
-			//Description
-			.inmap-info-desc {	
-				padding: 5px 15px;
-				.inmap-info-title {	
-					span {
-						float: right;
-						color: @inmap-grey-dark;
-					}
-				}
-
-// 				background-color: @inmap-primary;
-// 				mask-image: url(../img/location-gps.svg);
-// 				mask-repeat: no-repeat;
-// 				mask-size: 15px;
-
-					margin-left: 20px;
-						border-left: 1px solid @inmap-primary;					
-
-				
-				.inmap-info-title {
-					font-weight: bold;
-				}
-				
-				table {
-					tr {
-						display: none;
-						background: none;
-						&.joe-assoc_array-id {
-							display: none;
-						}
-						th {
-						}
-						td {
-					
-						}
-					}
-				}
 			}
 		}
 	}

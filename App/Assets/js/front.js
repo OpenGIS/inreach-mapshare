@@ -90,7 +90,17 @@ const inmap_create_map = function(map_hash = null, map_geojson = null) {
 			} else {
 				//Remove classes
 				markers_jq[this_id].removeClass('inmap-' + update_status);
-				infos_jq[this_id].removeClass('inmap-' + update_status);							
+
+				//Active
+				if(update_status == 'active') {
+					//Latest always open
+					if(! infos_jq[this_id].hasClass('inmap-last')) {
+						infos_jq[this_id].removeClass('inmap-active');							
+					}				
+				//Other
+				} else {
+					infos_jq[this_id].removeClass('inmap-' + update_status);											
+				}
 			}
 		}
 	};
