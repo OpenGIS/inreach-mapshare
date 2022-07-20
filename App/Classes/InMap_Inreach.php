@@ -155,9 +155,12 @@ class InMap_Inreach extends Joe_Class {
 					];
 					
 					//First
-					if(! $i) {
+					if($i === 0) {
+						$Feature['properties']['icon']['className'] .= ' inmap-first';
+					//Last
+					} elseif($i === sizeof($this->KML->Document->Folder->Placemark) - 2) {
 						//Active
-						$Feature['properties']['icon']['className'] .= ' inmap-active';
+						$Feature['properties']['icon']['className'] .= ' inmap-last inmap-active';					
 					}					
 					
 					//Title
