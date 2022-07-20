@@ -1,4 +1,4 @@
-@inmap-primary: #d93;
+@inmap-primary: #dd9933;
 @inmap-grey-light: #f7f7f7;
 @inmap-grey-dark: #ddd;
 
@@ -10,9 +10,8 @@
 
 	//Icons
 	.inmap-icon {
-		width: 20px;
-		height: 20px;
-		mask-size: 20px;
+		margin-left: 0;
+		margin-top: 0;		
 		background-color: @inmap-primary;
 // 		background-repeat: no-repeat;
 		mask-position: center; 		
@@ -25,25 +24,23 @@
 	
 		//Messages
 		&.inmap-icon-message {
-			border: 1px solid blue;
-
 			z-index: +1000;		
 		
 			mask-image: url(../img/message.svg);
 			
 			//Quick
-			&.inmap-icon-quick {
-				mask-image: url(../img/message-quick.svg);				
-			}
-	
-			//Custom	
-			&.inmap-icon-custom {
-				z-index: +2000 !important;				
-
-				border: 1px solid green;
-
-				mask-image: url(../img/message-custom.svg);				
-			}
+// 			&.inmap-icon-quick {
+// 				mask-image: url(../img/message-quick.svg);				
+// 			}
+// 	
+// 			//Custom	
+// 			&.inmap-icon-custom {
+// 				z-index: +2000 !important;				
+// 
+// 				border: 1px solid green;
+// 
+// 				mask-image: url(../img/message-custom.svg);				
+// 			}
 		}
 	}
 
@@ -56,31 +53,50 @@
 		
 		// ======== Markers ========
 		
-		.inmap-point {
+		.inmap-marker	 {
+			width: 5px !important;
+			height: 5px !important;	
+			margin-left: -2.5px !important;
+			margin-top: -2.5px !important;				
+			background: @inmap-primary;
+			
 			text-align: center;
 			border-radius: 50%;
-			background: #fff;
-			mask-size: 10px;
+//  			border: 1px solid red;
 
 			.inmap-icon {
-				border: 1px solid pink;
+				display: none;
 			}
 		
 			&.inmap-hover,
 			&.inmap-active {
-				z-index: +1000;			
-// 				z-index: +1000 !important;			
+ 				z-index: +1001 !important;			
 			}
 
 			&.inmap-hover,
 			&.inmap-active {
-				margin-top: -7.5px !important;
-				margin-left: -7.5px !important;
 				width: 15px !important;
 				height: 15px !important;
-// 				padding: 5px;
-				background: #fff;
+				margin-left: -7.5px !important;
+				margin-top: -7.5px !important;
+				background: @inmap-primary;
 				border: 2px solid @inmap-primary;
+				.inmap-icon {
+					display: block;
+					width: 12px;
+					height: 12px;
+					margin-left: -0.5px;
+					margin-top: -0.5px;					
+					mask-size: 12px;
+					background: #fff;
+					&.inmap-icon-message {
+						width: 8px;
+						height: 8px;
+						margin-left: 2px;
+						margin-top: 2px;						
+						mask-size: 8px;						
+					}
+				}				
 			}
 		}
 	}
@@ -112,6 +128,9 @@
 	
 			.inmap-icon {
 				position: absolute;
+				width: 20px;
+				height: 20px;
+				mask-size: 20px;				
 				top: 7.5px;
 				left: 7.5px;
 			}
@@ -120,7 +139,7 @@
 			.inmap-info-desc {	
 				padding: 8px 15px;
 				min-height: 35px;
-				margin-left: 17.5px;
+				margin-left: 17px;
 				border-left: 1px solid @inmap-primary;					
 				.inmap-info-title {	
 					span {
@@ -155,6 +174,11 @@
 			&.inmap-last {
 				background-color: @inmap-primary !important;		
 				color: #fff;
+
+				.inmap-icon {
+					background-color: #fff !important;
+				}
+				
 				.inmap-info-desc {
 					padding-top: 2px;	
 					border-color: #fff;				
@@ -170,7 +194,7 @@
 			&.inmap-active,
 			&.inmap-hover {
 				background-color: @inmap-grey-dark;
-				cursor: pointer;
+				cursor: pointer;		
 				.inmap-info-title {
 					span {
 						color: #fff !important;
@@ -183,7 +207,7 @@
 				cursor: unset;
 				
 				.inmap-icon {
-					background: #fff;
+					background: @inmap-primary;
 				}
 
 				.inmap-info-title {

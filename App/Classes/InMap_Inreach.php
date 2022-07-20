@@ -302,6 +302,7 @@ class InMap_Inreach extends Joe_Class {
 				}
 				
 				//Style
+				$Feature['properties']['style']['weight'] = 2;
 				$Feature['properties']['style']['color'] = Joe_Config::get_setting('map', 'styles', 'tracking_colour');
 				
 				$this->FeatureCollection['features'][] = $Feature;
