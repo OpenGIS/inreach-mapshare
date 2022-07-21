@@ -59,6 +59,12 @@ add_action('init', function() {
 	// 		'SpatialRefSystem'			
 		],
 	
+		'defaults' => [
+			'defaults' => [
+				'mapshare_date_start' => '2020-10-02T16:20'
+			]
+		],
+		
 		'map' => [
 			'basemap' => [
 				'basemap_url' => 'https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png'
@@ -71,7 +77,8 @@ add_action('init', function() {
 		],
 		'misc' => [
 			'advanced' => [
-				'debug_mode' => true
+				'debug_mode' => true,
+				'cache_minutes' => 15
 			]
 		]
 	];
