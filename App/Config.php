@@ -38,9 +38,13 @@ $config = [
 	],
 	
 	'map' => [
+		'basemap' => [
+			'basemap_url' => 'https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png'
+		],
 		'appearance' => [
 			'tracking_colour' => $inmap_colour_primary,
-			'message_icon' => '&#9993;'
+			'message_icon' => Joe_Helper::asset_url('img/message.svg'),
+			'tracking_icon' => Joe_Helper::asset_url('img/location.svg')
 		]
 	],
 	'misc' => [

@@ -44,9 +44,11 @@ class InMap_Settings extends Joe_Settings {
 					'description' => '',
 					'fields' => [
 						'basemap_url' => [
-							'id' => 'mapshare_identifier',
+							'allow_empty' => false,
+							'default' => Joe_Config::get_setting('map', 'basemap', 'basemap_url'),
+							'id' => 'basemap_url',
 							'title' => esc_html__('Basemap URL', Joe_Config::get_item('plugin_text_domain')),
-							'tip' => esc_attr__('!!!.', Joe_Config::get_item('plugin_text_domain')),
+// 							'tip' => esc_attr__('!!!.', Joe_Config::get_item('plugin_text_domain')),
 // !!!
 // 							'tip_link' => ''
 						],
@@ -57,27 +59,30 @@ class InMap_Settings extends Joe_Settings {
 					'description' => '',
 					'fields' => [						
 						'tracking_colour' => [
+							'allow_empty' => false,
 							'id' => 'tracking_colour',
 							'default' => Joe_Config::get_setting('map', 'appearance', 'tracking_colour'),
 							'class' => 'joe-short-input joe-colour-picker',										
 							'title' => esc_html__('Tracking Colour', Joe_Config::get_item('plugin_text_domain')),
-							'tip' => esc_attr__('!!!.', Joe_Config::get_item('plugin_text_domain')),
+// 							'tip' => esc_attr__('!!!.', Joe_Config::get_item('plugin_text_domain')),
 // !!!
 // 							'tip_link' => ''
 						],
 						'tracking_icon' => [
+							'allow_empty' => false,						
 							'id' => 'tracking_icon',
-							'default' => Joe_Helper::asset_url('img/location-gps.svg'),
-							'title' => esc_html__('Message Icon', Joe_Config::get_item('plugin_text_domain')),
-							'tip' => esc_attr__('!!!.', Joe_Config::get_item('plugin_text_domain')),
+							'default' => Joe_Config::get_setting('map', 'appearance', 'tracking_icon'),
+							'title' => esc_html__('Tracking Icon', Joe_Config::get_item('plugin_text_domain')),
+// 							'tip' => esc_attr__('!!!.', Joe_Config::get_item('plugin_text_domain')),
 // !!!
 // 							'tip_link' => ''
 						],
 						'message_icon' => [
+							'allow_empty' => false,						
 							'id' => 'message_icon',
 							'default' => Joe_Config::get_setting('map', 'appearance', 'message_icon'),
 							'title' => esc_html__('Message Icon', Joe_Config::get_item('plugin_text_domain')),
-							'tip' => esc_attr__('!!!.', Joe_Config::get_item('plugin_text_domain')),
+// 							'tip' => esc_attr__('!!!.', Joe_Config::get_item('plugin_text_domain')),
 // !!!
 // 							'tip_link' => ''
 						]																																										
