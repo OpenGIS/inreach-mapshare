@@ -5,9 +5,9 @@ module.exports = function(grunt) {
 		less: {
 			wp_css: {
 				files: {
-					'App/Assets/css/shared.css': 'App/Assets/less/shared.less',
-					'App/Assets/css/front.css': 'App/Assets/less/front.less',
-					'App/Assets/css/admin.css': 'App/Assets/less/admin.less'
+					'assets/css/shared.css': 'assets/less/shared.less',
+					'assets/css/front.css': 'assets/less/front.less',
+					'assets/css/admin.css': 'assets/less/admin.less'
 				}
 			}		
 		},
@@ -15,14 +15,14 @@ module.exports = function(grunt) {
 		concat: {
 			wp_css: {
 				files: {
-					'App/Assets/css/front.css': ['App/Assets/css/shared.css', 'App/Assets/css/front.css'],
-					'App/Assets/css/admin.css': ['App/Assets/css/shared.css', 'App/Assets/css/admin.css'],					
+					'assets/css/front.css': ['assets/css/shared.css', 'assets/css/front.css'],
+					'assets/css/admin.css': ['assets/css/shared.css', 'assets/css/admin.css'],					
 				}
 			},
 			wp_js: {
 				files: {
-					'App/Assets/js/front.min.js': ['App/Assets/js/shared.js', 'App/Assets/js/front.js'],
-					'App/Assets/js/admin.min.js': ['App/Assets/js/shared.js', 'App/Assets/js/admin.js'],					
+					'assets/js/front.min.js': ['assets/js/shared.js', 'assets/js/front.js'],
+					'assets/js/admin.min.js': ['assets/js/shared.js', 'assets/js/admin.js'],					
 				}
 			}			
 		},	
@@ -30,8 +30,8 @@ module.exports = function(grunt) {
 		terser: {
 			wp_js: {
 				files: {
-					'App/Assets/js/front.min.js': ['App/Assets/js/front.min.js'],
-					'App/Assets/js/admin.min.js': ['App/Assets/js/admin.min.js']					
+					'assets/js/front.min.js': ['assets/js/front.min.js'],
+					'assets/js/admin.min.js': ['assets/js/admin.min.js']					
 				}
 			}			
 		},
@@ -39,19 +39,19 @@ module.exports = function(grunt) {
 		cssmin: {
 			wp_css: {
 				files: {
-					'App/Assets/css/front.min.css': 'App/Assets/css/front.css',
-					'App/Assets/css/admin.min.css': 'App/Assets/css/admin.css'
+					'assets/css/front.min.css': 'assets/css/front.css',
+					'assets/css/admin.min.css': 'assets/css/admin.css'
 				}
 			}	
 		},
 		
 		watch: {				
 			wp_css: {
-				files: ['App/Assets/less/*.less'],
+				files: ['assets/less/*.less'],
 				tasks: ['build_wp_css']
 			},
 			wp_js: {
-				files: ['App/Assets/js/*.js'],
+				files: ['assets/js/*.js'],
 				tasks: ['build_wp_js']
 			}		
 		}
