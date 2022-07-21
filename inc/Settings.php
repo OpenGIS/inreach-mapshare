@@ -12,13 +12,13 @@ class InMap_Settings extends Joe_Settings {
 // 			'mapshare_date_start',
 // 			'mapshare_date_end'
 // 		] as $key) {
-// 			$current_shortcode .= ' ' . $key . '="' . Joe_Config::get_setting('defaults', 'defaults', $key). '"';
+// 			$current_shortcode .= ' ' . $key . '="' . Joe_Config::get_setting('inreach', 'defaults', $key). '"';
 // 		}
 // 		$current_shortcode .= ']';
 
 		//Defaults
-		$this->tabs['defaults'] = [
-			'name' => '',
+		$this->tabs['inreach'] = [
+			'name' => esc_html__('Inreach', Joe_Config::get_item('plugin_text_domain')),
 			'description' => '',
 			'sections' => [
 				'defaults' => [		
@@ -26,6 +26,7 @@ class InMap_Settings extends Joe_Settings {
 // 					'description' => '<pre><code>' . $current_shortcode . '</code></pre>' . do_shortcode($current_shortcode),
 					'fields' => [
 						'mapshare_identifier' => [
+							'required' => true,
 							'id' => 'mapshare_identifier',
 							'title' => esc_html__('MapShare Identifier', Joe_Config::get_item('plugin_text_domain')),
 							'tip' => esc_attr__('!!!', Joe_Config::get_item('plugin_text_domain')),
@@ -38,24 +39,31 @@ class InMap_Settings extends Joe_Settings {
 							'tip_link' => 'https://explore.garmin.com/Social'
 						],
 						'mapshare_date_start' => [
-							'required' => Joe_Config::get_setting('defaults', 'defaults', 'mapshare_date_start'),
+							'required' => Joe_Config::get_setting('inreach', 'defaults', 'mapshare_date_start'),
 							'id' => 'mapshare_date_start',
 							'type' => 'datetime-local',
 							'title' => esc_html__('Start Date', Joe_Config::get_item('plugin_text_domain'))
 						],
+						
 // 						'mapshare_date_end' => [
 // 							'id' => 'mapshare_date_end',
 // 							'type' => 'datetime-local',
 // 							'title' => esc_html__('End Date', Joe_Config::get_item('plugin_text_domain'))
-// 						],
+// 						],																																										
+					]											
+				],
+				'advanced' => [		
+					'title' => esc_html__('Cache', Joe_Config::get_item('plugin_text_domain')),
+// 					'description' => '',
+					'fields' => [
 						'cache_minutes' => [
-							'required' => Joe_Config::get_setting('defaults', 'defaults', 'mapshare_date_start'),
+							'required' => Joe_Config::get_setting('inreach', 'advanced', 'cache_minutes'),
 							'id' => 'cache_minutes',
 							'class' => 'joe-short-input',
 							'title' => esc_html__('Cache Minutes', Joe_Config::get_item('plugin_text_domain')),
 							'tip' => esc_attr__('How often the feed is updated.', Joe_Config::get_item('plugin_text_domain'))
-						]																																											
-					]											
+						]	
+					]
 				]
 			]
 		];

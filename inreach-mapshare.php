@@ -59,9 +59,12 @@ add_action('init', function() {
 	// 		'SpatialRefSystem'			
 		],
 	
-		'defaults' => [
+		'inreach' => [
 			'defaults' => [
 				'mapshare_date_start' => '2020-10-02T16:20'
+			],
+			'advanced' => [
+				'cache_minutes' => '15'
 			]
 		],
 		
