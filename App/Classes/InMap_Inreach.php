@@ -274,7 +274,7 @@ class InMap_Inreach extends Joe_Class {
 						$Feature['properties']['description'] = $description;																
 					}
 
-// 					$Feature['properties']['icon']['html'] = Joe_Config::get_setting('map', 'styles', 'message_icon');
+// 					$Feature['properties']['icon']['html'] = Joe_Config::get_setting('map', 'appearance', 'message_icon');
 					
 				// =========== LineString ===========
 				
@@ -303,7 +303,7 @@ class InMap_Inreach extends Joe_Class {
 				
 				//Style
 				$Feature['properties']['style']['weight'] = 2;
-				$Feature['properties']['style']['color'] = Joe_Config::get_setting('map', 'styles', 'tracking_colour');
+				$Feature['properties']['style']['color'] = Joe_Config::get_setting('map', 'appearance', 'tracking_colour');
 				
 				$this->FeatureCollection['features'][] = $Feature;
 			}

@@ -33,7 +33,7 @@ class InMap_Front extends Joe_Front {
 		//InMap CSS
 		Joe_Assets::css_inline('
 			.inmap-map .inmap-point {
-				background: ' . Joe_Config::get_setting('map', 'styles', 'tracking_colour') . ';
+				background: ' . Joe_Config::get_setting('map', 'appearance', 'tracking_colour') . ';
 			}
 		');
 		Joe_Assets::css_enqueue(Joe_Helper::plugin_url('App/Assets/css/front.min.css'));	

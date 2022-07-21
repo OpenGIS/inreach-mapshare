@@ -52,23 +52,30 @@ class InMap_Settings extends Joe_Settings {
 						],
 					]
 				],
-				'styles' => [		
-					'title' => esc_html__('Styles', Joe_Config::get_item('plugin_text_domain')),
+				'appearance' => [		
+					'title' => esc_html__('Appearance', Joe_Config::get_item('plugin_text_domain')),
 					'description' => '',
 					'fields' => [						
 						'tracking_colour' => [
 							'id' => 'tracking_colour',
-							'default' => Joe_Config::get_setting('map', 'styles', 'tracking_colour'),
+							'default' => Joe_Config::get_setting('map', 'appearance', 'tracking_colour'),
 							'class' => 'joe-short-input joe-colour-picker',										
 							'title' => esc_html__('Tracking Colour', Joe_Config::get_item('plugin_text_domain')),
 							'tip' => esc_attr__('!!!.', Joe_Config::get_item('plugin_text_domain')),
 // !!!
 // 							'tip_link' => ''
 						],
+						'tracking_icon' => [
+							'id' => 'tracking_icon',
+							'default' => Joe_Helper::asset_url('img/location-gps.svg'),
+							'title' => esc_html__('Message Icon', Joe_Config::get_item('plugin_text_domain')),
+							'tip' => esc_attr__('!!!.', Joe_Config::get_item('plugin_text_domain')),
+// !!!
+// 							'tip_link' => ''
+						],
 						'message_icon' => [
 							'id' => 'message_icon',
-							'default' => Joe_Config::get_setting('map', 'styles', 'message_icon'),
-							'class' => 'joe-short-input',										
+							'default' => Joe_Config::get_setting('map', 'appearance', 'message_icon'),
 							'title' => esc_html__('Message Icon', Joe_Config::get_item('plugin_text_domain')),
 							'tip' => esc_attr__('!!!.', Joe_Config::get_item('plugin_text_domain')),
 // !!!

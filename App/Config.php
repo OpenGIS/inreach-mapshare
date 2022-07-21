@@ -38,7 +38,7 @@ $config = [
 	],
 	
 	'map' => [
-		'styles' => [
+		'appearance' => [
 			'tracking_colour' => $inmap_colour_primary,
 			'message_icon' => '&#9993;'
 		]
