@@ -78,7 +78,7 @@ class InMap_Settings extends Joe_Settings {
 					'description' => '',
 					'fields' => [
 						'basemap_url' => [
-							'required' => Joe_Config::get_setting('map', 'basemap', 'basemap_url'),
+							'required' => Joe_Config::get_setting('appearance', 'map', 'basemap_url'),
 							'id' => 'basemap_url',
 							'title' => esc_html__('Basemap URL', Joe_Config::get_item('plugin_text_domain')),
 						],
@@ -90,19 +90,19 @@ class InMap_Settings extends Joe_Settings {
 					'fields' => [						
 						'tracking_colour' => [
 							'type' => 'color',
-							'required' => Joe_Config::get_setting('map', 'appearance', 'tracking_colour'),
+							'required' => Joe_Config::get_setting('appearance', 'colours', 'tracking_colour'),
 							'id' => 'tracking_colour',
 							'title' => esc_html__('Tracking Colour', Joe_Config::get_item('plugin_text_domain')),
  							'tip' => esc_attr__('!!!', Joe_Config::get_item('plugin_text_domain')),
 						],
 						'tracking_icon' => [
-							'required' => Joe_Config::get_setting('map', 'appearance', 'tracking_icon'),						
+							'required' => Joe_Config::get_setting('appearance', 'icons', 'tracking_icon'),						
 							'id' => 'tracking_icon',
 							'title' => esc_html__('Tracking Icon', Joe_Config::get_item('plugin_text_domain')),
 						],
 						'message_icon' => [
 							'id' => 'message_icon',
-							'required' => Joe_Config::get_setting('map', 'appearance', 'message_icon'),
+							'required' => Joe_Config::get_setting('appearance', 'icons', 'message_icon'),
 							'title' => esc_html__('Message Icon', Joe_Config::get_item('plugin_text_domain')),
 // 							'tip' => esc_attr__('!!!.', Joe_Config::get_item('plugin_text_domain')),
 // !!!

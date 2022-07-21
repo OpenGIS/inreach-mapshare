@@ -274,8 +274,6 @@ class InMap_Inreach extends Joe_Class {
 						$Feature['properties']['description'] = $description;																
 					}
 
-// 					$Feature['properties']['icon']['html'] = Joe_Config::get_setting('map', 'appearance', 'message_icon');
-					
 				// =========== LineString ===========
 				
 				} elseif($Placemark->LineString->coordinates) {
@@ -303,7 +301,7 @@ class InMap_Inreach extends Joe_Class {
 				
 				//Style
 				$Feature['properties']['style']['weight'] = 2;
-				$Feature['properties']['style']['color'] = Joe_Config::get_setting('map', 'appearance', 'tracking_colour');
+				$Feature['properties']['style']['color'] = Joe_Config::get_setting('appearance', 'colours', 'tracking_colour');
 				
 				$this->FeatureCollection['features'][] = $Feature;
 			}

@@ -59,7 +59,8 @@ add_action('init', function() {
 	// 		'SpatialRefSystem'			
 		],
 	
-		'inreach' => [
+		//MapShare
+		'mapshare' => [
 			'defaults' => [
 				'mapshare_date_start' => '2020-10-02T16:20'
 			],
@@ -68,21 +69,18 @@ add_action('init', function() {
 			]
 		],
 		
-		'map' => [
-			'basemap' => [
+		//Appearance
+		'appearance' => [
+			'map' => [
 				'basemap_url' => 'https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png'
 			],
-			'appearance' => [
+			'colours' => [
 				'tracking_colour' => $inmap_colour_primary,
+			],
+			'icons' => [
 				'message_icon' => Joe_Helper::asset_url('img/message.svg'),
 				'tracking_icon' => Joe_Helper::asset_url('img/location.svg')
-			]
-		],
-		'misc' => [
-			'advanced' => [
-				'debug_mode' => true,
-				'cache_minutes' => 15
-			]
+			]			
 		]
 	];
 

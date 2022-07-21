@@ -22,7 +22,7 @@ class InMap_Shortcode extends Joe_Shortcode {
 		//InMap CSS
 		Joe_Assets::css_inline('
 			.inmap-map .inmap-point {
-				background: ' . Joe_Config::get_setting('map', 'appearance', 'tracking_colour') . ';
+				background: ' . Joe_Config::get_setting('appearance', 'colours', 'tracking_colour') . ';
 			}
 		');
 		Joe_Assets::css_enqueue(Joe_Helper::plugin_url('assets/css/front.min.css'));	
