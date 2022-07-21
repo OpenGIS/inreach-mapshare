@@ -17,13 +17,13 @@ class InMap_Settings extends Joe_Settings {
 // 		$current_shortcode .= ']';
 
 		//Defaults
-		$this->tabs['inreach'] = [
-			'name' => esc_html__('Inreach', Joe_Config::get_item('plugin_text_domain')),
+		$this->tabs['mapshare'] = [
+			'name' => esc_html__('MapShare', Joe_Config::get_item('plugin_text_domain')),
 			'description' => '',
 			'sections' => [
 				'defaults' => [		
 					'title' => esc_html__('Defaults', Joe_Config::get_item('plugin_text_domain')),
-// 					'description' => '<pre><code>' . $current_shortcode . '</code></pre>' . do_shortcode($current_shortcode),
+ 					'description' => __('Reduce keyboard wear.', Joe_Config::get_item('plugin_text_domain')),
 					'fields' => [
 						'mapshare_identifier' => [
 							'required' => true,
@@ -39,7 +39,7 @@ class InMap_Settings extends Joe_Settings {
 							'tip_link' => 'https://explore.garmin.com/Social'
 						],
 						'mapshare_date_start' => [
-							'required' => Joe_Config::get_setting('inreach', 'defaults', 'mapshare_date_start'),
+// 							'required' => Joe_Config::get_setting('inreach', 'defaults', 'mapshare_date_start'),
 							'id' => 'mapshare_date_start',
 							'type' => 'datetime-local',
 							'title' => esc_html__('Start Date', Joe_Config::get_item('plugin_text_domain'))
