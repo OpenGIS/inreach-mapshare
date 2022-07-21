@@ -72,7 +72,8 @@ add_action('init', function() {
 		//Appearance
 		'appearance' => [
 			'map' => [
-				'basemap_url' => 'https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png'
+				'basemap_url' => 'https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png',
+				'basemap_attribution' => '© <a href=&quot;https://www.openstreetmap.org/copyright&quot;>OpenStreetMap</a> contributors'
 			],
 			'colours' => [
 				'tracking_colour' => $inmap_colour_primary,

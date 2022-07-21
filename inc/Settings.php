@@ -4,6 +4,12 @@ class InMap_Settings extends Joe_Settings {
 	public function __construct() {
 		parent::__construct();
 
+		$this->settings_nav = [
+			'joe-settings-tab-mapshare' => '-- ' . esc_html__('Mapshare', Joe_Config::get_item('plugin_text_domain')),
+			'joe-settings-tab-appearance' => esc_html__('Appearance', Joe_Config::get_item('plugin_text_domain')),
+		];
+	
+
 // 		$current_shortcode = '[';
 // 		$current_shortcode .= Joe_Config::get_item('shortcode');
 // 		foreach([
@@ -12,14 +18,12 @@ class InMap_Settings extends Joe_Settings {
 // 			'mapshare_date_start',
 // 			'mapshare_date_end'
 // 		] as $key) {
-// 			$current_shortcode .= ' ' . $key . '="' . Joe_Config::get_setting('inreach', 'defaults', $key). '"';
+// 			$current_shortcode .= ' ' . $key . '="' . Joe_Config::get_setting('mapshare', 'defaults', $key). '"';
 // 		}
 // 		$current_shortcode .= ']';
 
 		//Defaults
 		$this->tabs['mapshare'] = [
-			'name' => esc_html__('MapShare', Joe_Config::get_item('plugin_text_domain')),
-			'description' => '',
 			'sections' => [
 				'defaults' => [		
 					'title' => esc_html__('Defaults', Joe_Config::get_item('plugin_text_domain')),
@@ -27,20 +31,17 @@ class InMap_Settings extends Joe_Settings {
 					'fields' => [
 						'mapshare_identifier' => [
 							'required' => true,
-							'id' => 'mapshare_identifier',
 							'title' => esc_html__('MapShare Identifier', Joe_Config::get_item('plugin_text_domain')),
 							'tip' => esc_attr__('!!!', Joe_Config::get_item('plugin_text_domain')),
 							'tip_link' => 'https://developer.mozilla.org/en-US/docs/Tools/Browser_Console'
 						],
 						'mapshare_password' => [
-							'id' => 'mapshare_password',
 							'title' => esc_html__('MapShare Password', Joe_Config::get_item('plugin_text_domain')),
 							'tip' => esc_attr__('The (optional) password for your MapShare page, set in MapShare Settings. This is *not* any kind of account password.', Joe_Config::get_item('plugin_text_domain')),
 							'tip_link' => 'https://explore.garmin.com/Social'
 						],
 						'mapshare_date_start' => [
-// 							'required' => Joe_Config::get_setting('inreach', 'defaults', 'mapshare_date_start'),
-							'id' => 'mapshare_date_start',
+// 							'required' => Joe_Config::get_fallback('mapshare', 'defaults', 'mapshare_date_start'),
 							'type' => 'datetime-local',
 							'title' => esc_html__('Start Date', Joe_Config::get_item('plugin_text_domain'))
 						],
@@ -57,8 +58,7 @@ class InMap_Settings extends Joe_Settings {
 // 					'description' => '',
 					'fields' => [
 						'cache_minutes' => [
-							'required' => Joe_Config::get_setting('inreach', 'advanced', 'cache_minutes'),
-							'id' => 'cache_minutes',
+							'required' => Joe_Config::get_fallback('mapshare', 'advanced', 'cache_minutes'),
 							'class' => 'joe-short-input',
 							'title' => esc_html__('Cache Minutes', Joe_Config::get_item('plugin_text_domain')),
 							'tip' => esc_attr__('How often the feed is updated.', Joe_Config::get_item('plugin_text_domain'))
@@ -67,42 +67,49 @@ class InMap_Settings extends Joe_Settings {
 				]
 			]
 		];
-
+		
 		//Map
-		$this->tabs['map'] = [
-			'name' => '',
-			'description' => '',
+		$this->tabs['appearance'] = [
 			'sections' => [
-				'basemap' => [		
-					'title' => esc_html__('Basemap', Joe_Config::get_item('plugin_text_domain')),
+				'map' => [		
+					'title' => esc_html__('Map', Joe_Config::get_item('plugin_text_domain')),
 					'description' => '',
 					'fields' => [
 						'basemap_url' => [
-							'required' => Joe_Config::get_setting('appearance', 'map', 'basemap_url'),
-							'id' => 'basemap_url',
+							'required' => Joe_Config::get_fallback('appearance', 'map', 'basemap_url'),
 							'title' => esc_html__('Basemap URL', Joe_Config::get_item('plugin_text_domain')),
 						],
+						'basemap_attribution' => [
+							'required' => Joe_Config::get_fallback('appearance', 'map', 'basemap_attribution'),
+							'title' => esc_html__('Basemap Attribution', Joe_Config::get_item('plugin_text_domain')),
+							'input_processing' => array(
+								'(! strpos($param_value, "&")) ? htmlspecialchars($param_value) : $param_value'
+							)															
+						]						
 					]
 				],
-				'appearance' => [		
-					'title' => esc_html__('Appearance', Joe_Config::get_item('plugin_text_domain')),
+				'colours' => [		
+					'title' => esc_html__('Colours', Joe_Config::get_item('plugin_text_domain')),
 					'description' => '',
 					'fields' => [						
 						'tracking_colour' => [
 							'type' => 'color',
-							'required' => Joe_Config::get_setting('appearance', 'colours', 'tracking_colour'),
-							'id' => 'tracking_colour',
+							'required' => Joe_Config::get_fallback('appearance', 'colours', 'tracking_colour'),
 							'title' => esc_html__('Tracking Colour', Joe_Config::get_item('plugin_text_domain')),
  							'tip' => esc_attr__('!!!', Joe_Config::get_item('plugin_text_domain')),
-						],
+						]																																									
+					]											
+				],
+				'icons' => [		
+					'title' => esc_html__('Icons', Joe_Config::get_item('plugin_text_domain')),
+					'description' => '',
+					'fields' => [						
 						'tracking_icon' => [
-							'required' => Joe_Config::get_setting('appearance', 'icons', 'tracking_icon'),						
-							'id' => 'tracking_icon',
+							'required' => Joe_Config::get_fallback('appearance', 'icons', 'tracking_icon'),						
 							'title' => esc_html__('Tracking Icon', Joe_Config::get_item('plugin_text_domain')),
 						],
 						'message_icon' => [
-							'id' => 'message_icon',
-							'required' => Joe_Config::get_setting('appearance', 'icons', 'message_icon'),
+							'required' => Joe_Config::get_fallback('appearance', 'icons', 'message_icon'),
 							'title' => esc_html__('Message Icon', Joe_Config::get_item('plugin_text_domain')),
 // 							'tip' => esc_attr__('!!!.', Joe_Config::get_item('plugin_text_domain')),
 // !!!
