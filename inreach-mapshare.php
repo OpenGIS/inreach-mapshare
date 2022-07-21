@@ -30,7 +30,7 @@ add_action('init', function() {
 		'plugin_text_domain' => $inmap_plugin_slug,
 		'plugin_name' => 'inReach MapShare',
 		'plugin_version' => '1.0',
-		'settings_id' => 'inreach_mapshare',
+		'settings_id' => 'inmap_settings',
 		'site_url' => 'https://wordpress.org/support/plugin/' . $inmap_plugin_slug . '/',
 		'directory_url' => 'https://wordpress.org/support/plugin/' . $inmap_plugin_slug . '/',
 		'shortcode' => $inmap_plugin_slug,
