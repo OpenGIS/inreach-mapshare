@@ -20,7 +20,6 @@ class InMap_Settings extends Joe_Settings {
 		}
 		$current_shortcode .= ']';
 		
-		Joe_Helper::debug($current_shortcode);
 
 		//Defaults
 		$this->tabs['defaults'] = [
@@ -29,7 +28,7 @@ class InMap_Settings extends Joe_Settings {
 			'sections' => [
 				'defaults' => [		
 					'title' => esc_html__('Shortcode Builder', Joe_Config::get_item('plugin_text_domain')),
-					'description' => do_shortcode($current_shortcode),
+					'description' => '<pre><code>' . $current_shortcode . '</code></pre>' . do_shortcode($current_shortcode),
 					'fields' => [
 						'mapshare_identifier' => [
 							'id' => 'mapshare_identifier',

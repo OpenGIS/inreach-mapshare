@@ -4,6 +4,38 @@ class InMap_Shortcode extends Joe_Shortcode {
 
 	function __construct() {
 		parent::__construct();
+
+		$this->load_assets();
+	}
+	
+	function load_assets() {
+		//Leaflet CSS
+		Joe_Assets::css_enqueue(Joe_Helper::plugin_url('assets/css/leaflet.css'));	
+
+		//Leaflet JS
+		Joe_Assets::js_enqueue([
+			'id' => 'leaflet_js',
+			'url' => Joe_Helper::plugin_url('assets/js/leaflet.js'),
+			'deps' => [ 'jquery' ]
+		]);
+
+		//InMap CSS
+		Joe_Assets::css_inline('
+			.inmap-map .inmap-point {
+				background: ' . Joe_Config::get_setting('map', 'appearance', 'tracking_colour') . ';
+			}
+		');
+		Joe_Assets::css_enqueue(Joe_Helper::plugin_url('assets/css/front.min.css'));	
+		
+		//InMap JS
+		Joe_Assets::js_enqueue([
+			'id' => 'inmap_js',
+			'url' => Joe_Helper::plugin_url('assets/js/front.min.js'),
+			'deps' => [ 'leaflet_js' ],
+			'data' => [
+// 				'lang' => []						
+			]
+		]);		
 	}
 
 	public function handle_shortcode($shortcode_data, $content = null) {

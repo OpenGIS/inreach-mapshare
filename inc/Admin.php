@@ -9,16 +9,15 @@ class InMap_Admin extends Joe_Admin {
 		if(! is_admin()) {
 			return;
 		}
-		
+
+		new InMap_Shortcode;	
+		new InMap_Settings;
+			
 		//Actions
 		add_action('admin_init', array($this, 'load_assets'));
 	}
 	
 	function load_assets() {
 		parent::load_assets();
-		
-		InMap_Helper::enqueue_shortcode_assets([
-			'context' => 'admin'
-		]);
 	}
 }

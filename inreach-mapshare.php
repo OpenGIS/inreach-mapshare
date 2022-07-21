@@ -78,8 +78,8 @@ add_action('init', function() {
 
 	Joe_Config::init($config);
 	
-	new InMap_Settings;
+	Joe_Helper::debug(Joe_Config::get_data());
+	
 	new InMap_Admin;
 	new InMap_Front;	
-	new InMap_Shortcode;	
 });
