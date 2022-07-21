@@ -21,5 +21,4 @@ class InMap_Admin extends Joe_Admin {
 			'context' => 'admin'
 		]);
 	}
-}	
-new InMap_Admin;
+}

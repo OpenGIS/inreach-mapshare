@@ -40,4 +40,3 @@ class InMap_Shortcode extends Joe_Shortcode {
 		}
 	}	
 }
-new InMap_Shortcode;

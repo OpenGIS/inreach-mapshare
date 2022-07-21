@@ -21,5 +21,4 @@ class InMap_Front extends Joe_Front {
 			'context' => 'front'
 		]);
 	}		
-}	
-new InMap_Front;
+}
