@@ -116,6 +116,10 @@
 .inmap-wrap .inmap-info .inmap-info-item .inmap-info-desc table tr.joe-assoc_array-id {
   display: none;
 }
+.inmap-wrap .inmap-info .inmap-info-item .inmap-info-desc table tr th,
+.inmap-wrap .inmap-info .inmap-info-item .inmap-info-desc table tr td {
+  font-size: 12px !important;
+}
 .inmap-wrap .inmap-info .inmap-info-item.inmap-last {
   background-color: #dd9933 !important;
   color: #fff;
@@ -124,6 +128,7 @@
   background-color: #fff !important;
 }
 .inmap-wrap .inmap-info .inmap-info-item.inmap-last .inmap-info-desc {
+  padding-right: 7px;
   padding-top: 2px;
   border-color: #fff;
 }
@@ -132,6 +137,9 @@
 }
 .inmap-wrap .inmap-info .inmap-info-item.inmap-last .inmap-info-desc .inmap-info-title span {
   color: #fff !important;
+}
+.inmap-wrap .inmap-info .inmap-info-item.inmap-last .inmap-info-desc table * {
+  color: #fff;
 }
 .inmap-wrap .inmap-info .inmap-info-item.inmap-active,
 .inmap-wrap .inmap-info .inmap-info-item.inmap-hover {
