@@ -31,9 +31,10 @@ add_action('init', function() {
 		'plugin_name' => 'inReach MapShare',
 		'plugin_version' => '1.0',
 		'settings_id' => 'inmap_settings',
+		'settings_default_tab' => 'joe-settings-tab-mapshare',
 		'site_url' => 'https://wordpress.org/support/plugin/' . $inmap_plugin_slug . '/',
 		'directory_url' => 'https://wordpress.org/support/plugin/' . $inmap_plugin_slug . '/',
-		'shortcode' => $inmap_plugin_slug,
+		'plugin_shortcode' => $inmap_plugin_slug,
 		'plugin_about' => '<img alt="Joe\'s mug" src="https://www.morehawes.co.uk/assets/images/Joe1BW.jpg" />',
 	
 		//KML
@@ -57,6 +58,11 @@ add_action('init', function() {
 			'Event',
 	// 		'Device Identifier',
 	// 		'SpatialRefSystem'			
+		],
+
+		//Shortcode
+		'shortcode' => [
+			'build' => []
 		],
 	
 		//MapShare
@@ -86,8 +92,6 @@ add_action('init', function() {
 	];
 
 	Joe_Config::init($config);
-	
-	Joe_Helper::debug(Joe_Config::get_data());
 	
 	new InMap_Admin;
 	new InMap_Front;	
