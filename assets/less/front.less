@@ -272,23 +272,29 @@
 							border: 1px solid @inmap-primary;
 							background: @inmap-grey-light;
 						}
-				
-						th {
-							width: 80px;
-						}
-					
-						th, td {
-							padding: 3px 5px !important;
-						}
 						
-						//Hide...
-						tr.joe-assoc_array-event,
-						tr.joe-assoc_array-elevation,
-						tr.joe-assoc_array-velocity,
-						tr.joe-assoc_array-valid_gps_fix,
-						tr.joe-assoc_array-time_utc {
-							display: none !important;
-						}		
+						tr {
+							th {
+								width: 80px;
+							}
+					
+							th, td {
+								padding: 3px 5px !important;
+							}
+
+							//Hide...
+							&.joe-assoc_array-latitude,
+							&.joe-assoc_array-longitude,
+					
+							&.joe-assoc_array-event,
+							&.joe-assoc_array-elevation,
+							&.joe-assoc_array-velocity,
+							&.joe-assoc_array-valid_gps_fix,
+							&.joe-assoc_array-time_utc {
+								display: none !important;
+							}		
+							
+						}						
 					}
 				}				
 			}
