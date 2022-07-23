@@ -1,6 +1,6 @@
 .inmap-wrap {
   position: relative;
-  border: 1px solid blue;
+  border: 1px solid #ddd;
 }
 .inmap-wrap .inmap-icon {
   margin-left: 0;
@@ -16,11 +16,25 @@
   z-index: 1000;
   mask-image: url(../img/message.svg);
 }
-.inmap-wrap .inmap-map {
-  position: relative;
-  min-height: 500px;
-  width: 66.66%;
-  border: 1px solid #ddd;
+.inmap-wrap .inmap-map,
+.inmap-wrap .inmap-info {
+  height: 240px;
+}
+@media screen and (min-width: 320px) {
+  .inmap-wrap .inmap-map,
+  .inmap-wrap .inmap-info {
+    border: 1px solid orange !important;
+  }
+}
+@media screen and (min-width: 1025px) {
+  .inmap-wrap .inmap-map,
+  .inmap-wrap .inmap-info {
+    border: 1px solid pink !important;
+  }
+}
+.inmap-wrap .inmap-map.inmap-info,
+.inmap-wrap .inmap-info.inmap-info {
+  border: 1px solid green;
 }
 .inmap-wrap .inmap-map .inmap-marker {
   width: 5px !important;
@@ -66,13 +80,7 @@
   mask-size: 8px;
 }
 .inmap-wrap .inmap-info {
-  position: absolute;
-  top: 0;
-  right: 0;
-  width: 33.33%;
-  height: 100%;
   background: #fff;
-  z-index: 1000 !important;
   border-left: 1px solid #ddd;
   overflow: scroll;
 }
@@ -83,6 +91,7 @@
   position: relative;
   padding-left: 0;
   font-size: 12px;
+  max-height: 30px;
   border-bottom: 1px solid #ddd;
 }
 .inmap-wrap .inmap-info .inmap-info-item .inmap-icon {
@@ -94,7 +103,8 @@
   left: 7.5px;
 }
 .inmap-wrap .inmap-info .inmap-info-item .inmap-info-desc {
-  padding: 8px 15px;
+  padding: 8px;
+  padding-left: 15px;
   min-height: 35px;
   margin-left: 17px;
   border-left: 1px solid #dd9933;
@@ -114,11 +124,64 @@
   background: none;
 }
 .inmap-wrap .inmap-info .inmap-info-item .inmap-info-desc table tr.joe-assoc_array-id {
-  display: none;
+  display: none !important;
 }
 .inmap-wrap .inmap-info .inmap-info-item .inmap-info-desc table tr th,
 .inmap-wrap .inmap-info .inmap-info-item .inmap-info-desc table tr td {
+  text-align: left;
   font-size: 12px !important;
+}
+.inmap-wrap .inmap-info .inmap-info-item.inmap-active {
+  cursor: unset;
+  max-height: unset;
+}
+.inmap-wrap .inmap-info .inmap-info-item.inmap-active .inmap-icon {
+  background: #dd9933;
+}
+.inmap-wrap .inmap-info .inmap-info-item.inmap-active .inmap-info-title {
+  margin-bottom: 5px;
+  padding: 5px;
+  border-bottom: 1px solid #dd9933;
+}
+.inmap-wrap .inmap-info .inmap-info-item.inmap-active .inmap-info-desc .inmap-info-title {
+  margin-bottom: 5px;
+  padding-bottom: 5px;
+  border-bottom: 1px solid #dd9933;
+}
+.inmap-wrap .inmap-info .inmap-info-item.inmap-active .inmap-info-desc .inmap-info-title span {
+  float: right;
+}
+.inmap-wrap .inmap-info .inmap-info-item.inmap-active .inmap-info-desc table tr {
+  display: table-row;
+}
+.inmap-wrap .inmap-info .inmap-info-item.inmap-active .inmap-info-desc table tr th,
+.inmap-wrap .inmap-info .inmap-info-item.inmap-active .inmap-info-desc table tr td {
+  padding: 5px 0;
+}
+.inmap-wrap .inmap-info .inmap-info-item.inmap-active.inmap-hide-extended {
+  cursor: pointer;
+}
+.inmap-wrap .inmap-info .inmap-info-item.inmap-active.inmap-hide-extended .inmap-info-desc .inmap-info-expand {
+  display: block;
+  margin-top: 10px;
+  text-align: center;
+  color: #dd9933;
+  border: 1px solid #dd9933;
+  background: #f7f7f7;
+}
+.inmap-wrap .inmap-info .inmap-info-item.inmap-active.inmap-hide-extended .inmap-info-desc th {
+  width: 80px;
+}
+.inmap-wrap .inmap-info .inmap-info-item.inmap-active.inmap-hide-extended .inmap-info-desc th,
+.inmap-wrap .inmap-info .inmap-info-item.inmap-active.inmap-hide-extended .inmap-info-desc td {
+  padding: 3px 5px !important;
+}
+.inmap-wrap .inmap-info .inmap-info-item.inmap-active.inmap-hide-extended .inmap-info-desc tr.joe-assoc_array-event,
+.inmap-wrap .inmap-info .inmap-info-item.inmap-active.inmap-hide-extended .inmap-info-desc tr.joe-assoc_array-elevation,
+.inmap-wrap .inmap-info .inmap-info-item.inmap-active.inmap-hide-extended .inmap-info-desc tr.joe-assoc_array-velocity,
+.inmap-wrap .inmap-info .inmap-info-item.inmap-active.inmap-hide-extended .inmap-info-desc tr.joe-assoc_array-valid_gps_fix,
+.inmap-wrap .inmap-info .inmap-info-item.inmap-active.inmap-hide-extended .inmap-info-desc tr.joe-assoc_array-time_utc {
+  display: none !important;
 }
 .inmap-wrap .inmap-info .inmap-info-item.inmap-last {
   background-color: #dd9933 !important;
@@ -149,54 +212,4 @@
 .inmap-wrap .inmap-info .inmap-info-item.inmap-active .inmap-info-title span,
 .inmap-wrap .inmap-info .inmap-info-item.inmap-hover .inmap-info-title span {
   color: #fff !important;
-}
-.inmap-wrap .inmap-info .inmap-info-item.inmap-active {
-  cursor: unset;
-}
-.inmap-wrap .inmap-info .inmap-info-item.inmap-active .inmap-icon {
-  background: #dd9933;
-}
-.inmap-wrap .inmap-info .inmap-info-item.inmap-active .inmap-info-title {
-  margin-bottom: 5px;
-  padding: 5px;
-  border-bottom: 1px solid #dd9933;
-}
-.inmap-wrap .inmap-info .inmap-info-item.inmap-active.inmap-hide-extended {
-  cursor: pointer;
-}
-.inmap-wrap .inmap-info .inmap-info-item.inmap-active.inmap-hide-extended .inmap-info-desc .inmap-info-expand {
-  display: block;
-  margin-top: 10px;
-  text-align: center;
-  color: #dd9933;
-  border: 1px solid #dd9933;
-  background: #f7f7f7;
-}
-.inmap-wrap .inmap-info .inmap-info-item.inmap-active.inmap-hide-extended .inmap-info-desc th {
-  width: 80px;
-}
-.inmap-wrap .inmap-info .inmap-info-item.inmap-active.inmap-hide-extended .inmap-info-desc th,
-.inmap-wrap .inmap-info .inmap-info-item.inmap-active.inmap-hide-extended .inmap-info-desc td {
-  padding: 3px 5px !important;
-}
-.inmap-wrap .inmap-info .inmap-info-item.inmap-active.inmap-hide-extended .inmap-info-desc tr.joe-assoc_array-elevation,
-.inmap-wrap .inmap-info .inmap-info-item.inmap-active.inmap-hide-extended .inmap-info-desc tr.joe-assoc_array-velocity,
-.inmap-wrap .inmap-info .inmap-info-item.inmap-active.inmap-hide-extended .inmap-info-desc tr.joe-assoc_array-valid_gps_fix,
-.inmap-wrap .inmap-info .inmap-info-item.inmap-active.inmap-hide-extended .inmap-info-desc tr.joe-assoc_array-time_utc {
-  display: none !important;
-}
-.inmap-wrap .inmap-info .inmap-info-item.inmap-active .inmap-info-desc .inmap-info-title {
-  margin-bottom: 5px;
-  padding-bottom: 5px;
-  border-bottom: 1px solid #dd9933;
-}
-.inmap-wrap .inmap-info .inmap-info-item.inmap-active .inmap-info-desc .inmap-info-title span {
-  float: right;
-}
-.inmap-wrap .inmap-info .inmap-info-item.inmap-active .inmap-info-desc table tr {
-  display: table-row;
-}
-.inmap-wrap .inmap-info .inmap-info-item.inmap-active .inmap-info-desc table tr th,
-.inmap-wrap .inmap-info .inmap-info-item.inmap-active .inmap-info-desc table tr td {
-  padding: 5px 0;
 }

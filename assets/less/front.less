@@ -2,13 +2,21 @@
 @inmap-grey-light: #f7f7f7;
 @inmap-grey-dark: #ddd;
 
+
+@break-xs: ~"screen and (min-width: 320px)";
+@break-sm: ~"screen and (min-width: 481px)";
+@break-md: ~"screen and (min-width: 641px)";
+@break-lg: ~"screen and (min-width: 961px)";
+@break-xl: ~"screen and (min-width: 1025px)";
+
 .inmap-wrap {
 	position: relative;
-	border: 1px solid blue;
+	border: 1px solid @inmap-grey-dark;
 
-	//Common
+	// ===========================		
+	// ========== ICONS ==========
+	// ===========================
 
-	//Icons
 	.inmap-icon {
 		margin-left: 0;
 		margin-top: 0;		
@@ -44,15 +52,51 @@
 		}
 	}
 
-	//Map
+	// ===========================		
+	// ========== LAYOUT =========
+	// ===========================
+	
+// 	min-width: 320px;
+// 	max-width: 1024px;
+	
+	.inmap-map,
+	.inmap-info {
+		height: 240px;
+// 		min-width: 240px;
+
+		@media @break-xs {
+			border: 1px solid orange !important;
+		}
+		@media @break-xl {
+			border: 1px solid pink !important;
+		}
+		
+		&.inmap-map {
+// 			position: relative;
+// 			max-width: 50%;	
+// 			min-height: 500px;
+
+		}
+
+		&.inmap-info {
+// 			position: absolute;
+// 			top: 0;
+// 			right: 0;
+// 			height: 100%;	
+// 			z-index: +1000 !important;
+		
+// 			width: 33.33%;
+// 			max-width: 33.33%;	
+		
+			border: 1px solid green;		
+		}		
+	}
+
+	// ===========================		
+	// =========== MAP ===========
+	// ===========================
+
 	.inmap-map {
-		position: relative;
-		min-height: 500px;
-		width: 66.66%;
-		border: 1px solid @inmap-grey-dark;
-		
-		// ======== Markers ========
-		
 		.inmap-marker	 {
 			width: 5px !important;
 			height: 5px !important;	
@@ -62,8 +106,6 @@
 			
 			text-align: center;
 			border-radius: 50%;
-//  			border: 1px solid red;
-
 			.inmap-icon {
 				display: none;
 			}
@@ -101,16 +143,17 @@
 		}
 	}
 	
-	// ======== Info ========
+	// ===========================		
+	// ========== INFO ===========
+	// ===========================
 
 	.inmap-info {
-		position: absolute;
-		top: 0;
-		right: 0;
-		width: 33.33%;
-		height: 100%;		
+
+		// ===========================		
+		// ======= LIST VIEW =========
+		// ===========================
+
 		background: #fff;
-		z-index: +1000 !important;
 		border-left: 1px solid @inmap-grey-dark;
 		overflow: scroll;
 		
@@ -124,6 +167,7 @@
 			position: relative;
 			padding-left: 0;
  			font-size: 12px;
+ 			max-height: 30px;
 			border-bottom: 1px solid @inmap-grey-dark;
 	
 			.inmap-icon {
@@ -137,7 +181,8 @@
 
 			//Description
 			.inmap-info-desc {	
-				padding: 8px 15px;
+				padding: 8px;
+				padding-left: 15px;
 				min-height: 35px;
 				margin-left: 17px;
 				border-left: 1px solid @inmap-primary;					
@@ -160,20 +205,98 @@
 					tr {
 						display: none;
  						background: none;
-// 						&:nth-child(2n+1) {
-// 							background: @inmap-grey-light !important;
-// 						}
-						&.joe-assoc_array-id {
-							display: none;
-						}
+ 						
+ 						&.joe-assoc_array-id {
+ 							display: none !important;
+ 						}
+
 						th,td {
+							text-align: left;
 				 			font-size: 12px !important;						
 						}
 					}
 				}
 			}
 
-			//Latest!
+
+			// ===========================		
+			// ========= ACTIVE ==========
+			// ===========================
+			
+			&.inmap-active {
+				cursor: unset;
+	 			max-height: unset;			
+				
+				.inmap-icon {
+					background: @inmap-primary;
+				}
+
+				.inmap-info-title {
+					margin-bottom: 5px;
+					padding: 5px;
+					border-bottom: 1px solid @inmap-primary;					
+				}
+
+				.inmap-info-desc {
+					.inmap-info-title {
+						margin-bottom: 5px;
+						padding-bottom: 5px;
+						border-bottom: 1px solid @inmap-primary;		
+						
+						span {
+							float: right;
+						}			
+					}
+					table {
+						tr {
+							display: table-row;
+							th, td {
+ 								padding: 5px 0;
+							}
+						}
+					}
+				}
+				
+				// ===========================		
+				// ========= COLLAPSED =======			
+				// ===========================
+
+				&.inmap-hide-extended {
+					cursor: pointer;
+					.inmap-info-desc {
+						.inmap-info-expand {
+							display: block;
+							margin-top: 10px;
+							text-align: center;
+							color: @inmap-primary;
+							border: 1px solid @inmap-primary;
+							background: @inmap-grey-light;
+						}
+				
+						th {
+							width: 80px;
+						}
+					
+						th, td {
+							padding: 3px 5px !important;
+						}
+						
+						//Hide...
+						tr.joe-assoc_array-event,
+						tr.joe-assoc_array-elevation,
+						tr.joe-assoc_array-velocity,
+						tr.joe-assoc_array-valid_gps_fix,
+						tr.joe-assoc_array-time_utc {
+							display: none !important;
+						}		
+					}
+				}				
+			}
+
+			// ===========================		
+			// ========= LATEST ==========
+			// ===========================
+
 			&.inmap-last {
 				background-color: @inmap-primary !important;		
 				color: #fff;
@@ -208,71 +331,6 @@
 					span {
 						color: #fff !important;
 					}								
-				}
-			}
-			
-			//Active
-			&.inmap-active {
-				cursor: unset;
-				
-				.inmap-icon {
-					background: @inmap-primary;
-				}
-
-				.inmap-info-title {
-					margin-bottom: 5px;
-					padding: 5px;
-					border-bottom: 1px solid @inmap-primary;					
-				}
-
-				&.inmap-hide-extended {
-					cursor: pointer;
-					.inmap-info-desc {
-						.inmap-info-expand {
-							display: block;
-							margin-top: 10px;
-							text-align: center;
-							color: @inmap-primary;
-							border: 1px solid @inmap-primary;
-							background: @inmap-grey-light;
-						}
-				
-						th {
-							width: 80px;
-						}
-					
-						th, td {
-							padding: 3px 5px !important;
-						}
-						
-						//Hide...
-						tr.joe-assoc_array-elevation,
-						tr.joe-assoc_array-velocity,
-						tr.joe-assoc_array-valid_gps_fix,
-						tr.joe-assoc_array-time_utc {
-							display: none !important;
-						}		
-					}
-				}
-
-				.inmap-info-desc {
-					.inmap-info-title {
-						margin-bottom: 5px;
-						padding-bottom: 5px;
-						border-bottom: 1px solid @inmap-primary;		
-						
-						span {
-							float: right;
-						}			
-					}
-					table {
-						tr {
-							display: table-row;
-							th, td {
- 								padding: 5px 0;
-							}
-						}
-					}
 				}
 			}
 		}

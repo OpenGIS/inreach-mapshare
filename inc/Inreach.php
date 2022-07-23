@@ -11,6 +11,7 @@ class InMap_Inreach extends Joe_Class {
 	private $response_string = '';
 	
 	private $KML = null;
+	private $point_count = 0;
 	private $FeatureCollection = [];
 	
 	function __construct($params_in = null) {
@@ -25,7 +26,7 @@ class InMap_Inreach extends Joe_Class {
 		parent::__construct($params_in);
 
 		$this->setup_request();
-		$this->execute_request();		
+		$this->execute_request();
 		$this->process_kml();		
 		$this->build_geojson();
 	}
@@ -111,7 +112,9 @@ class InMap_Inreach extends Joe_Class {
 		//Do we have a response?
 		if($this->response_string) {		
 			$this->KML = simplexml_load_string($this->response_string);
-		}		
+		}	
+
+		$this->update_point_count();					
 	}
 	
 	function build_geojson() {
@@ -121,7 +124,7 @@ class InMap_Inreach extends Joe_Class {
 		];
 		
 		//We have Points
-		if($kml_point_count = $this->kml_point_count($this->KML)) {
+		if($this->point_count) {
 			//Each Placemark
 			for($i = 0; $i < sizeof($this->KML->Document->Folder->Placemark); $i++) {
 				$Placemark = $this->KML->Document->Folder->Placemark[$i];
@@ -153,7 +156,7 @@ class InMap_Inreach extends Joe_Class {
 					$Feature['geometry']['coordinates'] = $coordinates;
 
 					//Title
-					$title = '[' . ($i + 1) . '/' . $kml_point_count . ']';
+					$title = '[' . ($i + 1) . '/' . $this->point_count . ']';
 					if(isset($Placemark->TimeStamp->when)) {
 						$title .= $time_ago;						
 					}
@@ -164,11 +167,20 @@ class InMap_Inreach extends Joe_Class {
 					if($i === 0) {
 						$Feature['properties']['className'] .= ' inmap-first';
 
+						//Only single item
+						if($this->point_count === 1) {
+							$Feature['properties']['className'] .= ' inmap-last inmap-active';
+						}
+
+
 						//Most recent
 						$Feature['properties']['title'] = '[' . __('First', Joe_Config::get_item('plugin_text_domain')) . ']';
 						$Feature['properties']['title'] .= $time_ago;	
 					//Last - *LATEST*
-					} elseif($i === sizeof($this->KML->Document->Folder->Placemark) - 2) {
+					} elseif(
+						//EOF array
+						$i === sizeof($this->KML->Document->Folder->Placemark) - 2
+					) {
 						//Active
 						$Feature['properties']['className'] .= ' inmap-last inmap-active';
 
@@ -312,25 +324,23 @@ class InMap_Inreach extends Joe_Class {
 		} else {
 
 		}
-		
-		
 	}
 	
-	function kml_point_count($KML = null) {
-		$count = 0;
+	function update_point_count() {
+		$this->point_count = 0;
 		
 		if(
- 			is_object($KML)
- 			&& isset($KML->Document->Folder->Placemark)
- 			&& is_iterable($KML->Document->Folder->Placemark)	
+ 			is_object($this->KML)
+ 			&& isset($this->KML->Document->Folder->Placemark)
+ 			&& is_iterable($this->KML->Document->Folder->Placemark)	
 		) {
-			foreach($KML->Document->Folder->Placemark as $Placemark) {
+			foreach($this->KML->Document->Folder->Placemark as $Placemark) {
 				if($Placemark->Point->coordinates) {
-					$count++;
+					$this->point_count++;
 				}			
 			}
 		}
 		
-		return $count;
+		return $this->point_count;
 	}
 }
