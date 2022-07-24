@@ -279,7 +279,7 @@ class InMap_Inreach extends Joe_Class {
 						if(sizeof($extended_data)) {
 							$description .= Joe_Helper::assoc_array_table($extended_data);
 	
-							$description .= '<div class="inmap-info-expand">+</div>';
+							$description .= '<div class="inmap-info-expand">' . __('More detail +', Joe_Config::get_item('plugin_text_domain'))  . '</div>';
 						}
 						$description .= '</div>';
 

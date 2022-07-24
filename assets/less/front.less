@@ -165,9 +165,10 @@
 		//Info items
 		.inmap-info-item {
 			position: relative;
+			padding: 0;
 			padding-left: 0;
  			font-size: 12px;
- 			max-height: 30px;
+//  			max-height: 30px;
 			border-bottom: 1px solid @inmap-grey-dark;
 	
 			.inmap-icon {
@@ -211,6 +212,7 @@
  						}
 
 						th,td {
+							vertical-align: top;
 							text-align: left;
 				 			font-size: 12px !important;						
 						}
@@ -233,14 +235,14 @@
 
 				.inmap-info-title {
 					margin-bottom: 5px;
-					padding: 5px;
+					padding-bottom: 5px;
 					border-bottom: 1px solid @inmap-primary;					
 				}
 
 				.inmap-info-desc {
 					.inmap-info-title {
-						margin-bottom: 5px;
-						padding-bottom: 5px;
+// 						margin-bottom: 5px;
+// 						padding-bottom: 5px;
 						border-bottom: 1px solid @inmap-primary;		
 						
 						span {
