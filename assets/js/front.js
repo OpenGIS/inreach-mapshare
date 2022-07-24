@@ -63,6 +63,11 @@ const inmap_create_map = function(map_hash = null, map_geojson = null) {
 			if(this_id === update_id) {
 				//Already active - Expand
 				if(update_status == 'active' && infos_jq[this_id].hasClass('inmap-active')) {
+					//Go to wrapper
+// 					var map_hash = '#' + map_jq.attr('id');
+// 					document.location.replace(map_hash, '');
+// 					document.location += map_hash;
+
 					//Show extended info
 					infos_jq[this_id].removeClass('inmap-hide-extended');
 					
@@ -83,12 +88,11 @@ const inmap_create_map = function(map_hash = null, map_geojson = null) {
 				if(update_status == 'active') {
 					//Scroll to info
 					infos_jq[this_id].get(0).scrollIntoView({
-						behavior: "smooth",
-						block: "center"
+						block: "start"
 					});
 				
 					//Center
-					map_l.setView(markers_l[this_id].getLatLng());
+					map_l.setView(markers_l[this_id].getLatLng());					
 				}
 			//Inactive
 			} else {

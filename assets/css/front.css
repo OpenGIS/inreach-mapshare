@@ -20,21 +20,9 @@
 .inmap-wrap .inmap-info {
   height: 240px;
 }
-@media screen and (min-width: 320px) {
-  .inmap-wrap .inmap-map,
-  .inmap-wrap .inmap-info {
-    border: 1px solid orange !important;
-  }
-}
-@media screen and (min-width: 1025px) {
-  .inmap-wrap .inmap-map,
-  .inmap-wrap .inmap-info {
-    border: 1px solid pink !important;
-  }
-}
 .inmap-wrap .inmap-map.inmap-info,
 .inmap-wrap .inmap-info.inmap-info {
-  border: 1px solid green;
+  border-top: 1px solid #ddd;
 }
 .inmap-wrap .inmap-map .inmap-marker {
   width: 5px !important;
@@ -81,7 +69,6 @@
 }
 .inmap-wrap .inmap-info {
   background: #fff;
-  border-left: 1px solid #ddd;
   overflow: scroll;
 }
 .inmap-wrap .inmap-info:nth-child(odd) {
@@ -92,6 +79,9 @@
   padding: 0;
   padding-left: 0;
   font-size: 12px;
+  max-height: 35px;
+  overflow: hidden;
+  transition: max-height 0.5s cubic-bezier(0, 1, 0, 1);
   border-bottom: 1px solid #ddd;
 }
 .inmap-wrap .inmap-info .inmap-info-item .inmap-icon {
@@ -105,7 +95,6 @@
 .inmap-wrap .inmap-info .inmap-info-item .inmap-info-desc {
   padding: 8px;
   padding-left: 15px;
-  min-height: 35px;
   margin-left: 17px;
   border-left: 1px solid #dd9933;
 }
@@ -134,7 +123,8 @@
 }
 .inmap-wrap .inmap-info .inmap-info-item.inmap-active {
   cursor: unset;
-  max-height: unset;
+  max-height: 1000px;
+  transition: max-height 1s ease-in-out;
 }
 .inmap-wrap .inmap-info .inmap-info-item.inmap-active .inmap-icon {
   background: #dd9933;
