@@ -52,6 +52,11 @@ const inmap_create_map = function(map_hash = null, map_geojson = null) {
 				
 // 			});
 		}
+
+		//Scroll to info
+		infos_jq[id].get(0).scrollIntoView({
+			block: "start"
+		});		
 	};
 
 	var update_point_status = function(update_id = null, update_status = 'active') {
@@ -142,7 +147,7 @@ const inmap_create_map = function(map_hash = null, map_geojson = null) {
 			} else {
 				markers_l[id] = L.marker(latlng);					
 			}				
-
+			
 			//Info Item
 			infos_jq[id] = jQuery('<div />')
  				.addClass(feature.properties.className)
@@ -179,6 +184,7 @@ const inmap_create_map = function(map_hash = null, map_geojson = null) {
 				//Accessible jQuery reference
 				markers_jq[id] = jQuery(e.target.getElement())
 					.attr('title', feature.properties.title)
+					.addClass(feature.properties.className)
 					.data('marker_l', e.target)
 					.on('mouseenter', function() {
 						update_point_status(id, 'hover');

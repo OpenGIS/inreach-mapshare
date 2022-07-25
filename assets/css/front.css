@@ -1,6 +1,60 @@
 .inmap-wrap {
   position: relative;
+  height: 240px;
+  overflow: hidden;
+  z-index: 1000;
   border: 1px solid #ddd;
+}
+.inmap-wrap .inmap-map,
+.inmap-wrap .inmap-info {
+  z-index: 1100;
+  height: 100%;
+  min-height: 240px;
+}
+.inmap-wrap .inmap-map.inmap-map,
+.inmap-wrap .inmap-info.inmap-map {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+}
+@media screen and (min-width: 481px) {
+  .inmap-wrap .inmap-map.inmap-map,
+  .inmap-wrap .inmap-info.inmap-map {
+    color: red important!;
+    background: red !important;
+    width: 50%;
+  }
+}
+.inmap-wrap .inmap-map.inmap-info,
+.inmap-wrap .inmap-info.inmap-info {
+  border-top: 1px solid #ddd;
+}
+@media screen and (min-width: 481px) {
+  .inmap-wrap .inmap-map.inmap-info,
+  .inmap-wrap .inmap-info.inmap-info {
+    color: blue important!;
+    background: blue !important;
+    position: absolute;
+    top: 0;
+    right: 0;
+    height: 100%;
+    z-index: 1000 !important;
+    width: 50%;
+  }
+}
+.inmap-wrap .inmap-map.inmap-info .inmap-info-item,
+.inmap-wrap .inmap-info.inmap-info .inmap-info-item {
+  position: relative;
+  max-height: 35px;
+  overflow: hidden;
+  transition: max-height 0.5s cubic-bezier(0, 1, 0, 1);
+}
+.inmap-wrap .inmap-map.inmap-info .inmap-info-item.inmap-active,
+.inmap-wrap .inmap-info.inmap-info .inmap-info-item.inmap-active {
+  max-height: 480px;
+  overflow-y: scroll;
+  transition: max-height 1s ease-in-out;
 }
 .inmap-wrap .inmap-icon {
   margin-left: 0;
@@ -13,16 +67,8 @@
   mask-image: url(../img/location-gps.svg);
 }
 .inmap-wrap .inmap-icon.inmap-icon-message {
-  z-index: 1000;
+  z-index: 1100;
   mask-image: url(../img/message.svg);
-}
-.inmap-wrap .inmap-map,
-.inmap-wrap .inmap-info {
-  height: 240px;
-}
-.inmap-wrap .inmap-map.inmap-info,
-.inmap-wrap .inmap-info.inmap-info {
-  border-top: 1px solid #ddd;
 }
 .inmap-wrap .inmap-map .inmap-marker {
   width: 5px !important;
@@ -75,13 +121,9 @@
   background-color: #f7f7f7;
 }
 .inmap-wrap .inmap-info .inmap-info-item {
-  position: relative;
   padding: 0;
   padding-left: 0;
   font-size: 12px;
-  max-height: 35px;
-  overflow: hidden;
-  transition: max-height 0.5s cubic-bezier(0, 1, 0, 1);
   border-bottom: 1px solid #ddd;
 }
 .inmap-wrap .inmap-info .inmap-info-item .inmap-icon {
@@ -123,8 +165,6 @@
 }
 .inmap-wrap .inmap-info .inmap-info-item.inmap-active {
   cursor: unset;
-  max-height: 1000px;
-  transition: max-height 1s ease-in-out;
 }
 .inmap-wrap .inmap-info .inmap-info-item.inmap-active .inmap-icon {
   background: #dd9933;

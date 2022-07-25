@@ -1,6 +1,6 @@
-@inmap-primary: #dd9933;
-@inmap-grey-light: #f7f7f7;
-@inmap-grey-dark: #ddd;
+@primary: #dd9933;
+@grey-light: #f7f7f7;
+@grey-dark: #ddd;
 
 
 @break-xs: ~"screen and (min-width: 320px)";
@@ -11,7 +11,71 @@
 
 .inmap-wrap {
 	position: relative;
-	border: 1px solid @inmap-grey-dark;
+	height: 240px;
+	overflow: hidden;
+	z-index: +1000;		
+	
+	border: 1px solid @grey-dark;
+
+	// ===========================		
+	// ========== LAYOUT =========
+	// ===========================
+	
+// 	min-width: 320px;
+// 	max-width: 1024px;
+	
+	.inmap-map,
+	.inmap-info {
+		z-index: +1100;		
+		height: 100%;
+		min-height: 240px;
+		
+		&.inmap-map {
+			position: absolute;
+			top: 0;
+			left: 0;
+			width: 100%;
+
+			@media @break-sm {
+				
+				color: red important!;
+				background: red !important;
+
+				width: 50%;	
+			}
+		}
+
+		&.inmap-info {
+// 			overflow: scroll;
+			border-top: 1px solid @grey-dark;
+
+			@media @break-sm {
+				color: blue important!;
+				background: blue !important;
+
+				position: absolute;
+				top: 0;
+				right: 0;
+				height: 100%;	
+				z-index: +1000 !important;
+		
+				width: 50%;
+			}		
+
+			.inmap-info-item {
+				position: relative;
+				max-height: 35px;
+				overflow: hidden;
+				transition: max-height 0.5s cubic-bezier(0, 1, 0, 1); 			
+
+				&.inmap-active {
+					max-height: 480px;
+					overflow-y: scroll;
+    			transition: max-height 1s ease-in-out;
+				}
+			}
+		}
+	}
 
 	// ===========================		
 	// ========== ICONS ==========
@@ -20,7 +84,7 @@
 	.inmap-icon {
 		margin-left: 0;
 		margin-top: 0;		
-		background-color: @inmap-primary;
+		background-color: @primary;
 // 		background-repeat: no-repeat;
 		mask-position: center; 		
 		mask-image: url(../img/location.svg);			
@@ -32,7 +96,7 @@
 	
 		//Messages
 		&.inmap-icon-message {
-			z-index: +1000;		
+			z-index: +1100;		
 		
 			mask-image: url(../img/message.svg);
 			
@@ -53,41 +117,6 @@
 	}
 
 	// ===========================		
-	// ========== LAYOUT =========
-	// ===========================
-	
-// 	min-width: 320px;
-// 	max-width: 1024px;
-	
-	.inmap-map,
-	.inmap-info {
-		height: 240px;
-// 		min-width: 240px;
-
-		@media @break-xs { }
-		
-		&.inmap-map {
-// 			position: relative;
-// 			max-width: 50%;	
-// 			min-height: 500px;
-
-		}
-
-		&.inmap-info {
-			border-top: 1px solid @inmap-grey-dark;
-		
-// 			position: absolute;
-// 			top: 0;
-// 			right: 0;
-// 			height: 100%;	
-// 			z-index: +1000 !important;
-		
-// 			width: 33.33%;
-// 			max-width: 33.33%;	
-		}		
-	}
-
-	// ===========================		
 	// =========== MAP ===========
 	// ===========================
 
@@ -97,7 +126,7 @@
 			height: 5px !important;	
 			margin-left: -2.5px !important;
 			margin-top: -2.5px !important;				
-			background: @inmap-primary;
+			background: @primary;
 			
 			text-align: center;
 			border-radius: 50%;
@@ -116,8 +145,8 @@
 				height: 15px !important;
 				margin-left: -7.5px !important;
 				margin-top: -7.5px !important;
-				background: @inmap-primary;
-				border: 2px solid @inmap-primary;
+				background: @primary;
+				border: 2px solid @primary;
 				.inmap-icon {
 					display: block;
 					width: 12px;
@@ -153,21 +182,15 @@
 		
 		//Alternating BG
 		&:nth-child(odd) {
-			background-color: @inmap-grey-light;
+			background-color: @grey-light;
 		}
 
 		//Info items
 		.inmap-info-item {
-			position: relative;
 			padding: 0;
 			padding-left: 0;
  			font-size: 12px;
-
- 			max-height: 35px;
- 			overflow: hidden;
-			transition: max-height 0.5s cubic-bezier(0, 1, 0, 1); 			
-
-			border-bottom: 1px solid @inmap-grey-dark;
+			border-bottom: 1px solid @grey-dark;
 	
 			.inmap-icon {
 				position: absolute;
@@ -184,11 +207,11 @@
 				padding-left: 15px;
 // 				min-height: 35px;
 				margin-left: 17px;
-				border-left: 1px solid @inmap-primary;					
+				border-left: 1px solid @primary;					
 				.inmap-info-title {	
 					span {
 						float: right;
-						color: @inmap-grey-dark;
+						color: @grey-dark;
 					}
 				}
 
@@ -225,24 +248,22 @@
 			
 			&.inmap-active {
 				cursor: unset;
-				max-height: 1000px;
-    		transition: max-height 1s ease-in-out;
-    				
+
 				.inmap-icon {
-					background: @inmap-primary;
+					background: @primary;
 				}
 
 				.inmap-info-title {
 					margin-bottom: 5px;
 					padding-bottom: 5px;
-					border-bottom: 1px solid @inmap-primary;					
+					border-bottom: 1px solid @primary;					
 				}
 
 				.inmap-info-desc {
 					.inmap-info-title {
 // 						margin-bottom: 5px;
 // 						padding-bottom: 5px;
-						border-bottom: 1px solid @inmap-primary;		
+						border-bottom: 1px solid @primary;		
 						
 						span {
 							float: right;
@@ -269,9 +290,9 @@
 							display: block;
 							margin-top: 10px;
 							text-align: center;
-							color: @inmap-primary;
-							border: 1px solid @inmap-primary;
-							background: @inmap-grey-light;
+							color: @primary;
+							border: 1px solid @primary;
+							background: @grey-light;
 						}
 						
 						tr {
@@ -305,7 +326,7 @@
 			// ===========================
 
 			&.inmap-last {
-				background-color: @inmap-primary !important;		
+				background-color: @primary !important;		
 				color: #fff;
 
 				.inmap-icon {
@@ -332,7 +353,7 @@
 
 			&.inmap-active,
 			&.inmap-hover {
-				background-color: @inmap-grey-dark;
+				background-color: @grey-dark;
 				cursor: pointer;		
 				.inmap-info-title {
 					span {
