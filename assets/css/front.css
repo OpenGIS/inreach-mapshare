@@ -41,10 +41,10 @@
     float: left;
   }
 }
-@media screen and (min-width: 961px) {
+@media screen and (min-width: 1025px) {
   .inmap-wrap .inmap-map.inmap-map,
   .inmap-wrap .inmap-info.inmap-map {
-    width: 66.66%;
+    width: 60%;
     min-height: 600px;
   }
 }
@@ -52,10 +52,10 @@
 .inmap-wrap .inmap-info.inmap-info {
   overflow: scroll;
 }
-@media screen and (min-width: 961px) {
+@media screen and (min-width: 1025px) {
   .inmap-wrap .inmap-map.inmap-info,
   .inmap-wrap .inmap-info.inmap-info {
-    width: 33.33%;
+    width: 40%;
   }
 }
 .inmap-wrap .inmap-icon {
