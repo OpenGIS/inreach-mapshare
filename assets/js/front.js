@@ -52,6 +52,11 @@ const inmap_create_map = function(map_hash = null, map_geojson = null) {
 				
 // 			});
 		}
+
+		//Scroll to info
+		infos_jq[id].get(0).scrollIntoView({
+			block: "start"
+		});		
 	};
 
 	var update_point_status = function(update_id = null, update_status = 'active') {
@@ -63,6 +68,11 @@ const inmap_create_map = function(map_hash = null, map_geojson = null) {
 			if(this_id === update_id) {
 				//Already active - Expand
 				if(update_status == 'active' && infos_jq[this_id].hasClass('inmap-active')) {
+					//Go to wrapper
+// 					var map_hash = '#' + map_jq.attr('id');
+// 					document.location.replace(map_hash, '');
+// 					document.location += map_hash;
+
 					//Show extended info
 					infos_jq[this_id].removeClass('inmap-hide-extended');
 					
@@ -83,12 +93,11 @@ const inmap_create_map = function(map_hash = null, map_geojson = null) {
 				if(update_status == 'active') {
 					//Scroll to info
 					infos_jq[this_id].get(0).scrollIntoView({
-						behavior: "smooth",
-						block: "center"
+						block: "start"
 					});
 				
 					//Center
-					map_l.setView(markers_l[this_id].getLatLng());
+					map_l.setView(markers_l[this_id].getLatLng());					
 				}
 			//Inactive
 			} else {
@@ -138,7 +147,7 @@ const inmap_create_map = function(map_hash = null, map_geojson = null) {
 			} else {
 				markers_l[id] = L.marker(latlng);					
 			}				
-
+			
 			//Info Item
 			infos_jq[id] = jQuery('<div />')
  				.addClass(feature.properties.className)
@@ -175,6 +184,7 @@ const inmap_create_map = function(map_hash = null, map_geojson = null) {
 				//Accessible jQuery reference
 				markers_jq[id] = jQuery(e.target.getElement())
 					.attr('title', feature.properties.title)
+					.addClass(feature.properties.className)
 					.data('marker_l', e.target)
 					.on('mouseenter', function() {
 						update_point_status(id, 'hover');
