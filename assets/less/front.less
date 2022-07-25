@@ -23,12 +23,8 @@
 	// ========== LAYOUT =========
 	// ===========================
 	
-// 	min-width: 320px;
-// 	max-width: 1024px;
-	
 	.inmap-map,
 	.inmap-info {
-// 		z-index: +1100;		
 		width: 100%;
 		min-height: 160px;
 		max-height: 160px;
@@ -54,12 +50,19 @@
 			@media @break-sm {
 				float: left;
 			}
+
+			@media @break-lg {
+				width: 66.66%;
+				min-height: 600px;			
+			}
 		}
 
 		&.inmap-info {
-// 			height: 100%;
  			overflow: scroll;
-// 			border-top: 1px solid @grey-dark;
+
+			@media @break-lg {
+				width: 33.33%;
+			}
 		}
 	}
 
