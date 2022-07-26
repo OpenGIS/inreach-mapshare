@@ -56,13 +56,14 @@ class InMap_Settings extends Joe_Settings {
 							'tip_link' => 'https://explore.garmin.com/Social'
 						],
 						'mapshare_date_start' => [
+							'class' => 'joe-date-picker',
 // 							'required' => Joe_Config::get_fallback('mapshare', 'defaults', 'mapshare_date_start'),
-							'type' => 'datetime-local',
+							'type' => 'text',
 							'title' => esc_html__('Start Date', Joe_Config::get_item('plugin_text_domain'))
 						],						
 						'mapshare_date_end' => [
 							'id' => 'mapshare_date_end',
-							'type' => 'datetime-local',
+							'type' => 'text',
 							'title' => esc_html__('End Date', Joe_Config::get_item('plugin_text_domain'))
 						]																																										
 					]											
@@ -139,7 +140,8 @@ class InMap_Settings extends Joe_Settings {
 					'description' => '',
 					'fields' => [						
 						'tracking_colour' => [
-							'type' => 'color',
+							'type' => 'text',
+							'class' => 'joe-colour-picker',
 							'required' => Joe_Config::get_fallback('appearance', 'colours', 'tracking_colour'),
 							'title' => esc_html__('Tracking Colour', Joe_Config::get_item('plugin_text_domain')),
  							'tip' => esc_attr__('!!!', Joe_Config::get_item('plugin_text_domain')),
