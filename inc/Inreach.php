@@ -53,6 +53,8 @@ class InMap_Inreach extends Joe_Class {
 
 				//cURL success?
 				if(! curl_errno($ch)) {
+					Joe_Helper::debug(curl_getinfo($ch));
+				
 					$this->response_string = curl_multi_getcontent($ch);
 
 					//MUST BE VALID KML to go into Cache
@@ -167,9 +169,9 @@ class InMap_Inreach extends Joe_Class {
 					if($i === 0) {
 						$Feature['properties']['className'] .= ' inmap-first';
 
-						//Only single item
+						//*Only* single item
 						if($this->point_count === 1) {
-							$Feature['properties']['className'] .= ' inmap-last inmap-active';
+							$Feature['properties']['className'] .= ' inmap-last inmap-active inmap-only';
 						}
 
 
