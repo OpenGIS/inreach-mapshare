@@ -56,11 +56,12 @@ class InMap_Settings extends Joe_Settings {
 							'tip_link' => 'https://explore.garmin.com/Social'
 						],
 						'mapshare_date_start' => [
-// 							'required' => Joe_Config::get_fallback('mapshare', 'defaults', 'mapshare_date_start'),
+//  							'default' => Joe_Config::get_fallback('mapshare', 'defaults', 'mapshare_date_start'),
 							'type' => 'datetime-local',
 							'title' => esc_html__('Start Date', Joe_Config::get_item('plugin_text_domain'))
 						],						
 						'mapshare_date_end' => [
+//  							'default' => Joe_Config::get_fallback('mapshare', 'defaults', 'mapshare_date_start'),						
 							'id' => 'mapshare_date_end',
 							'type' => 'datetime-local',
 							'title' => esc_html__('End Date', Joe_Config::get_item('plugin_text_domain'))

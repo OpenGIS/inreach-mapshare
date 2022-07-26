@@ -28,7 +28,10 @@ const inmap_create_map = function(map_hash = null, map_geojson = null) {
 			var title_html = title_jq.text().replace('[', '<span>').replace(']', '</span>');
 			title_jq.html(title_html);
 			
-			infos_jq[id].addClass('inmap-hide-extended');
+			//Show full details if only
+			if(! infos_jq[id].hasClass('inmap-only')) {
+				infos_jq[id].addClass('inmap-hide-extended');
+			}
 
 			//Info Icon
 			var info_icon = jQuery('.inmap-icon', markers_jq[id]);		
