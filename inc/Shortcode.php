@@ -51,7 +51,7 @@ class InMap_Shortcode extends Joe_Shortcode {
 
 			$hash = Joe_Helper::make_hash($Inreach_Mapshare_Inreach->get_parameters());
 			$geojson = $Inreach_Mapshare_Inreach->get_geojson();
-			
+
 			//JS
 			Joe_Assets::js_onready('
 				inmap_create_map(

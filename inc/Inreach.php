@@ -5,11 +5,13 @@ class InMap_Inreach extends Joe_Class {
 	private $request_endpoint = 'https://explore.garmin.com/feed/share/';
 	
 	private $request_data = [];
-	private $cache_id = '';	
 
+	private $cache_id = '';	
+	private $cache_response = [];
+	
 	private $request_string = '';
 	private $response_string = '';
-	
+
 	private $KML = null;
 	private $point_count = 0;
 	private $FeatureCollection = [];
@@ -25,19 +27,35 @@ class InMap_Inreach extends Joe_Class {
 					
 		parent::__construct($params_in);
 
-		$this->setup_request();
-		$this->execute_request();
-		$this->process_kml();		
-		$this->build_geojson();
+		Joe_Log::reset();
+		foreach([
+			'setup_request',
+			'execute_request',
+			'process_kml',
+			'build_geojson',
+		] as $call) {
+			//Stop if error
+			if(Joe_Log::in_error()) {
+				return;
+			}
+
+			$this->$call();			
+		}
 	}
-	
+
 	function execute_request() {
 		//Request is setup
 		if($this->cache_id) {
-			//Cached response	
-			$this->response_string = Joe_Cache::get_item($this->cache_id);
+			//Cached response																			 			 ** GET STALE!
+			$this->cache_response = Joe_Cache::get_item($this->cache_id, true);
+			
+			//Fresh
+			if($this->cache_response && $this->cache_response['status'] == 'fresh') {
+				Joe_Log::add('Response retrieved from Cache.', 'success', 'fresh');
 
-			if($this->response_string === false) {
+	 			$this->response_string = $this->cache_response['value'];			
+			//Nothing fresh...
+			} else {
 				//Setup call
 				$ch = curl_init();
 				curl_setopt($ch, CURLOPT_URL, $this->request_string);
@@ -53,19 +71,58 @@ class InMap_Inreach extends Joe_Class {
 
 				//cURL success?
 				if(! curl_errno($ch)) {
-					Joe_Helper::debug(curl_getinfo($ch));
-				
-					$this->response_string = curl_multi_getcontent($ch);
+					$response_info = curl_getinfo($ch);
 
-					//MUST BE VALID KML to go into Cache
-					if(is_string($this->response_string) && simplexml_load_string($this->response_string)) {
-						//Insert into cache
-						Joe_Cache::set_item($this->cache_id, $this->response_string, 15);	//Minutes
+					switch(true) {
+						//Success
+						case strpos($response_info['http_code'], '2') === 0 :
+							$response_string = curl_multi_getcontent($ch);
+							
+							//Content has length
+							if(! empty($response_string)) {
+								//MUST BE VALID KML RESPONSE
+								if(is_string($response_string) && simplexml_load_string($response_string)) {								
+						 			$this->response_string = $response_string;			
+
+									//Insert into cache
+									Joe_Cache::set_item($this->cache_id, $response_string, 15);	//Minutes
+
+									Joe_Log::add('Garmin provided a valid KML response, which has been added to Cache.', 'success', 'cached');									
+								} else {
+									Joe_Log::add('Received invalid KML response from Garmin.', 'error', 'invalid_kml');
+								}				
+							//Invalid identifier
+							} else {
+								Joe_Log::add('Garmin does not recognise this MapShare Identifier.', 'error', 'identifier');
+							}
+					
+							break;
+						//Fail
+						case $response_info['http_code'] == '401' :
+							Joe_Log::add('There was a problem with your MapShare Password.', 'error', 'password');
+
+							break;
+						//Other
+						default :
+							Joe_Log::add('Garmin returned an unknown error.', 'error', 'unknown');
+
+							break;
 					}
-
+			
 					curl_close($ch);
 				}
 			}	
+		}
+		
+		//We have no response
+		if(! $this->response_string) {
+			//Check for stale cache
+			if($this->cache_response && $this->cache_response['status'] == 'stale') {
+				Joe_Log::add('Unable to get updated KML from Garmin.', 'warning', 'stale');
+
+				//Better than nothing
+	 			$this->response_string = $this->cache_response['value'];			
+			}
 		}
 	}
 
@@ -74,6 +131,8 @@ class InMap_Inreach extends Joe_Class {
 		$url_identifier = $this->get_parameter('mapshare_identifier');
 				
 		if(! $url_identifier) {
+			Joe_Log::add('No MapShare identifier provided.', 'error', 'identifier');
+		
 			return false;		
 		}
 
@@ -97,7 +156,9 @@ class InMap_Inreach extends Joe_Class {
 		}	
 
 		//Determine cache ID
-		$this->cache_id = Joe_Helper::slug_prefix(md5($this->request_string));
+		$this->cache_id = md5(json_encode($this->get_parameters()));
+
+		Joe_Log::add('Request ready for Garmin.', 'success', 'ready');
 		
 		return true;
 	}	
@@ -112,11 +173,18 @@ class InMap_Inreach extends Joe_Class {
 
 	function process_kml() {
 		//Do we have a response?
-		if($this->response_string) {		
+		if(is_string($this->response_string) && simplexml_load_string($this->response_string)) {								
 			$this->KML = simplexml_load_string($this->response_string);
-		}	
-
-		$this->update_point_count();					
+			$this->get_point_count();
+			
+			if($this->point_count) {
+				Joe_Log::add('The KML response contains ' . $this->point_count . ' Points.', 'success', 'has_points');			
+			} else {
+				Joe_Log::add('The KML response contains no Points.', 'error', 'no_points');			
+			}
+		} else {
+			Joe_Log::add('The KML response is invalid.', 'error', 'empty_kml');
+		}
 	}
 	
 	function build_geojson() {
@@ -321,14 +389,14 @@ class InMap_Inreach extends Joe_Class {
 			}
 			
 			//Reverse order (most recent first)
-			$this->FeatureCollection['features'] = array_reverse($this->FeatureCollection['features']);
+			$this->FeatureCollection['features'] = array_reverse($this->FeatureCollection['features']);				
 		//No points in KML
 		} else {
-
+			Joe_Log::add('The KML response contains no Points.', 'error', 'no_points');			
 		}
 	}
 	
-	function update_point_count() {
+	function get_point_count() {
 		$this->point_count = 0;
 		
 		if(
@@ -340,7 +408,7 @@ class InMap_Inreach extends Joe_Class {
 				if($Placemark->Point->coordinates) {
 					$this->point_count++;
 				}			
-			}
+			}		
 		}
 		
 		return $this->point_count;

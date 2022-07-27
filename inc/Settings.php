@@ -31,17 +31,27 @@ class InMap_Settings extends Joe_Settings {
 			}
 		}
 		$shortcode .= ']';
+
+		$shortcode_output = do_shortcode($shortcode);
 		
-		$description = do_shortcode($shortcode);
-		$description .= '<pre class="joe-shortcode"><code>' . $shortcode . '</code></pre>';
-		$description .= '<p class="joe-lead">' . __('Add wherever Shortcodes are supported.', Joe_Config::get_item('plugin_text_domain')) . '</p>';
+		//Success
+		if($log = Joe_Log::in_success()) {		
+			Joe_Assets::js_onready('joe_admin_message("' . $log['message'] . '", "success")');
+			
+			$description = $shortcode_output;			
+			$description .= '<pre class="joe-shortcode"><code>' . $shortcode . '</code></pre>';
+			$description .= '<p class="joe-lead">' . __('Add wherever Shortcodes are supported.', Joe_Config::get_item('plugin_text_domain')) . '</p>';
+		//Error
+		} elseif($log = Joe_Log::in_error()) {
+			Joe_Assets::js_onready('joe_admin_message("' . $log['message'] . '", "error")');
+		}
 
 		//Defaults
 		$this->tabs['shortcode'] = [
 			'sections' => [
 				'build' => [	
 					'title' => esc_html__('Build a Shortcode', Joe_Config::get_item('plugin_text_domain')),
- 					'description' => $description,
+ 					'description' => isset($description) ? $description : '',
 					'fields' => [
 						'mapshare_identifier' => [
 							'id' => 'mapshare_identifier',
