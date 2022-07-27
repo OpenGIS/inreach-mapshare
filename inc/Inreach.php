@@ -12,15 +12,11 @@ class InMap_Inreach extends Joe_Class {
 	private $request_string = '';
 	private $response_string = '';
 
-	private $status = null;
-		
 	private $KML = null;
 	private $point_count = 0;
 	private $FeatureCollection = [];
 	
 	function __construct($params_in = null) {
-		$this->status = 'init';
-		
 		//Set parameters
 		$this->parameters = [
 			'mapshare_identifier' => null,
@@ -31,77 +27,35 @@ class InMap_Inreach extends Joe_Class {
 					
 		parent::__construct($params_in);
 
-		$this->setup_request();
-		$this->execute_request();
-		
-		//Data to process
-		if(in_array($this->status, ['success', 'fresh', 'stale'])) {
-			$this->process_kml();		
-			$this->build_geojson();		
-		} else {
-			//Something went wrong		
+		Joe_Log::reset();
+		foreach([
+			'setup_request',
+			'execute_request',
+			'process_kml',
+			'build_geojson',
+		] as $call) {
+			//Stop if error
+			if(Joe_Log::in_error()) {
+				return;
+			}
+
+			$this->$call();			
 		}
 	}
 
-	function get_status() {
-		return $this->status;
-	}
-	
-	function get_message() {
-		$out = false;
-	
-		//By code
-		switch($this->status) {
-			case 'success' :
-				$out = __('Response recieved from Garmin.', Joe_Config::get_item('plugin_text_domain'));
-				
-				break;
-			case 'fresh' :
-				$out = __('Response retrieved from Cache.', Joe_Config::get_item('plugin_text_domain'));
-				
-				break;
-			case 'stale' :
-				$out = __('The Response at this time.', Joe_Config::get_item('plugin_text_domain'));
-				
-				break;
-			case 'error_password' :
-				$out = __('There was a problem with your password.', Joe_Config::get_item('plugin_text_domain'));
-				
-				break;
-			case 'error_identifier' :
-				$out = __('There was a problem with your identifier.', Joe_Config::get_item('plugin_text_domain'));
-				
-				break;				
-			case 'error_kml' :
-				$out = __('There was a problem with the response received.', Joe_Config::get_item('plugin_text_domain'));
-				
-				break;				
-			case 'error' :
-				$out = __('There was an unknown error.', Joe_Config::get_item('plugin_text_domain'));
-				
-				break;
-		}
-		
-		return $out;
-	}
-	
 	function execute_request() {
 		//Request is setup
 		if($this->cache_id) {
-			$this->status = 'ready';
-		
 			//Cached response																			 			 ** GET STALE!
 			$this->cache_response = Joe_Cache::get_item($this->cache_id, true);
 			
 			//Fresh
 			if($this->cache_response && $this->cache_response['status'] == 'fresh') {
-	 			$this->response_string = $this->cache_response['value'];			
+				Joe_Log::add('Response retrieved from Cache.', 'success', 'fresh');
 
-				$this->status = 'fresh';
+	 			$this->response_string = $this->cache_response['value'];			
 			//Nothing fresh...
 			} else {
-				Joe_Helper::debug($this->request_string);
-			
 				//Setup call
 				$ch = curl_init();
 				curl_setopt($ch, CURLOPT_URL, $this->request_string);
@@ -118,81 +72,39 @@ class InMap_Inreach extends Joe_Class {
 				//cURL success?
 				if(! curl_errno($ch)) {
 					$response_info = curl_getinfo($ch);
-/*
-[url] => https://explore.garmin.com/feed/share/morehawes
-[content_type] => text/html
-[http_code] => 401
-[header_size] => 670
-[request_size] => 125
-[filetime] => -1
-[ssl_verify_result] => 0
-[redirect_count] => 0
-[total_time] => 0.208971
-[namelookup_time] => 0.001371
-[connect_time] => 0.017655
-[pretransfer_time] => 0.054956
-[size_upload] => 0
-[size_download] => 58
-[speed_download] => 277
-[speed_upload] => 0
-[download_content_length] => -1
-[upload_content_length] => -1
-[starttransfer_time] => 0.054965
-[redirect_time] => 0
-[redirect_url] => 
-[primary_ip] => 104.16.154.58
-[primary_port] => 443
-[local_ip] => 192.168.0.111
-[local_port] => 59529
-[http_version] => 3
-[protocol] => 2
-[ssl_verifyresult] => 0
-[scheme] => HTTPS
-[appconnect_time_us] => 54851
-[connect_time_us] => 17655
-[namelookup_time_us] => 1371
-[pretransfer_time_us] => 54956
-[redirect_time_us] => 0
-[starttransfer_time_us] => 54965
-[total_time_us] => 208971
-*/					
 
 					switch(true) {
 						//Success
 						case strpos($response_info['http_code'], '2') === 0 :
-							$this->status = 'success';
-												
 							$response_string = curl_multi_getcontent($ch);
 							
 							//Content has length
 							if(! empty($response_string)) {
 								//MUST BE VALID KML RESPONSE
-								if(is_string($response_string) && simplexml_load_string($response_string)) {
-									$this->response_string = $response_string;
-								
+								if(is_string($response_string) && simplexml_load_string($response_string)) {								
+						 			$this->response_string = $response_string;			
+
 									//Insert into cache
 									Joe_Cache::set_item($this->cache_id, $response_string, 15);	//Minutes
+
+									Joe_Log::add('Garmin provided a valid KML response, which has been added to Cache.', 'success', 'cached');									
 								} else {
-									$this->status = 'error_kml';							
+									Joe_Log::add('Received invalid KML response from Garmin.', 'error', 'invalid_kml');
 								}				
 							//Invalid identifier
 							} else {
-								$this->status = 'error_identifier';							
+								Joe_Log::add('Garmin does not recognise this MapShare Identifier.', 'error', 'identifier');
 							}
 					
 							break;
 						//Fail
-						case strpos($response_info['http_code'], '4') === 0 :
-							$this->status = 'error';
-							
-							if($response_info['http_code'] == '401') {
-								$this->status = 'error_password';							
-							}
+						case $response_info['http_code'] == '401' :
+							Joe_Log::add('There was a problem with your MapShare Password.', 'error', 'password');
 
 							break;
 						//Other
 						default :
-							$this->status = 'error';
+							Joe_Log::add('Garmin returned an unknown error.', 'error', 'unknown');
 
 							break;
 					}
@@ -206,7 +118,7 @@ class InMap_Inreach extends Joe_Class {
 		if(! $this->response_string) {
 			//Check for stale cache
 			if($this->cache_response && $this->cache_response['status'] == 'stale') {
-				$this->status = 'stale';
+				Joe_Log::add('Unable to get updated KML from Garmin.', 'warning', 'stale');
 
 				//Better than nothing
 	 			$this->response_string = $this->cache_response['value'];			
@@ -219,7 +131,7 @@ class InMap_Inreach extends Joe_Class {
 		$url_identifier = $this->get_parameter('mapshare_identifier');
 				
 		if(! $url_identifier) {
-			$this->status = 'error';
+			Joe_Log::add('No MapShare identifier provided.', 'error', 'identifier');
 		
 			return false;		
 		}
@@ -244,9 +156,9 @@ class InMap_Inreach extends Joe_Class {
 		}	
 
 		//Determine cache ID
-		$this->cache_id = md5($this->request_string);
+		$this->cache_id = md5(json_encode($this->get_parameters()));
 
-		$this->status = 'setup';
+		Joe_Log::add('Request ready for Garmin.', 'success', 'ready');
 		
 		return true;
 	}	
@@ -261,13 +173,18 @@ class InMap_Inreach extends Joe_Class {
 
 	function process_kml() {
 		//Do we have a response?
-		if($this->response_string) {		
+		if(is_string($this->response_string) && simplexml_load_string($this->response_string)) {								
 			$this->KML = simplexml_load_string($this->response_string);
-		}	
-
-		$this->update_point_count();					
-
-		$this->status = 'processed';		
+			$this->get_point_count();
+			
+			if($this->point_count) {
+				Joe_Log::add('The KML response contains ' . $this->point_count . ' Points.', 'success', 'has_points');			
+			} else {
+				Joe_Log::add('The KML response contains no Points.', 'error', 'no_points');			
+			}
+		} else {
+			Joe_Log::add('The KML response is invalid.', 'error', 'empty_kml');
+		}
 	}
 	
 	function build_geojson() {
@@ -472,16 +389,14 @@ class InMap_Inreach extends Joe_Class {
 			}
 			
 			//Reverse order (most recent first)
-			$this->FeatureCollection['features'] = array_reverse($this->FeatureCollection['features']);
-
-			$this->status = 'valid';						
+			$this->FeatureCollection['features'] = array_reverse($this->FeatureCollection['features']);				
 		//No points in KML
 		} else {
-			$this->status = 'empty';			
+			Joe_Log::add('The KML response contains no Points.', 'error', 'no_points');			
 		}
 	}
 	
-	function update_point_count() {
+	function get_point_count() {
 		$this->point_count = 0;
 		
 		if(
@@ -493,9 +408,7 @@ class InMap_Inreach extends Joe_Class {
 				if($Placemark->Point->coordinates) {
 					$this->point_count++;
 				}			
-			}
-
-			$this->status = 'counted';			
+			}		
 		}
 		
 		return $this->point_count;
