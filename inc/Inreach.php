@@ -5,19 +5,21 @@ class InMap_Inreach extends Joe_Class {
 	private $request_endpoint = 'https://explore.garmin.com/feed/share/';
 	
 	private $request_data = [];
-	private $cache_id = '';	
 
+	private $cache_id = '';	
+	private $cache_response = [];
+	
 	private $request_string = '';
 	private $response_string = '';
 
-	private $request_status = [];
+	private $status = null;
 		
 	private $KML = null;
 	private $point_count = 0;
 	private $FeatureCollection = [];
 	
 	function __construct($params_in = null) {
-		$this->request_status = 'init';
+		$this->status = 'init';
 		
 		//Set parameters
 		$this->parameters = [
@@ -33,35 +35,73 @@ class InMap_Inreach extends Joe_Class {
 		$this->execute_request();
 		
 		//Data to process
-		if(in_array($this->request_status, ['success', 'fresh', 'stale'])) {
+		if(in_array($this->status, ['success', 'fresh', 'stale'])) {
 			$this->process_kml();		
 			$this->build_geojson();		
-		//Something went wrong		
 		} else {
-			switch($this->request_status) {
-				case 'error' :
-					Joe_Helper::debug($this->request_status);
-				
-					break;
-			}
+			//Something went wrong		
 		}
+	}
+
+	function get_status() {
+		return $this->status;
+	}
+	
+	function get_message() {
+		$out = false;
+	
+		//By code
+		switch($this->status) {
+			case 'success' :
+				$out = __('Response recieved from Garmin.', Joe_Config::get_item('plugin_text_domain'));
+				
+				break;
+			case 'fresh' :
+				$out = __('Response retrieved from Cache.', Joe_Config::get_item('plugin_text_domain'));
+				
+				break;
+			case 'stale' :
+				$out = __('The Response at this time.', Joe_Config::get_item('plugin_text_domain'));
+				
+				break;
+			case 'error_password' :
+				$out = __('There was a problem with your password.', Joe_Config::get_item('plugin_text_domain'));
+				
+				break;
+			case 'error_identifier' :
+				$out = __('There was a problem with your identifier.', Joe_Config::get_item('plugin_text_domain'));
+				
+				break;				
+			case 'error_kml' :
+				$out = __('There was a problem with the response received.', Joe_Config::get_item('plugin_text_domain'));
+				
+				break;				
+			case 'error' :
+				$out = __('There was an unknown error.', Joe_Config::get_item('plugin_text_domain'));
+				
+				break;
+		}
+		
+		return $out;
 	}
 	
 	function execute_request() {
 		//Request is setup
 		if($this->cache_id) {
-			$this->request_status = 'ready';
+			$this->status = 'ready';
 		
-			//Cached response																			 ** GET STALE!
-			$cache_response = Joe_Cache::get_item($this->cache_id, true);
+			//Cached response																			 			 ** GET STALE!
+			$this->cache_response = Joe_Cache::get_item($this->cache_id, true);
 			
 			//Fresh
-			if($cache_response && $cache_response['status'] == 'fresh') {
-	 			$this->response_string = $cache_response['value'];			
+			if($this->cache_response && $this->cache_response['status'] == 'fresh') {
+	 			$this->response_string = $this->cache_response['value'];			
 
-				$this->request_status = 'fresh';
+				$this->status = 'fresh';
 			//Nothing fresh...
 			} else {
+				Joe_Helper::debug($this->request_string);
+			
 				//Setup call
 				$ch = curl_init();
 				curl_setopt($ch, CURLOPT_URL, $this->request_string);
@@ -116,30 +156,43 @@ class InMap_Inreach extends Joe_Class {
 [starttransfer_time_us] => 54965
 [total_time_us] => 208971
 */					
+
 					switch(true) {
 						//Success
 						case strpos($response_info['http_code'], '2') === 0 :
-							$this->request_status = 'success';
-
+							$this->status = 'success';
+												
 							$response_string = curl_multi_getcontent($ch);
-
-							//MUST BE VALID KML RESPONSE
-							if(is_string($response_string) && simplexml_load_string($response_string)) {
-								$this->response_string = $response_string;
+							
+							//Content has length
+							if(! empty($response_string)) {
+								//MUST BE VALID KML RESPONSE
+								if(is_string($response_string) && simplexml_load_string($response_string)) {
+									$this->response_string = $response_string;
 								
-								//Insert into cache
-								Joe_Cache::set_item($this->cache_id, $response_string, 15);	//Minutes
-							}					
+									//Insert into cache
+									Joe_Cache::set_item($this->cache_id, $response_string, 15);	//Minutes
+								} else {
+									$this->status = 'error_kml';							
+								}				
+							//Invalid identifier
+							} else {
+								$this->status = 'error_identifier';							
+							}
 					
 							break;
 						//Fail
 						case strpos($response_info['http_code'], '4') === 0 :
-							$this->request_status = 'error';
+							$this->status = 'error';
+							
+							if($response_info['http_code'] == '401') {
+								$this->status = 'error_password';							
+							}
 
 							break;
 						//Other
 						default :
-							$this->request_status = 'error';
+							$this->status = 'error';
 
 							break;
 					}
@@ -152,11 +205,11 @@ class InMap_Inreach extends Joe_Class {
 		//We have no response
 		if(! $this->response_string) {
 			//Check for stale cache
-			if($cache_response && $cache_response['status'] == 'stale') {
-				$this->request_status = 'stale';
+			if($this->cache_response && $this->cache_response['status'] == 'stale') {
+				$this->status = 'stale';
 
 				//Better than nothing
-	 			$this->response_string = $cache_response['value'];			
+	 			$this->response_string = $this->cache_response['value'];			
 			}
 		}
 	}
@@ -166,7 +219,7 @@ class InMap_Inreach extends Joe_Class {
 		$url_identifier = $this->get_parameter('mapshare_identifier');
 				
 		if(! $url_identifier) {
-			$this->request_status = 'error';
+			$this->status = 'error';
 		
 			return false;		
 		}
@@ -193,7 +246,7 @@ class InMap_Inreach extends Joe_Class {
 		//Determine cache ID
 		$this->cache_id = md5($this->request_string);
 
-		$this->request_status = 'setup';
+		$this->status = 'setup';
 		
 		return true;
 	}	
@@ -214,7 +267,7 @@ class InMap_Inreach extends Joe_Class {
 
 		$this->update_point_count();					
 
-		$this->request_status = 'processed';		
+		$this->status = 'processed';		
 	}
 	
 	function build_geojson() {
@@ -421,10 +474,10 @@ class InMap_Inreach extends Joe_Class {
 			//Reverse order (most recent first)
 			$this->FeatureCollection['features'] = array_reverse($this->FeatureCollection['features']);
 
-			$this->request_status = 'valid';						
+			$this->status = 'valid';						
 		//No points in KML
 		} else {
-			$this->request_status = 'empty';			
+			$this->status = 'empty';			
 		}
 	}
 	
@@ -442,7 +495,7 @@ class InMap_Inreach extends Joe_Class {
 				}			
 			}
 
-			$this->request_status = 'counted';			
+			$this->status = 'counted';			
 		}
 		
 		return $this->point_count;
