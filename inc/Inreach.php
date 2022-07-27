@@ -9,12 +9,16 @@ class InMap_Inreach extends Joe_Class {
 
 	private $request_string = '';
 	private $response_string = '';
-	
+
+	private $request_status = [];
+		
 	private $KML = null;
 	private $point_count = 0;
 	private $FeatureCollection = [];
 	
 	function __construct($params_in = null) {
+		$this->request_status = 'init';
+		
 		//Set parameters
 		$this->parameters = [
 			'mapshare_identifier' => null,
@@ -27,17 +31,37 @@ class InMap_Inreach extends Joe_Class {
 
 		$this->setup_request();
 		$this->execute_request();
-		$this->process_kml();		
-		$this->build_geojson();
+		
+		//Data to process
+		if(in_array($this->request_status, ['success', 'fresh', 'stale'])) {
+			$this->process_kml();		
+			$this->build_geojson();		
+		//Something went wrong		
+		} else {
+			switch($this->request_status) {
+				case 'error' :
+					Joe_Helper::debug($this->request_status);
+				
+					break;
+			}
+		}
 	}
 	
 	function execute_request() {
 		//Request is setup
 		if($this->cache_id) {
-			//Cached response	
-			$this->response_string = Joe_Cache::get_item($this->cache_id);
+			$this->request_status = 'ready';
+		
+			//Cached response																			 ** GET STALE!
+			$cache_response = Joe_Cache::get_item($this->cache_id, true);
+			
+			//Fresh
+			if($cache_response && $cache_response['status'] == 'fresh') {
+	 			$this->response_string = $cache_response['value'];			
 
-			if($this->response_string === false) {
+				$this->request_status = 'fresh';
+			//Nothing fresh...
+			} else {
 				//Setup call
 				$ch = curl_init();
 				curl_setopt($ch, CURLOPT_URL, $this->request_string);
@@ -53,19 +77,87 @@ class InMap_Inreach extends Joe_Class {
 
 				//cURL success?
 				if(! curl_errno($ch)) {
-					Joe_Helper::debug(curl_getinfo($ch));
-				
-					$this->response_string = curl_multi_getcontent($ch);
+					$response_info = curl_getinfo($ch);
+/*
+[url] => https://explore.garmin.com/feed/share/morehawes
+[content_type] => text/html
+[http_code] => 401
+[header_size] => 670
+[request_size] => 125
+[filetime] => -1
+[ssl_verify_result] => 0
+[redirect_count] => 0
+[total_time] => 0.208971
+[namelookup_time] => 0.001371
+[connect_time] => 0.017655
+[pretransfer_time] => 0.054956
+[size_upload] => 0
+[size_download] => 58
+[speed_download] => 277
+[speed_upload] => 0
+[download_content_length] => -1
+[upload_content_length] => -1
+[starttransfer_time] => 0.054965
+[redirect_time] => 0
+[redirect_url] => 
+[primary_ip] => 104.16.154.58
+[primary_port] => 443
+[local_ip] => 192.168.0.111
+[local_port] => 59529
+[http_version] => 3
+[protocol] => 2
+[ssl_verifyresult] => 0
+[scheme] => HTTPS
+[appconnect_time_us] => 54851
+[connect_time_us] => 17655
+[namelookup_time_us] => 1371
+[pretransfer_time_us] => 54956
+[redirect_time_us] => 0
+[starttransfer_time_us] => 54965
+[total_time_us] => 208971
+*/					
+					switch(true) {
+						//Success
+						case strpos($response_info['http_code'], '2') === 0 :
+							$this->request_status = 'success';
 
-					//MUST BE VALID KML to go into Cache
-					if(is_string($this->response_string) && simplexml_load_string($this->response_string)) {
-						//Insert into cache
-						Joe_Cache::set_item($this->cache_id, $this->response_string, 15);	//Minutes
+							$response_string = curl_multi_getcontent($ch);
+
+							//MUST BE VALID KML RESPONSE
+							if(is_string($response_string) && simplexml_load_string($response_string)) {
+								$this->response_string = $response_string;
+								
+								//Insert into cache
+								Joe_Cache::set_item($this->cache_id, $response_string, 15);	//Minutes
+							}					
+					
+							break;
+						//Fail
+						case strpos($response_info['http_code'], '4') === 0 :
+							$this->request_status = 'error';
+
+							break;
+						//Other
+						default :
+							$this->request_status = 'error';
+
+							break;
 					}
-
+			
 					curl_close($ch);
 				}
 			}	
+		}
+		
+		//We have no response
+		if(! $this->response_string) {
+			//Check for stale cache
+			if($cache_response && $cache_response['status'] == 'stale') {
+				$this->request_status = 'stale';
+
+				//Better than nothing
+	 			$this->response_string = $cache_response['value'];			
+			}
 		}
 	}
 
@@ -74,6 +166,8 @@ class InMap_Inreach extends Joe_Class {
 		$url_identifier = $this->get_parameter('mapshare_identifier');
 				
 		if(! $url_identifier) {
+			$this->request_status = 'error';
+		
 			return false;		
 		}
 
@@ -97,7 +191,9 @@ class InMap_Inreach extends Joe_Class {
 		}	
 
 		//Determine cache ID
-		$this->cache_id = Joe_Helper::slug_prefix(md5($this->request_string));
+		$this->cache_id = md5($this->request_string);
+
+		$this->request_status = 'setup';
 		
 		return true;
 	}	
@@ -117,6 +213,8 @@ class InMap_Inreach extends Joe_Class {
 		}	
 
 		$this->update_point_count();					
+
+		$this->request_status = 'processed';		
 	}
 	
 	function build_geojson() {
@@ -322,9 +420,11 @@ class InMap_Inreach extends Joe_Class {
 			
 			//Reverse order (most recent first)
 			$this->FeatureCollection['features'] = array_reverse($this->FeatureCollection['features']);
+
+			$this->request_status = 'valid';						
 		//No points in KML
 		} else {
-
+			$this->request_status = 'empty';			
 		}
 	}
 	
@@ -341,6 +441,8 @@ class InMap_Inreach extends Joe_Class {
 					$this->point_count++;
 				}			
 			}
+
+			$this->request_status = 'counted';			
 		}
 		
 		return $this->point_count;
