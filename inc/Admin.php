@@ -19,6 +19,9 @@ class InMap_Admin extends Joe_Admin {
 	
 	function load_assets() {
 		parent::load_assets();
+
+		//Joe CSS
+		Joe_Assets::css_enqueue(Joe_Helper::asset_url('css/admin.min.css'));	
 		
 		Joe_Assets::js_onready('
 // 			var form = jQuery("body.settings_page_inreach-mapshare-settings form");

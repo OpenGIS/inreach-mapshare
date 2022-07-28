@@ -36,14 +36,16 @@ class InMap_Settings extends Joe_Settings {
 		
 		//Success
 		if($log = Joe_Log::in_success()) {		
-			Joe_Assets::js_onready('joe_admin_message("' . $log['message'] . '", "success")');
+			Joe_Assets::js_onready('joe_admin_message("' . $log['message'] . '", "success", "#joe-admin-container .card")');
 			
 			$description = $shortcode_output;			
 			$description .= '<pre class="joe-shortcode"><code>' . $shortcode . '</code></pre>';
 			$description .= '<p class="joe-lead">' . __('Add wherever Shortcodes are supported.', Joe_Config::get_item('plugin_text_domain')) . '</p>';
 		//Error
 		} elseif($log = Joe_Log::in_error()) {
-			Joe_Assets::js_onready('joe_admin_message("' . $log['message'] . '", "error")');
+			Joe_Helper::debug($log);
+
+			Joe_Assets::js_onready('joe_admin_message("' . $log['message'] . '", "error", "#joe-admin-container .card")');
 		}
 
 		//Defaults
