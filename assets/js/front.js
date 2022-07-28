@@ -1,7 +1,7 @@
 const inmap_maps = [];
 
 const inmap_create_map = function(map_hash = null, map_geojson = null) {
-	if(! map_hash || ! map_geojson || ! map_geojson.length || ! jQuery) {
+	if(! map_hash || ! map_geojson || ! jQuery) {
 		return false;
 	}
 	

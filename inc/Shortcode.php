@@ -53,13 +53,15 @@ class InMap_Shortcode extends Joe_Shortcode {
 	
 		if($shortcode_data['mapshare_identifier']) {					
 			
-			$Inreach_Mapshare_Inreach = new InMap_Inreach($shortcode_data);		
+			$Inreach_Mapshare = new InMap_Inreach($shortcode_data);		
 			
 			if($success = Joe_Log::in_success()) {
-				$hash = Joe_Helper::make_hash($Inreach_Mapshare_Inreach->get_parameters());
-				$geojson = $Inreach_Mapshare_Inreach->get_geojson();
-			
-				if(sizeof($geojson)) {				
+				$hash = Joe_Helper::make_hash($Inreach_Mapshare->get_parameters());
+				$geojson = $Inreach_Mapshare->get_geojson();
+
+				if(is_string($geojson) && ! empty($geojson)) {		
+					Joe_Log::add(sprintf('Displaying %s MapShare Points.', $Inreach_Mapshare->get_point_count()), 'warning', 'stale');
+						
 					//JS
 					Joe_Assets::js_onready('
 						inmap_create_map(
@@ -82,13 +84,14 @@ class InMap_Shortcode extends Joe_Shortcode {
 					Joe_Log::render_item($log, 'console');			
 				}
 			}
-			
 		}	else {
 			Joe_Log::add('MapShare Identifier not provided.', 'error', 'missing_identifier');
 		}
 
 		$out .= '</div>';
 		$out .= '<!-- END ' . Joe_Config::get_name() . ' Shortcode -->' . "\n\n";
+
+		Joe_Log::render();
 		
 		return $out;
 	}	

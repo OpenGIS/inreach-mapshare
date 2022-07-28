@@ -63,6 +63,7 @@ class InMap_Inreach extends Joe_Class {
 				curl_setopt($ch, CURLOPT_URL, $this->request_string);
 				curl_setopt($ch, CURLOPT_POST, 1);
 				curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
+				curl_setopt($ch, CURLOPT_FOLLOWLOCATION, true);
 
 				if($auth_password = $this->get_parameter('mapshare_password')) {
 					curl_setopt($ch, CURLOPT_USERPWD, ":" . $auth_password);	//No username			
@@ -83,7 +84,7 @@ class InMap_Inreach extends Joe_Class {
 							//Content has length
 							if(! empty($response_string)) {
 								//MUST BE VALID KML RESPONSE
-								if(is_string($response_string) && simplexml_load_string($response_string)) {								
+								if(is_string($response_string) && @simplexml_load_string($response_string)) {								
 						 			$this->response_string = $response_string;			
 
 									//Insert into cache
@@ -91,7 +92,7 @@ class InMap_Inreach extends Joe_Class {
 
 									Joe_Log::add('Garmin provided a valid KML response, which has been added to Cache.', 'success', 'cached');									
 								} else {
-									Joe_Log::add('Received invalid KML response from Garmin.', 'error', 'invalid_kml');
+									Joe_Log::add('Received invalid KML response from Garmin. Check your MapShare Settings', 'error', 'invalid_kml');
 								}				
 							//Invalid identifier
 							} else {
@@ -106,6 +107,8 @@ class InMap_Inreach extends Joe_Class {
 							break;
 						//Other
 						default :
+							Joe_Helper::debug($response_info, false);
+						
 							Joe_Log::add('Garmin returned an unknown error.', 'error', 'unknown');
 
 							break;
@@ -163,7 +166,7 @@ class InMap_Inreach extends Joe_Class {
 		//Determine cache ID
 		$this->cache_id = md5(json_encode($this->get_parameters()));
 
-		Joe_Log::add('Request ready for Garmin.', 'info', 'ready');
+		Joe_Log::add($this->request_string, 'info', 'request_ready');
 		
 		return true;
 	}	
@@ -177,9 +180,6 @@ class InMap_Inreach extends Joe_Class {
 	}
 
 	function process_kml() {
-				Joe_Helper::debug($this->response_string, true);
-
-	
 		//Do we have a response?
 		if(is_string($this->response_string) && simplexml_load_string($this->response_string)) {								
 			$this->KML = simplexml_load_string($this->response_string);
@@ -405,7 +405,9 @@ class InMap_Inreach extends Joe_Class {
 	}
 	
 	function get_point_count() {
-		$this->point_count = 0;
+		if($this->point_count) {
+			return $this->point_count;
+		}
 		
 		if(
  			is_object($this->KML)
