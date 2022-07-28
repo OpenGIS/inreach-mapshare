@@ -36,16 +36,18 @@ class InMap_Settings extends Joe_Settings {
 		
 		//Success
 		if($log = Joe_Log::in_success()) {		
-			Joe_Assets::js_onready('joe_admin_message("' . $log['message'] . '", "success", "#joe-admin-container .card")');
+			Joe_Log::render_item($log, 'notice');
 			
 			$description = $shortcode_output;			
 			$description .= '<pre class="joe-shortcode"><code>' . $shortcode . '</code></pre>';
 			$description .= '<p class="joe-lead">' . __('Add wherever Shortcodes are supported.', Joe_Config::get_item('plugin_text_domain')) . '</p>';
-		//Error
-		} elseif($log = Joe_Log::in_error()) {
-			Joe_Helper::debug($log);
-
-			Joe_Assets::js_onready('joe_admin_message("' . $log['message'] . '", "error", "#joe-admin-container .card")');
+		//Other
+		} else {
+			$log = Joe_Log::render();
+// 			
+// 			if(in_array($log['type'], ['warning', 'error'])) {
+// 				Joe_Log::render_item($log, 'notice');			
+// 			}
 		}
 
 		//Defaults

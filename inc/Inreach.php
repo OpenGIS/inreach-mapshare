@@ -35,7 +35,9 @@ class InMap_Inreach extends Joe_Class {
 			'build_geojson',
 		] as $call) {
 			//Stop if error
-			if(Joe_Log::in_error()) {
+			if($log = Joe_Log::in_error()) {
+				Joe_Log::render();
+
 				return;
 			}
 
@@ -118,10 +120,13 @@ class InMap_Inreach extends Joe_Class {
 		if(! $this->response_string) {
 			//Check for stale cache
 			if($this->cache_response && $this->cache_response['status'] == 'stale') {
-				Joe_Log::add('Unable to get updated KML from Garmin.', 'warning', 'stale');
+				Joe_Log::add(sprintf('Unable to get updated KML from Garmin. Last update: %s minutes ago.', round($this->cache_response['minutes'])), 'warning', 'stale');
 
 				//Better than nothing
 	 			$this->response_string = $this->cache_response['value'];			
+			//No cache either
+			} else {
+				Joe_Log::add('Garmin provided an empty response. Check your MapShare Settings.', 'error', 'empty_response');			
 			}
 		}
 	}
@@ -158,7 +163,7 @@ class InMap_Inreach extends Joe_Class {
 		//Determine cache ID
 		$this->cache_id = md5(json_encode($this->get_parameters()));
 
-		Joe_Log::add('Request ready for Garmin.', 'success', 'ready');
+		Joe_Log::add('Request ready for Garmin.', 'info', 'ready');
 		
 		return true;
 	}	
@@ -172,6 +177,9 @@ class InMap_Inreach extends Joe_Class {
 	}
 
 	function process_kml() {
+				Joe_Helper::debug($this->response_string, true);
+
+	
 		//Do we have a response?
 		if(is_string($this->response_string) && simplexml_load_string($this->response_string)) {								
 			$this->KML = simplexml_load_string($this->response_string);

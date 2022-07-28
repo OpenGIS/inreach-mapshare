@@ -1,14 +1,18 @@
 const inmap_maps = [];
 
 const inmap_create_map = function(map_hash = null, map_geojson = null) {
-	if(! map_hash || ! map_geojson || ! jQuery) {
+	if(! map_hash || ! map_geojson || ! map_geojson.length || ! jQuery) {
 		return false;
 	}
 	
 	var map_id = 'inmap-' + map_hash;
 	
-	//CreateMap
+	//Map Container
 	var map_jq = jQuery('#' + map_id);
+	if(! map_jq.length) {
+		return false;
+	}
+	
 	var map_l = L.map(map_id);
 
 	//Make accessible
