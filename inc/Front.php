@@ -22,6 +22,6 @@ class InMap_Front extends Joe_Front {
 	
 	function load_assets() {
 		//Joe CSS
-		Joe_Assets::css_enqueue(Joe_Helper::plugin_url('Joe/Assets/css/front.min.css'));	
+// 		Joe_Assets::css_enqueue(Joe_Helper::plugin_url('Joe/Assets/css/front.min.css'));	
 	}		
 }

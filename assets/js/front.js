@@ -7,8 +7,12 @@ const inmap_create_map = function(map_hash = null, map_geojson = null) {
 	
 	var map_id = 'inmap-' + map_hash;
 	
-	//CreateMap
+	//Map Container
 	var map_jq = jQuery('#' + map_id);
+	if(! map_jq.length) {
+		return false;
+	}
+	
 	var map_l = L.map(map_id);
 
 	//Make accessible
