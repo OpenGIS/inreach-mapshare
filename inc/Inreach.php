@@ -137,11 +137,24 @@ class InMap_Inreach extends Joe_Class {
 	function setup_request() {
 		//Required
 		$url_identifier = $this->get_parameter('mapshare_identifier');
-				
+		
+		//Required
 		if(! $url_identifier) {
 			Joe_Log::add('No MapShare identifier provided.', 'error', 'identifier');
 		
 			return false;		
+		//Load Demo
+		} elseif($url_identifier == 'demo') {
+			$demo_kml = file_get_contents(Joe_Helper::asset_url('geo/demo.kml'));
+			
+			if($demo_kml) {
+				$this->response_string = $demo_kml;
+				Joe_Log::add('Demo mode enabled!', 'info', 'do_demo');
+			} else {
+				Joe_Log::add('Unable to read Demo KML.', 'warning', 'do_demo');			
+			}
+			
+			return true;		
 		}
 
 		//Start building the request
@@ -215,6 +228,10 @@ class InMap_Inreach extends Joe_Class {
 					],
 					'geometry' => []
 				];
+
+				if(Joe_Log::has('do_demo')) {
+					$Feature['properties']['className'] .= ' inmap-demo';
+				} 
 
 				// =========== Point ===========
 				

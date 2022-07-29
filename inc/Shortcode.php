@@ -45,7 +45,7 @@ class InMap_Shortcode extends Joe_Shortcode {
 		$out .= '<div class="inmap-wrap">';
 	
 		$shortcode_data = shortcode_atts(array(
-			'mapshare_identifier' => false,
+			'mapshare_identifier' => 'demo',
 			'mapshare_password' => false,
 			'mapshare_date_start' => false,
 			'mapshare_date_end' => false
