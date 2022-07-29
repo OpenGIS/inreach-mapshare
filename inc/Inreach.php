@@ -53,7 +53,7 @@ class InMap_Inreach extends Joe_Class {
 			
 			//Fresh
 			if($this->cache_response && $this->cache_response['status'] == 'fresh') {
-				Joe_Log::add('Response retrieved from Cache.', 'success', 'fresh');
+				Joe_Log::add('Response retrieved from Cache.', 'info', 'cache_fresh');
 
 	 			$this->response_string = $this->cache_response['value'];			
 			//Nothing fresh...
@@ -90,7 +90,7 @@ class InMap_Inreach extends Joe_Class {
 									//Insert into cache
 									Joe_Cache::set_item($this->cache_id, $response_string, 15);	//Minutes
 
-									Joe_Log::add('Garmin provided a valid KML response, which has been added to Cache.', 'success', 'cached');									
+									Joe_Log::add('Garmin provided a valid KML response, which has been added to Cache.', 'info', 'response_cached');									
 								} else {
 									Joe_Log::add('Received invalid KML response from Garmin. Check your MapShare Settings', 'error', 'invalid_kml');
 								}				
@@ -123,7 +123,7 @@ class InMap_Inreach extends Joe_Class {
 		if(! $this->response_string) {
 			//Check for stale cache
 			if($this->cache_response && $this->cache_response['status'] == 'stale') {
-				Joe_Log::add(sprintf('Unable to get updated KML from Garmin. Last update: %s minutes ago.', round($this->cache_response['minutes'])), 'warning', 'stale');
+				Joe_Log::add(sprintf('Unable to get updated KML from Garmin. Last update: %s minutes ago.', round($this->cache_response['minutes'])), 'warning', 'cache_stale');
 
 				//Better than nothing
 	 			$this->response_string = $this->cache_response['value'];			
@@ -186,7 +186,7 @@ class InMap_Inreach extends Joe_Class {
 			$this->get_point_count();
 			
 			if($this->point_count) {
-				Joe_Log::add('The KML response contains ' . $this->point_count . ' Points.', 'success', 'has_points');			
+				Joe_Log::add('The KML response contains ' . $this->point_count . ' Points.', 'info', 'has_points');			
 			} else {
 				Joe_Log::add('The KML response contains no Points.', 'error', 'no_points');			
 			}

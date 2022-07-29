@@ -55,12 +55,16 @@ class InMap_Shortcode extends Joe_Shortcode {
 			
 			$Inreach_Mapshare = new InMap_Inreach($shortcode_data);		
 			
-			if($success = Joe_Log::in_success()) {
+			//Error?
+			if($error = Joe_Log::in_error()) {
+				Joe_Log::render_item($error, 'console');			
+			//Proceed
+			} else {
 				$hash = Joe_Helper::make_hash($Inreach_Mapshare->get_parameters());
 				$geojson = $Inreach_Mapshare->get_geojson();
 
 				if(is_string($geojson) && ! empty($geojson)) {		
-					Joe_Log::add(sprintf('Displaying %s MapShare Points.', $Inreach_Mapshare->get_point_count()), 'warning', 'stale');
+					Joe_Log::add(sprintf('Displaying %s MapShare Points.', $Inreach_Mapshare->get_point_count()), 'info', 'rendering_points');
 						
 					//JS
 					Joe_Assets::js_onready('
@@ -75,14 +79,6 @@ class InMap_Shortcode extends Joe_Shortcode {
 				} else {
 					Joe_Log::add('GeoJSON contains no Points.', 'error', 'empty_geojson');				
 				}
-			//Not successful
-			} else {
-				$log = Joe_Log::latest();
-			
-				//Console
-				if(in_array($log['type'], ['warning', 'error'])) {
-					Joe_Log::render_item($log, 'console');			
-				}
 			}
 		}	else {
 			Joe_Log::add('MapShare Identifier not provided.', 'error', 'missing_identifier');
@@ -90,9 +86,17 @@ class InMap_Shortcode extends Joe_Shortcode {
 
 		$out .= '</div>';
 		$out .= '<!-- END ' . Joe_Config::get_name() . ' Shortcode -->' . "\n\n";
-
-		Joe_Log::render();
 		
+		//Log?
+		
+		//Display Full log to admin
+		if(current_user_can('administrator')) {
+			Joe_Log::render();
+		//Error?
+		} elseif($error = Joe_Log::in_error()) {
+			Joe_Log::render_item($error);
+		}
+
 		return $out;
 	}	
 }
