@@ -9,7 +9,7 @@ class InMap_Settings extends Joe_Settings {
 		$this->settings_nav = [
 			'joe-settings-tab-shortcode' => '-- ' . esc_html__('Shortcodes', Joe_Config::get_item('plugin_text_domain')),
 			'joe-settings-tab-appearance' => '-- ' . esc_html__('Appearance', Joe_Config::get_item('plugin_text_domain')),
-			'joe-settings-tab-joe' => '-- ' . esc_html__('Plugin', Joe_Config::get_item('plugin_text_domain'))
+			'joe-settings-tab-joe' => '-- ' . esc_html__('Advanced', Joe_Config::get_item('plugin_text_domain'))
 		];
 
 		//Switch tabs
@@ -40,11 +40,15 @@ class InMap_Settings extends Joe_Settings {
 		Joe_Log::set_output_type('notice');
 		Joe_Log::render();
 		
-		//Error
+		//Success
 		if(! Joe_Log::in_error()) {		
 			$description = $shortcode_output;			
-			$description .= '<pre class="joe-shortcode"><code>' . $shortcode . '</code></pre>';
-			$description .= '<p class="joe-lead">' . __('Add wherever Shortcodes are supported.', Joe_Config::get_item('plugin_text_domain')) . '</p>';
+			
+			//Not for demo
+			if(! Joe_Log::has('do_demo')) {
+				$description .= '<pre class="joe-shortcode"><code>' . $shortcode . '</code></pre>';
+				$description .= '<p class="joe-lead">' . __('Add wherever Shortcodes are supported.', Joe_Config::get_item('plugin_text_domain')) . '</p>';
+			}
 		}
 
 		//Shortcode builder
@@ -59,7 +63,11 @@ class InMap_Settings extends Joe_Settings {
 							'id' => 'mapshare_identifier',
 							'title' => esc_html__('MapShare Identifier', Joe_Config::get_item('plugin_text_domain')),
 							'tip' => esc_attr__('!!!', Joe_Config::get_item('plugin_text_domain')),
-							'tip_link' => 'https://developer.mozilla.org/en-US/docs/Tools/Browser_Console'
+							'tip_link' => 'https://developer.mozilla.org/en-US/docs/Tools/Browser_Console',
+							//Remove all non-alphanemeric
+							'input_processing' => [
+								'preg_replace("/[^\da-z]/i", "", $param_value);'
+							]
 						],
 						'mapshare_password' => [
 							'title' => esc_html__('MapShare Password', Joe_Config::get_item('plugin_text_domain')),

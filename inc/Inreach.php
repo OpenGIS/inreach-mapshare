@@ -102,7 +102,7 @@ class InMap_Inreach extends Joe_Class {
 							break;
 						//Fail
 						case $response_info['http_code'] == '401' :
-							Joe_Log::add('There was a problem with your MapShare Password.', 'error', 'password');
+							Joe_Log::add('There was a problem with your MapShare Password.', 'error', 'error_password');
 
 							break;
 						//Other
