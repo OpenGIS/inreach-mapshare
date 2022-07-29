@@ -7,9 +7,9 @@ class InMap_Settings extends Joe_Settings {
 		Joe_Log::reset();
 
 		$this->settings_nav = [
-			'joe-settings-tab-shortcode' => '-- ' . esc_html__('Shortcode', Joe_Config::get_item('plugin_text_domain')),
-			'joe-settings-tab-mapshare' => '-- ' . esc_html__('Mapshare', Joe_Config::get_item('plugin_text_domain')),
+			'joe-settings-tab-shortcode' => '-- ' . esc_html__('Shortcodes', Joe_Config::get_item('plugin_text_domain')),
 			'joe-settings-tab-appearance' => '-- ' . esc_html__('Appearance', Joe_Config::get_item('plugin_text_domain')),
+			'joe-settings-tab-joe' => '-- ' . esc_html__('Plugin', Joe_Config::get_item('plugin_text_domain'))
 		];
 
 		//Switch tabs
@@ -47,7 +47,7 @@ class InMap_Settings extends Joe_Settings {
 			$description .= '<p class="joe-lead">' . __('Add wherever Shortcodes are supported.', Joe_Config::get_item('plugin_text_domain')) . '</p>';
 		}
 
-		//Defaults
+		//Shortcode builder
 		$this->tabs['shortcode'] = [
 			'sections' => [
 				'build' => [	
@@ -55,8 +55,8 @@ class InMap_Settings extends Joe_Settings {
  					'description' => isset($description) ? $description : '',
 					'fields' => [
 						'mapshare_identifier' => [
+							'required' => 'demo',
 							'id' => 'mapshare_identifier',
-							'default' => Joe_Config::get_setting('mapshare', 'defaults', 'mapshare_identifier'),
 							'title' => esc_html__('MapShare Identifier', Joe_Config::get_item('plugin_text_domain')),
 							'tip' => esc_attr__('!!!', Joe_Config::get_item('plugin_text_domain')),
 							'tip_link' => 'https://developer.mozilla.org/en-US/docs/Tools/Browser_Console'
@@ -67,61 +67,15 @@ class InMap_Settings extends Joe_Settings {
 							'tip_link' => 'https://explore.garmin.com/Social'
 						],
 						'mapshare_date_start' => [
-//  							'default' => Joe_Config::get_fallback('mapshare', 'defaults', 'mapshare_date_start'),
 							'type' => 'datetime-local',
 							'title' => esc_html__('Start Date', Joe_Config::get_item('plugin_text_domain'))
 						],						
 						'mapshare_date_end' => [
-//  							'default' => Joe_Config::get_fallback('mapshare', 'defaults', 'mapshare_date_start'),						
 							'id' => 'mapshare_date_end',
 							'type' => 'datetime-local',
 							'title' => esc_html__('End Date', Joe_Config::get_item('plugin_text_domain'))
 						]																																										
 					]											
-				]
-			]
-		];
-		
-		//Defaults
-		$this->tabs['mapshare'] = [
-			'sections' => [
-				'defaults' => [		
-					'title' => esc_html__('Defaults', Joe_Config::get_item('plugin_text_domain')),
- 					'description' => __('Reduce keyboard wear.', Joe_Config::get_item('plugin_text_domain')),
-					'fields' => [
-						'mapshare_identifier' => [
- 							'id' => 'mapshare_identifier',
-							'title' => esc_html__('MapShare Identifier', Joe_Config::get_item('plugin_text_domain')),
-							'tip' => esc_attr__('!!!', Joe_Config::get_item('plugin_text_domain')),
-							'tip_link' => 'https://developer.mozilla.org/en-US/docs/Tools/Browser_Console'
-						],
-						'mapshare_password' => [
-							'title' => esc_html__('MapShare Password', Joe_Config::get_item('plugin_text_domain')),
-							'tip' => esc_attr__('The (optional) password for your MapShare page, set in MapShare Settings. This is *not* any kind of account password.', Joe_Config::get_item('plugin_text_domain')),
-							'tip_link' => 'https://explore.garmin.com/Social'
-						],
-						'mapshare_date_start' => [
-							'type' => 'datetime-local',
-							'title' => esc_html__('Start Date', Joe_Config::get_item('plugin_text_domain'))
-						]// ,						
-// 						'mapshare_date_end' => [
-// 							'id' => 'mapshare_date_end',
-// 							'type' => 'datetime-local',
-// 							'title' => esc_html__('End Date', Joe_Config::get_item('plugin_text_domain'))
-// 						]																																									
-					]											
-				],
-				'advanced' => [		
-					'title' => esc_html__('Cache', Joe_Config::get_item('plugin_text_domain')),
-// 					'description' => '',
-					'fields' => [
-						'cache_minutes' => [
-							'required' => Joe_Config::get_fallback('mapshare', 'advanced', 'cache_minutes'),
-							'class' => 'joe-short-input',
-							'title' => esc_html__('Cache Minutes', Joe_Config::get_item('plugin_text_domain')),
-							'tip' => esc_attr__('How often the feed is updated.', Joe_Config::get_item('plugin_text_domain'))
-						]	
-					]
 				]
 			]
 		];

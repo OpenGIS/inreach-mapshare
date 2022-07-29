@@ -88,7 +88,7 @@ class InMap_Inreach extends Joe_Class {
 						 			$this->response_string = $response_string;			
 
 									//Insert into cache
-									Joe_Cache::set_item($this->cache_id, $response_string, 15);	//Minutes
+									Joe_Cache::set_item($this->cache_id, $response_string);
 
 									Joe_Log::add('Garmin provided a valid KML response, which has been added to Cache.', 'info', 'response_cached');									
 								} else {
@@ -107,9 +107,7 @@ class InMap_Inreach extends Joe_Class {
 							break;
 						//Other
 						default :
-							Joe_Helper::debug($response_info, false);
-						
-							Joe_Log::add('Garmin returned an unknown error.', 'error', 'unknown');
+							Joe_Log::add('Garmin returned a ' . $response_info['http_code'] . ' error.', 'error', 'error_' . $response_info['http_code']);
 
 							break;
 					}
@@ -353,9 +351,7 @@ class InMap_Inreach extends Joe_Class {
 								$icon_class .= ' inmap-icon-message inmap-icon-quick';
 								
 								break;
-// 							default :
-//  								Joe_Helper::debug($extended_data);
-// 							
+// 							default : 							
 // 								break;									
 						}
 
