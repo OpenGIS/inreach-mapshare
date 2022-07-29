@@ -40,15 +40,19 @@ class InMap_Settings extends Joe_Settings {
 		Joe_Log::set_output_type('notice');
 		Joe_Log::render();
 		
+		//Description
+		$description = '';
+		
 		//Success
 		if(! Joe_Log::in_error()) {		
-			$description = $shortcode_output;			
-			
-			//Not for demo
+			//Display Shortcode - Not for demo
 			if(! Joe_Log::has('do_demo')) {
-				$description .= '<pre class="joe-shortcode"><code>' . $shortcode . '</code></pre>';
 				$description .= '<p class="joe-lead">' . __('Add wherever Shortcodes are supported.', Joe_Config::get_item('plugin_text_domain')) . '</p>';
+				$description .= '<pre class="joe-shortcode"><code>' . $shortcode . '</code></pre>';
 			}
+			
+			//Actual output
+			$description .= $shortcode_output;			
 		}
 
 		//Shortcode builder
@@ -56,14 +60,15 @@ class InMap_Settings extends Joe_Settings {
 			'sections' => [
 				'build' => [	
 					'title' => esc_html__('Build a Shortcode', Joe_Config::get_item('plugin_text_domain')),
- 					'description' => isset($description) ? $description : '',
+ 					'description' => $description,
 					'fields' => [
 						'mapshare_identifier' => [
 							'required' => 'demo',
 							'id' => 'mapshare_identifier',
-							'title' => esc_html__('MapShare Identifier', Joe_Config::get_item('plugin_text_domain')),
-							'tip' => esc_attr__('!!!', Joe_Config::get_item('plugin_text_domain')),
-							'tip_link' => 'https://developer.mozilla.org/en-US/docs/Tools/Browser_Console',
+							'title' => esc_html__('MapShare Address', Joe_Config::get_item('plugin_text_domain')),
+							'tip' => esc_attr__('This is found in the Social tab', Joe_Config::get_item('plugin_text_domain')),
+							'tip_link' => 'https://explore.garmin.com/Social',
+							'prepend' => 'share.garmin.com/',
 							//Remove all non-alphanemeric
 							'input_processing' => [
 								'preg_replace("/[^\da-z]/i", "", $param_value);'
