@@ -4,6 +4,8 @@ class InMap_Settings extends Joe_Settings {
 	public function __construct() {
 		parent::__construct();
 
+		Joe_Log::reset();
+
 		$this->settings_nav = [
 			'joe-settings-tab-shortcode' => '-- ' . esc_html__('Shortcode', Joe_Config::get_item('plugin_text_domain')),
 			'joe-settings-tab-mapshare' => '-- ' . esc_html__('Mapshare', Joe_Config::get_item('plugin_text_domain')),
@@ -31,23 +33,18 @@ class InMap_Settings extends Joe_Settings {
 			}
 		}
 		$shortcode .= ']';
-
-		$shortcode_output = do_shortcode($shortcode);
 		
-		//Success
-		if($log = Joe_Log::in_success()) {		
-			Joe_Log::render_item($log, 'notice');
-			
+		//Execute Shortcode (and Garmin request)
+		$shortcode_output = do_shortcode($shortcode);
+
+		Joe_Log::set_output_type('notice');
+		Joe_Log::render();
+		
+		//Error
+		if(! Joe_Log::in_error()) {		
 			$description = $shortcode_output;			
 			$description .= '<pre class="joe-shortcode"><code>' . $shortcode . '</code></pre>';
 			$description .= '<p class="joe-lead">' . __('Add wherever Shortcodes are supported.', Joe_Config::get_item('plugin_text_domain')) . '</p>';
-		//Other
-		} else {
-			$log = Joe_Log::render();
-// 			
-// 			if(in_array($log['type'], ['warning', 'error'])) {
-// 				Joe_Log::render_item($log, 'notice');			
-// 			}
 		}
 
 		//Defaults
