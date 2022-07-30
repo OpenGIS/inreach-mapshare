@@ -88,7 +88,7 @@ class InMap_Inreach extends Joe_Class {
 						 			$this->response_string = $response_string;			
 
 									//Insert into cache
-									Joe_Cache::set_item($this->cache_id, $response_string, 15);	//Minutes
+									Joe_Cache::set_item($this->cache_id, $response_string);
 
 									Joe_Log::add('Garmin provided a valid KML response, which has been added to Cache.', 'info', 'response_cached');									
 								} else {
@@ -102,14 +102,12 @@ class InMap_Inreach extends Joe_Class {
 							break;
 						//Fail
 						case $response_info['http_code'] == '401' :
-							Joe_Log::add('There was a problem with your MapShare Password.', 'error', 'password');
+							Joe_Log::add('There was a problem with your MapShare Password.', 'error', 'error_password');
 
 							break;
 						//Other
 						default :
-							Joe_Helper::debug($response_info, false);
-						
-							Joe_Log::add('Garmin returned an unknown error.', 'error', 'unknown');
+							Joe_Log::add('Garmin returned a ' . $response_info['http_code'] . ' error.', 'error', 'error_' . $response_info['http_code']);
 
 							break;
 					}
@@ -137,11 +135,24 @@ class InMap_Inreach extends Joe_Class {
 	function setup_request() {
 		//Required
 		$url_identifier = $this->get_parameter('mapshare_identifier');
-				
+		
+		//Required
 		if(! $url_identifier) {
 			Joe_Log::add('No MapShare identifier provided.', 'error', 'identifier');
 		
 			return false;		
+		//Load Demo
+		} elseif($url_identifier == 'demo') {
+			$demo_kml = file_get_contents(Joe_Helper::asset_url('geo/demo.kml'));
+			
+			if($demo_kml) {
+				$this->response_string = $demo_kml;
+				Joe_Log::add('Demo mode enabled!', 'info', 'do_demo');
+			} else {
+				Joe_Log::add('Unable to read Demo KML.', 'warning', 'do_demo');			
+			}
+			
+			return true;		
 		}
 
 		//Start building the request
@@ -215,6 +226,10 @@ class InMap_Inreach extends Joe_Class {
 					],
 					'geometry' => []
 				];
+
+				if(Joe_Log::has('do_demo')) {
+					$Feature['properties']['className'] .= ' inmap-demo';
+				} 
 
 				// =========== Point ===========
 				
@@ -336,9 +351,7 @@ class InMap_Inreach extends Joe_Class {
 								$icon_class .= ' inmap-icon-message inmap-icon-quick';
 								
 								break;
-// 							default :
-//  								Joe_Helper::debug($extended_data);
-// 							
+// 							default : 							
 // 								break;									
 						}
 

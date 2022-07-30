@@ -185,6 +185,16 @@
 				max-height: 320px;
 				transition: max-height 1s ease-in-out;
 			}
+			
+			&.inmap-demo {
+				.inmap-info-desc {	
+					.inmap-info-title {
+						&::before {
+							content: '[Demo] ';
+						}
+					}
+				}
+			}			
 
 			padding: 0;
 			padding-left: 0;

@@ -136,6 +136,9 @@
   max-height: 320px;
   transition: max-height 1s ease-in-out;
 }
+.inmap-wrap .inmap-info .inmap-info-item.inmap-demo .inmap-info-desc .inmap-info-title::before {
+  content: '[Demo] ';
+}
 .inmap-wrap .inmap-info .inmap-info-item .inmap-icon {
   position: absolute;
   width: 20px;

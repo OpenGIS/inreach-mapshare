@@ -69,9 +69,6 @@ add_action('init', function() {
 		'mapshare' => [
 			'defaults' => [
 				'mapshare_date_start' => '2020-10-02T16:20'
-			],
-			'advanced' => [
-				'cache_minutes' => '15'
 			]
 		],
 		
