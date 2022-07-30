@@ -122,15 +122,15 @@
 			border-radius: 50%;
 			.inmap-icon {
 				display: none;
+				&.inmap-icon-message {
+					display: block;
+				}
 			}
 		
+			&.inmap-icon-message,
 			&.inmap-hover,
 			&.inmap-active {
- 				z-index: +1001 !important;
-			}
-
-			&.inmap-hover,
-			&.inmap-active {
+ 				z-index: +2000 !important;
 				width: 15px !important;
 				height: 15px !important;
 				margin-left: -7.5px !important;
@@ -243,7 +243,11 @@
  						&.joe-assoc_array-id {
  							display: none !important;
  						}
-
+						
+						th {
+							max-width: 80px;
+						}
+						
 						th,td {
 							vertical-align: top;
 							text-align: left;
@@ -346,7 +350,6 @@
 				
 				.inmap-info-desc {
 					padding-right: 7px;
-					padding-top: 2px;	
 					border-color: #fff;				
 					.inmap-info-title {
 						font-size: 13px;

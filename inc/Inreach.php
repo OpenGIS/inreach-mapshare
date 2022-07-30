@@ -227,14 +227,15 @@ class InMap_Inreach extends Joe_Class {
 					'geometry' => []
 				];
 
-				if(Joe_Log::has('do_demo')) {
-					$Feature['properties']['className'] .= ' inmap-demo';
-				} 
-
 				// =========== Point ===========
 				
 				if($Placemark->Point->coordinates) {
-					$icon_class = 'inmap-icon';
+					$class_append = [];
+
+					if(Joe_Log::has('do_demo')) {
+						$class_append[] = 'inmap-demo';
+					} 
+
 					$time_ago = Joe_Helper::time_ago(strtotime($Placemark->TimeStamp->when));
 				
 					//Coordinates
@@ -258,11 +259,11 @@ class InMap_Inreach extends Joe_Class {
 					//Classes
 					//First (oldest)
 					if($i === 0) {
-						$Feature['properties']['className'] .= ' inmap-first';
+						$class_append[] = 'inmap-first';
 
 						//*Only* single item
 						if($this->point_count === 1) {
-							$Feature['properties']['className'] .= ' inmap-last inmap-active inmap-only';
+							$class_append[] = 'inmap-last inmap-active inmap-only';
 						}
 
 
@@ -275,7 +276,7 @@ class InMap_Inreach extends Joe_Class {
 						$i === sizeof($this->KML->Document->Folder->Placemark) - 2
 					) {
 						//Active
-						$Feature['properties']['className'] .= ' inmap-last inmap-active';
+						$class_append[] = 'inmap-last inmap-active';
 
 						//Most recent
 						$Feature['properties']['title'] = '[' . __('Latest', Joe_Config::get_item('plugin_text_domain')) . ']';
@@ -328,7 +329,7 @@ class InMap_Inreach extends Joe_Class {
 					
 					//Valid GPS
 					if(isset($extended_data['Valid GPS Fix']) && 'True' === $extended_data['Valid GPS Fix']) {
-						$icon_class .= ' inmap-icon-gps';
+						$class_append[] = 'inmap-icon-gps';
 					}
 					
 					//By event
@@ -344,15 +345,22 @@ class InMap_Inreach extends Joe_Class {
 
 								break;
 							case 'Msg to shared map received' :
-								$icon_class .= ' inmap-icon-message inmap-icon-custom';
+								$class_append[] = 'inmap-icon-message inmap-icon-custom';
 			
 								break;
 							case 'Quick Text to MapShare received' :
-								$icon_class .= ' inmap-icon-message inmap-icon-quick';
+								$class_append[] = 'inmap-icon-message inmap-icon-quick';
 								
 								break;
 // 							default : 							
 // 								break;									
+						}
+
+						//Classes
+						$icon_class = 'inmap-icon';
+						foreach($class_append as $append) {
+							$Feature['properties']['className'] .= ' ' . $append;
+							$icon_class .= ' ' . $append;
 						}
 
 						//Icon

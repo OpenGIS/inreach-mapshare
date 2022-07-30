@@ -25,6 +25,7 @@ class InMap_Shortcode extends Joe_Shortcode {
 			Joe_Assets::css_inline('
 				.inmap-wrap .inmap-info .inmap-info-item.inmap-last,
 				.inmap-wrap .inmap-info .inmap-info-item.inmap-active .inmap-icon,
+				.inmap-wrap .inmap-map .inmap-marker.inmap-icon-message .inmap-icon,
 				.inmap-wrap .inmap-map .inmap-marker.inmap-hover .inmap-icon,
 				.inmap-wrap .inmap-map .inmap-marker.inmap-active .inmap-icon,
 				.inmap-wrap .inmap-map .inmap-marker,
@@ -34,6 +35,7 @@ class InMap_Shortcode extends Joe_Shortcode {
 				.inmap-wrap .inmap-info .inmap-info-item.inmap-active .inmap-info-desc .inmap-info-title,
 				.inmap-wrap .inmap-info .inmap-info-item.inmap-active .inmap-info-title,
 				.inmap-wrap .inmap-info .inmap-info-item .inmap-info-desc,
+				.inmap-wrap .inmap-map .inmap-marker.inmap-icon-message,
 				.inmap-wrap .inmap-map .inmap-marker.inmap-hover,
 				.inmap-wrap .inmap-map .inmap-marker.inmap-active {
 					border-color: ' . $primary_colour . ';
