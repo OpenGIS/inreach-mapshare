@@ -1,0 +1,380 @@
+@primary: #dd9933;
+@grey-light: #f7f7f7;
+@grey-dark: #ddd;
+
+@break-xs: ~"screen and (min-width: 320px)";
+@break-sm: ~"screen and (min-width: 481px)";
+@break-md: ~"screen and (min-width: 641px)";
+@break-lg: ~"screen and (min-width: 961px)";
+@break-xl: ~"screen and (min-width: 1025px)";
+
+.inmap-wrap {
+	position: relative;
+	width: 100%;
+	min-height: 160px;
+	min-width: 160px;
+	overflow: hidden;
+	z-index: +1000;		
+	
+	border: 1px solid @grey-dark;
+
+	// ===========================		
+	// ========== LAYOUT =========
+	// ===========================
+	
+	.inmap-map,
+	.inmap-info {
+		width: 100%;
+		min-height: 160px;
+		max-height: 160px;
+		height: 50%;
+		overflow: hidden;
+		
+		@media @break-sm {
+			width: 50%;	
+			height: 100%;
+ 			min-height: 320px;			
+		}
+
+		@media @break-md {
+ 			min-height: 480px;			
+		}
+
+		@media @break-lg {
+ 			min-height: 600px;			
+		}
+		
+		&.inmap-map {
+// 			height: 240px;
+			@media @break-sm {
+				float: left;
+			}
+
+			@media @break-xl {
+				width: 60%;
+				min-height: 600px;			
+			}
+		}
+
+		&.inmap-info {
+ 			overflow: scroll;
+
+			@media @break-xl {
+				width: 40%;
+			}
+		}
+	}
+
+	// ===========================		
+	// ========== ICONS ==========
+	// ===========================
+
+	.inmap-icon {
+		margin-left: 0;
+		margin-top: 0;		
+		background-color: @primary;
+		mask-repeat: no-repeat;
+		mask-position: center; 		
+		mask-image: url(../img/location.svg);			
+		
+		//GPS
+		&.inmap-icon-gps {
+			mask-image: url(../img/location-gps.svg);			
+		}
+	
+		//Messages
+		&.inmap-icon-message {
+			z-index: +1100;		
+			mask-image: url(../img/message.svg);
+			
+			//Quick
+// 			&.inmap-icon-quick {
+// 				mask-image: url(../img/message-quick.svg);				
+// 			}
+// 	
+// 			//Custom	
+// 			&.inmap-icon-custom {
+// 				z-index: +2000 !important;				
+// 
+// 				border: 1px solid green;
+// 
+// 				mask-image: url(../img/message-custom.svg);				
+// 			}
+		}
+	}
+
+	// ===========================		
+	// =========== MAP ===========
+	// ===========================
+
+	.inmap-map {
+		* {
+			box-sizing: unset;
+		}
+		.inmap-marker	 {
+			width: 5px !important;
+			height: 5px !important;	
+			margin-left: -2.5px !important;
+			margin-top: -2.5px !important;				
+			background: @primary;
+			
+			text-align: center;
+			border-radius: 50%;
+			.inmap-icon {
+				display: none;
+				&.inmap-icon-message {
+					display: block;
+				}
+			}
+		
+			&.inmap-icon-message,
+			&.inmap-hover,
+			&.inmap-active {
+ 				z-index: +2000 !important;
+				width: 15px !important;
+				height: 15px !important;
+				margin-left: -7.5px !important;
+				margin-top: -7.5px !important;
+				background: #fff;
+				border: 1px solid @primary;
+				.inmap-icon {
+					display: inline-block;
+ 					width: 100%;
+					height: inherit;
+// 					margin-left: -0.5px;
+// 					margin-top: -1px;					
+					mask-size: 12px;
+					background: @primary;
+					&.inmap-icon-message {
+// 						width: 8px;
+// 						height: 8px;
+// 						margin-left: 2px;
+// 						margin-top: 2px;						
+						mask-size: 8px;						
+					}
+				}				
+			}
+		}
+	}
+	
+	// ===========================		
+	// ========== INFO ===========
+	// ===========================
+
+	.inmap-info {
+
+		// ===========================		
+		// ======= LIST VIEW =========
+		// ===========================
+
+		background: #fff;
+		
+		//Alternating BG
+		&:nth-child(odd) {
+			background-color: @grey-light;
+		}
+
+		//Info items
+		.inmap-info-item {
+			position: relative;
+			max-height: 35px;
+			overflow: hidden;
+			transition: max-height 0.5s cubic-bezier(0, 1, 0, 1); 			
+
+			&.inmap-active {
+				overflow: scroll;
+				max-height: 320px;
+				transition: max-height 1s ease-in-out;
+			}
+			
+			&.inmap-demo {
+				.inmap-info-desc {	
+					.inmap-info-title {
+						&::before {
+							content: '[Demo] ';
+						}
+					}
+				}
+			}			
+
+			padding: 0;
+			padding-left: 0;
+ 			font-size: 12px;
+			border-bottom: 1px solid @grey-dark;
+	
+			.inmap-icon {
+				position: absolute;
+				width: 20px;
+				height: 20px;
+				mask-size: 20px;				
+				top: 7.5px;
+				left: 7.5px;
+			}
+
+			//Description
+			.inmap-info-desc {	
+				padding: 8px;
+				padding-left: 15px;
+				
+				overflow: scroll;
+
+				margin-left: 17px;
+				border-left: 1px solid @primary;					
+				.inmap-info-title {	
+					span {
+						float: right;
+						color: @grey-dark;
+					}
+				}
+
+				.inmap-info-expand {
+					display: none;
+				}				
+
+				.inmap-info-title {
+					font-weight: bold;
+				}
+
+				table {
+					tr {
+						display: none;
+ 						background: none;
+ 						
+ 						&.joe-assoc_array-id {
+ 							display: none !important;
+ 						}
+						
+						th {
+							max-width: 80px;
+						}
+						
+						th,td {
+							vertical-align: top;
+							text-align: left;
+				 			font-size: 12px !important;						
+						}
+					}
+				}
+			}
+
+
+			// ===========================		
+			// ========= ACTIVE ==========
+			// ===========================
+			
+			&.inmap-active {
+				cursor: unset;
+
+				.inmap-icon {
+					background: @primary;
+				}
+
+				.inmap-info-title {
+					margin-bottom: 5px;
+					padding-bottom: 5px;
+					border-bottom: 1px solid @primary;					
+				}
+
+				.inmap-info-desc {
+					.inmap-info-title {
+// 						margin-bottom: 5px;
+// 						padding-bottom: 5px;
+						border-bottom: 1px solid @primary;		
+						
+						span {
+// 							float: right;
+						}			
+					}
+					table {
+						tr {
+							display: table-row;
+							th, td {
+ 								padding: 5px 0;
+							}
+						}
+					}
+				}
+				
+				// ===========================		
+				// ========= COLLAPSED =======			
+				// ===========================
+
+				&.inmap-hide-extended {
+					cursor: pointer;
+					.inmap-info-desc {
+						.inmap-info-expand {
+							display: block;
+							margin-top: 10px;
+							text-align: center;
+							color: @primary;
+							background: @grey-light;
+						}
+						
+						tr {
+							th {
+								width: 80px;
+							}
+					
+							th, td {
+								padding: 3px 5px !important;
+							}
+
+							//Hide...
+							&.joe-assoc_array-latitude,
+							&.joe-assoc_array-longitude,
+					
+							&.joe-assoc_array-event,
+							&.joe-assoc_array-elevation,
+							&.joe-assoc_array-velocity,
+							&.joe-assoc_array-valid_gps_fix,
+							&.joe-assoc_array-time_utc {
+								display: none !important;
+							}		
+							
+						}						
+					}
+				}				
+			}
+
+			// ===========================		
+			// ========= LATEST ==========
+			// ===========================
+
+			&.inmap-last {
+				background-color: @primary;		
+				color: #fff;
+
+				.inmap-icon {
+					background-color: #fff !important;
+				}
+				
+				.inmap-info-desc {
+					padding-right: 7px;
+					border-color: #fff;				
+					.inmap-info-title {
+						font-size: 13px;
+						span {
+							color: #fff !important;
+						}							
+					}
+					table {
+						* {
+							color: #fff;
+						}
+					}
+				}
+			}
+
+			&.inmap-active,
+			&.inmap-hover {
+				background-color: @grey-dark;
+				cursor: pointer;		
+				.inmap-info-title {
+					span {
+						color: #fff !important;
+					}								
+				}
+			}
+		}
+	}
+}

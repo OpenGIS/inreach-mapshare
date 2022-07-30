@@ -7,7 +7,8 @@ module.exports = function(grunt) {
 				files: {
 					'assets/css/shared.css': 'assets/less/shared.less',
 					'assets/css/front.css': 'assets/less/front.less',
-					'assets/css/admin.css': 'assets/less/admin.less'
+					'assets/css/admin.css': 'assets/less/admin.less',
+					'assets/css/shortcode.css': 'assets/less/shortcode.less'					
 				}
 			}		
 		},
@@ -40,7 +41,8 @@ module.exports = function(grunt) {
 			wp_css: {
 				files: {
 					'assets/css/front.min.css': 'assets/css/front.css',
-					'assets/css/admin.min.css': 'assets/css/admin.css'
+					'assets/css/admin.min.css': 'assets/css/admin.css',
+					'assets/css/shortcode.min.css': 'assets/css/shortcode.css'					
 				}
 			}	
 		},

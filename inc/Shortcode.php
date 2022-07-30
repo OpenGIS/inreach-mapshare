@@ -45,7 +45,7 @@ class InMap_Shortcode extends Joe_Shortcode {
 				}
 			');		
 		}
-		Joe_Assets::css_enqueue(Joe_Helper::plugin_url('assets/css/front.min.css'));	
+		Joe_Assets::css_enqueue(Joe_Helper::plugin_url('assets/css/shortcode.min.css'));	
 		
 		//InMap JS
 		Joe_Assets::js_enqueue([
