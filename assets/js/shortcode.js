@@ -61,9 +61,10 @@ const inmap_create_map = function(map_hash = null, map_geojson = null) {
 		}
 
 		//Scroll to info
-		infos_jq[id].get(0).scrollIntoView({
-			block: "start"
-		});		
+// 		infos_jq[id].get(0).scrollIntoView({
+// 			behaviour: 'smooth',
+// 			block: "center"
+// 		});		
 	};
 
 	var update_point_status = function(update_id = null, update_status = 'active') {
@@ -99,9 +100,13 @@ const inmap_create_map = function(map_hash = null, map_geojson = null) {
 				//Active only
 				if(update_status == 'active') {
 					//Scroll to info
-					infos_jq[this_id].get(0).scrollIntoView({
-						block: "start"
-					});
+					console.log(info_jq.scrollTop());
+
+
+// 					infos_jq[this_id].get(0).scrollIntoView({
+// 						behaviour: 'smooth',
+// 						block: "center"
+// 					});
 				
 					//Center
 					map_l.setView(markers_l[this_id].getLatLng());					
@@ -124,11 +129,21 @@ const inmap_create_map = function(map_hash = null, map_geojson = null) {
 			}
 		}
 	};
-	
+
+	// Create Tile Layer
+
 	//Basemap
-	var tiles = L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+	var basemap_url = 'https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png';	
+	if(typeof inmap_shortcode_js.basemap_url === 'string' && inmap_shortcode_js.basemap_url.length) {
+		var basemap_url = inmap_shortcode_js.basemap_url;
+	}
+	var basemap_attribution = '&copy; <a href="http://www.openstreetmap.org/copyright">OpenStreetMap</a>';	
+	if(typeof inmap_shortcode_js.basemap_attribution === 'string' && inmap_shortcode_js.basemap_attribution.length) {
+		var basemap_attribution = inmap_shortcode_js.basemap_attribution;
+	}		
+	var tiles = L.tileLayer(basemap_url, {
 		maxZoom: 19,
-		attribution: '&copy; <a href="http://www.openstreetmap.org/copyright">OpenStreetMap</a>'
+		attribution: basemap_attribution
 	}).addTo(map_l);
 
 	//Data layer

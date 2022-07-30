@@ -5,7 +5,7 @@ class InMap_Settings extends Joe_Settings {
 		if(! parent::__construct()) {
 			return;
 		}
-
+		
 		Joe_Log::reset();
 
 		$this->settings_nav = [
@@ -20,46 +20,47 @@ class InMap_Settings extends Joe_Settings {
 		}
 		
 		//Build shortcode
-		$shortcode = '[';
-		$shortcode .= Joe_Config::get_item('plugin_shortcode');
-		foreach([
-			'mapshare_identifier',
-			'mapshare_password',
-			'mapshare_date_start',
-			'mapshare_date_end'
-		] as $key) {
-			$value = Joe_Config::get_setting('shortcode', 'build', $key);
+		add_filter('joe_admin_after_form', function($out) {
+			$shortcode = '[';
+			$shortcode .= Joe_Config::get_item('plugin_shortcode');
+			foreach([
+				'mapshare_identifier',
+				'mapshare_password',
+				'mapshare_date_start',
+				'mapshare_date_end'
+			] as $key) {
+				$value = Joe_Config::get_setting('shortcode', 'build', $key);
 			
-			if(! empty($value)) {
-				$shortcode .= ' ' . $key . '="' . Joe_Config::get_setting('shortcode', 'build', $key) . '"';
+				if(! empty($value)) {
+					$shortcode .= ' ' . $key . '="' . Joe_Config::get_setting('shortcode', 'build', $key) . '"';
+				}
 			}
-		}
-		$shortcode .= ']';
+			$shortcode .= ']';
 		
-		//Execute Shortcode (and Garmin request)
-		$shortcode_output = do_shortcode($shortcode);
+			//Execute Shortcode (and Garmin request)
+			$shortcode_output = do_shortcode($shortcode);
 
-		Joe_Log::set_output_type('notice');
-		Joe_Log::render();
+			Joe_Log::set_output_type('notice');
+			Joe_Log::render();
 		
-		//Description
-		$description = '';
-		
-		//Success
-		if(! Joe_Log::in_error()) {		
-			//Display Shortcode - Not for demo
-			if(! Joe_Log::has('do_demo')) {
-				$description .= '<p class="joe-lead">' . __('Add wherever Shortcodes are supported.', Joe_Config::get_item('plugin_text_domain')) . '</p>';
-				$description .= '<pre class="joe-shortcode"><code>' . $shortcode . '</code></pre>';
-			}
+			//Success
+			if(! Joe_Log::in_error()) {		
+				//Display Shortcode - Not for demo
+				if(! Joe_Log::has('do_demo')) {
+					$out .= '<p class="joe-lead">' . __('Add wherever Shortcodes are supported.', Joe_Config::get_item('plugin_text_domain')) . '</p>';
+					$out .= '<pre class="joe-shortcode"><code>' . $shortcode . '</code></pre>';
+				}
 			
-			//Actual output
-			$description .= $shortcode_output;			
-		}
+				//Actual output
+				$out .= $shortcode_output;			
+			}			
+			
+			return $out;
+		});
 
 		//Shortcode builder
 		$this->tabs['shortcode'] = [
-			'description' => $description,
+// 			'description' => $description,
 			'sections' => [
 				'build' => [	
 					'title' => esc_html__('Build a Shortcode', Joe_Config::get_item('plugin_text_domain')),

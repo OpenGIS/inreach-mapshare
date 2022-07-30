@@ -32,7 +32,7 @@
 @media screen and (min-width: 961px) {
   .inmap-wrap .inmap-map,
   .inmap-wrap .inmap-info {
-    min-height: 600px;
+    min-height: 500px;
   }
 }
 @media screen and (min-width: 481px) {
@@ -45,7 +45,7 @@
   .inmap-wrap .inmap-map.inmap-map,
   .inmap-wrap .inmap-info.inmap-map {
     width: 60%;
-    min-height: 600px;
+    min-height: 500px;
   }
 }
 .inmap-wrap .inmap-map.inmap-info,
@@ -186,11 +186,6 @@
 }
 .inmap-wrap .inmap-info .inmap-info-item.inmap-active .inmap-icon {
   background: #dd9933;
-}
-.inmap-wrap .inmap-info .inmap-info-item.inmap-active .inmap-info-title {
-  margin-bottom: 5px;
-  padding-bottom: 5px;
-  border-bottom: 1px solid #dd9933;
 }
 .inmap-wrap .inmap-info .inmap-info-item.inmap-active .inmap-info-desc .inmap-info-title {
   border-bottom: 1px solid #dd9933;

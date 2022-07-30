@@ -12,13 +12,6 @@ class InMap_Shortcode extends Joe_Shortcode {
 		//Leaflet CSS
 		Joe_Assets::css_enqueue(Joe_Helper::plugin_url('assets/css/leaflet.css'));	
 
-		//Leaflet JS
-		Joe_Assets::js_enqueue([
-			'id' => 'leaflet_js',
-			'url' => Joe_Helper::plugin_url('assets/js/leaflet.js'),
-			'deps' => [ 'jquery' ]
-		]);
-
 		//InMap CSS
 		$primary_colour = Joe_Config::get_setting('appearance', 'colours', 'tracking_colour');
 		if($primary_colour) {
@@ -46,14 +39,22 @@ class InMap_Shortcode extends Joe_Shortcode {
 			');		
 		}
 		Joe_Assets::css_enqueue(Joe_Helper::plugin_url('assets/css/shortcode.min.css'));	
-		
+
+		//Leaflet JS
+		Joe_Assets::js_enqueue([
+			'id' => 'leaflet_js',
+			'url' => Joe_Helper::plugin_url('assets/js/leaflet.js'),
+			'deps' => [ 'jquery' ]
+		]);
+
 		//InMap JS
 		Joe_Assets::js_enqueue([
-			'id' => 'inmap_js',
-			'url' => Joe_Helper::plugin_url('assets/js/front.min.js'),
+			'id' => 'inmap_shortcode_js',
+			'url' => Joe_Helper::plugin_url('assets/js/shortcode.min.js'),
 			'deps' => [ 'leaflet_js' ],
 			'data' => [
-// 				'lang' => []						
+				'basemap_url' => Joe_Config::get_setting('appearance', 'map', 'basemap_url'),
+				'basemap_attribution' => Joe_Config::get_setting('appearance', 'map', 'basemap_attribution')			
 			]
 		]);		
 	}

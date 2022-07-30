@@ -22,8 +22,9 @@ module.exports = function(grunt) {
 			},
 			wp_js: {
 				files: {
-					'assets/js/front.min.js': ['assets/js/shared.js', 'assets/js/front.js'],
-					'assets/js/admin.min.js': ['assets/js/shared.js', 'assets/js/admin.js'],					
+					'assets/js/shortcode.min.js': [ 'assets/js/shortcode.js' ],
+					'assets/js/admin.min.js': [ 'assets/js/admin.js' ],					
+// 					'assets/js/admin.min.js': ['assets/js/shared.js', 'assets/js/admin.js'],					
 				}
 			}			
 		},	
@@ -31,7 +32,7 @@ module.exports = function(grunt) {
 		terser: {
 			wp_js: {
 				files: {
-					'assets/js/front.min.js': ['assets/js/front.min.js'],
+					'assets/js/shortcode.min.js': ['assets/js/shortcode.min.js'],
 					'assets/js/admin.min.js': ['assets/js/admin.min.js']					
 				}
 			}			
