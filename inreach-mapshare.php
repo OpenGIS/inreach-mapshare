@@ -76,7 +76,7 @@ add_action('init', function() {
 		'appearance' => [
 			'map' => [
 				'basemap_url' => 'https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png',
-				'basemap_attribution' => '© <a href=&quot;https://www.openstreetmap.org/copyright&quot;>OpenStreetMap</a> contributors'
+				'basemap_attribution' => '© &lt;a href=&quot;https://www.openstreetmap.org/copyright&quot;&gt;OpenStreetMap&lt;/a&gt; contributors'
 			],
 			'colours' => [
 				'tracking_colour' => $inmap_colour_primary,

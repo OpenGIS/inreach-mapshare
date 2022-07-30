@@ -111,7 +111,10 @@ class InMap_Settings extends Joe_Settings {
 							'title' => esc_html__('Basemap Attribution', Joe_Config::get_item('plugin_text_domain')),
 							'input_processing' => array(
 								'(! strpos($param_value, "&")) ? htmlspecialchars($param_value) : $param_value'
-							)															
+							),
+							'output_processing' => array(
+								'(! strpos($param_value, "&")) ? htmlspecialchars($param_value) : $param_value'
+							)																						
 						]						
 					]
 				],
