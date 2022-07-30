@@ -223,7 +223,7 @@
   display: none !important;
 }
 .inmap-wrap .inmap-info .inmap-info-item.inmap-last {
-  background-color: #dd9933 !important;
+  background-color: #dd9933;
   color: #fff;
 }
 .inmap-wrap .inmap-info .inmap-info-item.inmap-last .inmap-icon {

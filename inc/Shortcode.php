@@ -20,11 +20,29 @@ class InMap_Shortcode extends Joe_Shortcode {
 		]);
 
 		//InMap CSS
-		Joe_Assets::css_inline('
-			.inmap-map .inmap-point {
-				background: ' . Joe_Config::get_setting('appearance', 'colours', 'tracking_colour') . ';
-			}
-		');
+		$primary_colour = Joe_Config::get_setting('appearance', 'colours', 'tracking_colour');
+		if($primary_colour) {
+			Joe_Assets::css_inline('
+				.inmap-wrap .inmap-info .inmap-info-item.inmap-last,
+				.inmap-wrap .inmap-info .inmap-info-item.inmap-active .inmap-icon,
+				.inmap-wrap .inmap-map .inmap-marker.inmap-hover .inmap-icon,
+				.inmap-wrap .inmap-map .inmap-marker.inmap-active .inmap-icon,
+				.inmap-wrap .inmap-map .inmap-marker,
+				.inmap-wrap .inmap-icon {
+					background-color: ' . $primary_colour . ';
+				}
+				.inmap-wrap .inmap-info .inmap-info-item.inmap-active .inmap-info-desc .inmap-info-title,
+				.inmap-wrap .inmap-info .inmap-info-item.inmap-active .inmap-info-title,
+				.inmap-wrap .inmap-info .inmap-info-item .inmap-info-desc,
+				.inmap-wrap .inmap-map .inmap-marker.inmap-hover,
+				.inmap-wrap .inmap-map .inmap-marker.inmap-active {
+					border-color: ' . $primary_colour . ';
+				}
+				.inmap-wrap .inmap-info .inmap-info-item.inmap-active.inmap-hide-extended .inmap-info-desc .inmap-info-expand {
+					color: ' . $primary_colour . ';
+				}
+			');		
+		}
 		Joe_Assets::css_enqueue(Joe_Helper::plugin_url('assets/css/front.min.css'));	
 		
 		//InMap JS
