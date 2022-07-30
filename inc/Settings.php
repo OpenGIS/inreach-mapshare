@@ -2,7 +2,9 @@
 
 class InMap_Settings extends Joe_Settings {
 	public function __construct() {
-		parent::__construct();
+		if(! parent::__construct()) {
+			return;
+		}
 
 		Joe_Log::reset();
 
@@ -57,10 +59,10 @@ class InMap_Settings extends Joe_Settings {
 
 		//Shortcode builder
 		$this->tabs['shortcode'] = [
+			'description' => $description,
 			'sections' => [
 				'build' => [	
 					'title' => esc_html__('Build a Shortcode', Joe_Config::get_item('plugin_text_domain')),
- 					'description' => $description,
 					'fields' => [
 						'mapshare_identifier' => [
 							'required' => 'demo',
