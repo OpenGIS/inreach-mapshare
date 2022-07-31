@@ -15,8 +15,19 @@
 	min-width: 160px;
 	overflow: hidden;
 	z-index: +1000;		
-	
 	border: 1px solid @grey-dark;
+
+	@media @break-sm {
+		max-height: 320px;			
+	}
+
+	@media @break-md {
+		max-height: 480px;			
+	}
+
+	@media @break-lg {
+		max-height: 500px;			
+	}
 
 	// ===========================		
 	// ========== LAYOUT =========
@@ -162,7 +173,8 @@
 	// ===========================
 
 	.inmap-info {
-
+		position: initial;
+		
 		// ===========================		
 		// ======= LIST VIEW =========
 		// ===========================
@@ -179,12 +191,12 @@
 			position: relative;
 			max-height: 35px;
 			overflow: hidden;
-			transition: max-height 0.5s cubic-bezier(0, 1, 0, 1); 			
+// 			transition: max-height 0.25s cubic-bezier(0, 1, 0, 1); 			
 
 			&.inmap-active {
 				overflow: scroll;
 				max-height: 320px;
-				transition: max-height 1s ease-in-out;
+// 				transition: max-height 1s ease-in-out;
 			}
 			
 			&.inmap-demo {
@@ -342,6 +354,9 @@
 			// ===========================
 
 			&.inmap-last {
+				position: absolute;
+ 				top: 0;
+				z-index: 2000;			
 				background-color: @primary;		
 				color: #fff;
 

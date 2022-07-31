@@ -7,6 +7,21 @@
   z-index: 1000;
   border: 1px solid #ddd;
 }
+@media screen and (min-width: 481px) {
+  .inmap-wrap {
+    max-height: 320px;
+  }
+}
+@media screen and (min-width: 641px) {
+  .inmap-wrap {
+    max-height: 480px;
+  }
+}
+@media screen and (min-width: 961px) {
+  .inmap-wrap {
+    max-height: 500px;
+  }
+}
 .inmap-wrap .inmap-map,
 .inmap-wrap .inmap-info {
   width: 100%;
@@ -117,6 +132,7 @@
   mask-size: 8px;
 }
 .inmap-wrap .inmap-info {
+  position: initial;
   background: #fff;
 }
 .inmap-wrap .inmap-info:nth-child(odd) {
@@ -126,7 +142,6 @@
   position: relative;
   max-height: 35px;
   overflow: hidden;
-  transition: max-height 0.5s cubic-bezier(0, 1, 0, 1);
   padding: 0;
   padding-left: 0;
   font-size: 12px;
@@ -135,7 +150,6 @@
 .inmap-wrap .inmap-info .inmap-info-item.inmap-active {
   overflow: scroll;
   max-height: 320px;
-  transition: max-height 1s ease-in-out;
 }
 .inmap-wrap .inmap-info .inmap-info-item.inmap-demo .inmap-info-desc .inmap-info-title::before {
   content: '[Demo] ';
@@ -224,6 +238,9 @@
   display: none !important;
 }
 .inmap-wrap .inmap-info .inmap-info-item.inmap-last {
+  position: absolute;
+  top: 0;
+  z-index: 2000;
   background-color: #dd9933;
   color: #fff;
 }

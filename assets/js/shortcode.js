@@ -65,12 +65,8 @@ const inmap_create_map = function(map_hash = null, map_geojson = null) {
 				//Make accessible!
 				info_last_jq = infos_jq[id];
 				
-				var width = info_jq.width();
 				info_last_jq.css({
-					'position' : 'absolute',
- 					'top': 0,
-					'width' : width + 'px',
-					'zIndex': 2000
+					'width' : info_jq.width() + 'px',
 				});
 
 				info_jq.css('padding-top', info_last_jq.height() + 'px');
@@ -138,6 +134,7 @@ const inmap_create_map = function(map_hash = null, map_geojson = null) {
 		//Active only
 		if(update_status == 'active') {
 			//Resize Latest
+			info_jq.css('height', (info_jq.height() - info_last_jq.height()) + 'px');
 			info_jq.css('padding-top', info_last_jq.height());
 		}		
 	};
