@@ -25,6 +25,7 @@ const inmap_create_map = function(map_hash = null, map_geojson = null) {
 	var markers_l = {};
 	var markers_jq = {};
 	var infos_jq = {};
+	var info_last_jq = {};
 	
 	var setup_info = function() {
 		for(id in infos_jq) {
@@ -58,13 +59,23 @@ const inmap_create_map = function(map_hash = null, map_geojson = null) {
 // 				}
 				
 // 			});
-		}
+			
+			//Setup Latest
+			if(infos_jq[id].hasClass('inmap-last')) {
+				//Make accessible!
+				info_last_jq = infos_jq[id];
+				
+				var width = info_jq.width();
+				info_last_jq.css({
+					'position' : 'absolute',
+ 					'top': 0,
+					'width' : width + 'px',
+					'zIndex': 2000
+				});
 
-		//Scroll to info
-// 		infos_jq[id].get(0).scrollIntoView({
-// 			behaviour: 'smooth',
-// 			block: "center"
-// 		});		
+				info_jq.css('padding-top', info_last_jq.height() + 'px');
+			}
+		}
 	};
 
 	var update_point_status = function(update_id = null, update_status = 'active') {
@@ -99,15 +110,6 @@ const inmap_create_map = function(map_hash = null, map_geojson = null) {
 
 				//Active only
 				if(update_status == 'active') {
-					//Scroll to info
-					console.log(info_jq.scrollTop());
-
-
-// 					infos_jq[this_id].get(0).scrollIntoView({
-// 						behaviour: 'smooth',
-// 						block: "center"
-// 					});
-				
 					//Center
 					map_l.setView(markers_l[this_id].getLatLng());					
 				}
@@ -118,16 +120,19 @@ const inmap_create_map = function(map_hash = null, map_geojson = null) {
 
 				//Active
 				if(update_status == 'active') {
-					//Latest always open
-					if(! infos_jq[this_id].hasClass('inmap-last')) {
-						infos_jq[this_id].removeClass('inmap-active');							
-					}				
+					infos_jq[this_id].removeClass('inmap-active');							
 				//Other
 				} else {
 					infos_jq[this_id].removeClass('inmap-' + update_status);											
 				}
 			}
 		}
+
+		//Active only
+		if(update_status == 'active') {
+			//Resize Latest
+			info_jq.css('padding-top', info_last_jq.height());
+		}		
 	};
 
 	// Create Tile Layer
