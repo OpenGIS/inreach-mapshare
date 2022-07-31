@@ -15,6 +15,7 @@
 	min-width: 160px;
 	overflow: hidden;
 	z-index: +1000;		
+	margin-bottom: 1.5rem;
 	border: 1px solid @grey-dark;
 
 	@media @break-sm {
@@ -70,8 +71,30 @@
 		&.inmap-info {
  			overflow: scroll;
 
+			@media @break-sm {
+				.inmap-info-item {
+					&.inmap-last {
+						top: 0 !important;
+					}
+				}
+			}
+			
 			@media @break-xl {
 				width: 40%;
+			}
+
+			.inmap-info-item {
+				max-height: 33.33%;
+
+				&.inmap-active {
+					max-height: 66.66%;
+				}	
+			
+				&.inmap-last {
+					position: absolute;
+					top: 50%;
+					z-index: 2000;			
+				}			
 			}
 		}
 	}
@@ -175,6 +198,7 @@
 	.inmap-info {
 		position: initial;
 		
+		
 		// ===========================		
 		// ======= LIST VIEW =========
 		// ===========================
@@ -257,7 +281,7 @@
  						}
 						
 						th {
-							max-width: 80px;
+							width: 90px;
 						}
 						
 						th,td {
@@ -276,6 +300,7 @@
 			
 			&.inmap-active {
 				cursor: unset;
+				max-height: inherit;
 
 				.inmap-icon {
 					background: @primary;
@@ -329,7 +354,7 @@
 							}
 					
 							th, td {
-								padding: 3px 5px !important;
+// 								padding: 3px 5px !important;
 							}
 
 							//Hide...
@@ -354,9 +379,6 @@
 			// ===========================
 
 			&.inmap-last {
-				position: absolute;
- 				top: 0;
-				z-index: 2000;			
 				background-color: @primary;		
 				color: #fff;
 

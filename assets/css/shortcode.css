@@ -5,6 +5,7 @@
   min-width: 160px;
   overflow: hidden;
   z-index: 1000;
+  margin-bottom: 1.5rem;
   border: 1px solid #ddd;
 }
 @media screen and (min-width: 481px) {
@@ -67,11 +68,31 @@
 .inmap-wrap .inmap-info.inmap-info {
   overflow: scroll;
 }
+@media screen and (min-width: 481px) {
+  .inmap-wrap .inmap-map.inmap-info .inmap-info-item.inmap-last,
+  .inmap-wrap .inmap-info.inmap-info .inmap-info-item.inmap-last {
+    top: 0 !important;
+  }
+}
 @media screen and (min-width: 1025px) {
   .inmap-wrap .inmap-map.inmap-info,
   .inmap-wrap .inmap-info.inmap-info {
     width: 40%;
   }
+}
+.inmap-wrap .inmap-map.inmap-info .inmap-info-item,
+.inmap-wrap .inmap-info.inmap-info .inmap-info-item {
+  max-height: 33.33%;
+}
+.inmap-wrap .inmap-map.inmap-info .inmap-info-item.inmap-active,
+.inmap-wrap .inmap-info.inmap-info .inmap-info-item.inmap-active {
+  max-height: 66.66%;
+}
+.inmap-wrap .inmap-map.inmap-info .inmap-info-item.inmap-last,
+.inmap-wrap .inmap-info.inmap-info .inmap-info-item.inmap-last {
+  position: absolute;
+  top: 50%;
+  z-index: 2000;
 }
 .inmap-wrap .inmap-icon {
   margin-left: 0;
@@ -187,7 +208,7 @@
   display: none !important;
 }
 .inmap-wrap .inmap-info .inmap-info-item .inmap-info-desc table tr th {
-  max-width: 80px;
+  width: 90px;
 }
 .inmap-wrap .inmap-info .inmap-info-item .inmap-info-desc table tr th,
 .inmap-wrap .inmap-info .inmap-info-item .inmap-info-desc table tr td {
@@ -197,6 +218,7 @@
 }
 .inmap-wrap .inmap-info .inmap-info-item.inmap-active {
   cursor: unset;
+  max-height: inherit;
 }
 .inmap-wrap .inmap-info .inmap-info-item.inmap-active .inmap-icon {
   background: #dd9933;
@@ -224,10 +246,6 @@
 .inmap-wrap .inmap-info .inmap-info-item.inmap-active.inmap-hide-extended .inmap-info-desc tr th {
   width: 80px;
 }
-.inmap-wrap .inmap-info .inmap-info-item.inmap-active.inmap-hide-extended .inmap-info-desc tr th,
-.inmap-wrap .inmap-info .inmap-info-item.inmap-active.inmap-hide-extended .inmap-info-desc tr td {
-  padding: 3px 5px !important;
-}
 .inmap-wrap .inmap-info .inmap-info-item.inmap-active.inmap-hide-extended .inmap-info-desc tr.joe-assoc_array-latitude,
 .inmap-wrap .inmap-info .inmap-info-item.inmap-active.inmap-hide-extended .inmap-info-desc tr.joe-assoc_array-longitude,
 .inmap-wrap .inmap-info .inmap-info-item.inmap-active.inmap-hide-extended .inmap-info-desc tr.joe-assoc_array-event,
@@ -238,9 +256,6 @@
   display: none !important;
 }
 .inmap-wrap .inmap-info .inmap-info-item.inmap-last {
-  position: absolute;
-  top: 0;
-  z-index: 2000;
   background-color: #dd9933;
   color: #fff;
 }
