@@ -32,6 +32,7 @@ module.exports = function(grunt) {
 		terser: {
 			wp_js: {
 				files: {
+					'assets/js/leaflet.min.js': ['assets/js/leaflet.js'],
 					'assets/js/shortcode.min.js': ['assets/js/shortcode.min.js'],
 					'assets/js/admin.min.js': ['assets/js/admin.min.js']					
 				}
@@ -41,6 +42,7 @@ module.exports = function(grunt) {
 		cssmin: {
 			wp_css: {
 				files: {
+					'assets/css/leaflet.min.css': 'assets/css/leaflet.css',
 					'assets/css/front.min.css': 'assets/css/front.css',
 					'assets/css/admin.min.css': 'assets/css/admin.css',
 					'assets/css/shortcode.min.css': 'assets/css/shortcode.css'					
