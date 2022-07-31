@@ -78,7 +78,7 @@ const inmap_create_map = function(map_hash = null, map_geojson = null) {
 		}
 	};
 
-	var update_point_status = function(update_id = null, update_status = 'active') {
+	var update_point_status = function(update_id = null, update_status = 'active', scroll_to = false) {
 		var expand_zoom_level = 14;
 		
 		//Leaflet Markers
@@ -110,6 +110,13 @@ const inmap_create_map = function(map_hash = null, map_geojson = null) {
 
 				//Active only
 				if(update_status == 'active') {
+					if(scroll_to) {
+						infos_jq[this_id].get(0).scrollIntoView({
+							behaviour: 'smooth',
+							block: "center"
+						});
+					}
+
 					//Center
 					map_l.setView(markers_l[this_id].getLatLng());					
 				}
@@ -214,10 +221,10 @@ const inmap_create_map = function(map_hash = null, map_geojson = null) {
 					.addClass(feature.properties.className)
 					.data('marker_l', e.target)
 					.on('mouseenter', function() {
-						update_point_status(id, 'hover');
+						update_point_status(id, 'hover', true);
 					})
 					.on('click', function() {
-						update_point_status(id, 'active');
+						update_point_status(id, 'active', true);
 					})
 				;
 			});
