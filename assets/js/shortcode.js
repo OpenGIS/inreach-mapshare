@@ -25,6 +25,17 @@ const inmap_create_map = function(map_hash = null, map_geojson = null) {
 	var markers_l = {};
 	var markers_jq = {};
 	var infos_jq = {};
+	var info_last_jq = {};
+	
+	//Resize Latest
+	var redraw_last = function() {
+		var container_height = info_jq.height();
+		var item_height = info_last_jq.height();
+		var height_diff = container_height - item_height;
+		
+		info_jq.css('height', height_diff + 'px');
+		info_jq.css('padding-top', item_height + 'px');	
+	};
 	
 	var setup_info = function() {
 		for(id in infos_jq) {
@@ -58,15 +69,22 @@ const inmap_create_map = function(map_hash = null, map_geojson = null) {
 // 				}
 				
 // 			});
-		}
+			
+			//Setup Latest
+			if(infos_jq[id].hasClass('inmap-last')) {
+				//Make accessible!
+				info_last_jq = infos_jq[id];
+				
+				info_last_jq.css({
+					'width' : info_jq.width() + 'px',
+				});
 
-		//Scroll to info
-		infos_jq[id].get(0).scrollIntoView({
-			block: "start"
-		});		
+				redraw_last();
+			}
+		}
 	};
 
-	var update_point_status = function(update_id = null, update_status = 'active') {
+	var update_point_status = function(update_id = null, update_status = 'active', scroll_to = false) {
 		var expand_zoom_level = 14;
 		
 		//Leaflet Markers
@@ -75,6 +93,21 @@ const inmap_create_map = function(map_hash = null, map_geojson = null) {
 			if(this_id === update_id) {
 				//Already active - Expand
 				if(update_status == 'active' && infos_jq[this_id].hasClass('inmap-active')) {
+// 					var click_count = infos_jq[this_id].data('click_count');
+// 					if(! click_count) {
+// 						click_count = 1;
+// 					} else {
+// 						click_count += 1;					
+// 					}
+// 					
+// 					//Every 3
+// 					if(! (click_count % 3)) {
+// 						console.log('Third click');
+// 						update_point_status(this_id, 'inactive');
+// 						
+// 						continue;
+// 					}
+					
 					//Go to wrapper
 // 					var map_hash = '#' + map_jq.attr('id');
 // 					document.location.replace(map_hash, '');
@@ -90,6 +123,8 @@ const inmap_create_map = function(map_hash = null, map_geojson = null) {
 					} else {
 						map_l.setView(markers_l[this_id].getLatLng());					
 					}
+
+// 					infos_jq[this_id].data('click_count', click_count);					
 				//Add classes
 				} else {
 					markers_jq[this_id].addClass('inmap-' + update_status);		
@@ -98,37 +133,54 @@ const inmap_create_map = function(map_hash = null, map_geojson = null) {
 
 				//Active only
 				if(update_status == 'active') {
-					//Scroll to info
-					infos_jq[this_id].get(0).scrollIntoView({
-						block: "start"
-					});
-				
+					if(scroll_to) {
+						infos_jq[this_id].get(0).scrollIntoView({
+							behaviour: 'smooth',
+							block: "center"
+						});
+					}
+
 					//Center
 					map_l.setView(markers_l[this_id].getLatLng());					
 				}
 			//Inactive
 			} else {
+				//Clear click count
+// 				infos_jq[this_id].data('click_count', 0);					
+
 				//Remove classes
 				markers_jq[this_id].removeClass('inmap-' + update_status);
 
 				//Active
 				if(update_status == 'active') {
-					//Latest always open
-					if(! infos_jq[this_id].hasClass('inmap-last')) {
-						infos_jq[this_id].removeClass('inmap-active');							
-					}				
+					infos_jq[this_id].removeClass('inmap-active');							
 				//Other
 				} else {
 					infos_jq[this_id].removeClass('inmap-' + update_status);											
 				}
 			}
 		}
+
+		//Active only
+		if(update_status == 'active') {
+			redraw_last();
+		}		
 	};
-	
+
+	// Create Tile Layer
+
 	//Basemap
-	var tiles = L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+	var basemap_url = 'https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png';	
+	if(typeof inmap_shortcode_js.basemap_url === 'string' && inmap_shortcode_js.basemap_url.length) {
+		var basemap_url = inmap_shortcode_js.basemap_url;
+	}
+	var basemap_attribution = '&copy; <a href="http://www.openstreetmap.org/copyright">OpenStreetMap</a>';	
+	if(typeof inmap_shortcode_js.basemap_attribution === 'string' && inmap_shortcode_js.basemap_attribution.length) {
+		var basemap_attribution = inmap_shortcode_js.basemap_attribution;
+	}		
+	var tiles = L.tileLayer(basemap_url, {
 		maxZoom: 19,
-		attribution: '&copy; <a href="http://www.openstreetmap.org/copyright">OpenStreetMap</a>'
+		attribution: basemap_attribution
 	}).addTo(map_l);
 
 	//Data layer
@@ -194,10 +246,10 @@ const inmap_create_map = function(map_hash = null, map_geojson = null) {
 					.addClass(feature.properties.className)
 					.data('marker_l', e.target)
 					.on('mouseenter', function() {
-						update_point_status(id, 'hover');
+						update_point_status(id, 'hover', true);
 					})
 					.on('click', function() {
-						update_point_status(id, 'active');
+						update_point_status(id, 'active', true);
 					})
 				;
 			});

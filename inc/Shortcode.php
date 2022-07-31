@@ -12,13 +12,6 @@ class InMap_Shortcode extends Joe_Shortcode {
 		//Leaflet CSS
 		Joe_Assets::css_enqueue(Joe_Helper::plugin_url('assets/css/leaflet.css'));	
 
-		//Leaflet JS
-		Joe_Assets::js_enqueue([
-			'id' => 'leaflet_js',
-			'url' => Joe_Helper::plugin_url('assets/js/leaflet.js'),
-			'deps' => [ 'jquery' ]
-		]);
-
 		//InMap CSS
 		$primary_colour = Joe_Config::get_setting('appearance', 'colours', 'tracking_colour');
 		if($primary_colour) {
@@ -45,15 +38,23 @@ class InMap_Shortcode extends Joe_Shortcode {
 				}
 			');		
 		}
-		Joe_Assets::css_enqueue(Joe_Helper::plugin_url('assets/css/front.min.css'));	
-		
+		Joe_Assets::css_enqueue(Joe_Helper::plugin_url('assets/css/shortcode.min.css'));	
+
+		//Leaflet JS
+		Joe_Assets::js_enqueue([
+			'id' => 'leaflet_js',
+			'url' => Joe_Helper::plugin_url('assets/js/leaflet.js'),
+			'deps' => [ 'jquery' ]
+		]);
+
 		//InMap JS
 		Joe_Assets::js_enqueue([
-			'id' => 'inmap_js',
-			'url' => Joe_Helper::plugin_url('assets/js/front.min.js'),
+			'id' => 'inmap_shortcode_js',
+			'url' => Joe_Helper::plugin_url('assets/js/shortcode.min.js'),
 			'deps' => [ 'leaflet_js' ],
 			'data' => [
-// 				'lang' => []						
+				'basemap_url' => Joe_Config::get_setting('appearance', 'map', 'basemap_url'),
+				'basemap_attribution' => Joe_Config::get_setting('appearance', 'map', 'basemap_attribution')			
 			]
 		]);		
 	}
@@ -80,7 +81,20 @@ class InMap_Shortcode extends Joe_Shortcode {
 				Joe_Log::render_item($error, 'console');			
 			//Proceed
 			} else {
-				$hash = Joe_Helper::make_hash($Inreach_Mapshare->get_parameters());
+				//Create *unqiue* Hash used to target Div
+				$hash = Joe_Helper::make_hash(
+					array_merge(
+						$Inreach_Mapshare->get_parameters(),
+						//Salty count
+						[
+							'count' => Joe_Log::get_data('shortcode_count')						
+						]
+					)
+				);
+				$map_div_id = 'inmap-' . $hash;
+				Joe_Log::add('Rendering Map in Div #' . $map_div_id, 'info', 'map_hash');				
+				
+				
 				$geojson = $Inreach_Mapshare->get_geojson();
 
 				if(is_string($geojson) && ! empty($geojson)) {		
@@ -94,8 +108,13 @@ class InMap_Shortcode extends Joe_Shortcode {
 						);
 					');
 			
-					$out .= '	<div id="inmap-' . $hash . '" class="inmap-map"></div>';
+					$out .= '	<div id="' . $map_div_id . '" class="inmap-map"></div>';
 					$out .= '	<div class="inmap-info"></div>';
+					
+					//Increment call counter
+					$shortcode_count = (int)Joe_Log::get_data('shortcode_count');
+					$shortcode_count++;
+					Joe_Log::set_data('shortcode_count', $shortcode_count);				
 				} else {
 					Joe_Log::add('GeoJSON contains no Points.', 'error', 'empty_geojson');				
 				}
