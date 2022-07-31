@@ -124,7 +124,8 @@ class InMap_Settings extends Joe_Settings {
 					'description' => '',
 					'fields' => [						
 						'tracking_colour' => [
-							'type' => 'color',
+							'type' => 'text',
+							'class' => 'color joe-colour-picker',
 							'required' => Joe_Config::get_fallback('appearance', 'colours', 'tracking_colour'),
 							'title' => esc_html__('Tracking Colour', Joe_Config::get_item('plugin_text_domain')),
  							'tip' => esc_attr__('!!!', Joe_Config::get_item('plugin_text_domain')),

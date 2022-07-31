@@ -81,7 +81,20 @@ class InMap_Shortcode extends Joe_Shortcode {
 				Joe_Log::render_item($error, 'console');			
 			//Proceed
 			} else {
-				$hash = Joe_Helper::make_hash($Inreach_Mapshare->get_parameters());
+				//Create *unqiue* Hash used to target Div
+				$hash = Joe_Helper::make_hash(
+					array_merge(
+						$Inreach_Mapshare->get_parameters(),
+						//Salty count
+						[
+							'count' => Joe_Log::get_data('shortcode_count')						
+						]
+					)
+				);
+				$map_div_id = 'inmap-' . $hash;
+				Joe_Log::add('Rendering Map in Div #' . $map_div_id, 'info', 'map_hash');				
+				
+				
 				$geojson = $Inreach_Mapshare->get_geojson();
 
 				if(is_string($geojson) && ! empty($geojson)) {		
@@ -95,8 +108,13 @@ class InMap_Shortcode extends Joe_Shortcode {
 						);
 					');
 			
-					$out .= '	<div id="inmap-' . $hash . '" class="inmap-map"></div>';
+					$out .= '	<div id="' . $map_div_id . '" class="inmap-map"></div>';
 					$out .= '	<div class="inmap-info"></div>';
+					
+					//Increment call counter
+					$shortcode_count = (int)Joe_Log::get_data('shortcode_count');
+					$shortcode_count++;
+					Joe_Log::set_data('shortcode_count', $shortcode_count);				
 				} else {
 					Joe_Log::add('GeoJSON contains no Points.', 'error', 'empty_geojson');				
 				}
