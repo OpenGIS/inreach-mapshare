@@ -16,6 +16,9 @@ class InMap_Shortcode extends Joe_Shortcode {
 		$primary_colour = Joe_Config::get_setting('appearance', 'colours', 'tracking_colour');
 		if($primary_colour) {
 			Joe_Assets::css_inline('
+				.inmap-wrap .inmap-map .inmap-marker.inmap-last {
+					background-color: ' . $primary_colour . ' !important;
+				}
 				.inmap-wrap .inmap-info .inmap-info-item.inmap-last,
 				.inmap-wrap .inmap-info .inmap-info-item.inmap-active .inmap-icon,
 				.inmap-wrap .inmap-map .inmap-marker.inmap-icon-message .inmap-icon,

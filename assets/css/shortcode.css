@@ -144,10 +144,17 @@
 .inmap-wrap .inmap-map .inmap-marker .inmap-icon.inmap-icon-message {
   display: block;
 }
+.inmap-wrap .inmap-map .inmap-marker.inmap-last {
+  z-index: 2000 !important;
+  background: #dd9933 !important;
+}
+.inmap-wrap .inmap-map .inmap-marker.inmap-last .inmap-icon {
+  background: #fff !important;
+}
 .inmap-wrap .inmap-map .inmap-marker.inmap-icon-message,
 .inmap-wrap .inmap-map .inmap-marker.inmap-hover,
 .inmap-wrap .inmap-map .inmap-marker.inmap-active {
-  z-index: 2000 !important;
+  z-index: 1100;
   width: 15px !important;
   height: 15px !important;
   margin-left: -7.5px !important;

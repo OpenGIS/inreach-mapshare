@@ -175,11 +175,18 @@
 					display: block;
 				}
 			}
-		
+
+			&.inmap-last {
+				z-index: +2000 !important;
+				background: @primary !important;
+				.inmap-icon {
+					background: #fff !important;
+				}		
+			}
 			&.inmap-icon-message,
 			&.inmap-hover,
 			&.inmap-active {
- 				z-index: +2000 !important;
+ 				z-index: +1100;
 				width: 15px !important;
 				height: 15px !important;
 				margin-left: -7.5px !important;
