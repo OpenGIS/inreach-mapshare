@@ -93,26 +93,6 @@ const inmap_create_map = function(map_hash = null, map_geojson = null) {
 			if(this_id === update_id) {
 				//Already active - Expand
 				if(update_status == 'active' && infos_jq[this_id].hasClass('inmap-active')) {
-// 					var click_count = infos_jq[this_id].data('click_count');
-// 					if(! click_count) {
-// 						click_count = 1;
-// 					} else {
-// 						click_count += 1;					
-// 					}
-// 					
-// 					//Every 3
-// 					if(! (click_count % 3)) {
-// 						console.log('Third click');
-// 						update_point_status(this_id, 'inactive');
-// 						
-// 						continue;
-// 					}
-					
-					//Go to wrapper
-// 					var map_hash = '#' + map_jq.attr('id');
-// 					document.location.replace(map_hash, '');
-// 					document.location += map_hash;
-
 					//Show extended info
 					infos_jq[this_id].removeClass('inmap-hide-extended');
 					
@@ -124,7 +104,6 @@ const inmap_create_map = function(map_hash = null, map_geojson = null) {
 						map_l.setView(markers_l[this_id].getLatLng());					
 					}
 
-// 					infos_jq[this_id].data('click_count', click_count);					
 				//Add classes
 				} else {
 					markers_jq[this_id].addClass('inmap-' + update_status);		
@@ -145,18 +124,20 @@ const inmap_create_map = function(map_hash = null, map_geojson = null) {
 				}
 			//Inactive
 			} else {
-				//Clear click count
-// 				infos_jq[this_id].data('click_count', 0);					
-
-				//Remove classes
-				markers_jq[this_id].removeClass('inmap-' + update_status);
-
 				//Active
 				if(update_status == 'active') {
-					infos_jq[this_id].removeClass('inmap-active');							
+					//Remove active
+					infos_jq[this_id].removeClass('inmap-active');
+					
+					//Always keep Latest open on Map
+					if(! infos_jq[this_id].hasClass('inmap-last')) {
+						markers_jq[this_id].removeClass('inmap-active');						
+					}							
 				//Other
 				} else {
+					//Remove classes
 					infos_jq[this_id].removeClass('inmap-' + update_status);											
+					markers_jq[this_id].removeClass('inmap-' + update_status);
 				}
 			}
 		}
