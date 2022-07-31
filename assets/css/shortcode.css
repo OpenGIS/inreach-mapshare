@@ -86,6 +86,10 @@
   max-height: 35px;
   overflow: hidden;
 }
+.inmap-wrap .inmap-map.inmap-info .inmap-info-item.inmap-only,
+.inmap-wrap .inmap-info.inmap-info .inmap-info-item.inmap-only {
+  max-height: unset !important;
+}
 .inmap-wrap .inmap-map.inmap-info .inmap-info-item.inmap-active,
 .inmap-wrap .inmap-info.inmap-info .inmap-info-item.inmap-active {
   max-height: 110px;
