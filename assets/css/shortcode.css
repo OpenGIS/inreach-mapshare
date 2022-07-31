@@ -82,11 +82,19 @@
 }
 .inmap-wrap .inmap-map.inmap-info .inmap-info-item,
 .inmap-wrap .inmap-info.inmap-info .inmap-info-item {
-  max-height: 33.33%;
+  position: relative;
+  max-height: 35px;
+  overflow: hidden;
 }
 .inmap-wrap .inmap-map.inmap-info .inmap-info-item.inmap-active,
 .inmap-wrap .inmap-info.inmap-info .inmap-info-item.inmap-active {
-  max-height: 66.66%;
+  max-height: 110px;
+}
+@media screen and (min-width: 481px) {
+  .inmap-wrap .inmap-map.inmap-info .inmap-info-item.inmap-active,
+  .inmap-wrap .inmap-info.inmap-info .inmap-info-item.inmap-active {
+    max-height: 50%;
+  }
 }
 .inmap-wrap .inmap-map.inmap-info .inmap-info-item.inmap-last,
 .inmap-wrap .inmap-info.inmap-info .inmap-info-item.inmap-last {
@@ -160,9 +168,6 @@
   background-color: #f7f7f7;
 }
 .inmap-wrap .inmap-info .inmap-info-item {
-  position: relative;
-  max-height: 35px;
-  overflow: hidden;
   padding: 0;
   padding-left: 0;
   font-size: 12px;

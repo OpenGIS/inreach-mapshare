@@ -84,12 +84,18 @@
 			}
 
 			.inmap-info-item {
-				max-height: 33.33%;
-
-				&.inmap-active {
-					max-height: 66.66%;
-				}	
+				position: relative;
+				max-height: 35px;
+				overflow: hidden;
 			
+				&.inmap-active {
+					max-height: 110px;
+
+					@media @break-sm {
+						max-height: 50%;
+					}					
+				}	
+
 				&.inmap-last {
 					position: absolute;
 					top: 50%;
@@ -212,9 +218,6 @@
 
 		//Info items
 		.inmap-info-item {
-			position: relative;
-			max-height: 35px;
-			overflow: hidden;
 // 			transition: max-height 0.25s cubic-bezier(0, 1, 0, 1); 			
 
 			&.inmap-active {
