@@ -327,23 +327,12 @@ class InMap_Inreach extends Joe_Class {
 						}
 					}
 					
-					//Valid GPS
-					if(isset($extended_data['Valid GPS Fix']) && 'True' === $extended_data['Valid GPS Fix']) {
-						$class_append[] = 'inmap-icon-gps';
-					}
-					
 					//By event
 					if(isset($extended_data['Event'])) {
 						//Remove periods!
 						$extended_data['Event'] = trim($extended_data['Event'], '.');
 
 						switch($extended_data['Event']) {
-							case 'Tracking turned on from device' :
-							case 'Tracking turned off from device' :
-							case 'Tracking interval received' :
-							case 'Tracking message received' :
-
-								break;
 							case 'Msg to shared map received' :
 								$class_append[] = 'inmap-icon-message inmap-icon-custom';
 			
@@ -352,8 +341,18 @@ class InMap_Inreach extends Joe_Class {
 								$class_append[] = 'inmap-icon-message inmap-icon-quick';
 								
 								break;
-// 							default : 							
-// 								break;									
+							case 'Tracking turned on from device' :
+							case 'Tracking turned off from device' :
+							case 'Tracking interval received' :
+							case 'Tracking message received' :
+ 							default : 							
+
+								//Valid GPS
+								if(isset($extended_data['Valid GPS Fix']) && 'True' === $extended_data['Valid GPS Fix']) {
+									$class_append[] = 'inmap-icon-gps';
+								}
+
+								break;
 						}
 
 						//Classes

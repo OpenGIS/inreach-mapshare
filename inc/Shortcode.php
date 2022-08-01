@@ -10,9 +10,33 @@ class InMap_Shortcode extends Joe_Shortcode {
 	
 	function load_assets() {
 		//InMap CSS
+		Joe_Assets::css_enqueue(Joe_Helper::plugin_url('assets/css/shortcode.min.css'));	
+		
+		//Message Icon
+		if($message_icon = Joe_Config::get_setting('appearance', 'icons', 'message_icon')) {
+			Joe_Assets::css_inline('
+				/* Icons */
+				.inmap-icon.inmap-icon-message {
+					-webkit-mask-image: url(' . $message_icon . ') !important;	
+					mask-image: url(' . $message_icon . ') !important;
+				}
+			');
+		}
+
+		//Tracking Icon
+		if($tracking_icon = Joe_Config::get_setting('appearance', 'icons', 'tracking_icon')) {
+			Joe_Assets::css_inline('
+				.inmap-icon.inmap-icon-gps {
+					-webkit-mask-image: url(' . $tracking_icon . ') !important;	
+					mask-image: url(' . $tracking_icon . ') !important;
+				}
+			');
+		}
+
 		$primary_colour = Joe_Config::get_setting('appearance', 'colours', 'tracking_colour');
 		if($primary_colour) {
 			Joe_Assets::css_inline('
+				/* Colours */
 				.inmap-wrap .inmap-map .inmap-marker.inmap-last {
 					background-color: ' . $primary_colour . ' !important;
 				}
@@ -38,8 +62,7 @@ class InMap_Shortcode extends Joe_Shortcode {
 				}
 			');		
 		}
-		Joe_Assets::css_enqueue(Joe_Helper::plugin_url('assets/css/shortcode.min.css'));	
-
+		
 		//Leaflet CSS & JS
 		Joe_Assets::js_onready('
 			//Load Leaflet if not already loaded
@@ -79,7 +102,7 @@ class InMap_Shortcode extends Joe_Shortcode {
 //  			'deps' => [ 'leaflet_js' ],
 			'data' => [
 				'basemap_url' => Joe_Config::get_setting('appearance', 'map', 'basemap_url'),
-				'basemap_attribution' => Joe_Config::get_setting('appearance', 'map', 'basemap_attribution')			
+				'basemap_attribution' => Joe_Config::get_setting('appearance', 'map', 'basemap_attribution')
 			]
 		]);		
 	}

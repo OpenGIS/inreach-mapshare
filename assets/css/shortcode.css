@@ -180,7 +180,7 @@
 .inmap-wrap .inmap-map .inmap-marker.inmap-icon-message,
 .inmap-wrap .inmap-map .inmap-marker.inmap-hover,
 .inmap-wrap .inmap-map .inmap-marker.inmap-active {
-  z-index: 1100;
+  z-index: 1200 !important;
   width: 15px !important;
   height: 15px !important;
   margin-left: -7.5px !important;
@@ -194,15 +194,9 @@
   display: inline-block;
   width: 100%;
   height: inherit;
-  -webkit-mask-size: 12px;
-  mask-size: 12px;
+  -webkit-mask-size: 9px;
+  mask-size: 9px;
   background: #dd9933;
-}
-.inmap-wrap .inmap-map .inmap-marker.inmap-icon-message .inmap-icon.inmap-icon-message,
-.inmap-wrap .inmap-map .inmap-marker.inmap-hover .inmap-icon.inmap-icon-message,
-.inmap-wrap .inmap-map .inmap-marker.inmap-active .inmap-icon.inmap-icon-message {
-  -webkit-mask-size: 8px;
-  mask-size: 8px;
 }
 .inmap-wrap .inmap-info {
   position: initial;

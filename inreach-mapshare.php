@@ -22,19 +22,23 @@ spl_autoload_register(function($class_name) {
 });
 
 add_action('init', function() {
-	$inmap_plugin_slug = 'inreach-mapshare';
-	$inmap_colour_primary = '#dd9933';
+	$plugin_slug = 'inreach-mapshare';
+	$colour_primary = '#dd9933';
+	
+	//Icon URLs	
+	$message_icon = Joe_Helper::asset_url('img/message.svg', $plugin_slug);
+	$tracking_icon = Joe_Helper::asset_url('img/location-gps.svg', $plugin_slug);
 
 	$config = [
-		'plugin_slug' => $inmap_plugin_slug,
-		'plugin_text_domain' => $inmap_plugin_slug,
+		'plugin_slug' => $plugin_slug,
+		'plugin_text_domain' => $plugin_slug,
 		'plugin_name' => 'inReach MapShare',
 		'plugin_version' => '1.0',
 		'settings_id' => 'inmap_settings',
 		'settings_default_tab' => 'joe-settings-tab-mapshare',
-		'site_url' => 'https://wordpress.org/support/plugin/' . $inmap_plugin_slug . '/',
-		'directory_url' => 'https://wordpress.org/support/plugin/' . $inmap_plugin_slug . '/',
-		'plugin_shortcode' => $inmap_plugin_slug,
+		'site_url' => 'https://wordpress.org/support/plugin/' . $plugin_slug . '/',
+		'directory_url' => 'https://wordpress.org/support/plugin/' . $plugin_slug . '/',
+		'plugin_shortcode' => $plugin_slug,
 		'plugin_about' => '<img alt="Joe\'s mug" src="https://www.morehawes.co.uk/assets/images/Joe1BW.jpg" />',
 	
 		//KML
@@ -79,11 +83,11 @@ add_action('init', function() {
 				'basemap_attribution' => '© &lt;a href=&quot;https://www.openstreetmap.org/copyright&quot;&gt;OpenStreetMap&lt;/a&gt; contributors'
 			],
 			'colours' => [
-				'tracking_colour' => $inmap_colour_primary,
+				'tracking_colour' => $colour_primary,
 			],
 			'icons' => [
-				'message_icon' => Joe_Helper::asset_url('img/message.svg'),
-				'tracking_icon' => Joe_Helper::asset_url('img/location.svg')
+				'message_icon' => $message_icon,
+				'tracking_icon' => $tracking_icon
 			]			
 		]
 	];
