@@ -34,19 +34,21 @@ const inmap_create_map = function(map_hash = null, map_geojson = null) {
 		var container_height = info_jq.height();
 		var item_height = info_last_jq.height();
 		var height_diff = container_height - item_height;
-		
+
+		console.log(height_diff);
+
 		info_jq.css('height', height_diff + 'px');
 		info_jq.css('padding-top', item_height + 'px');	
 	};
 	
 	var setup_ui = function() {
+		setup_info_ui();
+		setup_map_ui();
+
 		body_jq.on('resize', function() {
 			redraw_ui();
 		});
 		redraw_ui();
-	
-		setup_info_ui();
-		setup_map_ui();
 	};
 
 	var redraw_ui = function() {
@@ -58,7 +60,7 @@ const inmap_create_map = function(map_hash = null, map_geojson = null) {
 			wrap_jq.removeAttr('style');		
 		}
 
-// 		redraw_last();
+ 		redraw_last();
 
 		//Redraw Leaflet
 		map_l.invalidateSize();
@@ -130,12 +132,6 @@ const inmap_create_map = function(map_hash = null, map_geojson = null) {
 			if(infos_jq[id].hasClass('inmap-last')) {
 				//Make accessible!
 				info_last_jq = infos_jq[id];
-				
-				info_last_jq.css({
-					'width' : info_jq.width() + 'px',
-				});
-// 
-// 				redraw_last();
 			}
 		}
 	};
@@ -200,7 +196,7 @@ const inmap_create_map = function(map_hash = null, map_geojson = null) {
 
 		//Active only
 		if(update_status == 'active') {
-// 			redraw_last();
+ 			redraw_last();
 		}		
 	};
 
