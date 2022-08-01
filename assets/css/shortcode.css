@@ -23,30 +23,6 @@
     max-height: 500px;
   }
 }
-.inmap-wrap.inmap-fullscreen {
-  position: fixed !important;
-  top: 0 !important;
-  left: 0 !important;
-  width: 100% !important;
-  height: 100% !important;
-  min-width: unset !important;
-  min-height: unset !important;
-  max-width: unset !important;
-  max-height: unset !important;
-}
-.inmap-wrap.inmap-fullscreen .inmap-map,
-.inmap-wrap.inmap-fullscreen .inmap-info {
-  z-index: 2000;
-  height: inherit !important;
-  min-height: unset !important;
-  max-height: unset !important;
-}
-.inmap-wrap.inmap-fullscreen .inmap-map-ui .inmap-icon.inmap-icon-fullscreen {
-  -webkit-mask-image: url(../img/minimise.svg) !important;
-  mask-image: url(../img/minimise.svg) !important;
-  -webkit-mask-size: 18px !important;
-  mask-size: 18px !important;
-}
 .inmap-wrap .inmap-map,
 .inmap-wrap .inmap-info {
   width: 100%;
@@ -340,4 +316,46 @@
 .inmap-wrap .inmap-info .inmap-info-item.inmap-active .inmap-info-title span,
 .inmap-wrap .inmap-info .inmap-info-item.inmap-hover .inmap-info-title span {
   color: #fff !important;
+}
+body.inmap-has-single .inmap-wrap {
+  display: none;
+}
+body.inmap-has-single .inmap-wrap.inmap-fullscreen {
+  display: block;
+}
+.inmap-wrap.inmap-fullscreen {
+  position: fixed !important;
+  top: 0 !important;
+  left: 0 !important;
+  width: 100% !important;
+  height: 100% !important;
+  min-width: unset !important;
+  min-height: unset !important;
+  max-width: unset !important;
+  max-height: unset !important;
+}
+.inmap-wrap.inmap-fullscreen .inmap-map,
+.inmap-wrap.inmap-fullscreen .inmap-info {
+  z-index: 2000;
+  width: 50% !important;
+  height: 100% !important;
+  max-height: unset !important;
+}
+.inmap-wrap.inmap-fullscreen .inmap-map.inmap-map,
+.inmap-wrap.inmap-fullscreen .inmap-info.inmap-map {
+  float: left;
+}
+.inmap-wrap.inmap-fullscreen .inmap-map.inmap-info .inmap-info-item.inmap-last,
+.inmap-wrap.inmap-fullscreen .inmap-info.inmap-info .inmap-info-item.inmap-last {
+  top: 0;
+}
+.inmap-wrap.inmap-fullscreen .inmap-map.inmap-info .inmap-info-item.inmap-active,
+.inmap-wrap.inmap-fullscreen .inmap-info.inmap-info .inmap-info-item.inmap-active {
+  max-height: unset;
+}
+.inmap-wrap.inmap-fullscreen .inmap-map-ui .inmap-icon.inmap-icon-fullscreen {
+  -webkit-mask-image: url(../img/minimise.svg) !important;
+  mask-image: url(../img/minimise.svg) !important;
+  -webkit-mask-size: 18px !important;
+  mask-size: 18px !important;
 }

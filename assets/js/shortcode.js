@@ -27,6 +27,7 @@ const inmap_create_map = function(map_hash = null, map_geojson = null) {
 	var markers_jq = {};
 	var infos_jq = {};
 	var info_last_jq = {};
+	var info_active_jq = {};
 	var map_ui_jq = {};
 	
 	//Resize Latest
@@ -35,9 +36,7 @@ const inmap_create_map = function(map_hash = null, map_geojson = null) {
 		var item_height = info_last_jq.height();
 		var height_diff = container_height - item_height;
 
-		console.log(height_diff);
-
-		info_jq.css('height', height_diff + 'px');
+// 		info_jq.css('height', height_diff + 'px');
 		info_jq.css('padding-top', item_height + 'px');	
 	};
 	
@@ -54,6 +53,7 @@ const inmap_create_map = function(map_hash = null, map_geojson = null) {
 	var redraw_ui = function() {
 		if(wrap_jq.hasClass('inmap-fullscreen')) {
 			wrap_jq.css({
+				'width': body_jq.width() + 'px',
 				'height': body_jq.height() + 'px'
 			});		
 		} else {
@@ -61,7 +61,14 @@ const inmap_create_map = function(map_hash = null, map_geojson = null) {
 		}
 
  		redraw_last();
-
+ 		
+ 		if(typeof info_active_jq.get === 'function') {
+			info_active_jq.get(0).scrollIntoView({
+				behaviour: 'smooth',
+				block: "center"
+			});
+		}
+ 		
 		//Redraw Leaflet
 		map_l.invalidateSize();
 	};
@@ -82,6 +89,8 @@ const inmap_create_map = function(map_hash = null, map_geojson = null) {
 						'aria-label': 'Fullscreen'
 					})
 					.on('click', function() {
+						body_jq.toggleClass('inmap-has-single');
+					
 						wrap_jq.toggleClass('inmap-fullscreen');
 						
 						redraw_ui();
@@ -253,7 +262,9 @@ const inmap_create_map = function(map_hash = null, map_geojson = null) {
 						update_point_status(null, 'hover');
 					}
 				)
-				.on('click dblclick', function() {
+				.on('click', function() {
+					info_active_jq = jQuery(this);
+				
 					update_point_status(id, 'active');
 				})
 			;	

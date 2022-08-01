@@ -30,40 +30,6 @@
 		max-height: 500px;			
 	}
 
-
-	// ===========================		
-	// ======== FULLSCREEN =======
-	// ===========================
-	&.inmap-fullscreen {
-// 		z-index: +2000;		
-		position: fixed !important;
-		top: 0 !important;
-		left: 0 !important;	
-		width: 100% !important;		
-		height: 100% !important;
-		min-width: unset !important;		
-		min-height: unset !important;		
-		max-width: unset !important;		
-		max-height: unset !important;		
-		.inmap-map,
-		.inmap-info {		
-			z-index: +2000;		
-			height: inherit !important;
-			min-height: unset !important;		
-			max-height: unset !important;			
-		}
-		.inmap-map-ui {
-			.inmap-icon {
-				&.inmap-icon-fullscreen {
-					-webkit-mask-image: url(../img/minimise.svg) !important;	
-					mask-image: url(../img/minimise.svg) !important;					
-					-webkit-mask-size: 18px !important;
-					mask-size: 18px !important;				
-				}
-			}
-		}
-	}
-
 	// ===========================		
 	// ========== LAYOUT =========
 	// ===========================
@@ -499,6 +465,65 @@
 					span {
 						color: #fff !important;
 					}								
+				}
+			}
+		}
+	}
+}
+
+// ===========================		
+// ======== FULLSCREEN =======
+// ===========================
+body.inmap-has-single {
+	.inmap-wrap {
+		display: none;
+		&.inmap-fullscreen {
+			display: block;
+		}
+	}	
+}
+.inmap-wrap {
+	&.inmap-fullscreen {
+	// 		z-index: +2000;		
+		position: fixed !important;
+		top: 0 !important;
+		left: 0 !important;	
+		width: 100% !important;		
+		height: 100% !important;
+		min-width: unset !important;		
+		min-height: unset !important;		
+		max-width: unset !important;		
+		max-height: unset !important;		
+
+		.inmap-map,
+		.inmap-info {		
+			z-index: +2000;		
+			width: 50% !important;		
+			height: 100% !important;		
+			max-height: unset !important;			
+			
+			&.inmap-map {
+				float: left;		
+			}			
+
+			&.inmap-info {
+				.inmap-info-item {
+					&.inmap-last {
+						top: 0;
+					}
+					&.inmap-active {
+						max-height: unset;
+					}
+				}
+			}
+		}
+		.inmap-map-ui {
+			.inmap-icon {
+				&.inmap-icon-fullscreen {
+					-webkit-mask-image: url(../img/minimise.svg) !important;	
+					mask-image: url(../img/minimise.svg) !important;					
+					-webkit-mask-size: 18px !important;
+					mask-size: 18px !important;				
 				}
 			}
 		}
