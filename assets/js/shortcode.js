@@ -26,6 +26,7 @@ const inmap_create_map = function(map_hash = null, map_geojson = null) {
 	var markers_jq = {};
 	var infos_jq = {};
 	var info_last_jq = {};
+	var map_ui_jq = {};
 	
 	//Resize Latest
 	var redraw_last = function() {
@@ -35,6 +36,32 @@ const inmap_create_map = function(map_hash = null, map_geojson = null) {
 		
 		info_jq.css('height', height_diff + 'px');
 		info_jq.css('padding-top', item_height + 'px');	
+	};
+	var setup_map_ui = function() {
+		map_ui_jq = jQuery('.leaflet-control-container .leaflet-top', map_jq).first();
+		
+		var fullscreen_control = 
+			jQuery('<div />').attr({
+				'class' : 'inmap-control leaflet-bar leaflet-control'
+			}).append(
+				jQuery('<a />')
+					.attr({
+						'class': 'inmap-button inmap-icon inmap-icon-fullscreen',
+						'href': '#',
+						'title': 'Fullscreen',
+						'role': 'button',
+						'aria-label': 'Fullscreen'
+					})
+					.on('click', function() {
+						wrap_jq.toggleClass('inmap-fullscreen');
+					})				
+			)
+		;
+		
+		map_ui_jq
+			.addClass('inmap-map-ui')
+			.append(fullscreen_control)
+		;
 	};
 	
 	var setup_info = function() {
@@ -243,6 +270,7 @@ const inmap_create_map = function(map_hash = null, map_geojson = null) {
 	//Once data layer loaded
 	data_layer.on('add', function() {
 		setup_info();
+		setup_map_ui();
 	});
 	
 	map_l.fitBounds(data_layer.getBounds());

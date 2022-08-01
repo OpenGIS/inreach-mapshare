@@ -8,6 +8,16 @@
   margin-bottom: 1.5rem;
   border: 1px solid #ddd;
 }
+.inmap-wrap.inmap-fullscreen {
+  position: absolute !important;
+  top: 0 !important;
+  left: 0 !important;
+  width: 100% !important;
+  max-height: 100% !important;
+  max-width: 100% !important;
+  height: 100% !important;
+  z-index: 3000 !important;
+}
 @media screen and (min-width: 481px) {
   .inmap-wrap {
     max-height: 320px;
@@ -121,6 +131,10 @@
   -webkit-mask-image: url(../img/location-gps.svg);
   mask-image: url(../img/location-gps.svg);
 }
+.inmap-wrap .inmap-icon.inmap-icon-fullscreen {
+  -webkit-mask-image: url(../img/fullscreen.svg);
+  mask-image: url(../img/fullscreen.svg);
+}
 .inmap-wrap .inmap-icon.inmap-icon-message {
   z-index: 1100;
   -webkit-mask-image: url(../img/message.svg);
@@ -128,6 +142,18 @@
 }
 .inmap-wrap .inmap-map * {
   box-sizing: unset;
+}
+.inmap-wrap .inmap-map .inmap-map-ui {
+  border: 1px solid red;
+}
+.inmap-wrap .inmap-map .inmap-map-ui .inmap-control {
+  background: #fff;
+}
+.inmap-wrap .inmap-map .inmap-map-ui .inmap-control:hover {
+  background: #f4f4f4;
+}
+.inmap-wrap .inmap-map .inmap-map-ui .inmap-control .inmap-button.inmap-icon {
+  background-color: black !important;
 }
 .inmap-wrap .inmap-map .inmap-marker {
   width: 5px !important;
