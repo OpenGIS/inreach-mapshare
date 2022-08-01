@@ -20,7 +20,8 @@ const inmap_create_map = function(map_hash = null, map_geojson = null) {
 	inmap_maps[map_hash] = map_l;
 	
 	//UI
-	var wrap_jq = map_jq.parents('.inmap-wrap');
+	var body_jq= jQuery('body').first();
+	var wrap_jq = map_jq.parents('.inmap-wrap', body_jq);
 	var info_jq = jQuery('.inmap-info', wrap_jq);
 	var markers_l = {};
 	var markers_jq = {};
@@ -37,6 +38,31 @@ const inmap_create_map = function(map_hash = null, map_geojson = null) {
 		info_jq.css('height', height_diff + 'px');
 		info_jq.css('padding-top', item_height + 'px');	
 	};
+	
+	var setup_ui = function() {
+		redraw_ui();
+	
+		setup_info_ui();
+		setup_map_ui();
+	};
+
+	var redraw_ui = function() {
+		if(wrap_jq.hasClass('inmap-fullscreen')) {
+			wrap_jq.css({
+				'position': ' absolute',
+				'top': ' 0',
+				'left': ' 0',
+				'max-width': body_jq.width() + 'px',	
+				'width': body_jq.width() + 'px',	
+				'max-height': body_jq.height() + 'px',	
+				'height': body_jq.height() + 'px',	
+				'z-index': ' +3000'
+			});
+		} else {
+			wrap_jq.removeAttr('style');		
+		}
+	};
+	
 	var setup_map_ui = function() {
 		map_ui_jq = jQuery('.leaflet-control-container .leaflet-top', map_jq).first();
 		
@@ -54,6 +80,8 @@ const inmap_create_map = function(map_hash = null, map_geojson = null) {
 					})
 					.on('click', function() {
 						wrap_jq.toggleClass('inmap-fullscreen');
+						
+						redraw_ui();
 					})				
 			)
 		;
@@ -64,7 +92,7 @@ const inmap_create_map = function(map_hash = null, map_geojson = null) {
 		;
 	};
 	
-	var setup_info = function() {
+	var setup_info_ui = function() {
 		for(id in infos_jq) {
 			var title_jq = jQuery('.inmap-info-title', infos_jq[id]);
 			var title_html = title_jq.text().replace('[', '<span>').replace(']', '</span>');
@@ -269,8 +297,7 @@ const inmap_create_map = function(map_hash = null, map_geojson = null) {
 	
 	//Once data layer loaded
 	data_layer.on('add', function() {
-		setup_info();
-		setup_map_ui();
+		setup_ui();
 	});
 	
 	map_l.fitBounds(data_layer.getBounds());
