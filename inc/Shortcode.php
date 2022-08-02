@@ -66,9 +66,9 @@ class InMap_Shortcode extends Joe_Shortcode {
 		}
 		
 		//Leaflet CSS & JS
-		Joe_Assets::js_onready('
+		Joe_Assets::js_inline('
 			//Load Leaflet if not already loaded
-			if(typeof L !== "object" || typeof L.map !== "function") {			
+			if(typeof L !== "object" || L.version.indexOf("1") !== 1) {			
 				//CSS & JS
 				jQuery("head")
 					.append(
@@ -87,8 +87,10 @@ class InMap_Shortcode extends Joe_Shortcode {
 							"type" : "text/javascript"
 						})
 					)
-				;				
+				;						
 			}
+
+			const inmap_L = L.noConflict();									
 		');
 
 // 		Joe_Assets::js_enqueue([

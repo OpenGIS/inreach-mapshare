@@ -1,7 +1,8 @@
+//Leaflet
 const inmap_maps = [];
 
 const inmap_create_map = function(map_hash = null, map_geojson = null) {
-	if(! map_hash || ! map_geojson || ! jQuery) {
+	if(! map_hash || ! map_geojson || ! jQuery || typeof inmap_L !== 'object') {
 		return false;
 	}
 	
@@ -13,7 +14,7 @@ const inmap_create_map = function(map_hash = null, map_geojson = null) {
 		return false;
 	}
 	
-	var map_l = L.map(map_id);
+	var map_l = inmap_L.map(map_id);
 
 	//Make accessible
 	map_jq.data('map_l', map_l)
@@ -69,7 +70,7 @@ const inmap_create_map = function(map_hash = null, map_geojson = null) {
 			});
 		}
  		
-		//Redraw Leaflet
+		//Redraw inmap_L
 		map_l.invalidateSize();
 	};
 	
@@ -148,7 +149,7 @@ const inmap_create_map = function(map_hash = null, map_geojson = null) {
 	var update_point_status = function(update_id = null, update_status = 'active', scroll_to = false) {
 		var expand_zoom_level = 14;
 		
-		//Leaflet Markers
+		//inmap_L Markers
 		for(this_id in markers_l) {
 			//Update
 			if(this_id === update_id) {
@@ -220,13 +221,13 @@ const inmap_create_map = function(map_hash = null, map_geojson = null) {
 	if(typeof inmap_shortcode_js.basemap_attribution === 'string' && inmap_shortcode_js.basemap_attribution.length) {
 		var basemap_attribution = inmap_shortcode_js.basemap_attribution;
 	}		
-	var tiles = L.tileLayer(basemap_url, {
+	var tiles = inmap_L.tileLayer(basemap_url, {
 		maxZoom: 19,
 		attribution: basemap_attribution
 	}).addTo(map_l);
 
 	//Data layer
-	var data_layer = L.geoJSON(map_geojson, {
+	var data_layer = inmap_L.geoJSON(map_geojson, {
 		//Read style from GeoJSON
 		style: function(feature) {
 			if(typeof feature.properties.style === 'object') {
@@ -242,11 +243,11 @@ const inmap_create_map = function(map_hash = null, map_geojson = null) {
 			var id = feature.properties.id.toString();
 			
 			if(typeof feature.properties.icon === 'object') {
-				markers_l[id] = L.marker(latlng, {
-					icon: L.divIcon(feature.properties.icon)
+				markers_l[id] = inmap_L.marker(latlng, {
+					icon: inmap_L.divIcon(feature.properties.icon)
 				});		
 			} else {
-				markers_l[id] = L.marker(latlng);					
+				markers_l[id] = inmap_L.marker(latlng);					
 			}				
 			
 			//Info Item

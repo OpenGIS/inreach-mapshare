@@ -138,7 +138,7 @@ class InMap_Inreach extends Joe_Class {
 		
 		//Required
 		if(! $url_identifier) {
-			Joe_Log::add('No MapShare identifier provided.', 'error', 'identifier');
+			Joe_Log::add('No MapShare identifier provided.', 'error', 'missing_identifier');
 		
 			return false;		
 		//Load Demo
@@ -147,9 +147,9 @@ class InMap_Inreach extends Joe_Class {
 			
 			if($demo_kml) {
 				$this->response_string = $demo_kml;
-				Joe_Log::add('Demo mode enabled!', 'info', 'do_demo');
+				Joe_Log::add('Demo mode enabled!', 'info', 'demo_uenabled');
 			} else {
-				Joe_Log::add('Unable to read Demo KML.', 'warning', 'do_demo');			
+				Joe_Log::add('Unable to read Demo KML.', 'warning', 'demo_unreadable');			
 			}
 			
 			return true;		
