@@ -147,9 +147,9 @@ class InMap_Inreach extends Joe_Class {
 			
 			if($demo_kml) {
 				$this->response_string = $demo_kml;
-				Joe_Log::add('Demo mode enabled!', 'info', 'demo_uenabled');
+				Joe_Log::add('Demo mode enabled!', 'info', 'do_demo');
 			} else {
-				Joe_Log::add('Unable to read Demo KML.', 'warning', 'demo_unreadable');			
+				Joe_Log::add('Unable to read Demo KML.', 'warning', 'demo_kml_unreadable');			
 			}
 			
 			return true;		
