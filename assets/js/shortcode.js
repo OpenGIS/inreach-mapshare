@@ -44,7 +44,7 @@ const inmap_create_map = function(map_hash = null, map_geojson = null) {
 		setup_info_ui();
 		setup_map_ui();
 
-		body_jq.on('resize', function() {
+		jQuery(window).on('resize', function() {
 			redraw_ui();
 		});
 		redraw_ui();

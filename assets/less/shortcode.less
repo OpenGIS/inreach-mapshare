@@ -210,16 +210,18 @@
 			}
 
 			&.inmap-last {
-				z-index: +2000 !important;
+				z-index: +1200 !important;
+				border-width: 2px !important;
 				background: @primary !important;
 				.inmap-icon {
 					background: #fff !important;
 				}		
 			}
+			
 			&.inmap-icon-message,
 			&.inmap-hover,
 			&.inmap-active {
- 				z-index: +1200 !important;
+//  				z-index: +1200 !important;
 				width: 15px !important;
 				height: 15px !important;
 				margin-left: -7.5px !important;
@@ -235,15 +237,17 @@
 					-webkit-mask-size: 9px;
 					mask-size: 9px;
 					background: @primary;
-					&.inmap-icon-message {
-// 						width: 8px;
-// 						height: 8px;
-// 						margin-left: 2px;
-// 						margin-top: 2px;						
-// 						-webkit-mask-size: 10px;
-// 						mask-size: 10px;						
-					}
 				}				
+			}
+
+			&.inmap-icon-message {
+				&.inmap-active,
+				&.inmap-hover {
+					background: @primary;				
+					.inmap-icon {
+						background: #fff;					
+					}
+				}
 			}
 		}
 	}
