@@ -5790,7 +5790,7 @@
             <value>337.50 ° True</value>
           </Data>
           <Data name="Valid GPS Fix">
-            <value>True</value>
+            <value>False</value>
           </Data>
           <Data name="In Emergency">
             <value>False</value>
@@ -5863,7 +5863,7 @@
             <value>0.00 ° True</value>
           </Data>
           <Data name="Valid GPS Fix">
-            <value>True</value>
+            <value>False</value>
           </Data>
           <Data name="In Emergency">
             <value>False</value>

@@ -90,6 +90,17 @@
 .inmap-wrap .inmap-info.inmap-info .inmap-info-item.inmap-only {
   max-height: inherit !important;
 }
+@media screen and (min-width: 481px) {
+  .inmap-wrap .inmap-map.inmap-info .inmap-info-item.inmap-only,
+  .inmap-wrap .inmap-info.inmap-info .inmap-info-item.inmap-only {
+    height: 100%;
+    max-height: unset !important;
+  }
+}
+.inmap-wrap .inmap-map.inmap-info .inmap-info-item.inmap-only .inmap-info-desc,
+.inmap-wrap .inmap-info.inmap-info .inmap-info-item.inmap-only .inmap-info-desc {
+  height: 100%;
+}
 .inmap-wrap .inmap-map.inmap-info .inmap-info-item.inmap-active,
 .inmap-wrap .inmap-info.inmap-info .inmap-info-item.inmap-active {
   max-height: 110px;
@@ -104,7 +115,6 @@
 .inmap-wrap .inmap-info.inmap-info .inmap-info-item.inmap-last {
   position: absolute;
   top: 50%;
-  z-index: 2000;
   width: inherit;
 }
 .inmap-wrap .inmap-icon {
@@ -127,7 +137,6 @@
   mask-image: url(../img/fullscreen.svg);
 }
 .inmap-wrap .inmap-icon.inmap-icon-message {
-  z-index: 1100;
   -webkit-mask-image: url(../img/message.svg);
   mask-image: url(../img/message.svg);
 }
@@ -160,8 +169,11 @@
 .inmap-wrap .inmap-map .inmap-marker .inmap-icon.inmap-icon-message {
   display: block;
 }
+.inmap-wrap .inmap-map .inmap-marker.inmap-last,
+.inmap-wrap .inmap-map .inmap-marker.inmap-active {
+  z-index: 1200;
+}
 .inmap-wrap .inmap-map .inmap-marker.inmap-last {
-  z-index: 1200 !important;
   border-width: 2px !important;
   background: #dd9933 !important;
 }
@@ -297,6 +309,7 @@
   display: none !important;
 }
 .inmap-wrap .inmap-info .inmap-info-item.inmap-last {
+  z-index: 1100;
   background-color: #dd9933;
   color: #fff;
 }
@@ -331,6 +344,9 @@ body.inmap-has-single .inmap-wrap {
 body.inmap-has-single .inmap-wrap.inmap-fullscreen {
   display: block;
 }
+body.inmap-has-single.admin-bar .inmap-wrap.inmap-fullscreen {
+  margin-top: 32px;
+}
 .inmap-wrap.inmap-fullscreen {
   position: fixed !important;
   top: 0 !important;
@@ -344,7 +360,6 @@ body.inmap-has-single .inmap-wrap.inmap-fullscreen {
 }
 .inmap-wrap.inmap-fullscreen .inmap-map,
 .inmap-wrap.inmap-fullscreen .inmap-info {
-  z-index: 2000;
   width: 50% !important;
   height: 100% !important;
   max-height: unset !important;

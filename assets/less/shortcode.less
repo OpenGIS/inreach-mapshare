@@ -90,6 +90,15 @@
 
 				&.inmap-only {
 					max-height: inherit !important;
+					
+					@media @break-sm {
+						height: 100%;
+						max-height: unset !important;					
+					}
+
+					.inmap-info-desc {
+						height: 100%;
+					}
 				}
 			
 				&.inmap-active {
@@ -103,7 +112,6 @@
 				&.inmap-last {
 					position: absolute;
 					top: 50%;
-					z-index: 2000;		
 					width: inherit;	
 				}			
 			}
@@ -139,7 +147,6 @@
 	
 		//Messages
 		&.inmap-icon-message {
-			z-index: +1100;		
 			-webkit-mask-image: url(../img/message.svg);	
 			mask-image: url(../img/message.svg);
 			
@@ -150,10 +157,6 @@
 // 	
 // 			//Custom	
 // 			&.inmap-icon-custom {
-// 				z-index: +2000 !important;				
-// 
-// 				border: 1px solid green;
-// 
 // 				mask-image: url(../img/message-custom.svg);				
 // 			}
 		}
@@ -209,8 +212,12 @@
 				}
 			}
 
+			&.inmap-last,
+			&.inmap-active {
+ 				z-index: +1200;			
+			}
+
 			&.inmap-last {
-				z-index: +1200 !important;
 				border-width: 2px !important;
 				background: @primary !important;
 				.inmap-icon {
@@ -437,6 +444,7 @@
 			// ===========================
 
 			&.inmap-last {
+				z-index: +1100;
 				background-color: @primary;		
 				color: #fff;
 
@@ -485,10 +493,14 @@ body.inmap-has-single {
 			display: block;
 		}
 	}	
+	&.admin-bar {
+		.inmap-wrap.inmap-fullscreen {	
+			margin-top: 32px;		
+		}
+	}
 }
 .inmap-wrap {
 	&.inmap-fullscreen {
-	// 		z-index: +2000;		
 		position: fixed !important;
 		top: 0 !important;
 		left: 0 !important;	
@@ -501,7 +513,6 @@ body.inmap-has-single {
 
 		.inmap-map,
 		.inmap-info {		
-			z-index: +2000;		
 			width: 50% !important;		
 			height: 100% !important;		
 			max-height: unset !important;			
