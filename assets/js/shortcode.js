@@ -37,8 +37,12 @@ const inmap_create_map = function(map_hash = null, map_geojson = null) {
 		var item_height = info_last_jq.height();
 		var height_diff = container_height - item_height;
 
-// 		info_jq.css('height', height_diff + 'px');
-		info_jq.css('padding-top', item_height + 'px');	
+		//Only if container is taller than item
+ 		if(height_diff > 0) {
+			info_jq.css('padding-top', item_height + 'px');	 		
+ 		} else {
+			info_jq.removeAttr('style');	 		 		
+ 		} 		
 	};
 	
 	var setup_ui = function() {
