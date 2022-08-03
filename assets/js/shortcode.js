@@ -93,7 +93,9 @@ const inmap_create_map = function(map_hash = null, map_geojson = null) {
 						'role': 'button',
 						'aria-label': 'Fullscreen'
 					})
-					.on('click', function() {
+					.on('click', function(e) {
+						e.preventDefault();
+						
 						body_jq.toggleClass('inmap-has-single');
 					
 						wrap_jq.toggleClass('inmap-fullscreen');

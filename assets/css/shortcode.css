@@ -15,13 +15,10 @@
   }
 }
 @media screen and (min-width: 641px) {
-  .inmap-wrap {
-    max-height: 480px;
-  }
 }
 @media screen and (min-width: 961px) {
   .inmap-wrap {
-    max-height: 500px;
+    max-height: 480px;
   }
 }
 .inmap-wrap .inmap-map,
@@ -41,15 +38,11 @@
   }
 }
 @media screen and (min-width: 641px) {
-  .inmap-wrap .inmap-map,
-  .inmap-wrap .inmap-info {
-    min-height: 480px;
-  }
 }
 @media screen and (min-width: 961px) {
   .inmap-wrap .inmap-map,
   .inmap-wrap .inmap-info {
-    min-height: 500px;
+    min-height: 480px;
   }
 }
 @media screen and (min-width: 481px) {
@@ -90,7 +83,6 @@
 .inmap-wrap .inmap-map.inmap-info .inmap-info-item.inmap-only,
 .inmap-wrap .inmap-info.inmap-info .inmap-info-item.inmap-only {
   max-height: inherit !important;
-  border-bottom: none;
 }
 @media screen and (min-width: 481px) {
   .inmap-wrap .inmap-map.inmap-info .inmap-info-item.inmap-only,
@@ -227,9 +219,6 @@
   overflow: scroll;
   max-height: 320px;
 }
-.inmap-wrap .inmap-info .inmap-info-item.inmap-demo .inmap-info-desc th::after {
-  content: '[Demo] ';
-}
 .inmap-wrap .inmap-info .inmap-info-item .inmap-icon {
   position: absolute;
   width: 20px;
@@ -257,7 +246,14 @@
   font-size: 13px !important;
 }
 .inmap-wrap .inmap-info .inmap-info-item .inmap-info-desc table {
+  margin: 0;
+  margin-top: 5px;
   border: none;
+}
+@media screen and (min-width: 481px) {
+  .inmap-wrap .inmap-info .inmap-info-item .inmap-info-desc table {
+    margin-top: 15px;
+  }
 }
 .inmap-wrap .inmap-info .inmap-info-item .inmap-info-desc table tr {
   display: none;
@@ -266,15 +262,27 @@
 .inmap-wrap .inmap-info .inmap-info-item .inmap-info-desc table tr.joe-assoc_array-id {
   display: none !important;
 }
-.inmap-wrap .inmap-info .inmap-info-item .inmap-info-desc table tr th {
-  width: 90px;
-}
 .inmap-wrap .inmap-info .inmap-info-item .inmap-info-desc table tr th,
 .inmap-wrap .inmap-info .inmap-info-item .inmap-info-desc table tr td {
   vertical-align: top;
   text-align: left;
   border: none;
-  font-size: 13px;
+}
+.inmap-wrap .inmap-info .inmap-info-item .inmap-info-desc table tr th {
+  width: 80px;
+  font-size: 12px;
+}
+.inmap-wrap .inmap-info .inmap-info-item .inmap-info-desc table tr td {
+  font-size: 11px;
+}
+@media screen and (min-width: 481px) {
+  .inmap-wrap .inmap-info .inmap-info-item .inmap-info-desc table tr th {
+    width: 80px;
+    font-size: 13px;
+  }
+  .inmap-wrap .inmap-info .inmap-info-item .inmap-info-desc table tr td {
+    font-size: 12px;
+  }
 }
 .inmap-wrap .inmap-info .inmap-info-item.inmap-active {
   cursor: unset;
@@ -291,7 +299,13 @@
 }
 .inmap-wrap .inmap-info .inmap-info-item.inmap-active .inmap-info-desc table tr th,
 .inmap-wrap .inmap-info .inmap-info-item.inmap-active .inmap-info-desc table tr td {
-  padding: 5px 0;
+  padding: 3px 0;
+}
+@media screen and (min-width: 481px) {
+  .inmap-wrap .inmap-info .inmap-info-item.inmap-active .inmap-info-desc table tr th,
+  .inmap-wrap .inmap-info .inmap-info-item.inmap-active .inmap-info-desc table tr td {
+    padding: 5px 0;
+  }
 }
 .inmap-wrap .inmap-info .inmap-info-item.inmap-active.inmap-hide-extended {
   cursor: pointer;
@@ -304,7 +318,12 @@
   background: #f7f7f7;
 }
 .inmap-wrap .inmap-info .inmap-info-item.inmap-active.inmap-hide-extended .inmap-info-desc tr th {
-  width: 80px;
+  min-width: 80px;
+}
+@media screen and (min-width: 481px) {
+  .inmap-wrap .inmap-info .inmap-info-item.inmap-active.inmap-hide-extended .inmap-info-desc tr th {
+    width: 90px;
+  }
 }
 .inmap-wrap .inmap-info .inmap-info-item.inmap-active.inmap-hide-extended .inmap-info-desc tr.joe-assoc_array-latitude,
 .inmap-wrap .inmap-info .inmap-info-item.inmap-active.inmap-hide-extended .inmap-info-desc tr.joe-assoc_array-longitude,
@@ -351,8 +370,8 @@ body.inmap-has-single .inmap-wrap {
 body.inmap-has-single .inmap-wrap.inmap-fullscreen {
   display: block;
 }
-body.inmap-has-single.admin-bar .inmap-wrap.inmap-fullscreen {
-  margin-top: 32px;
+body.inmap-has-single.admin-bar #wpadminbar {
+  display: none !important;
 }
 .inmap-wrap.inmap-fullscreen {
   position: fixed !important;
@@ -376,15 +395,11 @@ body.inmap-has-single.admin-bar .inmap-wrap.inmap-fullscreen {
 .inmap-wrap.inmap-fullscreen .inmap-info.inmap-map {
   float: left;
 }
-.inmap-wrap.inmap-fullscreen .inmap-map.inmap-info.inmap-only,
-.inmap-wrap.inmap-fullscreen .inmap-info.inmap-info.inmap-only {
-  max-height: unset !important;
-  height: 100%;
-  background: #dd9933;
-}
-.inmap-wrap.inmap-fullscreen .inmap-map.inmap-info .inmap-info-item,
-.inmap-wrap.inmap-fullscreen .inmap-info.inmap-info .inmap-info-item {
-  max-height: 600px !important;
+.inmap-wrap.inmap-fullscreen .inmap-map.inmap-map .leaflet-top,
+.inmap-wrap.inmap-fullscreen .inmap-info.inmap-map .leaflet-top,
+.inmap-wrap.inmap-fullscreen .inmap-map.inmap-map .leaflet-bottom,
+.inmap-wrap.inmap-fullscreen .inmap-info.inmap-map .leaflet-bottom {
+  z-index: 1200;
 }
 .inmap-wrap.inmap-fullscreen .inmap-map.inmap-info .inmap-info-item.inmap-last,
 .inmap-wrap.inmap-fullscreen .inmap-info.inmap-info .inmap-info-item.inmap-last {
