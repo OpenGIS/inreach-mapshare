@@ -213,7 +213,7 @@
   overflow: scroll;
   max-height: 320px;
 }
-.inmap-wrap .inmap-info .inmap-info-item.inmap-demo .inmap-info-desc .inmap-info-title::before {
+.inmap-wrap .inmap-info .inmap-info-item.inmap-demo .inmap-info-desc td::before {
   content: '[Demo] ';
 }
 .inmap-wrap .inmap-info .inmap-info-item .inmap-icon {
