@@ -138,7 +138,7 @@ class InMap_Inreach extends Joe_Class {
 		
 		//Required
 		if(! $url_identifier) {
-			Joe_Log::add('No MapShare identifier provided.', 'error', 'identifier');
+			Joe_Log::add('No MapShare identifier provided.', 'error', 'missing_identifier');
 		
 			return false;		
 		//Load Demo
@@ -149,7 +149,7 @@ class InMap_Inreach extends Joe_Class {
 				$this->response_string = $demo_kml;
 				Joe_Log::add('Demo mode enabled!', 'info', 'do_demo');
 			} else {
-				Joe_Log::add('Unable to read Demo KML.', 'warning', 'do_demo');			
+				Joe_Log::add('Unable to read Demo KML.', 'warning', 'demo_kml_unreadable');			
 			}
 			
 			return true;		
@@ -231,12 +231,14 @@ class InMap_Inreach extends Joe_Class {
 				
 				if($Placemark->Point->coordinates) {
 					$class_append = [];
-
-					if(Joe_Log::has('do_demo')) {
+							
+					if(! Joe_Log::has('do_demo')) {
+						$time_ago = Joe_Helper::time_ago(strtotime($Placemark->TimeStamp->when));
+					} else {				
 						$class_append[] = 'inmap-demo';
-					} 
-
-					$time_ago = Joe_Helper::time_ago(strtotime($Placemark->TimeStamp->when));
+						
+						$time_ago = Joe_Helper::time_ago(strtotime($Placemark->TimeStamp->when), strtotime('5/21/2022 11:04:30 PM'));
+					}
 				
 					//Coordinates
 					$coordinates = explode(',', (String)$Placemark->Point->coordinates);																
@@ -248,40 +250,6 @@ class InMap_Inreach extends Joe_Class {
 					
 					$Feature['geometry']['type'] = 'Point';
 					$Feature['geometry']['coordinates'] = $coordinates;
-
-					//Title
-					$title = '[' . ($i + 1) . '/' . $this->point_count . ']';
-					if(isset($Placemark->TimeStamp->when)) {
-						$title .= $time_ago;						
-					}
-					$Feature['properties']['title'] = $title;
-					
-					//Classes
-					//First (oldest)
-					if($i === 0) {
-						$class_append[] = 'inmap-first';
-
-						//*Only* single item
-						if($this->point_count === 1) {
-							$class_append[] = 'inmap-last inmap-active inmap-only';
-						}
-
-
-						//Most recent
-						$Feature['properties']['title'] = '[' . __('First', Joe_Config::get_item('plugin_text_domain')) . ']';
-						$Feature['properties']['title'] .= $time_ago;	
-					//Last - *LATEST*
-					} elseif(
-						//EOF array
-						$i === sizeof($this->KML->Document->Folder->Placemark) - 2
-					) {
-						//Active
-						$class_append[] = 'inmap-last inmap-active';
-
-						//Most recent
-						$Feature['properties']['title'] = '[' . __('Latest', Joe_Config::get_item('plugin_text_domain')) . ']';
-						$Feature['properties']['title'] .= $time_ago;						
-					}					
 
 					//Extended Data?
 					if(isset($Placemark->ExtendedData)) {
@@ -298,18 +266,20 @@ class InMap_Inreach extends Joe_Class {
 
 									//By Key
 									switch($key) {
+										case 'Time' :
+										
+											
+											$extended_data[$key] = $value;																
+											
+											$this->KML->Document->Folder->Placemark[$i]->ExtendedData->Data[$j]->value = 'Demo Time';
+									
 										case 'Id' :
 											$Feature['properties']['id'] = $value;
 
 											$extended_data[$key] = $value;																
 
 											break;
-										case 'Id' :
-											$Feature['properties']['id'] = $value;
 
-											$extended_data[$key] = $value;																
-
-											break;
 										case 'Text' :
 											//Skip empty text
 											if(! empty($value)) {
@@ -327,23 +297,52 @@ class InMap_Inreach extends Joe_Class {
 						}
 					}
 					
-					//Valid GPS
-					if(isset($extended_data['Valid GPS Fix']) && 'True' === $extended_data['Valid GPS Fix']) {
-						$class_append[] = 'inmap-icon-gps';
-					}
+					//Demo Time
+// 					if(isset($extended_data['Time'])) {
+// 					
+// 					}					
+// 										case 'Time' :
+// 											$extended_data[$key] = 'Demo Time';																
 					
+					//Title
+					$title = '[' . ($i + 1) . '/' . $this->point_count . ']';
+					if(isset($Placemark->TimeStamp->when)) {
+						$title .= $time_ago;						
+					}
+					$Feature['properties']['title'] = $title;
+					
+					//Classes
+					//First (oldest)
+					if($i === 0) {
+						$class_append[] = 'inmap-first';
+
+						//*Only* single item
+						if($this->point_count === 1) {
+							$class_append[] = 'inmap-last inmap-active inmap-only';
+						}
+
+						//Most recent
+						$Feature['properties']['title'] = '[' . __('First', Joe_Config::get_item('plugin_text_domain')) . ']';
+						$Feature['properties']['title'] .= $time_ago;	
+					//Last - *LATEST*
+					} elseif(
+						//EOF array
+						$i === sizeof($this->KML->Document->Folder->Placemark) - 2
+					) {
+						//Active
+						$class_append[] = 'inmap-last inmap-active';
+
+						//Most recent
+						$Feature['properties']['title'] = '[' . __('Latest', Joe_Config::get_item('plugin_text_domain')) . ']';
+						$Feature['properties']['title'] .= $time_ago;						
+					}					
+
 					//By event
 					if(isset($extended_data['Event'])) {
 						//Remove periods!
 						$extended_data['Event'] = trim($extended_data['Event'], '.');
 
 						switch($extended_data['Event']) {
-							case 'Tracking turned on from device' :
-							case 'Tracking turned off from device' :
-							case 'Tracking interval received' :
-							case 'Tracking message received' :
-
-								break;
 							case 'Msg to shared map received' :
 								$class_append[] = 'inmap-icon-message inmap-icon-custom';
 			
@@ -352,8 +351,18 @@ class InMap_Inreach extends Joe_Class {
 								$class_append[] = 'inmap-icon-message inmap-icon-quick';
 								
 								break;
-// 							default : 							
-// 								break;									
+							case 'Tracking turned on from device' :
+							case 'Tracking turned off from device' :
+							case 'Tracking interval received' :
+							case 'Tracking message received' :
+ 							default : 							
+
+								//Valid GPS
+								if(isset($extended_data['Valid GPS Fix']) && 'True' === $extended_data['Valid GPS Fix']) {
+									$class_append[] = 'inmap-icon-gps';
+								}
+
+								break;
 						}
 
 						//Classes

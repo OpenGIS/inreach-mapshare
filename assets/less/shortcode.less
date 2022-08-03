@@ -87,6 +87,10 @@
 				position: relative;
 				max-height: 35px;
 				overflow: hidden;
+
+				&.inmap-only {
+					max-height: unset !important;
+				}
 			
 				&.inmap-active {
 					max-height: 110px;
@@ -99,7 +103,8 @@
 				&.inmap-last {
 					position: absolute;
 					top: 50%;
-					z-index: 2000;			
+					z-index: 2000;		
+					width: inherit;	
 				}			
 			}
 		}
@@ -113,18 +118,29 @@
 		margin-left: 0;
 		margin-top: 0;		
 		background-color: @primary;
+		-webkit-mask-repeat: no-repeat;
+		-webkit-mask-position: center; 
+		-webkit-mask-image: url(../img/location.svg);	
 		mask-repeat: no-repeat;
-		mask-position: center; 		
+		mask-position: center; 
 		mask-image: url(../img/location.svg);			
-		
+	
 		//GPS
 		&.inmap-icon-gps {
+			-webkit-mask-image: url(../img/location-gps.svg);	
 			mask-image: url(../img/location-gps.svg);			
+		}
+
+		//Fullscreen
+		&.inmap-icon-fullscreen {
+			-webkit-mask-image: url(../img/fullscreen.svg);	
+			mask-image: url(../img/fullscreen.svg);		
 		}
 	
 		//Messages
 		&.inmap-icon-message {
 			z-index: +1100;		
+			-webkit-mask-image: url(../img/message.svg);	
 			mask-image: url(../img/message.svg);
 			
 			//Quick
@@ -151,6 +167,32 @@
 		* {
 			box-sizing: unset;
 		}
+		
+		// ===========================		
+		// =========== UI ============
+		// ===========================
+			
+		.inmap-map-ui {
+			.inmap-control {
+// 				border: 1px solid blue;
+				background: #fff;
+				
+				&:hover {
+					background: #f4f4f4;
+				}
+				
+				.inmap-button.inmap-icon {
+					-webkit-mask-size: 22px;
+					mask-size: 22px;				
+					background-color: black !important;				
+				}
+			}
+		}
+
+		// ===========================		
+		// ========= MARKERS =========
+		// ===========================
+
 		.inmap-marker	 {
 			width: 5px !important;
 			height: 5px !important;	
@@ -166,11 +208,20 @@
 					display: block;
 				}
 			}
-		
+
+			&.inmap-last {
+				z-index: +1200 !important;
+				border-width: 2px !important;
+				background: @primary !important;
+				.inmap-icon {
+					background: #fff !important;
+				}		
+			}
+			
 			&.inmap-icon-message,
 			&.inmap-hover,
 			&.inmap-active {
- 				z-index: +2000 !important;
+//  				z-index: +1200 !important;
 				width: 15px !important;
 				height: 15px !important;
 				margin-left: -7.5px !important;
@@ -183,16 +234,20 @@
 					height: inherit;
 // 					margin-left: -0.5px;
 // 					margin-top: -1px;					
-					mask-size: 12px;
+					-webkit-mask-size: 9px;
+					mask-size: 9px;
 					background: @primary;
-					&.inmap-icon-message {
-// 						width: 8px;
-// 						height: 8px;
-// 						margin-left: 2px;
-// 						margin-top: 2px;						
-						mask-size: 8px;						
-					}
 				}				
+			}
+
+			&.inmap-icon-message {
+				&.inmap-active,
+				&.inmap-hover {
+					background: @primary;				
+					.inmap-icon {
+						background: #fff;					
+					}
+				}
 			}
 		}
 	}
@@ -228,7 +283,7 @@
 			
 			&.inmap-demo {
 				.inmap-info-desc {	
-					.inmap-info-title {
+					td {
 						&::before {
 							content: '[Demo] ';
 						}
@@ -414,6 +469,65 @@
 					span {
 						color: #fff !important;
 					}								
+				}
+			}
+		}
+	}
+}
+
+// ===========================		
+// ======== FULLSCREEN =======
+// ===========================
+body.inmap-has-single {
+	.inmap-wrap {
+		display: none;
+		&.inmap-fullscreen {
+			display: block;
+		}
+	}	
+}
+.inmap-wrap {
+	&.inmap-fullscreen {
+	// 		z-index: +2000;		
+		position: fixed !important;
+		top: 0 !important;
+		left: 0 !important;	
+		width: 100% !important;		
+		height: 100% !important;
+		min-width: unset !important;		
+		min-height: unset !important;		
+		max-width: unset !important;		
+		max-height: unset !important;		
+
+		.inmap-map,
+		.inmap-info {		
+			z-index: +2000;		
+			width: 50% !important;		
+			height: 100% !important;		
+			max-height: unset !important;			
+			
+			&.inmap-map {
+				float: left;		
+			}			
+
+			&.inmap-info {
+				.inmap-info-item {
+					&.inmap-last {
+						top: 0;
+					}
+					&.inmap-active {
+						max-height: unset;
+					}
+				}
+			}
+		}
+		.inmap-map-ui {
+			.inmap-icon {
+				&.inmap-icon-fullscreen {
+					-webkit-mask-image: url(../img/minimise.svg) !important;	
+					mask-image: url(../img/minimise.svg) !important;					
+					-webkit-mask-size: 18px !important;
+					mask-size: 18px !important;				
 				}
 			}
 		}

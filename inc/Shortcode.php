@@ -9,13 +9,39 @@ class InMap_Shortcode extends Joe_Shortcode {
 	}
 	
 	function load_assets() {
-		//Leaflet CSS
-		Joe_Assets::css_enqueue(Joe_Helper::plugin_url('assets/css/leaflet.css'));	
-
 		//InMap CSS
+		Joe_Assets::css_enqueue(Joe_Helper::plugin_url('assets/css/shortcode.min.css'));	
+		
+		//Message Icon
+		if($message_icon = Joe_Config::get_setting('appearance', 'icons', 'message_icon')) {
+			Joe_Assets::css_inline('
+				/* Icons */
+				.inmap-icon.inmap-icon-message {
+					-webkit-mask-image: url(' . $message_icon . ') !important;	
+					mask-image: url(' . $message_icon . ') !important;
+				}
+			');
+		}
+
+		//Tracking Icon
+		if($tracking_icon = Joe_Config::get_setting('appearance', 'icons', 'tracking_icon')) {
+			Joe_Assets::css_inline('
+				.inmap-icon.inmap-icon-gps {
+					-webkit-mask-image: url(' . $tracking_icon . ') !important;	
+					mask-image: url(' . $tracking_icon . ') !important;
+				}
+			');
+		}
+
 		$primary_colour = Joe_Config::get_setting('appearance', 'colours', 'tracking_colour');
 		if($primary_colour) {
 			Joe_Assets::css_inline('
+				/* Colours */
+				.inmap-wrap .inmap-map .inmap-marker.inmap-last {
+					background-color: ' . $primary_colour . ' !important;
+				}
+				.inmap-wrap .inmap-map .inmap-marker.inmap-icon-message.inmap-active,
+				.inmap-wrap .inmap-map .inmap-marker.inmap-icon-message.inmap-hover,
 				.inmap-wrap .inmap-info .inmap-info-item.inmap-last,
 				.inmap-wrap .inmap-info .inmap-info-item.inmap-active .inmap-icon,
 				.inmap-wrap .inmap-map .inmap-marker.inmap-icon-message .inmap-icon,
@@ -38,23 +64,49 @@ class InMap_Shortcode extends Joe_Shortcode {
 				}
 			');		
 		}
-		Joe_Assets::css_enqueue(Joe_Helper::plugin_url('assets/css/shortcode.min.css'));	
+		
+		//Leaflet CSS & JS
+		Joe_Assets::js_inline('
+			//Load Leaflet if not already loaded
+			if(typeof L !== "object" || L.version.indexOf("1") !== 1) {			
+				//CSS & JS
+				jQuery("head")
+					.append(
+						jQuery("<link />").attr({
+							"href" : "' . Joe_Helper::plugin_url('assets/css/leaflet.min.css') . '",
+							"rel" : "stylesheet",
+							"id" : "inmap_leaflet_css",
+							"type" : "text/css",
+							"media" : "all"						
+						})
+					)
+					.append(
+						jQuery("<script />").attr({
+							"id" : "inmap_leaflet_js",					
+							"src" : "' . Joe_Helper::plugin_url('assets/js/leaflet.min.js') . '",
+							"type" : "text/javascript"
+						})
+					)
+				;						
+			}
 
-		//Leaflet JS
-		Joe_Assets::js_enqueue([
-			'id' => 'leaflet_js',
-			'url' => Joe_Helper::plugin_url('assets/js/leaflet.js'),
-			'deps' => [ 'jquery' ]
-		]);
+			const inmap_L = L.noConflict();									
+		');
+
+// 		Joe_Assets::js_enqueue([
+// 			'id' => 'leaflet_js',
+// 			'url' => Joe_Helper::plugin_url('assets/js/leaflet.js'),
+// 			'deps' => [ 'jquery' ]
+// 		]);
 
 		//InMap JS
 		Joe_Assets::js_enqueue([
 			'id' => 'inmap_shortcode_js',
 			'url' => Joe_Helper::plugin_url('assets/js/shortcode.min.js'),
-			'deps' => [ 'leaflet_js' ],
+//  			'deps' => [ 'leaflet_js' ],
 			'data' => [
 				'basemap_url' => Joe_Config::get_setting('appearance', 'map', 'basemap_url'),
-				'basemap_attribution' => Joe_Config::get_setting('appearance', 'map', 'basemap_attribution')			
+				'basemap_attribution' => Joe_Config::get_setting('appearance', 'map', 'basemap_attribution')
 			]
 		]);		
 	}
