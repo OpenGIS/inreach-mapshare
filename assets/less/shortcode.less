@@ -14,7 +14,6 @@
 	min-height: 160px;
 	min-width: 160px;
 	overflow: hidden;
-	font-family: "Inter var", -apple-system, BlinkMacSystemFont, "Helvetica Neue", Helvetica, sans-serif;
 	z-index: +1000;		
 	margin-bottom: 1.5rem;
 	border: 1px solid @grey-dark;
@@ -91,7 +90,6 @@
 
 				&.inmap-only {
 					max-height: inherit !important;
-					border-bottom: none;
 					
 					@media @break-sm {
 						height: 100%;
@@ -267,7 +265,6 @@
 
 	.inmap-info {
 		position: initial;
-		font-size: 13px;													
 		
 		
 		// ===========================		
@@ -283,7 +280,6 @@
 
 		//Info items
 		.inmap-info-item {
-
 // 			transition: max-height 0.25s cubic-bezier(0, 1, 0, 1); 			
 
 			&.inmap-active {
@@ -294,8 +290,8 @@
 			
 			&.inmap-demo {
 				.inmap-info-desc {	
-					th {
-						&::after {
+					td {
+						&::before {
 							content: '[Demo] ';
 						}
 					}
@@ -304,7 +300,7 @@
 
 			padding: 0;
 			padding-left: 0;
-//  			font-size: 12px;
+ 			font-size: 12px;
 			border-bottom: 1px solid @grey-dark;
 	
 			.inmap-icon {
@@ -338,11 +334,9 @@
 
 				.inmap-info-title {
 					font-weight: bold;
-		 			font-size: 13px !important;											
 				}
 
 				table {
-					border: none;
 					tr {
 						display: none;
  						background: none;
@@ -358,8 +352,7 @@
 						th,td {
 							vertical-align: top;
 							text-align: left;
-							border: none;
-				 			font-size: 13px;													
+				 			font-size: 12px !important;						
 						}
 					}
 				}
@@ -463,6 +456,7 @@
 					padding-right: 7px;
 					border-color: #fff;				
 					.inmap-info-title {
+						font-size: 13px;
 						span {
 							color: #fff !important;
 						}							
@@ -493,9 +487,6 @@
 // ======== FULLSCREEN =======
 // ===========================
 body.inmap-has-single {
-	.leaflet-map {
-		display: none;
-	}
 	.inmap-wrap {
 		display: none;
 		&.inmap-fullscreen {
@@ -519,8 +510,7 @@ body.inmap-has-single {
 		min-height: unset !important;		
 		max-width: unset !important;		
 		max-height: unset !important;		
-		overflow: hidden !important;		
-		
+
 		.inmap-map,
 		.inmap-info {		
 			width: 50% !important;		
@@ -532,14 +522,7 @@ body.inmap-has-single {
 			}			
 
 			&.inmap-info {
-				&.inmap-only {
-					max-height: unset !important;
-					height: 100%;
-					background: @primary;
-				}			
 				.inmap-info-item {
-					max-height: 600px !important;			
-					
 					&.inmap-last {
 						top: 0;
 					}

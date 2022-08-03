@@ -4,7 +4,6 @@
   min-height: 160px;
   min-width: 160px;
   overflow: hidden;
-  font-family: "Inter var", -apple-system, BlinkMacSystemFont, "Helvetica Neue", Helvetica, sans-serif;
   z-index: 1000;
   margin-bottom: 1.5rem;
   border: 1px solid #ddd;
@@ -90,7 +89,6 @@
 .inmap-wrap .inmap-map.inmap-info .inmap-info-item.inmap-only,
 .inmap-wrap .inmap-info.inmap-info .inmap-info-item.inmap-only {
   max-height: inherit !important;
-  border-bottom: none;
 }
 @media screen and (min-width: 481px) {
   .inmap-wrap .inmap-map.inmap-info .inmap-info-item.inmap-only,
@@ -212,7 +210,6 @@
 }
 .inmap-wrap .inmap-info {
   position: initial;
-  font-size: 13px;
   background: #fff;
 }
 .inmap-wrap .inmap-info:nth-child(odd) {
@@ -221,13 +218,14 @@
 .inmap-wrap .inmap-info .inmap-info-item {
   padding: 0;
   padding-left: 0;
+  font-size: 12px;
   border-bottom: 1px solid #ddd;
 }
 .inmap-wrap .inmap-info .inmap-info-item.inmap-active {
   overflow: scroll;
   max-height: 320px;
 }
-.inmap-wrap .inmap-info .inmap-info-item.inmap-demo .inmap-info-desc th::after {
+.inmap-wrap .inmap-info .inmap-info-item.inmap-demo .inmap-info-desc td::before {
   content: '[Demo] ';
 }
 .inmap-wrap .inmap-info .inmap-info-item .inmap-icon {
@@ -254,10 +252,6 @@
 }
 .inmap-wrap .inmap-info .inmap-info-item .inmap-info-desc .inmap-info-title {
   font-weight: bold;
-  font-size: 13px !important;
-}
-.inmap-wrap .inmap-info .inmap-info-item .inmap-info-desc table {
-  border: none;
 }
 .inmap-wrap .inmap-info .inmap-info-item .inmap-info-desc table tr {
   display: none;
@@ -273,8 +267,7 @@
 .inmap-wrap .inmap-info .inmap-info-item .inmap-info-desc table tr td {
   vertical-align: top;
   text-align: left;
-  border: none;
-  font-size: 13px;
+  font-size: 12px !important;
 }
 .inmap-wrap .inmap-info .inmap-info-item.inmap-active {
   cursor: unset;
@@ -327,6 +320,9 @@
   padding-right: 7px;
   border-color: #fff;
 }
+.inmap-wrap .inmap-info .inmap-info-item.inmap-last .inmap-info-desc .inmap-info-title {
+  font-size: 13px;
+}
 .inmap-wrap .inmap-info .inmap-info-item.inmap-last .inmap-info-desc .inmap-info-title span {
   color: #fff !important;
 }
@@ -341,9 +337,6 @@
 .inmap-wrap .inmap-info .inmap-info-item.inmap-active .inmap-info-title span,
 .inmap-wrap .inmap-info .inmap-info-item.inmap-hover .inmap-info-title span {
   color: #fff !important;
-}
-body.inmap-has-single .leaflet-map {
-  display: none;
 }
 body.inmap-has-single .inmap-wrap {
   display: none;
@@ -364,7 +357,6 @@ body.inmap-has-single.admin-bar .inmap-wrap.inmap-fullscreen {
   min-height: unset !important;
   max-width: unset !important;
   max-height: unset !important;
-  overflow: hidden !important;
 }
 .inmap-wrap.inmap-fullscreen .inmap-map,
 .inmap-wrap.inmap-fullscreen .inmap-info {
@@ -375,16 +367,6 @@ body.inmap-has-single.admin-bar .inmap-wrap.inmap-fullscreen {
 .inmap-wrap.inmap-fullscreen .inmap-map.inmap-map,
 .inmap-wrap.inmap-fullscreen .inmap-info.inmap-map {
   float: left;
-}
-.inmap-wrap.inmap-fullscreen .inmap-map.inmap-info.inmap-only,
-.inmap-wrap.inmap-fullscreen .inmap-info.inmap-info.inmap-only {
-  max-height: unset !important;
-  height: 100%;
-  background: #dd9933;
-}
-.inmap-wrap.inmap-fullscreen .inmap-map.inmap-info .inmap-info-item,
-.inmap-wrap.inmap-fullscreen .inmap-info.inmap-info .inmap-info-item {
-  max-height: 600px !important;
 }
 .inmap-wrap.inmap-fullscreen .inmap-map.inmap-info .inmap-info-item.inmap-last,
 .inmap-wrap.inmap-fullscreen .inmap-info.inmap-info .inmap-info-item.inmap-last {
