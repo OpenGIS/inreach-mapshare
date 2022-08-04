@@ -114,7 +114,7 @@
 .inmap-wrap .inmap-icon {
   margin-left: 0;
   margin-top: 0;
-  background-color: #dd9933;
+  background-color: #439500;
   -webkit-mask-repeat: no-repeat;
   -webkit-mask-position: center;
   -webkit-mask-image: url(../img/location.svg);
@@ -153,7 +153,7 @@
   height: 5px !important;
   margin-left: -2.5px !important;
   margin-top: -2.5px !important;
-  background: #dd9933;
+  background: #439500;
   text-align: center;
   border-radius: 50%;
 }
@@ -169,7 +169,7 @@
 }
 .inmap-wrap .inmap-map .inmap-marker.inmap-last {
   border-width: 2px !important;
-  background: #dd9933 !important;
+  background: #439500 !important;
 }
 .inmap-wrap .inmap-map .inmap-marker.inmap-last .inmap-icon {
   background: #fff !important;
@@ -182,7 +182,7 @@
   margin-left: -7.5px !important;
   margin-top: -7.5px !important;
   background: #fff;
-  border: 1px solid #dd9933;
+  border: 1px solid #439500;
 }
 .inmap-wrap .inmap-map .inmap-marker.inmap-icon-message .inmap-icon,
 .inmap-wrap .inmap-map .inmap-marker.inmap-hover .inmap-icon,
@@ -192,11 +192,11 @@
   height: inherit;
   -webkit-mask-size: 9px;
   mask-size: 9px;
-  background: #dd9933;
+  background: #439500;
 }
 .inmap-wrap .inmap-map .inmap-marker.inmap-icon-message.inmap-active,
 .inmap-wrap .inmap-map .inmap-marker.inmap-icon-message.inmap-hover {
-  background: #dd9933;
+  background: #439500;
 }
 .inmap-wrap .inmap-map .inmap-marker.inmap-icon-message.inmap-active .inmap-icon,
 .inmap-wrap .inmap-map .inmap-marker.inmap-icon-message.inmap-hover .inmap-icon {
@@ -232,7 +232,7 @@
   padding-left: 15px;
   overflow: scroll;
   margin-left: 17px;
-  border-left: 1px solid #dd9933;
+  border-left: 1px solid #439500;
 }
 .inmap-wrap .inmap-info .inmap-info-item .inmap-info-desc .inmap-info-title span {
   float: right;
@@ -289,10 +289,10 @@
   max-height: inherit;
 }
 .inmap-wrap .inmap-info .inmap-info-item.inmap-active .inmap-icon {
-  background: #dd9933;
+  background: #439500;
 }
 .inmap-wrap .inmap-info .inmap-info-item.inmap-active .inmap-info-desc .inmap-info-title {
-  border-bottom: 1px solid #dd9933;
+  border-bottom: 1px solid #439500;
 }
 .inmap-wrap .inmap-info .inmap-info-item.inmap-active .inmap-info-desc table tr {
   display: table-row;
@@ -314,7 +314,7 @@
   display: block;
   margin-top: 10px;
   text-align: center;
-  color: #dd9933;
+  color: #439500;
   background: #f7f7f7;
 }
 .inmap-wrap .inmap-info .inmap-info-item.inmap-active.inmap-hide-extended .inmap-info-desc tr th {
@@ -336,7 +336,7 @@
 }
 .inmap-wrap .inmap-info .inmap-info-item.inmap-last {
   z-index: 1100;
-  background-color: #dd9933;
+  background-color: #439500;
   color: #fff;
 }
 .inmap-wrap .inmap-info .inmap-info-item.inmap-last .inmap-icon {
@@ -370,6 +370,7 @@ body.inmap-has-single .inmap-wrap {
 body.inmap-has-single .inmap-wrap.inmap-fullscreen {
   display: block;
 }
+body.inmap-has-single.admin-bar #adminmenu,
 body.inmap-has-single.admin-bar #wpadminbar {
   display: none !important;
 }
