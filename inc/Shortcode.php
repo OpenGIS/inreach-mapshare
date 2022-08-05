@@ -103,7 +103,7 @@ class InMap_Shortcode extends Joe_Shortcode {
 		Joe_Assets::js_enqueue([
 			'id' => 'inmap_shortcode_js',
 			'url' => Joe_Helper::plugin_url('assets/js/shortcode.min.js'),
-//  			'deps' => [ 'leaflet_js' ],
+  			'deps' => [ 'jquery' ],
 			'data' => [
 				'basemap_url' => Joe_Config::get_setting('appearance', 'map', 'basemap_url'),
 				'basemap_attribution' => Joe_Config::get_setting('appearance', 'map', 'basemap_attribution')

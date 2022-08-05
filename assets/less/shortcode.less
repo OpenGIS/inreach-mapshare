@@ -1,4 +1,4 @@
-@primary: #dd9933;
+@primary: #439500;
 @grey-light: #f7f7f7;
 @grey-dark: #ddd;
 
@@ -14,6 +14,7 @@
 	min-height: 160px;
 	min-width: 160px;
 	overflow: hidden;
+	font-family: "Inter var", -apple-system, BlinkMacSystemFont, "Helvetica Neue", Helvetica, sans-serif;
 	z-index: +1000;		
 	margin-bottom: 1.5rem;
 	border: 1px solid @grey-dark;
@@ -23,11 +24,11 @@
 	}
 
 	@media @break-md {
-		max-height: 480px;			
+// 		max-height: 480px;			
 	}
 
 	@media @break-lg {
-		max-height: 500px;			
+		max-height: 480px;			
 	}
 
 	// ===========================		
@@ -49,11 +50,11 @@
 		}
 
 		@media @break-md {
- 			min-height: 480px;			
+//  			min-height: 400px;			
 		}
 
 		@media @break-lg {
- 			min-height: 500px;			
+ 			min-height: 480px;			
 		}
 		
 		&.inmap-map {
@@ -89,7 +90,16 @@
 				overflow: hidden;
 
 				&.inmap-only {
-					max-height: unset !important;
+					max-height: inherit !important;
+					
+					@media @break-sm {
+						height: 100%;
+						max-height: unset !important;					
+					}
+
+					.inmap-info-desc {
+						height: 100%;
+					}
 				}
 			
 				&.inmap-active {
@@ -103,7 +113,6 @@
 				&.inmap-last {
 					position: absolute;
 					top: 50%;
-					z-index: 2000;		
 					width: inherit;	
 				}			
 			}
@@ -139,7 +148,6 @@
 	
 		//Messages
 		&.inmap-icon-message {
-			z-index: +1100;		
 			-webkit-mask-image: url(../img/message.svg);	
 			mask-image: url(../img/message.svg);
 			
@@ -150,10 +158,6 @@
 // 	
 // 			//Custom	
 // 			&.inmap-icon-custom {
-// 				z-index: +2000 !important;				
-// 
-// 				border: 1px solid green;
-// 
 // 				mask-image: url(../img/message-custom.svg);				
 // 			}
 		}
@@ -209,8 +213,12 @@
 				}
 			}
 
+			&.inmap-last,
+			&.inmap-active {
+ 				z-index: +1200;			
+			}
+
 			&.inmap-last {
-				z-index: +1200 !important;
 				border-width: 2px !important;
 				background: @primary !important;
 				.inmap-icon {
@@ -258,6 +266,7 @@
 
 	.inmap-info {
 		position: initial;
+		font-size: 13px;													
 		
 		
 		// ===========================		
@@ -273,6 +282,7 @@
 
 		//Info items
 		.inmap-info-item {
+
 // 			transition: max-height 0.25s cubic-bezier(0, 1, 0, 1); 			
 
 			&.inmap-active {
@@ -281,19 +291,19 @@
 // 				transition: max-height 1s ease-in-out;
 			}
 			
-			&.inmap-demo {
-				.inmap-info-desc {	
-					td {
-						&::before {
-							content: '[Demo] ';
-						}
-					}
-				}
-			}			
+// 			&.inmap-demo {
+// 				.inmap-info-desc {	
+// 					td {
+// // 						&::after {
+// // 							content: '[Demo] ';
+// // 						}
+// 					}
+// 				}
+// 			}			
 
 			padding: 0;
 			padding-left: 0;
- 			font-size: 12px;
+//  			font-size: 12px;
 			border-bottom: 1px solid @grey-dark;
 	
 			.inmap-icon {
@@ -327,9 +337,18 @@
 
 				.inmap-info-title {
 					font-weight: bold;
+		 			font-size: 13px !important;											
 				}
 
 				table {
+					margin: 0;
+					margin-top: 5px;
+
+					@media @break-sm {
+						margin-top: 15px;
+					}
+
+					border: none;
 					tr {
 						display: none;
  						background: none;
@@ -337,15 +356,31 @@
  						&.joe-assoc_array-id {
  							display: none !important;
  						}
-						
-						th {
-							width: 90px;
-						}
-						
+
 						th,td {
 							vertical-align: top;
 							text-align: left;
-				 			font-size: 12px !important;						
+							border: none;
+						}
+
+						//Table Font sizes....
+						th {
+							width: 80px;
+				 			font-size: 12px;																				
+						}
+						
+						td {
+				 			font-size: 11px;						
+						}
+						@media @break-sm {
+							th {
+								width: 80px;
+								font-size: 13px;																				
+							}
+						
+							td {
+								font-size: 12px;						
+							}	
 						}
 					}
 				}
@@ -385,7 +420,11 @@
 						tr {
 							display: table-row;
 							th, td {
- 								padding: 5px 0;
+ 								padding: 3px 0;
+
+								@media @break-sm {
+									padding: 5px 0;
+								} 								
 							}
 						}
 					}
@@ -408,7 +447,10 @@
 						
 						tr {
 							th {
-								width: 80px;
+								min-width: 80px;
+								@media @break-sm {
+									width: 90px;
+								}								
 							}
 					
 							th, td {
@@ -437,6 +479,7 @@
 			// ===========================
 
 			&.inmap-last {
+				z-index: +1100;
 				background-color: @primary;		
 				color: #fff;
 
@@ -448,7 +491,6 @@
 					padding-right: 7px;
 					border-color: #fff;				
 					.inmap-info-title {
-						font-size: 13px;
 						span {
 							color: #fff !important;
 						}							
@@ -479,16 +521,24 @@
 // ======== FULLSCREEN =======
 // ===========================
 body.inmap-has-single {
+	.leaflet-map {
+		display: none;
+	}
 	.inmap-wrap {
 		display: none;
 		&.inmap-fullscreen {
 			display: block;
 		}
 	}	
+	&.admin-bar {
+		#adminmenu,
+		#wpadminbar {
+			display: none !important;
+		}
+	}
 }
 .inmap-wrap {
 	&.inmap-fullscreen {
-	// 		z-index: +2000;		
 		position: fixed !important;
 		top: 0 !important;
 		left: 0 !important;	
@@ -498,16 +548,20 @@ body.inmap-has-single {
 		min-height: unset !important;		
 		max-width: unset !important;		
 		max-height: unset !important;		
-
+		overflow: hidden !important;		
+				
 		.inmap-map,
 		.inmap-info {		
-			z-index: +2000;		
 			width: 50% !important;		
 			height: 100% !important;		
 			max-height: unset !important;			
 			
 			&.inmap-map {
 				float: left;		
+				.leaflet-top,
+				.leaflet-bottom {
+					z-index: +1200;
+				}
 			}			
 
 			&.inmap-info {

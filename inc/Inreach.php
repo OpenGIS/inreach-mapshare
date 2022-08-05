@@ -316,13 +316,16 @@ class InMap_Inreach extends Joe_Class {
 					if($i === 0) {
 						$class_append[] = 'inmap-first';
 
-						//*Only* single item
+						//**Only**
 						if($this->point_count === 1) {
 							$class_append[] = 'inmap-last inmap-active inmap-only';
+							$Feature['properties']['title'] = '[' . __('Latest', Joe_Config::get_item('plugin_text_domain')) . ']';
+						//First
+						} else {
+							$Feature['properties']['title'] = '[' . __('First', Joe_Config::get_item('plugin_text_domain')) . ']';						
 						}
 
 						//Most recent
-						$Feature['properties']['title'] = '[' . __('First', Joe_Config::get_item('plugin_text_domain')) . ']';
 						$Feature['properties']['title'] .= $time_ago;	
 					//Last - *LATEST*
 					} elseif(
