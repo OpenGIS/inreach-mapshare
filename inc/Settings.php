@@ -1,17 +1,22 @@
 <?php
 
 class InMap_Settings extends Joe_Settings {
+	
+	private $shortcode = '';
+	private $shortcode_output = '';	
+	
 	public function __construct() {
 		if(! parent::__construct()) {
 			return;
 		}
 		
-		Joe_Log::reset();
-
+		$this->do_shortcode();
+		
 		$this->settings_nav = [
 			'joe-settings-tab-shortcode' => '-- ' . esc_html__('Shortcodes', Joe_Config::get_item('plugin_text_domain')),
 			'joe-settings-tab-appearance' => '-- ' . esc_html__('Appearance', Joe_Config::get_item('plugin_text_domain')),
-			'joe-settings-tab-joe' => '-- ' . esc_html__('Advanced', Joe_Config::get_item('plugin_text_domain'))
+			'joe-settings-tab-joe' => '-- ' . esc_html__('Advanced', Joe_Config::get_item('plugin_text_domain')),
+			'joe-settings-tab-help' => '-- ' . esc_html__('Help', Joe_Config::get_item('plugin_text_domain'))
 		];
 
 		//Switch tabs
@@ -19,56 +24,22 @@ class InMap_Settings extends Joe_Settings {
 			Joe_Config::set_item('settings_default_tab', 'joe-settings-tab-shortcode');
 		}
 		
+		//Text
+		add_filter('joe_admin_before_form', [ $this, 'joe_admin_before_form' ] );
+
 		//Build shortcode
-		add_filter('joe_admin_after_form', function($out) {
-			$shortcode = '[';
-			$shortcode .= Joe_Config::get_item('plugin_shortcode');
-			foreach([
-				'mapshare_identifier',
-				'mapshare_password',
-				'mapshare_date_start',
-				'mapshare_date_end'
-			] as $key) {
-				$value = Joe_Config::get_setting('shortcode', 'build', $key);
-			
-				if(! empty($value)) {
-					$shortcode .= ' ' . $key . '="' . Joe_Config::get_setting('shortcode', 'build', $key) . '"';
-				}
-			}
-			$shortcode .= ']';
-		
-			//Execute Shortcode (and Garmin request)
-			$shortcode_output = do_shortcode($shortcode);
+		add_filter('joe_admin_after_form', [ $this, 'joe_admin_after_form' ] );
 
-			Joe_Log::set_output_type('notice');
-			Joe_Log::render();
 		
-			//Success
-			if(! Joe_Log::in_error()) {		
-				//Display Shortcode - Not for demo
-				if(! Joe_Log::has('do_demo')) {
-					$out .= '<p class="joe-lead">' . __('Add wherever Shortcodes are supported.', Joe_Config::get_item('plugin_text_domain')) . '</p>';
-					$out .= '<pre class="joe-shortcode"><code>' . $shortcode . '</code></pre>';
-				}
-			
-				//Actual output
-				$out .= $shortcode_output;			
-			}			
-			
-			return $out;
-		});
-
-		//Shortcode builder
 		$this->tabs['shortcode'] = [
-// 			'description' => $description,
 			'sections' => [
 				'build' => [	
-					'title' => esc_html__('Build a Shortcode', Joe_Config::get_item('plugin_text_domain')),
+					'title' => esc_html__('Shortcodes', Joe_Config::get_item('plugin_text_domain')),
 					'fields' => [
 						'mapshare_identifier' => [
 							'required' => 'demo',
 							'id' => 'mapshare_identifier',
-							'title' => esc_html__('MapShare Address', Joe_Config::get_item('plugin_text_domain')),
+							'title' => esc_html__('MapShare Identifier', Joe_Config::get_item('plugin_text_domain')),
 							'tip' => esc_attr__('This is found in the Social tab', Joe_Config::get_item('plugin_text_domain')),
 							'tip_link' => 'https://explore.garmin.com/Social',
 							'prepend' => 'share.garmin.com/',
@@ -150,6 +121,67 @@ class InMap_Settings extends Joe_Settings {
 					]											
 				]
 			]
-		];											
+		];
+
+		//Help
+		$this->tabs['help'] = [
+			'sections' => [			
+				'help' => [
+					'description' => '<img width="100%" src="' . Joe_Helper::asset_url('img/garmin-explore-screenshots.gif') . '" />'			
+				]
+			]
+		];													
 	}
+
+	function do_shortcode()  {
+		Joe_Log::reset();
+		Joe_Log::set_output_type('notice');
+	
+		$this->shortcode = '[';
+		$this->shortcode .= Joe_Config::get_item('plugin_shortcode');
+		foreach([
+			'mapshare_identifier',
+			'mapshare_password',
+			'mapshare_date_start',
+			'mapshare_date_end'
+		] as $key) {
+			$value = Joe_Config::get_setting('shortcode', 'build', $key);
+		
+			if(! empty($value)) {
+				$this->shortcode .= ' ' . $key . '="' . Joe_Config::get_setting('shortcode', 'build', $key) . '"';
+			}
+		}
+		$this->shortcode .= ']';
+	
+		//Execute Shortcode (and Garmin request)
+		$this->shortcode_output = do_shortcode($this->shortcode);
+
+		Joe_Log::render();
+	}
+
+	function joe_admin_after_form($out) {
+		//Success
+		if(! Joe_Log::in_error()) {		
+			//Demo
+			if(! Joe_Log::has('do_demo')) {
+				$out .= '<p class="joe-lead">' . __('Add wherever Shortcodes are supported.', Joe_Config::get_item('plugin_text_domain')) . '</p>';
+				$out .= '<div class="joe-shortcode">' . $this->shortcode . '</div>';				
+			}
+		
+			//Actual output
+			$out .= $this->shortcode_output;			
+		}			
+		
+		return $out;	
+	}	
+
+	function joe_admin_before_form($out) {
+		//Demo
+		if(Joe_Log::has('do_demo')) {
+			$out .= '<p class="joe-lead">Configure MapShare in the <a href="https://explore.garmin.com/Social">Social</a> tab of your Garmin Explore Account.</p>';
+		}
+		
+		return $out;
+	}	
+
 }

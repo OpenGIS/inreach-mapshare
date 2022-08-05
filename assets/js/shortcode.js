@@ -37,8 +37,12 @@ const inmap_create_map = function(map_hash = null, map_geojson = null) {
 		var item_height = info_last_jq.height();
 		var height_diff = container_height - item_height;
 
-// 		info_jq.css('height', height_diff + 'px');
-		info_jq.css('padding-top', item_height + 'px');	
+		//Only if container is taller than item
+ 		if(height_diff > 0) {
+			info_jq.css('padding-top', item_height + 'px');	 		
+ 		} else {
+			info_jq.removeAttr('style');	 		 		
+ 		} 		
 	};
 	
 	var setup_ui = function() {
@@ -89,7 +93,9 @@ const inmap_create_map = function(map_hash = null, map_geojson = null) {
 						'role': 'button',
 						'aria-label': 'Fullscreen'
 					})
-					.on('click', function() {
+					.on('click', function(e) {
+						e.preventDefault();
+						
 						body_jq.toggleClass('inmap-has-single');
 					
 						wrap_jq.toggleClass('inmap-fullscreen');
@@ -120,23 +126,47 @@ const inmap_create_map = function(map_hash = null, map_geojson = null) {
 			var info_icon = jQuery('.inmap-icon', markers_jq[id]);		
 			infos_jq[id].append(info_icon.clone());
 
-// 			jQuery('table tr', infos_jq[id]).each(function() {
-// 				var tr = jQuery(this);
-// 				var td = jQuery('td', tr);
-// 				jQuery('th', tr).addClass('inmap-info-extended');
-// 				var key = tr.attr('class').replace('joe-assoc_array-', '');
-// 				var value = td.text();
+			jQuery('table tr', infos_jq[id]).each(function() {
+				var tr = jQuery(this);
+				var td = jQuery('td', tr);
+				jQuery('th', tr).addClass('inmap-info-extended');
+				var key = tr.attr('class').replace('joe-assoc_array-', '');
+				var value = td.text();
 				
-// 				switch(key) {
-// 					//GPS
-// 					case 'time_utc' :
-// 					case 'valid_gps_fix' :
-// 						tr.addClass('inmap-info-extended');
-// 
-// 						break;
-// 				}
+				switch(key) {
+					//Elevation
+					case 'elevation' :
+						var m_ele_float = parseFloat(value);
+
+						//Valid
+						if(! isNaN(m_ele_float)) {
+							//Update
+							td.text(m_ele_float.toFixed(1) + ' (m) ' + (m_ele_float * 3.28084).toFixed(1) + ' (ft) ');
+						}				
+						
+						break;	
+						
+					//Velocity
+					case 'velocity' :
+						var km_hour_float = parseFloat(value);
+						
+						//Valid
+					  if(! isNaN(km_hour_float)) {
+							//Update
+							td.text(km_hour_float.toFixed(1) + ' (km/h) ' + (km_hour_float * 1.609344).toFixed(1) + ' (mph) ');
+						}
+						
+						break;					
+						
+					//GPS
+					case 'time_utc' :
+					case 'valid_gps_fix' :
+						tr.addClass('inmap-info-extended');
+
+						break;
+				}
 				
-// 			});
+			});
 			
 			//Setup Latest
 			if(infos_jq[id].hasClass('inmap-last')) {
