@@ -7,6 +7,7 @@ module.exports = function(grunt) {
 	var build_path = 'build/';
 	var app_path = 'App/';
 	var app_slug = package_json.slug;
+	var main_file_name = String(app_slug + '.php');
 
 	var assets_path = 'assets/';
 		
@@ -53,9 +54,8 @@ module.exports = function(grunt) {
 	//App
 	
 	//Main
-	var file_name = String(app_slug + '.php');
-	var to_path = String(build_path + file_name);
-	var from_path = String(file_name);
+	var to_path = String(build_path + main_file_name);
+	var from_path = String(main_file_name);
 	copy_php_files[to_path] = [ from_path ];
 	replace_files[to_path] = [ to_path ];
 
@@ -73,6 +73,28 @@ module.exports = function(grunt) {
   grunt.option('stack', true);		
   grunt.initConfig({
     pkg: package_json,
+
+		makepot: {
+			target: {
+				options: {
+					cwd: 'build',                          // Directory of files to internationalize.
+					domainPath: '',                   // Where to save the POT file.
+					exclude: [],                      // List of files or directories to ignore.
+					include: [],                      // List of files or directories to include.
+					mainFile: main_file_name,                     // Main project file.
+					potComments: '',                  // The copyright at the beginning of the POT file.
+					potFilename: '',                  // Name of the POT file.
+					potHeaders: {
+							poedit: true,                 // Includes common Poedit headers.
+							'x-poedit-keywordslist': true // Include a list of all possible gettext functions.
+					},                                // Headers to add to the generated POT file.
+					processPot: null,                 // A callback function for manipulating the POT file.
+					type: 'wp-plugin',                // Type of project (wp-plugin or wp-theme).
+					updateTimestamp: true,            // Whether the POT-Creation-Date should be updated without other changes.
+					updatePoFiles: false              // Whether to update PO files in the same directory as the POT file.
+				}
+			}
+		},
 
 		'string-replace': {
 			php: {
@@ -177,6 +199,7 @@ module.exports = function(grunt) {
 	grunt.loadNpmTasks('grunt-contrib-less');  
 	grunt.loadNpmTasks('grunt-string-replace');  
   grunt.loadNpmTasks('grunt-contrib-watch');	
+  grunt.loadNpmTasks('grunt-wp-i18n');
 
   grunt.registerTask('build_wp_css', [
    	'less:wp_css',
@@ -193,7 +216,8 @@ module.exports = function(grunt) {
 		'copy:php',
 		'copy:joe_assets',
 		'copy:app_assets',		
-		'string-replace:php'
+		'string-replace:php',
+		'makepot'
   ]); 
     
   grunt.registerTask('default', [
