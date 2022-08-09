@@ -74,6 +74,21 @@ module.exports = function(grunt) {
   grunt.initConfig({
     pkg: package_json,
 
+		wp_readme_to_markdown: {
+			plugin: {
+				files: {
+					'readme.md': 'readme.txt'
+				},
+				options: {
+					screenshot_url: 'https://ps.w.org/{plugin}/assets/{screenshot}.jpg',
+// 					post_convert: function(content) {
+// 						//Remove unsupported Vimeo tags
+// 						return content.replace(/\[vimeo(.*)\]\n*/g, '');
+// 					}
+				}				
+			}
+		},
+
 		makepot: {
 			plugin: {
 				options: {
@@ -191,6 +206,7 @@ module.exports = function(grunt) {
 	grunt.loadNpmTasks('grunt-string-replace');  
   grunt.loadNpmTasks('grunt-contrib-watch');	
   grunt.loadNpmTasks('grunt-wp-i18n');
+ 	grunt.loadNpmTasks('grunt-wp-readme-to-markdown');
 
   grunt.registerTask('build_wp_css', [
    	'less:wp_css',
@@ -208,7 +224,8 @@ module.exports = function(grunt) {
 		'copy:joe_assets',
 		'copy:app_assets',		
 		'string-replace:php',
-		'makepot'
+		'makepot',
+		'wp_readme_to_markdown'
   ]); 
     
   grunt.registerTask('default', [
