@@ -163,10 +163,10 @@ class InMap_Settings extends Joe_v1_0_Settings {
 		//Success
 		if(! Joe_v1_0_Log::in_error()) {		
 			//Demo
-			if(! Joe_v1_0_Log::has('do_demo')) {
+// 			if(! Joe_v1_0_Log::has('do_demo')) {
 				$out .= '<p class="joe-lead">' . __('Add wherever Shortcodes are supported.', Joe_v1_0_Config::get_item('plugin_text_domain')) . '</p>';
 				$out .= '<div class="joe-shortcode">' . $this->shortcode . '</div>';				
-			}
+// 			}
 		
 			//Actual output
 			$out .= $this->shortcode_output;			

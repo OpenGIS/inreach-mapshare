@@ -162,12 +162,10 @@ class InMap_Settings extends Joe_Settings {
 	function joe_admin_after_form($out) {
 		//Success
 		if(! Joe_Log::in_error()) {		
-			//Demo
-			if(! Joe_Log::has('do_demo')) {
-				$out .= '<p class="joe-lead">' . __('Add wherever Shortcodes are supported.', Joe_Config::get_item('plugin_text_domain')) . '</p>';
-				$out .= '<div class="joe-shortcode">' . $this->shortcode . '</div>';				
-			}
-		
+			//Shortcode output
+			$out .= '<p class="joe-lead">' . __('Add wherever Shortcodes are supported.', Joe_Config::get_item('plugin_text_domain')) . '</p>';
+			$out .= '<div class="joe-shortcode">' . $this->shortcode . '</div>';				
+
 			//Actual output
 			$out .= $this->shortcode_output;			
 		}			
@@ -183,5 +181,4 @@ class InMap_Settings extends Joe_Settings {
 		
 		return $out;
 	}	
-
 }

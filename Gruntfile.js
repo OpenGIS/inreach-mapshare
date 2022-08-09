@@ -194,6 +194,10 @@ module.exports = function(grunt) {
 			wp_js: {
 				files: ['assets/js/*.js'],
 				tasks: ['build_wp_js']
+			},
+			readme: {
+				files: ['readme.txt'],
+				tasks: ['wp_readme_to_markdown']			
 			}		
 		}
   });
