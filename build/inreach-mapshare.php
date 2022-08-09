@@ -41,8 +41,8 @@ add_action('init', function() {
 	$colour_primary = '#dd9933';
 	
 	//Icon URLs	
-	$message_icon = Joe_Helper::asset_url('img/message.svg', $plugin_slug);
-	$tracking_icon = Joe_Helper::asset_url('img/location-gps.svg', $plugin_slug);
+	$message_icon = Joe_v1_0_Helper::asset_url('img/message.svg', $plugin_slug);
+	$tracking_icon = Joe_v1_0_Helper::asset_url('img/location-gps.svg', $plugin_slug);
 
 	$config = [
 		'plugin_slug' => $plugin_slug,
@@ -107,7 +107,7 @@ add_action('init', function() {
 		]
 	];
 
-	Joe_Config::init($config);
+	Joe_v1_0_Config::init($config);
 	
 	new InMap_Admin;
 	new InMap_Front;	
