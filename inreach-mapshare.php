@@ -57,15 +57,11 @@ add_action('init', function() {
 		'directory_url' => 'https://wordpress.org/support/plugin/' . $plugin_slug . '/',
 		'plugin_shortcode' => $plugin_slug,
 		'plugin_about' => '
-			<h1>' . $plugin_name . '</h1>
-
 			<p class="joe-lead">Intro</p>
 						
 			<p>Paragraph Paragraph Paragraph Paragraph Paragraph </p>
 
 			<p>Paragraph Paragraph Paragraph Paragraph Paragraph </p>
-			
-			<img alt="Joe\'s mug" src="https://www.morehawes.co.uk/assets/images/Joe1BW.jpg" />
 		',
 	
 		//KML
