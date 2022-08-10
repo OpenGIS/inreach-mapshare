@@ -154,6 +154,11 @@ class InMap_Inreach extends Joe_Class {
 			
 			return true;		
 		}
+		
+		//No password warning
+		if($this->get_parameter('mapshare_password')) {
+			Joe_Log::add('Don\'t forget that you are responsible for <a href=\"https://wordpress.org/support/article/using-password-protection/\">protecting access</a> if needed!', 'warning', 'password_set');
+		}		
 
 		//Start building the request
 		$this->request_string = $this->request_endpoint . $url_identifier;
@@ -166,6 +171,11 @@ class InMap_Inreach extends Joe_Class {
 		//End date
 		if($data_end = $this->get_parameter('mapshare_date_end')) {
 			$this->request_data['d2'] = $this->get_parameter('mapshare_date_end');
+		}
+		
+		//Open-ended request
+		if($data_start && ! $data_end) {
+			Joe_Log::add('Be careful when creating Shortcodes with no end date. <strong>All future MapShare data will be displayed!</strong>', 'warning', 'no_end_date');
 		}
 		
 		//Append data

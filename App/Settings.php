@@ -49,7 +49,7 @@ class InMap_Settings extends Joe_Settings {
 						],
 						'mapshare_password' => [
 							'title' => esc_html__('MapShare Password', Joe_Config::get_item('plugin_text_domain')),
-							'tip' => esc_attr__('The (optional) password for your MapShare page, set in MapShare Settings. This is *not* any kind of account password.', Joe_Config::get_item('plugin_text_domain')),
+							'tip' => esc_attr__('It is recommended that you protect your MapShare page from public access by setting a password. This plugin requires that password request your MapShare data, ***HOWEVER*** it does not protect it from public access.', Joe_Config::get_item('plugin_text_domain')),
 							'tip_link' => 'https://explore.garmin.com/Social'
 						],
 						'mapshare_date_start' => [
@@ -61,7 +61,7 @@ class InMap_Settings extends Joe_Settings {
 							'id' => 'mapshare_date_end',
 							'type' => 'datetime-local',
 							'title' => esc_html__('End Date', Joe_Config::get_item('plugin_text_domain')),
-							'tip' => esc_html__('Display data until this date and time (UTC time yyyy-mm-ddThh:mm, e.g. 2022-12-31T23:59)', Joe_Config::get_item('plugin_text_domain')),							
+							'tip' => esc_html__('Strongly recommended! Display data until this date and time (UTC time yyyy-mm-ddThh:mm, e.g. 2022-12-31T23:59). Be careful when creating Shortcodes with no end date, all future MapShare data will be displayed!', Joe_Config::get_item('plugin_text_domain')),							
 						]																																										
 					]											
 				]
@@ -153,6 +153,10 @@ class InMap_Settings extends Joe_Settings {
 		//Execute Shortcode (and Garmin request)
 		$this->shortcode_output = do_shortcode($this->shortcode);
 
+		if(Joe_Log::has('do_demo')) {
+			$this->shortcode = '[' . Joe_Config::get_item('plugin_shortcode') . ' mapshare_identifier="demo"]';
+		}
+
 		Joe_Log::render();
 	}
 
@@ -174,6 +178,8 @@ class InMap_Settings extends Joe_Settings {
 		//Demo
 		if(Joe_Log::has('do_demo')) {
 			$out .= '<p class="joe-lead">' . sprintf(__('Configure MapShare in the <a href="%s">Social</a> tab of your Garmin Explore Account.', Joe_Config::get_item('plugin_text_domain')), 'https://explore.garmin.com/Social') . '</p>';
+			
+			$out .= '<p><strong>Important!</strong> Even if you have a MapShare password set, <em>this plugin</em> simply uses it to request your data; it <strong>does not</strong> protect it from being viewed. You are responsible for <a href="https://wordpress.org/support/article/using-password-protection/">protecting access</a> if needed.</p>';
 		}
 		
 		return $out;
