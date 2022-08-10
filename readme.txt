@@ -47,10 +47,11 @@ Features:
 	* Colour - pick a colour to suit your theme.
 	* Icons - use SVG images as icons.
 
-*This plugin is free, open-source software and is not maintained by Garmin. Data is requested from Garmin using the <a href="https://support.garmin.com/en-CA/?faq=tdlDCyo1fJ5UxjUbA9rMY8">inReach KML Feeds</a> service.*
+*This plugin is free, open-source software and is not maintained by Garmin. Data is requested from the Garmin <a href="https://support.garmin.com/en-CA/?faq=tdlDCyo1fJ5UxjUbA9rMY8">inReach KML Feeds</a> service.*
 
 == Installation ==
 
+Once the plugin is activated, view the demo and customise at WP Admin > Settings > inReach MapShare.
 
 == Frequently Asked Questions ==
 
