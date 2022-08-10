@@ -150,7 +150,10 @@ class InMap_Shortcode extends Joe_Shortcode {
 				$geojson = $Inreach_Mapshare->get_geojson();
 
 				if(is_string($geojson) && ! empty($geojson)) {		
-					Joe_Log::add(sprintf('Displaying %s MapShare Points.', $Inreach_Mapshare->get_point_count()), 'success', 'rendering_points');
+					$point_count = $Inreach_Mapshare->get_point_count();
+					$point_text = ($point_count == 1) ? __('Point', Joe_Config::get_item('plugin_text_domain')) : __('Points', Joe_Config::get_item('plugin_text_domain'));
+							
+					Joe_Log::add(sprintf('Displaying %s MapShare ' . $point_text . '.', $point_count), 'success', 'rendering_points');
 						
 					//JS
 					Joe_Assets::js_onready('

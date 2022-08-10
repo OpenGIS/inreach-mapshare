@@ -207,7 +207,9 @@ class InMap_Inreach extends Joe_Class {
 			$this->get_point_count();
 			
 			if($this->point_count) {
-				Joe_Log::add('The KML response contains ' . $this->point_count . ' Points.', 'info', 'has_points');			
+				$point_text = ($this->point_count == 1) ? __('Point', Joe_Config::get_item('plugin_text_domain')) : __('Points', Joe_Config::get_item('plugin_text_domain'));
+				
+				Joe_Log::add('The KML response contains ' . $this->point_count . ' ' . $point_text . '.', 'info', 'has_points');			
 			} else {
 				Joe_Log::add('The KML response contains no Points.', 'error', 'no_points');			
 			}
