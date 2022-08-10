@@ -1,14 +1,14 @@
 # inReach MapShare #
 **Contributors:** [morehawes](https://profiles.wordpress.org/morehawes/)  
-Tags: 
+**Tags:** inreach, mapshare, embed, map, share, location  
 **Requires at least:** 4.6  
 **Tested up to:** 6.0  
-**Requires PHP:** 5.2  
+**Requires PHP:** 7.4  
 **Stable tag:** 1.0  
 **License:** GPLv2 or later  
 **License URI:** http://www.gnu.org/licenses/gpl-2.0.html  
 
-Display inReach MapShare Data on Your WordPress Site
+Display Your Live inReach MapShare Data on Your WordPress Site.
 
 ## Description ##
 
@@ -28,24 +28,26 @@ The MapShare feature must be enabled in the <a href="https://explore.garmin.com/
 
 Features:
 
-* An interactive Map displays track points and messages sent to your MapShare (supports password protected MapShare pages).
-* Each Point displayed contains the following information:
+* Embed an interactive Map and timeline containing track points and messages shared with your MapShare page.
+* Each point displayed contains the following information:
 	* Time UTC
 	* Time (local)
-	* Event
+	* Event (e.g. a message, or track point)
 	* Text (for messages)
 	* Latitude
 	* Longitude
 	* Elevation
 	* Velocity
 	* Valid GPS Fix
-* MapShare data refreshes every 15 minutes and is cached to improve performance (adjustable in Settings).
+* The plugin updates your MapShare every 15 minutes and is cached to improve performance (adjustable in Settings).
 * Use the in-built demo to preview how your MapShare will display (`[inreach-mapshare mapshare_identifier="demo"]`).
-* Customise in WP Admin > Settings > inReach MapShare
+* Customise in WP Admin > Settings > inReach MapShare.
 * Appearance settings:
-	* Basemap - <a href="https://www.openstreetmap.org/fixthemap">OpenStreetMap</a> by default, <a href="https://leaflet-extras.github.io/leaflet-providers/preview/">other providers</a> are supported.
+	* Basemap - <a href="https://www.openstreetmap.org/fixthemap">OpenStreetMap</a> by default, lots of <a href="https://leaflet-extras.github.io/leaflet-providers/preview/">other providers</a> supported.
 	* Colour - pick a colour to suit your theme.
 	* Icons - use SVG images as icons.
+* Content is responsive, and adapts to suit devices both small and large.
+* Customise content with your own CSS rules.
 
 If you experience any issues with the plugin, ensure that your MapShare page (i.e. share.garmin.com/[your_identifier]) is displaying data. This is important - this plugin can only display data available to your MapShare.
 
@@ -55,14 +57,13 @@ Please report issues or make suggestions by creating either a <a href="https://w
 
 ## Installation ##
 
-- Ensure MapShare is enabled in your <a href="https://support.garmin.com/?faq=p2lncMOzqh71P06VifrQE7">Garmin Explore</a> account. 
-- Take note of your unique MapShare Address (e.g. share.garmin.com/[your_identifier]). If you have set a password to protect your MapShare page, you will also need to take note of this.
+- Ensure MapShare is enabled in the <a href="https://explore.garmin.com/Social">Social</a> tab of your Garmin Explore account.
+- Take note of your unique MapShare Address (i.e. share.garmin.com/[your_identifier]). If you have set a password to protect your MapShare page, you will also need to take note of this.
 - Visit your MapShare address in your browser and verify that there is MapShare data (i.e. a message or track point) displaying. Any test message <a href="https://support.garmin.com/?faq=p2lncMOzqh71P06VifrQE7">shared with your MapShare page</a> will work.
 - With this plugin is activated, go to WP Admin > Settings > inReach MapShare.
 - Enter your MapShare address and submit.
 - You should see your most recent location, or multiple locations if you supplied a date range.
 - Add the provided Shortcode anywhere Shortcodes are supported to display the content on your site.
-- You can always use the demo data to test out the plugin using the `[inreach-mapshare mapshare_identifier="demo"]` Shortcode.
 
 ## Frequently Asked Questions ##
 
