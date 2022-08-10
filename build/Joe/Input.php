@@ -71,7 +71,9 @@ class Joe_v1_0_Input {
 		
 		//Auto-for required
 		if(isset($field['required']) && $field['required']) {	
-			if(in_array($field['type'], [ 'text', 'color'  ])) {
+			$is_colour = isset($field['class']) && strpos($field['class'], 'joe-colour-picker') !== -1;
+			
+			if(in_array($field['type'], [ 'text' ]) && ! $is_colour) {
 				if(isset($field['tip'])) {
 					$field['tip'] .= ' ';
 				} else {

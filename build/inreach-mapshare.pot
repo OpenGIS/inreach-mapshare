@@ -4,7 +4,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: inReach MapShare 1.0\n"
 "Report-Msgid-Bugs-To: https://wordpress.org/support/plugin/build\n"
-"POT-Creation-Date: 2022-08-09 18:49:56+00:00\n"
+"POT-Creation-Date: 2022-08-10 02:13:25+00:00\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=utf-8\n"
 "Content-Transfer-Encoding: 8bit\n"
@@ -24,7 +24,7 @@ msgstr ""
 "X-Textdomain-Support: yes\n"
 "X-Generator: grunt-wp-i18n 1.0.3\n"
 
-#: App/Admin.php:25 Joe/Settings.php:99
+#: App/Admin.php:25 Joe/Settings.php:100
 msgid "Settings"
 msgstr ""
 
@@ -40,7 +40,7 @@ msgstr ""
 msgid "More detail +"
 msgstr ""
 
-#: App/Settings.php:16 App/Settings.php:37
+#: App/Settings.php:16 App/Settings.php:36
 msgid "Shortcodes"
 msgstr ""
 
@@ -52,74 +52,111 @@ msgstr ""
 msgid "Advanced"
 msgstr ""
 
-#: App/Settings.php:19
-msgid "Help"
-msgstr ""
-
-#: App/Settings.php:42
+#: App/Settings.php:41
 msgid "MapShare Identifier"
 msgstr ""
 
-#: App/Settings.php:43
-msgid "This is found in the Social tab"
+#: App/Settings.php:42
+msgid "This is found in the Social tab of your Garmin Explore acount."
 msgstr ""
 
-#: App/Settings.php:52
+#: App/Settings.php:51
 msgid "MapShare Password"
 msgstr ""
 
-#: App/Settings.php:53
+#: App/Settings.php:52
 msgid ""
 "The (optional) password for your MapShare page, set in MapShare Settings. "
 "This is *not* any kind of account password."
 msgstr ""
 
-#: App/Settings.php:58
+#: App/Settings.php:57
 msgid "Start Date"
+msgstr ""
+
+#: App/Settings.php:58
+msgid ""
+"Display data starting from this date and time (UTC time yyyy-mm-ddThh:mm, "
+"e.g. 2022-12-31T00:00). Leave both Start and End date/time blank to only "
+"display your most recent MapShare location."
 msgstr ""
 
 #: App/Settings.php:63
 msgid "End Date"
 msgstr ""
 
-#: App/Settings.php:74
+#: App/Settings.php:64
+msgid ""
+"Display data until this date and time (UTC time yyyy-mm-ddThh:mm, e.g. "
+"2022-12-31T23:59)"
+msgstr ""
+
+#: App/Settings.php:75
 msgid "Map"
 msgstr ""
 
-#: App/Settings.php:79
+#: App/Settings.php:80
 msgid "Basemap URL"
 msgstr ""
 
-#: App/Settings.php:83
+#: App/Settings.php:81
+msgid ""
+"The URL to a \"slippy map\" tile service, this needs to contain the "
+"characters {z},{x} and {y}. OpenStreetMap is used by default."
+msgstr ""
+
+#: App/Settings.php:86
 msgid "Basemap Attribution"
 msgstr ""
 
-#: App/Settings.php:94
+#: App/Settings.php:87
+msgid ""
+"Mapping services often have the requirement that attribution is displayed "
+"by the map. Text and HTML links are supported."
+msgstr ""
+
+#: App/Settings.php:98
 msgid "Colours"
 msgstr ""
 
-#: App/Settings.php:101
+#: App/Settings.php:105
 msgid "Tracking Colour"
 msgstr ""
 
-#: App/Settings.php:102
-msgid "!!!"
-msgstr ""
-
-#: App/Settings.php:107
-msgid "Icons"
+#: App/Settings.php:106
+msgid ""
+"This is the primary colour used. Customise further by adding custom CSS "
+"rules."
 msgstr ""
 
 #: App/Settings.php:112
+msgid "Icons"
+msgstr ""
+
+#: App/Settings.php:117
 msgid "Tracking Icon"
 msgstr ""
 
-#: App/Settings.php:116
+#: App/Settings.php:118
+msgid "The URL to a SVG image file to use as an icon for tracking points."
+msgstr ""
+
+#: App/Settings.php:123
 msgid "Message Icon"
 msgstr ""
 
-#: App/Settings.php:167
+#: App/Settings.php:124
+msgid "The URL to a SVG image file to use as an icon for message points."
+msgstr ""
+
+#: App/Settings.php:163
 msgid "Add wherever Shortcodes are supported."
+msgstr ""
+
+#: App/Settings.php:176
+msgid ""
+"Configure MapShare in the <a href=\"%s\">Social</a> tab of your Garmin "
+"Explore Account."
 msgstr ""
 
 #: Joe/Admin.php:42
@@ -142,63 +179,63 @@ msgstr ""
 msgid "Warning"
 msgstr ""
 
-#: Joe/Helper.php:266
+#: Joe/Helper.php:269
 msgid "Second"
 msgstr ""
 
-#: Joe/Helper.php:267
+#: Joe/Helper.php:270
 msgid "Minute"
 msgstr ""
 
-#: Joe/Helper.php:268
+#: Joe/Helper.php:271
 msgid "Hour"
 msgstr ""
 
-#: Joe/Helper.php:269
+#: Joe/Helper.php:272
 msgid "Day"
 msgstr ""
 
-#: Joe/Helper.php:270
+#: Joe/Helper.php:273
 msgid "Week"
 msgstr ""
 
-#: Joe/Helper.php:271
+#: Joe/Helper.php:274
 msgid "Month"
 msgstr ""
 
-#: Joe/Helper.php:272
+#: Joe/Helper.php:275
 msgid "Year"
 msgstr ""
 
-#: Joe/Helper.php:276
+#: Joe/Helper.php:279
 msgid "Seconds"
 msgstr ""
 
-#: Joe/Helper.php:277 Joe/Settings.php:45
+#: Joe/Helper.php:280 Joe/Settings.php:46
 msgid "Minutes"
 msgstr ""
 
-#: Joe/Helper.php:278
+#: Joe/Helper.php:281
 msgid "Hours"
 msgstr ""
 
-#: Joe/Helper.php:279
+#: Joe/Helper.php:282
 msgid "Days"
 msgstr ""
 
-#: Joe/Helper.php:280
+#: Joe/Helper.php:283
 msgid "Weeks"
 msgstr ""
 
-#: Joe/Helper.php:281
+#: Joe/Helper.php:284
 msgid "Months"
 msgstr ""
 
-#: Joe/Helper.php:282
+#: Joe/Helper.php:285
 msgid "Years"
 msgstr ""
 
-#: Joe/Helper.php:294
+#: Joe/Helper.php:297
 msgid "ago"
 msgstr ""
 
@@ -210,35 +247,35 @@ msgstr ""
 msgid "No"
 msgstr ""
 
-#: Joe/Input.php:81
+#: Joe/Input.php:83
 msgid "Leave blank to restore the default."
 msgstr ""
 
-#: Joe/Input.php:94
+#: Joe/Input.php:96
 msgid "Click here for more details."
 msgstr ""
 
-#: Joe/Input.php:540
+#: Joe/Input.php:542
 msgid "The file extension uploaded is not supported."
 msgstr ""
 
-#: Joe/Settings.php:40
+#: Joe/Settings.php:41
 msgid "Cache"
 msgstr ""
 
-#: Joe/Settings.php:46
+#: Joe/Settings.php:47
 msgid "How often the Cache updates."
 msgstr ""
 
-#: Joe/Settings.php:51
+#: Joe/Settings.php:52
 msgid "Debug"
 msgstr ""
 
-#: Joe/Settings.php:56
+#: Joe/Settings.php:57
 msgid "Enabled"
 msgstr ""
 
-#: Joe/Settings.php:57
+#: Joe/Settings.php:58
 msgid ""
 "Display useful infomation to administrators (admin notices and browser "
 "console logging)."

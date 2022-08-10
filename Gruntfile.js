@@ -187,6 +187,10 @@ module.exports = function(grunt) {
 		},
 		
 		watch: {				
+			joe_assets: {
+				files: ['Joe/assets/*/**'],
+				tasks: ['copy:joe_assets']			
+			},
 			wp_css: {
 				files: ['assets/less/*.less'],
 				tasks: ['build_wp_css']

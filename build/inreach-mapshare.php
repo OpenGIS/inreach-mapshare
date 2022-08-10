@@ -38,6 +38,8 @@ spl_autoload_register(function($class_name) {
 
 add_action('init', function() {
 	$plugin_slug = 'inreach-mapshare';
+	$plugin_name = 'inReach MapShare';
+	
 	$colour_primary = '#dd9933';
 	
 	//Icon URLs	
@@ -47,14 +49,17 @@ add_action('init', function() {
 	$config = [
 		'plugin_slug' => $plugin_slug,
 		'plugin_text_domain' => $plugin_slug,
-		'plugin_name' => 'inReach MapShare',
+		'plugin_name' => $plugin_name,
 		'plugin_version' => '1.0',
 		'settings_id' => 'inmap_settings',
 		'settings_default_tab' => 'joe-settings-tab-mapshare',
 		'site_url' => 'https://wordpress.org/support/plugin/' . $plugin_slug . '/',
 		'directory_url' => 'https://wordpress.org/support/plugin/' . $plugin_slug . '/',
 		'plugin_shortcode' => $plugin_slug,
-		'plugin_about' => '<img alt="Joe\'s mug" src="https://www.morehawes.co.uk/assets/images/Joe1BW.jpg" />',
+		'plugin_about' => '
+			<h1>' . $plugin_name . '</h1>
+			<img alt="Joe\'s mug" src="https://www.morehawes.co.uk/assets/images/Joe1BW.jpg" />
+		',
 	
 		//KML
 		'kml_data_include' => [

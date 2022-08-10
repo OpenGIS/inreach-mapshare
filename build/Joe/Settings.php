@@ -4,6 +4,7 @@ class Joe_v1_0_Settings {
 
 	private $default_slug = 'options-general.php';
 	private $submenu_slug;
+	private $submit_button_text = 'Update';
 	
 	protected $current_settings = [];
 	
@@ -278,7 +279,7 @@ class Joe_v1_0_Settings {
 			echo '	</div>' . "\n";			
 		}
 
-		submit_button(null, 'primary large');
+		submit_button($this->submit_button_text, 'primary large');
 		echo '		</form>' . "\n";
 		
 		//Append?
