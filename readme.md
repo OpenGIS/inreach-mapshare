@@ -84,9 +84,7 @@ This plugin requests data from your MapShare page and embeds it anywhere Shortco
 
 ## Screenshots ##
 
-### 1.  ###
-![](https://ps.w.org/inreach-mapshare/assets/screenshot-1.jpg)
-
+1. 
 
 ## Changelog ##
 
