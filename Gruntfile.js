@@ -11,7 +11,7 @@ module.exports = function(grunt) {
 
 	var assets_path = 'assets/';
 		
-	var copy_php_files = {};
+	var copy_plugin_files = {};
 	var replace_files = {};
 	var joe_replacements = [];
 
@@ -34,7 +34,7 @@ module.exports = function(grunt) {
 		//Copy
 		var to_path = String(build_path + joe_path + file_name);
 		var from_path = String(joe_inc_path + file_name);
-		copy_php_files[to_path] = [ from_path ];
+		copy_plugin_files[to_path] = [ from_path ];
 
 		//String Replace
 		var class_name = file_name.replace('.php', '');
@@ -52,11 +52,16 @@ module.exports = function(grunt) {
 // 	return false;
 
 	//App
+
+	//Readme
+	var to_path = String(build_path + 'readme.txt');
+	var from_path = String('readme.txt');
+	copy_plugin_files[to_path] = [ from_path ];
 	
 	//Main
 	var to_path = String(build_path + main_file_name);
 	var from_path = String(main_file_name);
-	copy_php_files[to_path] = [ from_path ];
+	copy_plugin_files[to_path] = [ from_path ];
 	replace_files[to_path] = [ to_path ];
 
 	//Includes
@@ -65,7 +70,7 @@ module.exports = function(grunt) {
 		var to_path = String(build_path + app_path + file_name);
 		var from_path = String(app_path + file_name);
 
-		copy_php_files[to_path] = [ from_path ];
+		copy_plugin_files[to_path] = [ from_path ];
 		replace_files[to_path] = [ to_path ];
 	}
 	
@@ -108,6 +113,7 @@ module.exports = function(grunt) {
 					potHeaders: {
 						poedit: true
 					},
+          updateTimestamp: false,
 // 					processPot: null,
 				}
 			}
@@ -123,8 +129,8 @@ module.exports = function(grunt) {
 		},
 		
 		copy: {
-			php: {
-				files: copy_php_files
+			plugin_files: {
+				files: copy_plugin_files
 			},
 			joe_assets: {
 				files: [{
@@ -248,7 +254,7 @@ module.exports = function(grunt) {
   ]);           
   
   grunt.registerTask('build_plugin', [
-		'copy:php',
+		'copy:plugin_files',
 		'copy:joe_assets',
 		'copy:app_assets',		
 		'string-replace:php',
