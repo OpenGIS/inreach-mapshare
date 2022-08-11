@@ -74,6 +74,17 @@ module.exports = function(grunt) {
   grunt.initConfig({
     pkg: package_json,
 
+		compress: {
+			plugin: {
+				options: {
+					archive: app_slug + '.zip'
+				},
+				expand: true,
+				cwd: 'build/',
+				src: ['**/*']
+			}
+		},
+
 		wp_readme_to_markdown: {
 			plugin: {
 				files: {
@@ -223,6 +234,7 @@ module.exports = function(grunt) {
   grunt.loadNpmTasks('grunt-contrib-watch');	
   grunt.loadNpmTasks('grunt-wp-i18n');
  	grunt.loadNpmTasks('grunt-wp-readme-to-markdown');
+	grunt.loadNpmTasks('grunt-contrib-compress'); 	
 
   grunt.registerTask('build_wp_css', [
    	'less:wp_css',
@@ -241,6 +253,7 @@ module.exports = function(grunt) {
 		'copy:app_assets',		
 		'string-replace:php',
 		'makepot',
+		'compress',
 		'wp_readme_to_markdown'
   ]); 
     
