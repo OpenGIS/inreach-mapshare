@@ -118,22 +118,27 @@ module.exports = function(grunt) {
 			joe_assets: {
 				files: [{
 					'assets/css/joe-admin.min.css': [ 'Joe/Assets/css/admin.min.css' ],
+					'assets/css/joe-admin.css': [ 'Joe/Assets/css/admin.css' ],
 					'assets/js/joe-admin.min.js': [ 'Joe/Assets/js/admin.min.js' ],				
+					'assets/js/joe-admin.js': [ 'Joe/Assets/js/admin.js' ],				
 				}]
 			},
 			app_assets: {
-				files: [{
-					expand: true,
-					cwd: assets_path,
-					src: [
-						'css/*.min.css',
-// 						'css/images/**',
-						'js/*.min.js',
-						'img/**',
-						'geo/**'
-					],
-					dest: 'build/assets/'
-				}]
+				files: [
+					//App
+					{
+						expand: true,
+						cwd: assets_path,
+						src: [
+							'css/*.css',
+	// 						'css/images/**',
+							'js/*.js',
+							'img/**',
+							'geo/**'
+						],
+						dest: 'build/assets/'
+					}
+				]
 			}		
 		},
 		
@@ -142,35 +147,35 @@ module.exports = function(grunt) {
 				files: {
 					'assets/css/shared.css': 'assets/less/shared.less',
 					'assets/css/front.css': 'assets/less/front.less',
-					'assets/css/admin.css': 'assets/less/admin.less',
+// 					'assets/css/admin.css': 'assets/less/admin.less',
 					'assets/css/shortcode.css': 'assets/less/shortcode.less'					
 				}
 			}		
 		},
 		
-		concat: {
-			wp_css: {
-				files: {
-					'assets/css/admin.css': [
-						'assets/css/shared.css',
-						'assets/css/admin.css'],					
-				}
-			},
-			wp_js: {
-				files: {
-					'assets/js/admin.js': [
-						'assets/js/admin.js'
-					],					
-				}
-			}
-		},	
+// 		concat: {
+// 			wp_css: {
+// 				files: {
+// 					'assets/css/admin.css': [
+// 						'assets/css/shared.css',
+// 						'assets/css/admin.css'],					
+// 				}
+// 			},
+// 			wp_js: {
+// 				files: {
+// 					'assets/js/admin.js': [
+// 						'assets/js/admin.js'
+// 					],					
+// 				}
+// 			}
+// 		},	
 		
 		terser: {
 			wp_js: {
 				files: {
 					'assets/js/leaflet.min.js': ['assets/js/leaflet.js'],
 					'assets/js/shortcode.min.js': ['assets/js/shortcode.js'],
-					'assets/js/admin.min.js': ['assets/js/admin.js']					
+// 					'assets/js/admin.min.js': ['assets/js/admin.js']					
 				}
 			}			
 		},
@@ -180,7 +185,7 @@ module.exports = function(grunt) {
 				files: {
 					'assets/css/leaflet.min.css': 'assets/css/leaflet.css',
 // 					'assets/css/front.min.css': 'assets/css/front.css',
-					'assets/css/admin.min.css': 'assets/css/admin.css',
+// 					'assets/css/admin.min.css': 'assets/css/admin.css',
 					'assets/css/shortcode.min.css': 'assets/css/shortcode.css'					
 				}
 			}	
@@ -211,7 +216,7 @@ module.exports = function(grunt) {
 
  	grunt.loadNpmTasks('grunt-terser');
   grunt.loadNpmTasks('grunt-contrib-copy');  
-  grunt.loadNpmTasks('grunt-contrib-concat');  
+//   grunt.loadNpmTasks('grunt-contrib-concat');  
 	grunt.loadNpmTasks('grunt-contrib-cssmin');  
 	grunt.loadNpmTasks('grunt-contrib-less');  
 	grunt.loadNpmTasks('grunt-string-replace');  
@@ -221,12 +226,12 @@ module.exports = function(grunt) {
 
   grunt.registerTask('build_wp_css', [
    	'less:wp_css',
- 		'concat:wp_css',   	
+//  		'concat:wp_css',   	
    	'cssmin:wp_css'
   ]); 
 
   grunt.registerTask('build_wp_js', [
- 		'concat:wp_js',
+//  		'concat:wp_js',
    	'terser:wp_js'
   ]);           
   

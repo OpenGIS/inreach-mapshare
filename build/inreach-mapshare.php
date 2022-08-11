@@ -40,7 +40,7 @@ add_action('init', function() {
 	$plugin_slug = 'inreach-mapshare';
 	$plugin_name = 'inReach MapShare';
 	
-	$colour_primary = '#dd9933';
+	$colour_primary = '#e524ab';
 	
 	//Icon URLs	
 	$message_icon = Joe_v1_0_Helper::asset_url('img/message.svg', $plugin_slug);

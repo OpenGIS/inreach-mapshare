@@ -67,13 +67,6 @@ class Joe_v1_0_Settings {
 		if(is_array($current_settings) && sizeof($current_settings)) {
 			$this->current_settings = $current_settings;
 		}	
-		//Execute action?
-// 		if(sizeof($_POST)) {
-// 			//Clear cache
-// 			if(isset($_POST[Joe_v1_0_Config::get_item('settings_id')]['advanced']['performance']['clear_cache'])) {	
-// 				$this->execute_action('clear_cache');			
-// 			}
-// 		}
 		
     add_action( 'admin_notices', [ $this, 'admin_notices' ] );	
 		
@@ -179,27 +172,12 @@ class Joe_v1_0_Settings {
 		}
 	}
 
-	public function admin_notices() {	
-		if(isset($_GET['settings-updated'])) {
-			//Settings updates
-// 			if($_GET['settings-updated'] == 'true') {
-// 				echo '<div class="' . Joe_v1_0_Helper::css_prefix() . 'notice notice notice-success is-dismissible"><p>' . esc_html__('Settings Updated', Joe_v1_0_Config::get_item('plugin_text_domain')) . '.</p></div>';				
-// 			}
-
-//Action			
-// 			 elseif($_GET['settings-updated'] == 'joe_action') {
-// 				echo '<div class="' . Joe_v1_0_Helper::css_prefix() . 'notice notice notice-success is-dismissible"><p>' . esc_html__('Action Complete', Joe_v1_0_Config::get_item('plugin_text_domain')) . '.</p></div>';				
-// 			}
-		}
-	}
-
 	public function content_admin_page() {
 		echo '<div id="' . Joe_v1_0_Helper::css_prefix() . 'admin-container">' . "\n";
 
 		echo Joe_v1_0_Helper::plugin_about();
 
 		echo '	<div class="card">' . "\n";	
-// 		echo '		<h1>' . esc_html__('Settings', Joe_v1_0_Config::get_item('plugin_text_domain')) . '</h1>' . "\n";
 
 		//Tabs
 		$active_content = (isset($_GET['content'])) ? $_GET['content'] : Joe_v1_0_Config::get_item('settings_default_tab');
@@ -215,9 +193,7 @@ class Joe_v1_0_Settings {
 		//For each tab		
 		foreach($this->tabs as $tab_key => $tab_data) {
 			$style = '';
-// 			if($active_tab != $tab_key) {
-// 				$style = ' style="display:none;"';
-// 			}
+
 			echo '	<div class="' . Joe_v1_0_Helper::css_prefix() . 'settings-tab ' . Joe_v1_0_Helper::css_prefix() . 'settings-tab-' . $tab_key . '"' . $style . '>' . "\n";
 
 			//Tab title?
