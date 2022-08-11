@@ -278,13 +278,6 @@ class InMap_Inreach extends Joe_Class {
 
 									//By Key
 									switch($key) {
-										case 'Time' :
-										
-											
-											$extended_data[$key] = $value;																
-											
-											$this->KML->Document->Folder->Placemark[$i]->ExtendedData->Data[$j]->value = 'Demo Time';
-									
 										case 'Id' :
 											$Feature['properties']['id'] = $value;
 
