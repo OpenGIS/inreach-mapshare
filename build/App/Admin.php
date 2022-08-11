@@ -32,6 +32,6 @@ class InMap_Admin extends Joe_v1_0_Admin {
 		parent::load_assets();
 
 		//Joe CSS
-		Joe_v1_0_Assets::css_enqueue(Joe_v1_0_Helper::asset_url('css/admin.min.css'));	
+// 		Joe_v1_0_Assets::css_enqueue(Joe_v1_0_Helper::asset_url('css/admin.min.css'));	
 	}
 }
