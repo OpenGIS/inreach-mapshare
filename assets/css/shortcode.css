@@ -21,6 +21,11 @@
     max-height: 480px;
   }
 }
+@media screen and (min-width: 1025px) {
+  .inmap-wrap {
+    min-height: 500px;
+  }
+}
 .inmap-wrap .inmap-map,
 .inmap-wrap .inmap-info {
   width: 100%;
