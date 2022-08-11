@@ -53,15 +53,14 @@ add_action('init', function() {
 		'plugin_version' => '1.0',
 		'settings_id' => 'inmap_settings',
 		'settings_default_tab' => 'joe-settings-tab-mapshare',
-		'site_url' => 'https://wordpress.org/support/plugin/' . $plugin_slug . '/',
-		'directory_url' => 'https://wordpress.org/support/plugin/' . $plugin_slug . '/',
+		'site_url' => 'https://wordpress.org/plugins/' . $plugin_slug . '/',
+		'directory_url' => 'https://wordpress.org/plugins/' . $plugin_slug . '/',
+		'github_url' => 'https://github.com/morehawes/inreach-mapshare',
 		'plugin_shortcode' => $plugin_slug,
 		'plugin_about' => '
-			<p class="joe-lead">Intro</p>
+			<p class="joe-lead">' . sprintf(__('Display your live <a href="%s">MapShare</a> data with a simple Shortcode.', Joe_Config::get_item('plugin_text_domain')), 'https://support.garmin.com/?faq=p2lncMOzqh71P06VifrQE7') . '</p>
 						
-			<p>Paragraph Paragraph Paragraph Paragraph Paragraph </p>
-
-			<p>Paragraph Paragraph Paragraph Paragraph Paragraph </p>
+			<p>' . sprintf(__('Enable and configure MapShare in the <a href="%s">Social</a> tab of your Garmin Explore Account.', Joe_Config::get_item('plugin_text_domain')), 'https://explore.garmin.com/Social') . '</p>
 		',
 	
 		//KML

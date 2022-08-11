@@ -53,16 +53,28 @@ class Joe_v1_0_Helper {
 	static public function plugin_about() {
 		$out = '	<div id="' . Joe_v1_0_Helper::css_prefix('about') . '">' . "\n";		
 
+		$out .= '		<h1>' . Joe_v1_0_Config::get_item('plugin_name') . '</h1>' . "\n";
+
 		$out .= Joe_v1_0_Config::get_item('plugin_about');
 
-		$out .= '		<p><small>v' . Joe_v1_0_Config::get_item('plugin_version') . '</small></p>';
+		$out .= '		<div class="' . Joe_v1_0_Helper::css_prefix('footer') . '">' . "\n";
+		$out .= '			<div class="' . Joe_v1_0_Helper::css_prefix('joe') . '">' . "\n";
+		$out .= '				<img alt="Joe\'s mug" src="https://www.morehawes.co.uk/assets/images/Joe1BW.jpg" />' . "\n";
+		$out .= '				<p>Hi, I\'m <a href="https://www.morehawes.co.uk">Joe</a></p>' . "\n";		
+		$out .= '			</div>' . "\n";
+		$out .= '			<small>v' . Joe_v1_0_Config::get_item('plugin_version') . '</small>' . "\n";
+		$out .= '		</div>' . "\n";
 		$out .= '	</div>' . "\n";		
 		
 		return $out;
 	}	
 
 	static public function do_debug() {
-		return Joe_v1_0_Config::get_setting('joe', 'debug', 'enabled')	 == 1;
+		return 
+			(defined('WP_DEBUG') && WP_DEBUG == true)
+			||
+			(Joe_v1_0_Config::get_setting('joe', 'debug', 'enabled')	 == 1)
+		;
 	}
 
 	static public function debug($thing, $die = false) {

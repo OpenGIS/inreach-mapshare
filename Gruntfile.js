@@ -186,7 +186,10 @@ module.exports = function(grunt) {
 			}	
 		},
 		
-		watch: {				
+		watch: {
+// 			options: {
+// 				livereload: true,
+// 			},						
 			joe_assets: {
 				files: ['Joe/assets/*/**'],
 				tasks: ['copy:joe_assets']			

@@ -310,11 +310,10 @@ class InMap_Inreach extends Joe_Class {
 					}
 					
 					//Demo Time
-// 					if(isset($extended_data['Time'])) {
-// 					
-// 					}					
-// 										case 'Time' :
-// 											$extended_data[$key] = 'Demo Time';																
+					if(Joe_Log::has('do_demo')) {
+						$key = esc_attr__('Demo', Joe_Config::get_item('plugin_text_domain'));
+						$extended_data[$key] = esc_attr__('This is a demo!', Joe_Config::get_item('plugin_text_domain'));																					
+					}					
 					
 					//Title
 					$title = '[' . ($i + 1) . '/' . $this->point_count . ']';

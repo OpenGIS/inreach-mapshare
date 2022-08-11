@@ -31,7 +31,10 @@ class Joe_v1_0_Log {
 			case 'notice' :
 				$latest = Joe_v1_0_Log::latest();
 				$type = isset($latest['type']) ? $latest['type'] : '';
-
+				if(static::$in_success && static::latest_warning()) {
+					$type = 'warning';
+				}
+				
 				Joe_v1_0_Assets::js_onready('joe_admin_message("' . $content . '", "' . $type . '")');
 		
 				break;
@@ -77,6 +80,14 @@ class Joe_v1_0_Log {
 		return false;
 	}
 	
+	public static function latest_warning() {
+		if(isset(static::$by_type['warning']) && is_array(static::$by_type['warning']) && sizeof(static::$by_type['warning'])) {
+			return static::$by_type['warning'][sizeof(static::$by_type['warning'])-1];
+		}
+		
+		return false;
+	}	
+	
 	public static function latest($type = null) {
 		$out = [];
 		
@@ -107,8 +118,8 @@ class Joe_v1_0_Log {
 		];
 
 		static::$log[] = $item;
-		static::$by_type[$type] = $item;
-		static::$by_code[$code] = $item;
+		static::$by_type[$type][] = $item;
+		static::$by_code[$code][] = $item;
 		
 		static::$latest = $item;
 					
@@ -133,9 +144,17 @@ class Joe_v1_0_Log {
 		}
 	
 		$log_content = '';
-		
+
 		//Not debugging
 		if(! Joe_v1_0_Helper::do_debug() && $latest = Joe_v1_0_Log::latest()) {
+			//Success with warningS
+			if(static::$in_success && static::latest_warning()) {
+ 				for($i = 0; $i < sizeof(static::$by_type['warning']); $i++) {
+ 					$log_content .= static::draw_item(static::$by_type['warning'][$i]);
+					$log_content .= '<br />';
+ 				}
+			}
+		
 			if(in_array($latest['type'], [ 'success', 'error' ])) {
 				$log_content .= static::draw_item($latest);
 			}		

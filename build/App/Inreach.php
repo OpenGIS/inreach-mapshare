@@ -154,6 +154,11 @@ class InMap_Inreach extends Joe_v1_0_Class {
 			
 			return true;		
 		}
+		
+		//No password warning
+		if($this->get_parameter('mapshare_password')) {
+			Joe_v1_0_Log::add('Don\'t forget that you are responsible for <a href=\"https://wordpress.org/support/article/using-password-protection/\">protecting access</a> if needed!', 'warning', 'password_set');
+		}		
 
 		//Start building the request
 		$this->request_string = $this->request_endpoint . $url_identifier;
@@ -166,6 +171,11 @@ class InMap_Inreach extends Joe_v1_0_Class {
 		//End date
 		if($data_end = $this->get_parameter('mapshare_date_end')) {
 			$this->request_data['d2'] = $this->get_parameter('mapshare_date_end');
+		}
+		
+		//Open-ended request
+		if($data_start && ! $data_end) {
+			Joe_v1_0_Log::add('Be careful when creating Shortcodes with no end date. <strong>All future MapShare data will be displayed!</strong>', 'warning', 'no_end_date');
 		}
 		
 		//Append data
@@ -197,7 +207,9 @@ class InMap_Inreach extends Joe_v1_0_Class {
 			$this->get_point_count();
 			
 			if($this->point_count) {
-				Joe_v1_0_Log::add('The KML response contains ' . $this->point_count . ' Points.', 'info', 'has_points');			
+				$point_text = ($this->point_count == 1) ? __('Point', Joe_v1_0_Config::get_item('plugin_text_domain')) : __('Points', Joe_v1_0_Config::get_item('plugin_text_domain'));
+				
+				Joe_v1_0_Log::add('The KML response contains ' . $this->point_count . ' ' . $point_text . '.', 'info', 'has_points');			
 			} else {
 				Joe_v1_0_Log::add('The KML response contains no Points.', 'error', 'no_points');			
 			}

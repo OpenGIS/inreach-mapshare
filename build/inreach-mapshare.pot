@@ -4,7 +4,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: inReach MapShare 1.0\n"
 "Report-Msgid-Bugs-To: https://wordpress.org/support/plugin/build\n"
-"POT-Creation-Date: 2022-08-10 02:13:25+00:00\n"
+"POT-Creation-Date: 2022-08-11 16:28:39+00:00\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=utf-8\n"
 "Content-Transfer-Encoding: 8bit\n"
@@ -28,15 +28,23 @@ msgstr ""
 msgid "Settings"
 msgstr ""
 
-#: App/Inreach.php:322 App/Inreach.php:339
+#: App/Inreach.php:210 App/Shortcode.php:154
+msgid "Point"
+msgstr ""
+
+#: App/Inreach.php:210 App/Shortcode.php:154
+msgid "Points"
+msgstr ""
+
+#: App/Inreach.php:334 App/Inreach.php:351
 msgid "Latest"
 msgstr ""
 
-#: App/Inreach.php:325
+#: App/Inreach.php:337
 msgid "First"
 msgstr ""
 
-#: App/Inreach.php:393
+#: App/Inreach.php:405
 msgid "More detail +"
 msgstr ""
 
@@ -66,8 +74,9 @@ msgstr ""
 
 #: App/Settings.php:52
 msgid ""
-"The (optional) password for your MapShare page, set in MapShare Settings. "
-"This is *not* any kind of account password."
+"It is recommended that you protect your MapShare page from public access by "
+"setting a password. This plugin requires that password request your "
+"MapShare data, ***HOWEVER*** it does not protect it from public access."
 msgstr ""
 
 #: App/Settings.php:57
@@ -87,8 +96,9 @@ msgstr ""
 
 #: App/Settings.php:64
 msgid ""
-"Display data until this date and time (UTC time yyyy-mm-ddThh:mm, e.g. "
-"2022-12-31T23:59)"
+"Strongly recommended! Display data until this date and time (UTC time "
+"yyyy-mm-ddThh:mm, e.g. 2022-12-31T23:59). Be careful when creating "
+"Shortcodes with no end date, all future MapShare data will be displayed!"
 msgstr ""
 
 #: App/Settings.php:75
@@ -149,11 +159,11 @@ msgstr ""
 msgid "The URL to a SVG image file to use as an icon for message points."
 msgstr ""
 
-#: App/Settings.php:163
+#: App/Settings.php:167
 msgid "Add wherever Shortcodes are supported."
 msgstr ""
 
-#: App/Settings.php:176
+#: App/Settings.php:180
 msgid ""
 "Configure MapShare in the <a href=\"%s\">Social</a> tab of your Garmin "
 "Explore Account."
@@ -179,63 +189,63 @@ msgstr ""
 msgid "Warning"
 msgstr ""
 
-#: Joe/Helper.php:269
+#: Joe/Helper.php:281
 msgid "Second"
 msgstr ""
 
-#: Joe/Helper.php:270
+#: Joe/Helper.php:282
 msgid "Minute"
 msgstr ""
 
-#: Joe/Helper.php:271
+#: Joe/Helper.php:283
 msgid "Hour"
 msgstr ""
 
-#: Joe/Helper.php:272
+#: Joe/Helper.php:284
 msgid "Day"
 msgstr ""
 
-#: Joe/Helper.php:273
+#: Joe/Helper.php:285
 msgid "Week"
 msgstr ""
 
-#: Joe/Helper.php:274
+#: Joe/Helper.php:286
 msgid "Month"
 msgstr ""
 
-#: Joe/Helper.php:275
+#: Joe/Helper.php:287
 msgid "Year"
 msgstr ""
 
-#: Joe/Helper.php:279
+#: Joe/Helper.php:291
 msgid "Seconds"
 msgstr ""
 
-#: Joe/Helper.php:280 Joe/Settings.php:46
+#: Joe/Helper.php:292 Joe/Settings.php:46
 msgid "Minutes"
 msgstr ""
 
-#: Joe/Helper.php:281
+#: Joe/Helper.php:293
 msgid "Hours"
 msgstr ""
 
-#: Joe/Helper.php:282
+#: Joe/Helper.php:294
 msgid "Days"
 msgstr ""
 
-#: Joe/Helper.php:283
+#: Joe/Helper.php:295
 msgid "Weeks"
 msgstr ""
 
-#: Joe/Helper.php:284
+#: Joe/Helper.php:296
 msgid "Months"
 msgstr ""
 
-#: Joe/Helper.php:285
+#: Joe/Helper.php:297
 msgid "Years"
 msgstr ""
 
-#: Joe/Helper.php:297
+#: Joe/Helper.php:309
 msgid "ago"
 msgstr ""
 
