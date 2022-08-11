@@ -68,8 +68,6 @@ class Joe_v1_0_Settings {
 			$this->current_settings = $current_settings;
 		}	
 		
-    add_action( 'admin_notices', [ $this, 'admin_notices' ] );	
-		
 		return true;		
 	}
 	

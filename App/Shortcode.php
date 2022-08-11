@@ -177,7 +177,7 @@ class InMap_Shortcode extends Joe_Shortcode {
 		//Log?
 		
 		//Display Full log to admin
-		if(current_user_can('administrator')) {
+		if(Joe_Helper::do_debug() && current_user_can('administrator')) {
 			Joe_Log::render();
 		//Error?
 		} elseif($error = Joe_Log::in_error()) {
