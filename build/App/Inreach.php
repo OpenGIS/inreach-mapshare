@@ -53,7 +53,7 @@ class InMap_Inreach extends Joe_v1_0_Class {
 			
 			//Fresh
 			if($this->cache_response && $this->cache_response['status'] == 'fresh') {
-				Joe_v1_0_Log::add('Response retrieved from Cache.', 'info', 'cache_fresh');
+				Joe_v1_0_Log::add(__('Response retrieved from Cache.', Joe_v1_0_Config::get_item('plugin_text_domain')), 'info', 'cache_fresh');
 
 	 			$this->response_string = $this->cache_response['value'];			
 			//Nothing fresh...
@@ -90,24 +90,24 @@ class InMap_Inreach extends Joe_v1_0_Class {
 									//Insert into cache
 									Joe_v1_0_Cache::set_item($this->cache_id, $response_string);
 
-									Joe_v1_0_Log::add('Garmin provided a valid KML response, which has been added to Cache.', 'info', 'response_cached');									
+									Joe_v1_0_Log::add(__('Garmin provided a valid KML response, which has been added to Cache.', Joe_v1_0_Config::get_item('plugin_text_domain')), 'info', 'response_cached');									
 								} else {
-									Joe_v1_0_Log::add('Received invalid KML response from Garmin. Check your MapShare Settings', 'error', 'invalid_kml');
+									Joe_v1_0_Log::add(__('Received invalid KML response from Garmin. Check your MapShare Settings', Joe_v1_0_Config::get_item('plugin_text_domain')), 'error', 'invalid_kml');
 								}				
 							//Invalid identifier
 							} else {
-								Joe_v1_0_Log::add('Garmin does not recognise this MapShare Identifier.', 'error', 'identifier');
+								Joe_v1_0_Log::add(__('Garmin does not recognise this MapShare Identifier.', Joe_v1_0_Config::get_item('plugin_text_domain')), 'error', 'identifier');
 							}
 					
 							break;
 						//Fail
 						case $response_info['http_code'] == '401' :
-							Joe_v1_0_Log::add('There was a problem with your MapShare Password.', 'error', 'error_password');
+							Joe_v1_0_Log::add(__('There was a problem with your MapShare Password.', Joe_v1_0_Config::get_item('plugin_text_domain')), 'error', 'error_password');
 
 							break;
 						//Other
 						default :
-							Joe_v1_0_Log::add('Garmin returned a ' . $response_info['http_code'] . ' error.', 'error', 'error_' . $response_info['http_code']);
+							Joe_v1_0_Log::add(sprintf(__('Garmin returned a %s error.', Joe_v1_0_Config::get_item('plugin_text_domain')), $response_info['http_code']), 'error', 'error_' . $response_info['http_code']);
 
 							break;
 					}
@@ -121,13 +121,13 @@ class InMap_Inreach extends Joe_v1_0_Class {
 		if(! $this->response_string) {
 			//Check for stale cache
 			if($this->cache_response && $this->cache_response['status'] == 'stale') {
-				Joe_v1_0_Log::add(sprintf('Unable to get updated KML from Garmin. Last update: %s minutes ago.', round($this->cache_response['minutes'])), 'warning', 'cache_stale');
+				Joe_v1_0_Log::add(sprintf(__('Unable to get updated KML from Garmin. Last update: %s minutes ago.', Joe_v1_0_Config::get_item('plugin_text_domain')), round($this->cache_response['minutes'])), 'warning', 'cache_stale');
 
 				//Better than nothing
 	 			$this->response_string = $this->cache_response['value'];			
 			//No cache either
 			} else {
-				Joe_v1_0_Log::add('Garmin provided an empty response. Check your MapShare Settings.', 'error', 'empty_response');			
+				Joe_v1_0_Log::add(__('Garmin provided an empty response. Check your MapShare Settings.', Joe_v1_0_Config::get_item('plugin_text_domain')), 'error', 'empty_response');			
 			}
 		}
 	}
@@ -138,7 +138,7 @@ class InMap_Inreach extends Joe_v1_0_Class {
 		
 		//Required
 		if(! $url_identifier) {
-			Joe_v1_0_Log::add('No MapShare identifier provided.', 'error', 'missing_identifier');
+			Joe_v1_0_Log::add(__('No MapShare identifier provided.', Joe_v1_0_Config::get_item('plugin_text_domain')), 'error', 'missing_identifier');
 		
 			return false;		
 		//Load Demo
@@ -147,17 +147,17 @@ class InMap_Inreach extends Joe_v1_0_Class {
 			
 			if($demo_kml) {
 				$this->response_string = $demo_kml;
-				Joe_v1_0_Log::add('Demo mode enabled!', 'info', 'do_demo');
+				Joe_v1_0_Log::add(__('Demo mode enabled!', Joe_v1_0_Config::get_item('plugin_text_domain')), 'info', 'do_demo');
 			} else {
-				Joe_v1_0_Log::add('Unable to read Demo KML.', 'warning', 'demo_kml_unreadable');			
+				Joe_v1_0_Log::add(__('Unable to read Demo KML.', Joe_v1_0_Config::get_item('plugin_text_domain')), 'warning', 'demo_kml_unreadable');			
 			}
 			
 			return true;		
 		}
 		
-		//No password warning
+		//Password warning
 		if($this->get_parameter('mapshare_password')) {
-			Joe_v1_0_Log::add('Don\'t forget that you are responsible for <a href=\"https://wordpress.org/support/article/using-password-protection/\">protecting access</a> if needed!', 'warning', 'password_set');
+			Joe_v1_0_Log::add(sprintf(__('Remember that you are responsible for <a%s>protecting access</a> if needed!', Joe_v1_0_Config::get_item('plugin_text_domain')), ' href=\"https://wordpress.org/support/article/using-password-protection/\"'), 'warning', 'password_set');
 		}		
 
 		//Start building the request
@@ -173,9 +173,9 @@ class InMap_Inreach extends Joe_v1_0_Class {
 			$this->request_data['d2'] = $this->get_parameter('mapshare_date_end');
 		}
 		
-		//Open-ended request
+		//Open-ended request warning
 		if($data_start && ! $data_end) {
-			Joe_v1_0_Log::add('Be careful when creating Shortcodes with no end date. <strong>All future MapShare data will be displayed!</strong>', 'warning', 'no_end_date');
+			Joe_v1_0_Log::add(__('Be careful when creating Shortcodes with no end date. <strong>All future MapShare data will be displayed!</strong>', Joe_v1_0_Config::get_item('plugin_text_domain')), 'warning', 'no_end_date');
 		}
 		
 		//Append data
@@ -209,12 +209,12 @@ class InMap_Inreach extends Joe_v1_0_Class {
 			if($this->point_count) {
 				$point_text = ($this->point_count == 1) ? __('Point', Joe_v1_0_Config::get_item('plugin_text_domain')) : __('Points', Joe_v1_0_Config::get_item('plugin_text_domain'));
 				
-				Joe_v1_0_Log::add('The KML response contains ' . $this->point_count . ' ' . $point_text . '.', 'info', 'has_points');			
+				Joe_v1_0_Log::add(__('The KML response contains ' . $this->point_count . ' ' . $point_text . '.', Joe_v1_0_Config::get_item('plugin_text_domain')), 'info', 'has_points');			
 			} else {
-				Joe_v1_0_Log::add('The KML response contains no Points.', 'error', 'no_points');			
+				Joe_v1_0_Log::add(__('The KML response contains no Points.', Joe_v1_0_Config::get_item('plugin_text_domain')), 'error', 'no_points');			
 			}
 		} else {
-			Joe_v1_0_Log::add('The KML response is invalid.', 'error', 'empty_kml');
+			Joe_v1_0_Log::add(__('The KML response is invalid.', Joe_v1_0_Config::get_item('plugin_text_domain')), 'error', 'empty_kml');
 		}
 	}
 	
@@ -243,7 +243,8 @@ class InMap_Inreach extends Joe_v1_0_Class {
 				
 				if($Placemark->Point->coordinates) {
 					$class_append = [];
-							
+					
+					//Demo!
 					if(! Joe_v1_0_Log::has('do_demo')) {
 						$time_ago = Joe_v1_0_Helper::time_ago(strtotime($Placemark->TimeStamp->when));
 					} else {				
@@ -278,13 +279,6 @@ class InMap_Inreach extends Joe_v1_0_Class {
 
 									//By Key
 									switch($key) {
-										case 'Time' :
-										
-											
-											$extended_data[$key] = $value;																
-											
-											$this->KML->Document->Folder->Placemark[$i]->ExtendedData->Data[$j]->value = 'Demo Time';
-									
 										case 'Id' :
 											$Feature['properties']['id'] = $value;
 
@@ -310,11 +304,10 @@ class InMap_Inreach extends Joe_v1_0_Class {
 					}
 					
 					//Demo Time
-// 					if(isset($extended_data['Time'])) {
-// 					
-// 					}					
-// 										case 'Time' :
-// 											$extended_data[$key] = 'Demo Time';																
+					if(Joe_v1_0_Log::has('do_demo')) {
+						$key = esc_attr__('Demo', Joe_v1_0_Config::get_item('plugin_text_domain'));
+						$extended_data[$key] = esc_attr__('This is a demo!', Joe_v1_0_Config::get_item('plugin_text_domain'));																					
+					}					
 					
 					//Title
 					$title = '[' . ($i + 1) . '/' . $this->point_count . ']';
@@ -402,7 +395,7 @@ class InMap_Inreach extends Joe_v1_0_Class {
 						if(sizeof($extended_data)) {
 							$description .= Joe_v1_0_Helper::assoc_array_table($extended_data);
 	
-							$description .= '<div class="inmap-info-expand">' . __('More detail +', Joe_v1_0_Config::get_item('plugin_text_domain'))  . '</div>';
+							$description .= '<div class="inmap-info-expand">' . __('More detail', Joe_v1_0_Config::get_item('plugin_text_domain'))  . ' +</div>';
 						}
 						$description .= '</div>';
 
@@ -445,7 +438,7 @@ class InMap_Inreach extends Joe_v1_0_Class {
 			$this->FeatureCollection['features'] = array_reverse($this->FeatureCollection['features']);				
 		//No points in KML
 		} else {
-			Joe_v1_0_Log::add('The KML response contains no Points.', 'error', 'no_points');			
+			Joe_v1_0_Log::add(__('The KML response contains no Points.', Joe_v1_0_Config::get_item('plugin_text_domain')), 'error', 'no_points');			
 		}
 	}
 	
