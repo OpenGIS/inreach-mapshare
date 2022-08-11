@@ -48,6 +48,7 @@ Features:
 	* Icons - use SVG images as icons.
 * Content is responsive, and adapts to suit devices both small and large.
 * Customise content with your own CSS rules.
+* Translation ready :)
 
 If you experience any issues with the plugin, ensure that your MapShare page (i.e. share.garmin.com/[your_identifier]) is displaying data. This is important - this plugin can only display data available to your MapShare.
 

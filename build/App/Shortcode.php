@@ -93,12 +93,6 @@ class InMap_Shortcode extends Joe_v1_0_Shortcode {
 			const inmap_L = L.noConflict();									
 		');
 
-// 		Joe_v1_0_Assets::js_enqueue([
-// 			'id' => 'leaflet_js',
-// 			'url' => Joe_v1_0_Helper::plugin_url('assets/js/leaflet.js'),
-// 			'deps' => [ 'jquery' ]
-// 		]);
-
 		//InMap JS
 		Joe_v1_0_Assets::js_enqueue([
 			'id' => 'inmap_shortcode_js',
@@ -144,8 +138,7 @@ class InMap_Shortcode extends Joe_v1_0_Shortcode {
 					)
 				);
 				$map_div_id = 'inmap-' . $hash;
-				Joe_v1_0_Log::add('Rendering Map in Div #' . $map_div_id, 'info', 'map_hash');				
-				
+				Joe_v1_0_Log::add(__('Rendering Map', Joe_v1_0_Config::get_item('plugin_text_domain')) . ' (in Div #' . $map_div_id . ')', 'info', 'map_hash');				
 				
 				$geojson = $Inreach_Mapshare->get_geojson();
 
@@ -153,7 +146,7 @@ class InMap_Shortcode extends Joe_v1_0_Shortcode {
 					$point_count = $Inreach_Mapshare->get_point_count();
 					$point_text = ($point_count == 1) ? __('Point', Joe_v1_0_Config::get_item('plugin_text_domain')) : __('Points', Joe_v1_0_Config::get_item('plugin_text_domain'));
 							
-					Joe_v1_0_Log::add(sprintf('Displaying %s MapShare ' . $point_text . '.', $point_count), 'success', 'rendering_points');
+					Joe_v1_0_Log::add(sprintf(__('Displaying %s MapShare', Joe_v1_0_Config::get_item('plugin_text_domain')), $point_count) . ' ' . $point_text, 'success', 'rendering_points');
 						
 					//JS
 					Joe_v1_0_Assets::js_onready('
@@ -171,11 +164,11 @@ class InMap_Shortcode extends Joe_v1_0_Shortcode {
 					$shortcode_count++;
 					Joe_v1_0_Log::set_data('shortcode_count', $shortcode_count);				
 				} else {
-					Joe_v1_0_Log::add('GeoJSON contains no Points.', 'error', 'empty_geojson');				
+					Joe_v1_0_Log::add(__('GeoJSON contains no Points.', Joe_v1_0_Config::get_item('plugin_text_domain')), 'error', 'empty_geojson');				
 				}
 			}
 		}	else {
-			Joe_v1_0_Log::add('MapShare Identifier not provided.', 'error', 'missing_identifier');
+			Joe_v1_0_Log::add(__('MapShare Identifier not provided.', Joe_v1_0_Config::get_item('plugin_text_domain')), 'error', 'missing_identifier');
 		}
 
 		$out .= '</div>';

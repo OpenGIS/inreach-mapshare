@@ -4,7 +4,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: inReach MapShare 1.0\n"
 "Report-Msgid-Bugs-To: https://wordpress.org/support/plugin/build\n"
-"POT-Creation-Date: 2022-08-11 19:00:30+00:00\n"
+"POT-Creation-Date: 2022-08-11 19:30:52+00:00\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=utf-8\n"
 "Content-Transfer-Encoding: 8bit\n"
@@ -82,11 +82,11 @@ msgid ""
 "MapShare data will be displayed!</strong>"
 msgstr ""
 
-#: App/Inreach.php:210 App/Shortcode.php:154
+#: App/Inreach.php:210 App/Shortcode.php:147
 msgid "Point"
 msgstr ""
 
-#: App/Inreach.php:210 App/Shortcode.php:154
+#: App/Inreach.php:210 App/Shortcode.php:147
 msgid "Points"
 msgstr ""
 
@@ -247,6 +247,22 @@ msgid ""
 "href=\"%s\">protecting access</a> if needed."
 msgstr ""
 
+#: App/Shortcode.php:141
+msgid "Rendering Map"
+msgstr ""
+
+#: App/Shortcode.php:149
+msgid "Displaying %s MapShare"
+msgstr ""
+
+#: App/Shortcode.php:167
+msgid "GeoJSON contains no Points."
+msgstr ""
+
+#: App/Shortcode.php:171
+msgid "MapShare Identifier not provided."
+msgstr ""
+
 #: Joe/Admin.php:42
 msgid "Remove!"
 msgstr ""
@@ -267,63 +283,79 @@ msgstr ""
 msgid "Warning"
 msgstr ""
 
-#: Joe/Helper.php:302
-msgid "Second"
+#: Joe/Helper.php:65
+msgid "Hi, I'm <a href=\"%s\">Joe</a>"
 msgstr ""
 
-#: Joe/Helper.php:303
-msgid "Minute"
+#: Joe/Helper.php:67
+msgid ""
+"This software is open source and maintained voluntarily, please help by "
+"contributing however you can."
 msgstr ""
 
-#: Joe/Helper.php:304
-msgid "Hour"
+#: Joe/Helper.php:68
+msgid ""
+"Each question, suggestion, bug report, review, translation and pull request "
+"is greatly appreciated."
 msgstr ""
 
 #: Joe/Helper.php:305
-msgid "Day"
+msgid "Second"
 msgstr ""
 
 #: Joe/Helper.php:306
-msgid "Week"
+msgid "Minute"
 msgstr ""
 
 #: Joe/Helper.php:307
-msgid "Month"
+msgid "Hour"
 msgstr ""
 
 #: Joe/Helper.php:308
+msgid "Day"
+msgstr ""
+
+#: Joe/Helper.php:309
+msgid "Week"
+msgstr ""
+
+#: Joe/Helper.php:310
+msgid "Month"
+msgstr ""
+
+#: Joe/Helper.php:311
 msgid "Year"
 msgstr ""
 
-#: Joe/Helper.php:312
+#: Joe/Helper.php:315
 msgid "Seconds"
 msgstr ""
 
-#: Joe/Helper.php:313 Joe/Settings.php:46
+#: Joe/Helper.php:316 Joe/Settings.php:46
 msgid "Minutes"
 msgstr ""
 
-#: Joe/Helper.php:314
+#: Joe/Helper.php:317
 msgid "Hours"
 msgstr ""
 
-#: Joe/Helper.php:315
+#: Joe/Helper.php:318
 msgid "Days"
 msgstr ""
 
-#: Joe/Helper.php:316
+#: Joe/Helper.php:319
 msgid "Weeks"
 msgstr ""
 
-#: Joe/Helper.php:317
+#: Joe/Helper.php:320
 msgid "Months"
 msgstr ""
 
-#: Joe/Helper.php:318
+#: Joe/Helper.php:321
 msgid "Years"
 msgstr ""
 
-#: Joe/Helper.php:330
+#: Joe/Helper.php:333
 msgid "ago"
 msgstr ""
 
@@ -343,7 +375,7 @@ msgstr ""
 msgid "Click here for more details."
 msgstr ""
 
-#: Joe/Input.php:542
+#: Joe/Input.php:514
 msgid "The file extension uploaded is not supported."
 msgstr ""
 

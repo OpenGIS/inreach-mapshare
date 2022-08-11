@@ -230,11 +230,7 @@ class Joe_v1_0_Input {
 					$content = $field['default'];
 				}
 				$content = htmlspecialchars_decode($content);
-				
-				
-				//Markup
-				//$out .= '		<textarea class="' . Joe_v1_0_Helper::css_prefix() . 'input ' . Joe_v1_0_Helper::css_prefix() . 'input-' . $field['id'] . '" name="' . $field['name'] . '" data-id="' . $field['id'] . '"></textarea>' . "\n";
-				
+								
 				//Setup rich editor			
 				ob_start();	
 				wp_editor($content, $field['id'], array(
@@ -281,11 +277,9 @@ class Joe_v1_0_Input {
 					$out .= ' placeholder="' . $field['required'] . '"';				
 				}
 				
-				
 				//Do we have a value for this post?
 				if($set_value !== null) {
 					$out .= ' value="' . $set_value . '"';
-//					$out .= ' value="' . htmlspecialchars($set_value) . '"';
 				//Do we have a default?
 				}	elseif(array_key_exists('default', $field)) {
 					$value = $field['default'];
@@ -495,28 +489,6 @@ class Joe_v1_0_Input {
 		
 		return $param_value;
 	}
-	
-	//Thanks to: https://code.tutsplus.com/articles/attaching-files-to-your-posts-using-wordpress-custom-meta-boxes-part-1--wp-22291
-// 	static function upload_file($file) {
-// 		//Get the file type of the upload
-// 		$filetype = wp_check_filetype(basename($file['name']));
-// 		 
-// 		//File type is supported
-// 		if(array_key_exists('type', $filetype) && $filetype['type']) {
-// 	    // Use the WordPress API to upload the file
-// 	    $upload = wp_upload_bits($file['name'], null, file_get_contents($file['tmp_name']));
-// 	
-// 	    if(isset($upload['error']) && $upload['error'] != 0) {
-// 	    	//!!! - Better error handling
-// 	    	wp_die(esc_html__('File upload error.', Joe_v1_0_Config::get_item('plugin_text_domain')) . ' (' . $upload['error'] . ')');
-// 	    } else {
-//         return $upload;     
-// 	    }
-// 		} else {
-// 			//!!! - Better error handling
-// 			wp_die(esc_html__('The file type uploaded is not supported.', Joe_v1_0_Config::get_item('plugin_text_domain')));
-// 		}
-// 	}
 
 	static function get_file_contents($file) {
 		$response = [];
@@ -569,23 +541,4 @@ class Joe_v1_0_Input {
 		
 		return false;
 	}	
-	
-
-//		add_filter('wp_check_filetype_and_ext', array($this, 'wp_check_filetype_and_ext'), 10, 4);				
-// 	function wp_check_filetype_and_ext( $check, $file, $filename, $mimes ) {
-// 		//Check file type
-// 		$filetype = wp_check_filetype($filename, Joe_v1_0_Config::get_item('mimes', 'file'));
-// 
-// 		//File type we are interested in
-// 		if(array_key_exists('type', $filetype) && $filetype['type']) {
-// 			//Allow
-// 			return array(
-// 				'ext' => $filetype['ext'],
-// 				'type' => $filetype['type'],
-// 				'proper_filename' => $filename
-// 			);
-// 		}
-// 	
-// 		return $check;
-// 	}	
 }

@@ -60,12 +60,15 @@ class Joe_v1_0_Helper {
 		$out .= '		<div class="' . Joe_v1_0_Helper::css_prefix('footer') . '">' . "\n";
 		$out .= '			<div class="' . Joe_v1_0_Helper::css_prefix('joe') . '">' . "\n";
 		$out .= '				<img alt="Joe\'s mug" src="https://www.morehawes.co.uk/assets/images/Joe1BW.jpg" />' . "\n";
-		$out .= '				<p class="joe-lead">Hi, I\'m <a href="https://www.morehawes.co.uk">Joe</a>.</p>' . "\n";		
-		$out .= '				<p>This software is open source and maintained voluntarily, please help by contributing however you can.' . "\n";
-		$out .= '				<p>Each question, suggestion, bug report, review, translation and pull request is greatly appreciated.</p>' . "\n";		
+
+
+		$out .= '				<p class="joe-lead">' . sprintf(__('Hi, I\'m <a href="%s">Joe</a>', Joe_v1_0_Config::get_item('plugin_text_domain')), 'https://www.morehawes.co.uk/') . '</p>' . "\n";	
+
+		$out .= '				<p>' . __('This software is open source and maintained voluntarily, please help by contributing however you can.', Joe_v1_0_Config::get_item('plugin_text_domain')) . '</p>' . "\n";	
+		$out .= '				<p>' . __('Each question, suggestion, bug report, review, translation and pull request is greatly appreciated.', Joe_v1_0_Config::get_item('plugin_text_domain')) . '</p>' . "\n";	
 
 		$out .= '				<ul>' . "\n";		
-		
+	
 		//WP.org Directory Link
 		if($directory_url = parse_url(Joe_v1_0_Config::get_item('directory_url'))) {
 			if(isset($directory_url['host']) && ! empty($directory_url['host'])) {
