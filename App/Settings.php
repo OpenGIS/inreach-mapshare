@@ -73,7 +73,6 @@ class InMap_Settings extends Joe_Settings {
 			'sections' => [
 				'map' => [		
 					'title' => esc_html__('Map', Joe_Config::get_item('plugin_text_domain')),
-					'description' => '',
 					'fields' => [
 						'basemap_url' => [
 							'required' => Joe_Config::get_fallback('appearance', 'map', 'basemap_url'),
@@ -96,7 +95,6 @@ class InMap_Settings extends Joe_Settings {
 				],
 				'colours' => [		
 					'title' => esc_html__('Colours', Joe_Config::get_item('plugin_text_domain')),
-					'description' => '',
 					'fields' => [						
 						'tracking_colour' => [
 							'type' => 'text',
@@ -110,7 +108,6 @@ class InMap_Settings extends Joe_Settings {
 				],
 				'icons' => [		
 					'title' => esc_html__('Icons', Joe_Config::get_item('plugin_text_domain')),
-					'description' => '',
 					'fields' => [						
 						'tracking_icon' => [
 							'required' => Joe_Config::get_fallback('appearance', 'icons', 'tracking_icon'),						
@@ -178,8 +175,8 @@ class InMap_Settings extends Joe_Settings {
 		//Demo
 		if(Joe_Log::has('do_demo')) {
 			$out .= '<p class="joe-lead">' . sprintf(__('Configure MapShare in the <a href="%s">Social</a> tab of your Garmin Explore Account.', Joe_Config::get_item('plugin_text_domain')), 'https://explore.garmin.com/Social') . '</p>';
-			
-			$out .= '<p><strong>Important!</strong> Even if you have a MapShare password set, <em>this plugin</em> simply uses it to request your data; it <strong>does not</strong> protect it from being viewed. You are responsible for <a href="https://wordpress.org/support/article/using-password-protection/">protecting access</a> if needed.</p>';
+
+			$out .= '<p>' . sprintf(__('<strong>Important!</strong> Even if you have a MapShare password set, <em>this plugin</em> simply uses it to request your data; it <strong>does not</strong> protect it from being viewed. You are responsible for <a href="%s">protecting access</a> if needed.', Joe_Config::get_item('plugin_text_domain')), 'https://wordpress.org/support/article/using-password-protection/') . '</p>';
 		}
 		
 		return $out;

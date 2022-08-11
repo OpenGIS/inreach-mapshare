@@ -33,19 +33,5 @@ class InMap_Admin extends Joe_Admin {
 
 		//Joe CSS
 		Joe_Assets::css_enqueue(Joe_Helper::asset_url('css/admin.min.css'));	
-		
-		Joe_Assets::js_onready('
-// 			var form = jQuery("body.settings_page_inreach-mapshare-settings form");
-// 			form.on("submit", function(e) {
-// 				var identifier = jQuery(".joe-input-mapshare_identifier");
-// 				if(! identifier.val()) {
-// 					e.preventDefault();
-// 
-// 					identifier.addClass("joe-error");			
-// 
-// 					return false;
-// 				}				
-// 			});
-		');
 	}
 }

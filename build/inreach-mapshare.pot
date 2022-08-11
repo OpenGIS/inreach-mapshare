@@ -4,7 +4,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: inReach MapShare 1.0\n"
 "Report-Msgid-Bugs-To: https://wordpress.org/support/plugin/build\n"
-"POT-Creation-Date: 2022-08-11 18:49:39+00:00\n"
+"POT-Creation-Date: 2022-08-11 19:00:30+00:00\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=utf-8\n"
 "Content-Transfer-Encoding: 8bit\n"
@@ -175,68 +175,76 @@ msgstr ""
 msgid "Map"
 msgstr ""
 
-#: App/Settings.php:80
+#: App/Settings.php:79
 msgid "Basemap URL"
 msgstr ""
 
-#: App/Settings.php:81
+#: App/Settings.php:80
 msgid ""
 "The URL to a \"slippy map\" tile service, this needs to contain the "
 "characters {z},{x} and {y}. OpenStreetMap is used by default."
 msgstr ""
 
-#: App/Settings.php:86
+#: App/Settings.php:85
 msgid "Basemap Attribution"
 msgstr ""
 
-#: App/Settings.php:87
+#: App/Settings.php:86
 msgid ""
 "Mapping services often have the requirement that attribution is displayed "
 "by the map. Text and HTML links are supported."
 msgstr ""
 
-#: App/Settings.php:98
+#: App/Settings.php:97
 msgid "Colours"
 msgstr ""
 
-#: App/Settings.php:105
+#: App/Settings.php:103
 msgid "Tracking Colour"
 msgstr ""
 
-#: App/Settings.php:106
+#: App/Settings.php:104
 msgid ""
 "This is the primary colour used. Customise further by adding custom CSS "
 "rules."
 msgstr ""
 
-#: App/Settings.php:112
+#: App/Settings.php:110
 msgid "Icons"
 msgstr ""
 
-#: App/Settings.php:117
+#: App/Settings.php:114
 msgid "Tracking Icon"
 msgstr ""
 
-#: App/Settings.php:118
+#: App/Settings.php:115
 msgid "The URL to a SVG image file to use as an icon for tracking points."
 msgstr ""
 
-#: App/Settings.php:123
+#: App/Settings.php:120
 msgid "Message Icon"
 msgstr ""
 
-#: App/Settings.php:124
+#: App/Settings.php:121
 msgid "The URL to a SVG image file to use as an icon for message points."
 msgstr ""
 
-#: App/Settings.php:167
+#: App/Settings.php:164
 msgid "Add wherever Shortcodes are supported."
 msgstr ""
 
-#: App/Settings.php:180
+#: App/Settings.php:177
 msgid ""
 "Configure MapShare in the <a href=\"%s\">Social</a> tab of your Garmin "
 "Explore Account."
+msgstr ""
+
+#: App/Settings.php:179
+msgid ""
+"<strong>Important!</strong> Even if you have a MapShare password set, "
+"<em>this plugin</em> simply uses it to request your data; it <strong>does "
+"not</strong> protect it from being viewed. You are responsible for <a "
+"href=\"%s\">protecting access</a> if needed."
 msgstr ""
 
 #: Joe/Admin.php:42
