@@ -150,14 +150,24 @@ class InMap_Shortcode extends Joe_Shortcode {
 					Joe_Log::add(sprintf(__('Displaying %s MapShare', Joe_Config::get_item('plugin_text_domain')), $point_count) . ' ' . $point_text, 'success', 'rendering_points');
 					
 					//Route?
+					$route_json = null;
 					$route_url = filter_var($shortcode_data['mapshare_route_url'], FILTER_VALIDATE_URL);
+					if($route_url && $route_json = file_get_contents($route_url)) {
+						
+						//Valid
+						if(json_decode($route_json)) {
+							Joe_Log::add(__('Displaying route JSON.', Joe_Config::get_item('plugin_text_domain')), 'success', 'route_valid');						
+						} else {
+							Joe_Log::add(__('Invalid route JSON.', Joe_Config::get_item('plugin_text_domain')), 'error', 'route_invalid');
+						}						
+					}
 					
 					//JS
 					Joe_Assets::js_onready('
 						inmap_create_map(
 							"' . $hash . '",
 							' . $geojson . ',
-							"' . $route_url . '"
+							' . $route_json . '
 						);
 					');
 			
