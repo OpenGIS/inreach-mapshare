@@ -59,27 +59,28 @@ class InMap_Inreach extends Joe_Class {
 			//Nothing fresh...
 			} else {
 				//Setup call
-				$ch = curl_init();
-				curl_setopt($ch, CURLOPT_URL, $this->request_string);
-				curl_setopt($ch, CURLOPT_POST, 1);
-				curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
-				curl_setopt($ch, CURLOPT_FOLLOWLOCATION, true);
+				$request_data = [];
 
 				if($auth_password = $this->get_parameter('mapshare_password')) {
-					curl_setopt($ch, CURLOPT_USERPWD, ":" . $auth_password);	//No username			
+					$request_data = [
+						'headers' => [
+							//Password only
+							'Authorization' => 'Basic ' . base64_encode( ':' . $auth_password )
+						]
+					];
 				}
+				
+				//https://developer.wordpress.org/plugins/http-api/
+				$response = wp_remote_get( $this->request_string, $request_data );
 
-				//Run it
-				curl_exec($ch);
-
-				//cURL success?
-				if(! curl_errno($ch)) {
-					$response_info = curl_getinfo($ch);
+				//Request success?
+				if(! is_wp_error($response)) {
+					$response_code = wp_remote_retrieve_response_code( $response );
 
 					switch(true) {
 						//Success
-						case strpos($response_info['http_code'], '2') === 0 :
-							$response_string = curl_multi_getcontent($ch);
+						case strpos($response_code, '2') === 0 :
+							$response_string = wp_remote_retrieve_body( $response );
 							
 							//Content has length
 							if(! empty($response_string)) {
@@ -101,18 +102,16 @@ class InMap_Inreach extends Joe_Class {
 					
 							break;
 						//Fail
-						case $response_info['http_code'] == '401' :
+						case $response_code == '401' :
 							Joe_Log::add(__('There was a problem with your MapShare Password.', Joe_Config::get_item('plugin_text_domain')), 'error', 'error_password');
 
 							break;
 						//Other
 						default :
-							Joe_Log::add(sprintf(__('Garmin returned a %s error.', Joe_Config::get_item('plugin_text_domain')), $response_info['http_code']), 'error', 'error_' . $response_info['http_code']);
+							Joe_Log::add(sprintf(__('Garmin returned a %s error.', Joe_Config::get_item('plugin_text_domain')), $response_code), 'error', 'error_' . $response_code);
 
 							break;
 					}
-			
-					curl_close($ch);
 				}
 			}	
 		}

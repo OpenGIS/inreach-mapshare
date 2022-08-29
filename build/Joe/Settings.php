@@ -190,9 +190,7 @@ class Joe_v1_0_Settings {
 
 		//For each tab		
 		foreach($this->tabs as $tab_key => $tab_data) {
-			$style = '';
-
-			echo '	<div class="' . Joe_v1_0_Helper::css_prefix() . 'settings-tab ' . Joe_v1_0_Helper::css_prefix() . 'settings-tab-' . $tab_key . '"' . $style . '>' . "\n";
+			echo '	<div class="' . Joe_v1_0_Helper::css_prefix() . 'settings-tab ' . Joe_v1_0_Helper::css_prefix() . 'settings-tab-' . esc_attr($tab_key) . '">' . "\n";
 
 			//Tab title?
 			if(array_key_exists('name', $tab_data)) {
@@ -209,13 +207,13 @@ class Joe_v1_0_Settings {
 			//For each section
 			foreach($tab_data['sections'] as $section_key => $section_data) {
 				$class = (isset($section_data['class'])) ? ' ' . $section_data['class'] : '';
-				echo '		<div class="' . Joe_v1_0_Helper::css_prefix() . 'settings-section ' . Joe_v1_0_Helper::css_prefix() . 'settings-section-' . $section_key . $class . '">' . "\n";
+				echo '		<div class="' . Joe_v1_0_Helper::css_prefix('settings-section') . ' ' . Joe_v1_0_Helper::css_prefix('settings-section-' . $section_key . $class) . '">' . "\n";
 				
 				//Help
 				if(array_key_exists('help', $section_data) && isset($section_data['help']['url'])) {
 					$help_text = (isset($section_data['help']['text'])) ? $section_data['help']['text'] : 'View Help &raquo;';
 
-					echo '		<a class="' . Joe_v1_0_Helper::css_prefix() . 'docs-link button" href="' . $section_data['help']['url'] . '" target="_blank">' . $help_text . '</a>' . "\n";				
+					echo '		<a class="' . Joe_v1_0_Helper::css_prefix('docs-link button') . '" href="' . esc_url_raw($section_data['help']['url']) . '" target="_blank">' . $help_text . '</a>' . "\n";				
 				}
 				
 				//Title
@@ -316,19 +314,19 @@ class Joe_v1_0_Settings {
 		return $input_data;
 	}	
 
-	public function settings_nav($current = 'tiles') {
+	public function settings_nav($current = '') {
 		if(! sizeof($this->settings_nav)) {
 			return;
 		}
 		
-		echo '<div id="' . Joe_v1_0_Helper::css_prefix() . 'settings-nav" data-init_tab_key="' . $current . '">' . "\n";
+		echo '<div id="' . Joe_v1_0_Helper::css_prefix() . 'settings-nav" data-init_tab_key="' . esc_attr($current) . '">' . "\n";
 		echo '	<select>' . "\n";
 
 		foreach($this->settings_nav as $content_id => $content_title) {
 			if(strpos($content_id, 'label') === 0) {
-				echo '	<option disabled="disabled">' . $content_title . '</option>' . "\n";				
+				echo '	<option disabled="disabled">' . esc_html($content_title) . '</option>' . "\n";				
 			} else {
-				echo '	<option value="' . $content_id . '"' . (($current == $content_id) ? ' selected="selected"' : '') . '>' . $content_title . '</option>' . "\n";				
+				echo '	<option value="' . esc_attr($content_id) . '"' . (($current == $content_id) ? ' selected="selected"' : '') . '>' . esc_html($content_title) . '</option>' . "\n";				
 			}
 		}
 
