@@ -1,10 +1,12 @@
 //Leaflet
 const inmap_maps = [];
 
-const inmap_create_map = function(map_hash = null, map_geojson = null) {
+const inmap_create_map = function(map_hash = null, map_geojson = null, route_json = null) {
 	if(! map_hash || ! map_geojson || ! jQuery || typeof inmap_L !== 'object') {
 		return false;
 	}
+	
+	console.log(route_json);
 	
 	var map_id = 'inmap-' + map_hash;
 	
