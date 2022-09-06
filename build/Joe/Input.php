@@ -446,24 +446,7 @@ class Joe_v1_0_Input {
 					
 		return $param_value;
 	}
-
-
-	/*
-		The use of eval() here is used for *additional* intput processing
-		of Settings values data already sanitized by the Settings API.	
-		
-		This allows us to specify additional PHP validation/string
-		manipulation in our App.
-		
-		As an example, to remove all non-alphanemeric values inputted by
-		we can specify the user:
-		
-		'input_processing' => [
-			'preg_replace("/[^\da-z]/i", "", $param_value);'
-		]
-		
-		Example usage: https://github.com/morehawes/inreach-mapshare/blob/ffd757501405dae26c82132aac6ab9410a6f766c/App/Settings.php#L38	
-	*/
+	
 	static function eval_processes_on_param_value($processes, $param_value) {
 		if(is_array($processes)) {
 			foreach($processes as $process) {
