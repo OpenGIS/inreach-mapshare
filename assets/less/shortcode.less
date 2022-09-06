@@ -74,7 +74,7 @@
 		}
 
 		&.inmap-info {
- 			overflow: scroll;
+ 			overflow-y: auto;
 
 			@media @break-sm {
 				.inmap-info-item {
@@ -290,7 +290,7 @@
 // 			transition: max-height 0.25s cubic-bezier(0, 1, 0, 1); 			
 
 			&.inmap-active {
-				overflow: scroll;
+				overflow-y: auto;
 				max-height: 320px;
 // 				transition: max-height 1s ease-in-out;
 			}
@@ -324,7 +324,7 @@
 				padding: 8px;
 				padding-left: 15px;
 				
-				overflow: scroll;
+				overflow-y: auto;
 
 				margin-left: 17px;
 				border-left: 1px solid @primary;					
@@ -525,6 +525,7 @@
 // ======== FULLSCREEN =======
 // ===========================
 body.inmap-has-single {
+	#joe-settings-nav,
 	.leaflet-map {
 		display: none;
 	}
@@ -552,7 +553,8 @@ body.inmap-has-single {
 		min-height: unset !important;		
 		max-width: unset !important;		
 		max-height: unset !important;		
-		overflow: hidden !important;		
+		overflow: hidden !important;
+		margin: 0 !important;		
 				
 		.inmap-map,
 		.inmap-info {		
