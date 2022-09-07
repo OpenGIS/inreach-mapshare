@@ -4,7 +4,7 @@
 Plugin Name: inReach MapShare
 Plugin URI: https://github.com/morehawes/inreach-mapshare
 Description: Display inReach MapShare data on your WordPress site. Visit the <a href="options-general.php?page=inreach-mapshare-settings">Settings</a> page to create and customise Shortcodes.
-Version: 1.0.1
+Version: 1.0.2
 Text Domain: inreach-mapshare
 Author: Joe Hawes
 Author URI: https://www.morehawes.co.uk/
@@ -50,7 +50,7 @@ add_action('init', function() {
 		'plugin_slug' => $plugin_slug,
 		'plugin_text_domain' => $plugin_slug,
 		'plugin_name' => $plugin_name,
-		'plugin_version' => '1.0.1',
+		'plugin_version' => '1.0.2',
 		'settings_id' => 'inmap_settings',
 		'settings_default_tab' => 'joe-settings-tab-mapshare',
 		'site_url' => 'https://wordpress.org/plugins/' . $plugin_slug . '/',

@@ -28,12 +28,27 @@ class Joe_v1_0_Settings {
 		//Add Menu link
 		add_action( 'admin_menu', [ $this, 'admin_menu'] );				
 		add_action( 'admin_init', [ $this, 'register_settings'] );				
-
-		//Only continue if we are on the Settings page
-		if($pagenow != $this->slug || ! isset($_GET['page']) || $_GET['page'] != $this->submenu_slug) {
-			return false;		
-		}
 		
+		//Only continue if we are on *OUR* Settings page
+
+		//Get
+		if(! sizeof($_POST)) {
+			if($pagenow != $this->slug) {
+				return false;		
+			}
+
+			//Check URL
+			if(! isset($_GET['page']) || $_GET['page'] != $this->submenu_slug) {
+				return false;
+			}
+		//Post
+		} else {
+			//Check submission
+	 		if(! isset($_POST['option_page']) || $_POST['option_page'] != Joe_v1_0_Config::get_item('settings_id')) {
+	 			return false;
+	 		}		
+		}
+
 		//Joe Plugin
 		$this->add_setting_tab('joe', [
 			'sections' => [
@@ -299,7 +314,7 @@ class Joe_v1_0_Settings {
 								//If no input processing specified
 								if(! array_key_exists('input_processing', $field_definition)) {
 									//Make safe by default
-									$field_definition['input_processing'][] = 'htmlspecialchars($param_value)';								
+									$field_definition['input_processing'][] = 'encode_special';								
 								}
 																						
 								//Process the input

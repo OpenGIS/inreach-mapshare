@@ -44,7 +44,7 @@ class InMap_Settings extends Joe_Settings {
 							'prepend' => 'share.garmin.com/',
 							//Remove all non-alphanemeric
 							'input_processing' => [
-								'preg_replace("/[^\da-z]/i", "", $param_value);'
+								'strip_special'
 							]
 						],
 						'mapshare_password' => [
@@ -85,10 +85,10 @@ class InMap_Settings extends Joe_Settings {
 							'title' => esc_html__('Basemap Attribution', Joe_Config::get_item('plugin_text_domain')),
 							'tip' => esc_html__('Mapping services often have the requirement that attribution is displayed by the map. Text and HTML links are supported.', Joe_Config::get_item('plugin_text_domain')),
 							'input_processing' => array(
-								'(! strpos($param_value, "&")) ? htmlspecialchars($param_value) : $param_value'
+								'encode_special'
 							),
 							'output_processing' => array(
-								'(! strpos($param_value, "&")) ? htmlspecialchars($param_value) : $param_value'
+								'encode_special'
 							)																						
 						]						
 					]

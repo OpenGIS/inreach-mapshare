@@ -432,7 +432,7 @@ class Joe_v1_0_Input {
 	static function process_input($param_def, $param_value) {
 		//Do processing
 		if(array_key_exists('input_processing', $param_def)) {
-			$param_value = static::eval_processes_on_param_value($param_def['input_processing'], $param_value);
+			$param_value = static::process_param_value($param_def['input_processing'], $param_value);
 		}		
 		
 		return $param_value;
@@ -441,13 +441,13 @@ class Joe_v1_0_Input {
 	static function process_output($param_def, $param_value) {
 		//Do processing
 		if(array_key_exists('output_processing', $param_def)) {
-			$param_value = static::eval_processes_on_param_value($param_def['output_processing'], $param_value);
+			$param_value = static::process_param_value($param_def['output_processing'], $param_value);
 		}
 					
 		return $param_value;
 	}
 	
-	static function eval_processes_on_param_value($processes, $param_value) {
+	static function process_param_value($processes, $param_value) {
 		if(is_array($processes)) {
 			foreach($processes as $process) {
 				//Values stored in array
@@ -459,7 +459,7 @@ class Joe_v1_0_Input {
 			
 						//Process
 						$param_value = trim($param_value);			
-						eval("\$param_value = $process;");				
+						$param_value = self::do_processing($param_value, $process);				
 			
 						//Back into array
 						$param_value = array($param_value);											
@@ -471,7 +471,7 @@ class Joe_v1_0_Input {
 						foreach($param_values as $param_value) {
 							//Process each value
 							$param_value = trim($param_value);									
-							eval("\$param_value = $process;");	
+							$param_value = self::do_processing($param_value, $process);	
 			
 							$param_value_out[] = $param_value;
 						}
@@ -482,7 +482,7 @@ class Joe_v1_0_Input {
 				//Single value stored in string
 				} else {	
 					$param_value = trim($param_value);			
-					eval("\$param_value = $process;");						
+					$param_value = self::do_processing($param_value, $process);						
 				}	
 			}
 		}		
@@ -541,4 +541,19 @@ class Joe_v1_0_Input {
 		
 		return false;
 	}	
+	
+	public static function do_processing($param_value = '', $process = '') {
+		switch($process) {
+			case 'encode_special' :
+				$param_value = (! strpos($param_value, "&")) ? htmlspecialchars($param_value) : $param_value;
+			
+				break;
+			case 'strip_special' :
+				$param_value = preg_replace("/[^\da-z]/i", "", $param_value);
+				
+				break;
+		}
+
+		return $param_value;
+	}
 }
