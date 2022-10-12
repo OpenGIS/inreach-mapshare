@@ -84,7 +84,24 @@ This plugin requests data from your MapShare page and embeds it anywhere Shortco
 
 ## Screenshots ##
 
-1. 
+### 1. Map embedded in WordPress page ###
+![Map embedded in WordPress page](https://raw.githubusercontent.com/morehawes/inreach-mapshare/master/assets/plugin/screenshot-1.png)
+
+### 2. Responsive design shown on small screen ###
+![Responsive design shown on small screen](https://raw.githubusercontent.com/morehawes/inreach-mapshare/master/assets/plugin/screenshot-2.png)
+
+### 3. Responsive design shown on large screen ###
+![Responsive design shown on large screen](https://raw.githubusercontent.com/morehawes/inreach-mapshare/master/assets/plugin/screenshot-3.png)
+
+### 4. Shortcode Generator (WP Admin > Settings > inReach MapShare) ###
+![Shortcode Generator (WP Admin > Settings > inReach MapShare)](https://raw.githubusercontent.com/morehawes/inreach-mapshare/master/assets/plugin/screenshot-4.png)
+
+### 5. Appearance Options (WP Admin > Settings > inReach MapShare)  ###
+![Appearance Options (WP Admin > Settings > inReach MapShare) ](https://raw.githubusercontent.com/morehawes/inreach-mapshare/master/assets/plugin/screenshot-5.png)
+
+### 6. Advanced Options (WP Admin > Settings > inReach MapShare) ###
+![Advanced Options (WP Admin > Settings > inReach MapShare)](https://raw.githubusercontent.com/morehawes/inreach-mapshare/master/assets/plugin/screenshot-6.png)
+
 
 ## Changelog ##
 

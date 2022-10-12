@@ -96,7 +96,7 @@ module.exports = function(grunt) {
 					'readme.md': 'readme.txt'
 				},
 				options: {
-					screenshot_url: 'https://raw.githubusercontent.com/morehawes/inreach-mapshare/master/assets/wordpress-org/{screenshot}.png',
+					screenshot_url: 'https://raw.githubusercontent.com/morehawes/inreach-mapshare/master/assets/plugin/{screenshot}.png',
 					post_convert: function(content) {
 						//Remove unsupported Vimeo tags
 						return content.replace(/\[vimeo(.*)\]\n*/g, '');

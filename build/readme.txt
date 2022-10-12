@@ -54,7 +54,7 @@ If you experience any issues with the plugin, ensure that your MapShare page (i.
 
 **Important! Even if you have a MapShare password set, this plugin simply uses it to request your data; it does not protect it from being viewed. You are responsible for <a href="https://wordpress.org/support/article/using-password-protection/">protecting access</a> if needed.**
 
-Please report issues or make suggestions by creating a <a href="https://github.com/morehawes/inreach-mapshare/issues">GitHub issue</a>.
+Please report issues or make suggestions by creating either a <a href="https://wordpress.org/support/plugin/inreach-mapshare/">support topic</a>, or <a href="https://github.com/morehawes/inreach-mapshare/issues">GitHub issue</a>.
 
 *This plugin is free, open-source software and is not maintained by Garmin. Data is requested from the Garmin <a href="https://support.garmin.com/?faq=tdlDCyo1fJ5UxjUbA9rMY8">inReach KML Feeds</a> service.*
 
@@ -84,7 +84,12 @@ This plugin requests data from your MapShare page and embeds it anywhere Shortco
 
 == Screenshots ==
 
-1. 
+1. Map embedded in WordPress page
+2. Responsive design shown on small screen
+3. Responsive design shown on large screen
+4. Shortcode Generator (WP Admin > Settings > inReach MapShare)
+5. Appearance Options (WP Admin > Settings > inReach MapShare) 
+6. Advanced Options (WP Admin > Settings > inReach MapShare)
 
 == Changelog ==
 
