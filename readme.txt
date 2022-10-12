@@ -84,7 +84,12 @@ This plugin requests data from your MapShare page and embeds it anywhere Shortco
 
 == Screenshots ==
 
-1. 
+1. Map embedded in WordPress page
+2. Responsive design shown on small screen
+3. Responsive design shown on large screen
+4. Shortcode Generator (WP Admin > Settings > inReach MapShare)
+5. Appearance Options (WP Admin > Settings > inReach MapShare) 
+6. Advanced Options (WP Admin > Settings > inReach MapShare)
 
 == Changelog ==
 
