@@ -115,7 +115,8 @@ class InMap_Shortcode extends Joe_Shortcode {
 			'mapshare_identifier' => 'demo',
 			'mapshare_password' => false,
 			'mapshare_date_start' => false,
-			'mapshare_date_end' => false
+			'mapshare_date_end' => false,
+			'mapshare_route_url' => false			
 		), $shortcode_data, Joe_Config::get_item('plugin_shortcode'));
 	
 		if($shortcode_data['mapshare_identifier']) {					
@@ -147,12 +148,26 @@ class InMap_Shortcode extends Joe_Shortcode {
 					$point_text = ($point_count == 1) ? __('Point', Joe_Config::get_item('plugin_text_domain')) : __('Points', Joe_Config::get_item('plugin_text_domain'));
 							
 					Joe_Log::add(sprintf(__('Displaying %s MapShare', Joe_Config::get_item('plugin_text_domain')), $point_count) . ' ' . $point_text, 'success', 'rendering_points');
+					
+					//Route?
+					$route_json = null;
+					$route_url = filter_var($shortcode_data['mapshare_route_url'], FILTER_VALIDATE_URL);
+					if($route_url && $route_json = file_get_contents($route_url)) {
 						
+						//Valid
+						if(json_decode($route_json)) {
+							Joe_Log::add(__('Displaying route JSON.', Joe_Config::get_item('plugin_text_domain')), 'success', 'route_valid');						
+						} else {
+							Joe_Log::add(__('Invalid route JSON.', Joe_Config::get_item('plugin_text_domain')), 'error', 'route_invalid');
+						}						
+					}
+					
 					//JS
 					Joe_Assets::js_onready('
 						inmap_create_map(
 							"' . $hash . '",
-							' . $geojson . '
+							' . $geojson . ',
+							' . $route_json . '
 						);
 					');
 			
