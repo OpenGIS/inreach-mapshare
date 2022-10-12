@@ -1,7 +1,7 @@
 //Leaflet
 const inmap_maps = [];
 
-const inmap_create_map = function(map_hash = null, map_geojson = null) {
+const inmap_create_map = function(map_hash = null, map_geojson = null, route_json = null) {
 	if(! map_hash || ! map_geojson || ! jQuery || typeof inmap_L !== 'object') {
 		return false;
 	}
@@ -240,6 +240,21 @@ const inmap_create_map = function(map_hash = null, map_geojson = null) {
 		}		
 	};
 
+	var display_geojson = function(geojson) {
+		//JSON layer
+		inmap_L.geoJSON(geojson, {
+			//Style
+			style: {
+				"color": "#ff7800",
+				"weight": 3,
+				"opacity": 0.5			
+			},
+			onEachFeature: function(feature, layer) {
+				layer.bindTooltip('Planned Route');	
+			}			
+		}).addTo(map_l);
+	};
+
 	// Create Tile Layer
 
 	//Basemap
@@ -330,7 +345,7 @@ const inmap_create_map = function(map_hash = null, map_geojson = null) {
 			});
 		}
 	});
-	
+		
 	//Add
 	data_layer.addTo(map_l);
 	
@@ -339,5 +354,10 @@ const inmap_create_map = function(map_hash = null, map_geojson = null) {
 		setup_ui();
 	});
 	
-	map_l.fitBounds(data_layer.getBounds());
+ 	map_l.fitBounds(data_layer.getBounds());
+	
+	//Route? (must be valid JSON)
+	if(route_json && JSON.stringify(route_json)) {
+		display_geojson(route_json);
+	}
 };

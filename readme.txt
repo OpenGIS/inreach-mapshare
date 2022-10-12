@@ -4,7 +4,7 @@ Tags: inreach, mapshare, embed, map, share, location
 Requires at least: 4.6
 Tested up to: 6.0
 Requires PHP: 7.4
-Stable tag: 1.0.2
+Stable tag: 1.1
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
@@ -24,11 +24,18 @@ By default only your most recent location is displayed. To display more data, St
 [inreach-mapshare mapshare_identifier="your_identifier" mapshare_date_start="2022-06-15T00:00" mapshare_date_end="2022-07-31T23:59"]
 `
 
+You can display a GeoJSON Route accessible via a URL like this:
+
+`
+[inreach-mapshare mapshare_route_url="https://www.example.com/my-route.geojson" mapshare_identifier="your_identifier" mapshare_date_start="2022-06-15T00:00"]
+`
+
 The MapShare feature must be enabled in the <a href="https://explore.garmin.com/Social">Social</a> tab of your Garmin Explore account.
 
 Features:
 
 * Embed an interactive Map and timeline containing track points and messages shared with your MapShare page.
+* Display your planned route using the Shortcode (URL accessible GeoJSON supported).
 * Each point displayed contains the following information:
 	* Time UTC
 	* Time (local)
@@ -92,6 +99,10 @@ This plugin requests data from your MapShare page and embeds it anywhere Shortco
 6. Advanced Options (WP Admin > Settings > inReach MapShare)
 
 == Changelog ==
+
+= 1.1 =
+
+Display your planned route using the Shortcode (URL accessible GeoJSON supported).
 
 = 1.0.2 = 
 
