@@ -53,9 +53,9 @@ add_action('init', function() {
 		'plugin_version' => '1.0.2',
 		'settings_id' => 'inmap_settings',
 		'settings_default_tab' => 'joe-settings-tab-mapshare',
-		'site_url' => 'https://wordpress.org/plugins/' . $plugin_slug . '/',
-		'directory_url' => 'https://wordpress.org/plugins/' . $plugin_slug . '/',
-		'github_url' => 'https://github.com/morehawes/inreach-mapshare',
+		'site_url' => 'https://github.com/morehawes/inreach-mapshare/',
+// 		'directory_url' => 'https://wordpress.org/plugins/' . $plugin_slug . '/',
+		'github_url' => 'https://github.com/morehawes/inreach-mapshare/',
 		'plugin_shortcode' => $plugin_slug,
 		'plugin_about' => '
 			<p class="joe-lead">' . sprintf(__('Display your live <a href="%s">MapShare</a> data with a simple Shortcode.', Joe_Config::get_item('plugin_text_domain')), 'https://support.garmin.com/?faq=p2lncMOzqh71P06VifrQE7') . '</p>
