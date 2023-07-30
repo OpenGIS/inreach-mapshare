@@ -2,9 +2,10 @@
 
 class InMap_Inreach extends Joe_Class {
 
-	private $request_endpoint = 'https://explore.garmin.com/feed/share/';
-	
-	private $request_data = [];
+	// private $request_endpoint = 'https://explore.garmin.com/feed/share/';
+	private $request_endpoint = 'https://share.garmin.com/feed/share/';
+ 
+ 	private $request_data = [];
 
 	private $cache_id = '';	
 	private $cache_response = [];

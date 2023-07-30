@@ -4,7 +4,7 @@
 **Requires at least:** 4.6  
 **Tested up to:** 6.0  
 **Requires PHP:** 7.4  
-**Stable tag:** 1.1  
+**Stable tag:** 1.2  
 **License:** GPLv2 or later  
 **License URI:** http://www.gnu.org/licenses/gpl-2.0.html  
 
@@ -111,6 +111,10 @@ This plugin requests data from your MapShare page and embeds it anywhere Shortco
 
 
 ## Changelog ##
+
+### 1.2 ###
+
+Updated Garmin request endpoint, as the existing one was not working for some users. Thanks to <a href="https://github.com/Lastone17">Lastone17</a> for <a href="https://github.com/morehawes/inreach-mapshare/issues/2">raising this issue</a>.
 
 ### 1.1 ###
 
