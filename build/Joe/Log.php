@@ -1,6 +1,6 @@
 <?php
 
-class Joe_v1_0_Log {
+class Joe_v1_2_Log {
 
 	private static $log = [];
 	private static $by_type = [];
@@ -29,19 +29,19 @@ class Joe_v1_0_Log {
 	public static function out($content = '') {
 		switch(static::$output_type) {
 			case 'notice' :
-				$latest = Joe_v1_0_Log::latest();
+				$latest = Joe_v1_2_Log::latest();
 				$type = isset($latest['type']) ? $latest['type'] : '';
 				if(static::$in_success && static::latest_warning()) {
 					$type = 'warning';
 				}
 				
-				Joe_v1_0_Assets::js_onready('joe_admin_message("' . $content . '", "' . $type . '")');
+				Joe_v1_2_Assets::js_onready('joe_admin_message("' . $content . '", "' . $type . '")');
 		
 				break;
 
 			default :
 			case 'console' :
-				Joe_v1_0_Assets::js_inline('console.log("' . strip_tags($content) . '");');
+				Joe_v1_2_Assets::js_inline('console.log("' . strip_tags($content) . '");');
 		
 				break;
 
@@ -146,7 +146,7 @@ class Joe_v1_0_Log {
 		$log_content = '';
 
 		//Not debugging
-		if(! Joe_v1_0_Helper::do_debug() && $latest = Joe_v1_0_Log::latest()) {
+		if(! Joe_v1_2_Helper::do_debug() && $latest = Joe_v1_2_Log::latest()) {
 			//Success with warningS
 			if(static::$in_success && static::latest_warning()) {
  				for($i = 0; $i < sizeof(static::$by_type['warning']); $i++) {
@@ -192,7 +192,7 @@ class Joe_v1_0_Log {
 			case 'notice' :
 				$out = '<b>[' . ucwords($item['type']) . ']</b> ' . $item['message'];
 				
-				if(Joe_v1_0_Helper::do_debug()) {
+				if(Joe_v1_2_Helper::do_debug()) {
 					$out .= ' (' . $code . ')';
 				}
 				
@@ -203,7 +203,7 @@ class Joe_v1_0_Log {
 				if($code) {
 					$code = '=' . $code;
 				}
-				return '[' . Joe_v1_0_Config::get_name() . ' ' . ucwords($item['type']) . $code . '] ' . $item['message'] . '\n';
+				return '[' . Joe_v1_2_Config::get_name() . ' ' . ucwords($item['type']) . $code . '] ' . $item['message'] . '\n';
 		}
 		
 		return false;

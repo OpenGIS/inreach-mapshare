@@ -1,6 +1,6 @@
 <?php
 
-class Joe_v1_0_Admin {
+class Joe_v1_2_Admin {
 
 	protected $current_screen;
 
@@ -16,19 +16,19 @@ class Joe_v1_0_Admin {
 	}
 	
 	function load_assets() {
- 		Joe_v1_0_Assets::js_onready('jQuery("body").addClass("joe-admin");');						 		
+ 		Joe_v1_2_Assets::js_onready('jQuery("body").addClass("joe-admin");');						 		
  		
 		//Enqueue
-		Joe_v1_0_Assets::css_enqueue([
-			'url' => Joe_v1_0_Helper::plugin_url('assets/css/joe-admin.min.css'),
+		Joe_v1_2_Assets::css_enqueue([
+			'url' => Joe_v1_2_Helper::plugin_url('assets/css/joe-admin.min.css'),
 			'deps' => [
 // 				'jquery-ui-datepicker'			
 			]
 		]);			
 
-		Joe_v1_0_Assets::js_enqueue([
+		Joe_v1_2_Assets::js_enqueue([
 			'id' => 'joe_admin_js',
-			'url' => Joe_v1_0_Helper::plugin_url('assets/js/joe-admin.min.js'),
+			'url' => Joe_v1_2_Helper::plugin_url('assets/js/joe-admin.min.js'),
 			'deps' => [ 
 				'jquery',
 				'jquery-ui-sortable',
@@ -36,14 +36,14 @@ class Joe_v1_0_Admin {
  				'wp-color-picker'
 			],
 			'data' => [
-				'multi_value_seperator' => Joe_v1_0_Config::get_item('multi_value_seperator'),			
+				'multi_value_seperator' => Joe_v1_2_Config::get_item('multi_value_seperator'),			
 				'lang' => [
 					//Editor
-					'repeatable_delete_title' => esc_attr__('Remove!', Joe_v1_0_Config::get_item('plugin_text_domain')),
-					'error_message_prefix' => esc_attr__('Error', Joe_v1_0_Config::get_item('plugin_text_domain')),	
-					'info_message_prefix' => esc_attr__('Info', Joe_v1_0_Config::get_item('plugin_text_domain')),
-					'success_message_prefix' => esc_attr__('Success', Joe_v1_0_Config::get_item('plugin_text_domain')),
-					'warning_message_prefix' => esc_attr__('Warning', Joe_v1_0_Config::get_item('plugin_text_domain'))
+					'repeatable_delete_title' => esc_attr__('Remove!', Joe_v1_2_Config::get_item('plugin_text_domain')),
+					'error_message_prefix' => esc_attr__('Error', Joe_v1_2_Config::get_item('plugin_text_domain')),	
+					'info_message_prefix' => esc_attr__('Info', Joe_v1_2_Config::get_item('plugin_text_domain')),
+					'success_message_prefix' => esc_attr__('Success', Joe_v1_2_Config::get_item('plugin_text_domain')),
+					'warning_message_prefix' => esc_attr__('Warning', Joe_v1_2_Config::get_item('plugin_text_domain'))
 				]						
 			]
 		]);				
@@ -54,6 +54,6 @@ class Joe_v1_0_Admin {
 	}
 
 	function admin_head() {
-		echo '<meta name="' . Joe_v1_0_Config::get_name(true, true) . ' Version" content="' . Joe_v1_0_Config::get_version() . '" />' . "\n";	
+		echo '<meta name="' . Joe_v1_2_Config::get_name(true, true) . ' Version" content="' . Joe_v1_2_Config::get_version() . '" />' . "\n";	
 	}
 }

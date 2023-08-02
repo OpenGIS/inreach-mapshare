@@ -1,6 +1,6 @@
 <?php
 
-class Joe_v1_0_Config {
+class Joe_v1_2_Config {
 	//Set defaults
 	protected static $fallback = [];
 	protected static $default = [];
@@ -82,8 +82,8 @@ class Joe_v1_0_Config {
 						}
 					}
 					
-					$values = Joe_v1_0_Helper::convert_values_to_single_value($values);
-					$values = Joe_v1_0_Helper::convert_single_value_to_array($values);				
+					$values = Joe_v1_2_Helper::convert_values_to_single_value($values);
+					$values = Joe_v1_2_Helper::convert_single_value_to_array($values);				
 			
 					return $values;
 				}

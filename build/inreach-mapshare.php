@@ -4,7 +4,7 @@
 Plugin Name: inReach MapShare
 Plugin URI: https://github.com/morehawes/inreach-mapshare
 Description: Display inReach MapShare data on your WordPress site. Visit the <a href="options-general.php?page=inreach-mapshare-settings">Settings</a> page to create and customise Shortcodes.
-Version: 1.1
+Version: 1.2
 Text Domain: inreach-mapshare
 Author: Joe Hawes
 Author URI: https://www.morehawes.co.uk/
@@ -43,14 +43,14 @@ add_action('init', function() {
 	$colour_primary = '#e524ab';
 	
 	//Icon URLs	
-	$message_icon = Joe_v1_0_Helper::asset_url('img/message.svg', $plugin_slug);
-	$tracking_icon = Joe_v1_0_Helper::asset_url('img/location-gps.svg', $plugin_slug);
+	$message_icon = Joe_v1_2_Helper::asset_url('img/message.svg', $plugin_slug);
+	$tracking_icon = Joe_v1_2_Helper::asset_url('img/location-gps.svg', $plugin_slug);
 
 	$config = [
 		'plugin_slug' => $plugin_slug,
 		'plugin_text_domain' => $plugin_slug,
 		'plugin_name' => $plugin_name,
-		'plugin_version' => '1.1',
+		'plugin_version' => '1.2',
 		'settings_id' => 'inmap_settings',
 		'settings_default_tab' => 'joe-settings-tab-mapshare',
 		'site_url' => 'https://github.com/morehawes/inreach-mapshare/',
@@ -58,9 +58,9 @@ add_action('init', function() {
 		'github_url' => 'https://github.com/morehawes/inreach-mapshare/',
 		'plugin_shortcode' => $plugin_slug,
 		'plugin_about' => '
-			<p class="joe-lead">' . sprintf(__('Display your live <a href="%s">MapShare</a> data with a simple Shortcode.', Joe_v1_0_Config::get_item('plugin_text_domain')), 'https://support.garmin.com/?faq=p2lncMOzqh71P06VifrQE7') . '</p>
+			<p class="joe-lead">' . sprintf(__('Display your live <a href="%s">MapShare</a> data with a simple Shortcode.', Joe_v1_2_Config::get_item('plugin_text_domain')), 'https://support.garmin.com/?faq=p2lncMOzqh71P06VifrQE7') . '</p>
 						
-			<p>' . sprintf(__('Enable and configure MapShare in the <a href="%s">Social</a> tab of your Garmin Explore Account.', Joe_v1_0_Config::get_item('plugin_text_domain')), 'https://explore.garmin.com/Social') . '</p>
+			<p>' . sprintf(__('Enable and configure MapShare in the <a href="%s">Social</a> tab of your Garmin Explore Account.', Joe_v1_2_Config::get_item('plugin_text_domain')), 'https://explore.garmin.com/Social') . '</p>
 		',
 	
 		//KML
@@ -114,7 +114,7 @@ add_action('init', function() {
 		]
 	];
 
-	Joe_v1_0_Config::init($config);
+	Joe_v1_2_Config::init($config);
 	
 	new InMap_Admin;
 	new InMap_Front;	

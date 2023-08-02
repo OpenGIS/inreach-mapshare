@@ -1,6 +1,6 @@
 <?php
 
-class InMap_Front extends Joe_v1_0_Front {
+class InMap_Front extends Joe_v1_2_Front {
 	function __construct() {
 		parent::__construct();
 
@@ -15,6 +15,6 @@ class InMap_Front extends Joe_v1_0_Front {
 	}
 
 	function wp_head() {
-		echo '<meta name="' . Joe_v1_0_Config::get_name(true, true) . ' Version" content="' . Joe_v1_0_Config::get_version() . '" />' . "\n";	
+		echo '<meta name="' . Joe_v1_2_Config::get_name(true, true) . ' Version" content="' . Joe_v1_2_Config::get_version() . '" />' . "\n";	
 	}
 }

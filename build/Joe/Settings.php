@@ -1,6 +1,6 @@
 <?php
 
-class Joe_v1_0_Settings {
+class Joe_v1_2_Settings {
 
 	private $default_slug = 'options-general.php';
 	private $submenu_slug;
@@ -20,10 +20,10 @@ class Joe_v1_0_Settings {
 		}
 		
 		//Determine page slug
-		if(! $this->slug = Joe_v1_0_Config::get_item( 'settings_menu_slug' ) ) {
+		if(! $this->slug = Joe_v1_2_Config::get_item( 'settings_menu_slug' ) ) {
 			$this->slug = $this->default_slug;
 		}
-		$this->submenu_slug = Joe_v1_0_Helper::slug_prefix('settings', '-');		
+		$this->submenu_slug = Joe_v1_2_Helper::slug_prefix('settings', '-');		
 
 		//Add Menu link
 		add_action( 'admin_menu', [ $this, 'admin_menu'] );				
@@ -44,7 +44,7 @@ class Joe_v1_0_Settings {
 		//Post
 		} else {
 			//Check submission
-	 		if(! isset($_POST['option_page']) || $_POST['option_page'] != Joe_v1_0_Config::get_item('settings_id')) {
+	 		if(! isset($_POST['option_page']) || $_POST['option_page'] != Joe_v1_2_Config::get_item('settings_id')) {
 	 			return false;
 	 		}		
 		}
@@ -53,24 +53,24 @@ class Joe_v1_0_Settings {
 		$this->add_setting_tab('joe', [
 			'sections' => [
 				'cache' => [		
-					'title' => esc_html__('Cache', Joe_v1_0_Config::get_item('plugin_text_domain')),
+					'title' => esc_html__('Cache', Joe_v1_2_Config::get_item('plugin_text_domain')),
 					'fields' => [
 						'minutes' => [
-							'required' => Joe_v1_0_Config::get_fallback('joe', 'cache', 'minutes'),
+							'required' => Joe_v1_2_Config::get_fallback('joe', 'cache', 'minutes'),
 							'class' => 'joe-short-input',
-							'title' => esc_html__('Minutes', Joe_v1_0_Config::get_item('plugin_text_domain')),
-							'tip' => esc_attr__('How often the Cache updates.', Joe_v1_0_Config::get_item('plugin_text_domain'))
+							'title' => esc_html__('Minutes', Joe_v1_2_Config::get_item('plugin_text_domain')),
+							'tip' => esc_attr__('How often the Cache updates.', Joe_v1_2_Config::get_item('plugin_text_domain'))
 						]						
 					],
 				],
 				'debug' => [		
-					'title' => esc_html__('Debug', Joe_v1_0_Config::get_item('plugin_text_domain')),
+					'title' => esc_html__('Debug', Joe_v1_2_Config::get_item('plugin_text_domain')),
 					'fields' => [
 						'enabled' => [
-							'required' => Joe_v1_0_Config::get_fallback('joe', 'debug', 'enabled'),
+							'required' => Joe_v1_2_Config::get_fallback('joe', 'debug', 'enabled'),
 							'type' => 'boolean',
-							'title' => esc_html__('Enabled', Joe_v1_0_Config::get_item('plugin_text_domain')),
-							'tip' => esc_attr__('Display useful infomation to administrators (admin notices and browser console logging).', Joe_v1_0_Config::get_item('plugin_text_domain'))
+							'title' => esc_html__('Enabled', Joe_v1_2_Config::get_item('plugin_text_domain')),
+							'tip' => esc_attr__('Display useful infomation to administrators (admin notices and browser console logging).', Joe_v1_2_Config::get_item('plugin_text_domain'))
 						]						
 					]
 				]				
@@ -78,7 +78,7 @@ class Joe_v1_0_Settings {
 		]);
 	
 		//Get current settings from DB
-		$current_settings = get_option(Joe_v1_0_Config::get_item('settings_id'));
+		$current_settings = get_option(Joe_v1_2_Config::get_item('settings_id'));
 		if(is_array($current_settings) && sizeof($current_settings)) {
 			$this->current_settings = $current_settings;
 		}	
@@ -103,9 +103,9 @@ class Joe_v1_0_Settings {
 	//Menu link
 	public function admin_menu() {
 		if($this->slug != $this->default_slug) {
-			$text = esc_html__('Settings', Joe_v1_0_Config::get_item('plugin_text_domain'));		
+			$text = esc_html__('Settings', Joe_v1_2_Config::get_item('plugin_text_domain'));		
 		} else {
-			$text = Joe_v1_0_Helper::plugin_name();						
+			$text = Joe_v1_2_Helper::plugin_name();						
 		}
 	
 		add_submenu_page($this->slug, $text, $text, 'manage_options', $this->submenu_slug, array($this, 'content_admin_page'));					    
@@ -117,7 +117,7 @@ class Joe_v1_0_Settings {
 
 
 	public function register_settings(){
-		register_setting( Joe_v1_0_Config::get_item('settings_id'), Joe_v1_0_Config::get_item( 'settings_id' ), [ $this , 'sanitize_callback' ] );
+		register_setting( Joe_v1_2_Config::get_item('settings_id'), Joe_v1_2_Config::get_item( 'settings_id' ), [ $this , 'sanitize_callback' ] );
 
 		//For each tab		
 		foreach($this->tabs as $tab_key => $tab_data) {		
@@ -127,7 +127,7 @@ class Joe_v1_0_Settings {
 				$section_data['title'] = (isset($section_data['title'])) ? $section_data['title'] : '';
 				
 				//Create section
-				add_settings_section($section_key, $section_data['title'], [ $this, 'section_text' ] , Joe_v1_0_Config::get_item('settings_id'));		
+				add_settings_section($section_key, $section_data['title'], [ $this, 'section_text' ] , Joe_v1_2_Config::get_item('settings_id'));		
 				
 				//For each field in section
 				if(isset($section_data['fields']) && is_array($section_data['fields']) && sizeof($section_data['fields'])) {
@@ -150,7 +150,7 @@ class Joe_v1_0_Settings {
 								//Check for empty
 								if(empty($setting_val) && isset($field['required']) && $field['required']) {	
 									//Use fallback
-									$field['set_value'] = Joe_v1_0_Config::get_setting($tab_key, $section_key, $field['name'], true);
+									$field['set_value'] = Joe_v1_2_Config::get_setting($tab_key, $section_key, $field['name'], true);
 								} else {
 									$field['set_value'] = $setting_val;								
 								}
@@ -158,17 +158,17 @@ class Joe_v1_0_Settings {
 						}
 						
 						//Modify name for multi-dimensional array
-						$field['name'] = Joe_v1_0_Config::get_item('settings_id') . '[' . $tab_key . '][' . $section_key . '][' . $field['name'] . ']';
+						$field['name'] = Joe_v1_2_Config::get_item('settings_id') . '[' . $tab_key . '][' . $section_key . '][' . $field['name'] . ']';
 						
 						//Repeatable section
 						if(isset($section_data['repeatable']) && $section_data['repeatable']) {
 							//Get count
-							$repeatable_count = Joe_v1_0_Helper::get_section_repeatable_count($section_data);
+							$repeatable_count = Joe_v1_2_Helper::get_section_repeatable_count($section_data);
 							
 							//Must be an array
 							if(! is_array($field['default']) ) {
 								//Make array
-								$field['default'] = Joe_v1_0_Helper::convert_single_value_to_array($field['default']);
+								$field['default'] = Joe_v1_2_Helper::convert_single_value_to_array($field['default']);
 							}
 							
 							//Array size must match
@@ -178,7 +178,7 @@ class Joe_v1_0_Settings {
 							}							
 						}	
 
-						add_settings_field($field['name'], $field['title'], [ $this, 'create_input' ], Joe_v1_0_Config::get_item('settings_id'), $section_key, $field);														
+						add_settings_field($field['name'], $field['title'], [ $this, 'create_input' ], Joe_v1_2_Config::get_item('settings_id'), $section_key, $field);														
 					}						
 				}			
 			}			
@@ -186,14 +186,14 @@ class Joe_v1_0_Settings {
 	}
 
 	public function content_admin_page() {
-		echo '<div id="' . Joe_v1_0_Helper::css_prefix() . 'admin-container">' . "\n";
+		echo '<div id="' . Joe_v1_2_Helper::css_prefix() . 'admin-container">' . "\n";
 
-		echo Joe_v1_0_Helper::plugin_about();
+		echo Joe_v1_2_Helper::plugin_about();
 
 		echo '	<div class="card">' . "\n";	
 
 		//Tabs
-		$active_content = (isset($_GET['content'])) ? $_GET['content'] : Joe_v1_0_Config::get_item('settings_default_tab');
+		$active_content = (isset($_GET['content'])) ? $_GET['content'] : Joe_v1_2_Config::get_item('settings_default_tab');
 		$this->settings_nav($active_content);
 
 		//Prepend?
@@ -201,34 +201,34 @@ class Joe_v1_0_Settings {
 
 		//Open form
 		echo '		<form action="' . admin_url('options.php') . '" method="post">' . "\n";
-		settings_fields(Joe_v1_0_Config::get_item('settings_id'));
+		settings_fields(Joe_v1_2_Config::get_item('settings_id'));
 
 		//For each tab		
 		foreach($this->tabs as $tab_key => $tab_data) {
-			echo '	<div class="' . Joe_v1_0_Helper::css_prefix() . 'settings-tab ' . Joe_v1_0_Helper::css_prefix() . 'settings-tab-' . esc_attr($tab_key) . '">' . "\n";
+			echo '	<div class="' . Joe_v1_2_Helper::css_prefix() . 'settings-tab ' . Joe_v1_2_Helper::css_prefix() . 'settings-tab-' . esc_attr($tab_key) . '">' . "\n";
 
 			//Tab title?
 			if(array_key_exists('name', $tab_data)) {
-				echo '	<h2 class="' . Joe_v1_0_Helper::css_prefix() . 'settings-tab-title">' . $tab_data['name'] . '</h2>' . "\n";
+				echo '	<h2 class="' . Joe_v1_2_Helper::css_prefix() . 'settings-tab-title">' . $tab_data['name'] . '</h2>' . "\n";
 			}
 
 			//Tab description?
 			if(array_key_exists('description', $tab_data)) {
 				$tab_description = $tab_data['description'];
 				
-				echo '	<div class="' . Joe_v1_0_Helper::css_prefix() . 'settings-tab-description">' . $tab_description . '</div>' . "\n";
+				echo '	<div class="' . Joe_v1_2_Helper::css_prefix() . 'settings-tab-description">' . $tab_description . '</div>' . "\n";
 			}
 
 			//For each section
 			foreach($tab_data['sections'] as $section_key => $section_data) {
 				$class = (isset($section_data['class'])) ? ' ' . $section_data['class'] : '';
-				echo '		<div class="' . Joe_v1_0_Helper::css_prefix('settings-section') . ' ' . Joe_v1_0_Helper::css_prefix('settings-section-' . $section_key . $class) . '">' . "\n";
+				echo '		<div class="' . Joe_v1_2_Helper::css_prefix('settings-section') . ' ' . Joe_v1_2_Helper::css_prefix('settings-section-' . $section_key . $class) . '">' . "\n";
 				
 				//Help
 				if(array_key_exists('help', $section_data) && isset($section_data['help']['url'])) {
 					$help_text = (isset($section_data['help']['text'])) ? $section_data['help']['text'] : 'View Help &raquo;';
 
-					echo '		<a class="' . Joe_v1_0_Helper::css_prefix('docs-link button') . '" href="' . esc_url_raw($section_data['help']['url']) . '" target="_blank">' . $help_text . '</a>' . "\n";				
+					echo '		<a class="' . Joe_v1_2_Helper::css_prefix('docs-link button') . '" href="' . esc_url_raw($section_data['help']['url']) . '" target="_blank">' . $help_text . '</a>' . "\n";				
 				}
 				
 				//Title
@@ -238,16 +238,16 @@ class Joe_v1_0_Settings {
 
 				//Description
 				if(array_key_exists('description', $section_data)) {
-					echo '		<div class="' . Joe_v1_0_Helper::css_prefix() . 'settings-section-description">' . $section_data['description'] . '</div>' . "\n";
+					echo '		<div class="' . Joe_v1_2_Helper::css_prefix() . 'settings-section-description">' . $section_data['description'] . '</div>' . "\n";
 				}		
 				
 				//Repeatable?
 				if(array_key_exists('repeatable', $section_data) && $section_data['repeatable']) {
-					echo '<div class="' . Joe_v1_0_Helper::css_prefix() . 'repeatable" data-count="0">' . "\n";
+					echo '<div class="' . Joe_v1_2_Helper::css_prefix() . 'repeatable" data-count="0">' . "\n";
 				}
 				
         echo '		<table class="form-table">' . "\n";
-        do_settings_fields(Joe_v1_0_Config::get_item('settings_id'), $section_key);					
+        do_settings_fields(Joe_v1_2_Config::get_item('settings_id'), $section_key);					
         echo '		</table>' . "\n";        
 
 				//Repeatable?
@@ -257,7 +257,7 @@ class Joe_v1_0_Settings {
 
 				//Footer
 				if(array_key_exists('footer', $section_data)) {
-					echo '	<div class="' . Joe_v1_0_Helper::css_prefix() . 'settings-section-footer">' . $section_data['footer'] . '</div>' . "\n";
+					echo '	<div class="' . Joe_v1_2_Helper::css_prefix() . 'settings-section-footer">' . $section_data['footer'] . '</div>' . "\n";
 				}
 				
 				echo '</div>' . "\n";
@@ -284,7 +284,7 @@ class Joe_v1_0_Settings {
 			$set_value = null;
 		}
 
-		echo Joe_v1_0_Input::create_field($field, $set_value, false);
+		echo Joe_v1_2_Input::create_field($field, $set_value, false);
 	}	
 
 	public function section_text($args) {
@@ -318,7 +318,7 @@ class Joe_v1_0_Settings {
 								}
 																						
 								//Process the input
-								$input_data[$tab_key][$section_key][$field_definition['name']] = Joe_v1_0_Input::process_input($field_definition, $value);
+								$input_data[$tab_key][$section_key][$field_definition['name']] = Joe_v1_2_Input::process_input($field_definition, $value);
 							}
 						}					
 					}
@@ -334,7 +334,7 @@ class Joe_v1_0_Settings {
 			return;
 		}
 		
-		echo '<div id="' . Joe_v1_0_Helper::css_prefix() . 'settings-nav" data-init_tab_key="' . esc_attr($current) . '">' . "\n";
+		echo '<div id="' . Joe_v1_2_Helper::css_prefix() . 'settings-nav" data-init_tab_key="' . esc_attr($current) . '">' . "\n";
 		echo '	<select>' . "\n";
 
 		foreach($this->settings_nav as $content_id => $content_title) {
