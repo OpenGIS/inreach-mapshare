@@ -101,6 +101,12 @@ class Joe_v1_2_Log {
 	}	
 	
 	public static function add($message = '', $type = 'log', $code = 'info') {	
+		if(! is_string($message)) {
+			$message = htmlspecialchars(json_encode($message));
+			$message = preg_replace('/\s+/', ' ', $message);
+			// $message = '<pre>' . $message . '</pre>';
+		}
+
 		//Flags
 		if($type == 'success') {
 			static::$in_success = true;

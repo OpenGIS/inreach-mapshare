@@ -1,14 +1,14 @@
-# Copyright (C) 2023 Joe Hawes
+# Copyright (C) 2024 Joe Hawes
 # This file is distributed under the same license as the inReach MapShare package.
 msgid ""
 msgstr ""
 "Project-Id-Version: inReach MapShare 1.2\n"
 "Report-Msgid-Bugs-To: https://wordpress.org/support/plugin/build\n"
-"POT-Creation-Date: 2023-08-02 16:18:47+00:00\n"
+"POT-Creation-Date: 2024-04-16 21:59:10+00:00\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=utf-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"PO-Revision-Date: 2023-MO-DA HO:MI+ZONE\n"
+"PO-Revision-Date: 2024-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
 "Language: en\n"
@@ -24,7 +24,7 @@ msgstr ""
 "X-Textdomain-Support: yes\n"
 "X-Generator: grunt-wp-i18n 1.0.3\n"
 
-#: App/Admin.php:25 Joe/Settings.php:106
+#: App/Admin.php:25 Joe/Settings.php:107
 msgid "Settings"
 msgstr ""
 
@@ -291,79 +291,79 @@ msgstr ""
 msgid "Warning"
 msgstr ""
 
-#: Joe/Helper.php:65
+#: Joe/Helper.php:73
 msgid "Hi, I'm <a href=\"%s\">Joe</a>"
 msgstr ""
 
-#: Joe/Helper.php:67
+#: Joe/Helper.php:75
 msgid ""
 "This software is open source and maintained voluntarily, please help by "
 "contributing however you can."
 msgstr ""
 
-#: Joe/Helper.php:68
+#: Joe/Helper.php:76
 msgid ""
 "Each question, suggestion, bug report, review, translation and pull request "
 "is greatly appreciated."
 msgstr ""
 
-#: Joe/Helper.php:305
+#: Joe/Helper.php:313
 msgid "Second"
 msgstr ""
 
-#: Joe/Helper.php:306
+#: Joe/Helper.php:314
 msgid "Minute"
 msgstr ""
 
-#: Joe/Helper.php:307
+#: Joe/Helper.php:315
 msgid "Hour"
 msgstr ""
 
-#: Joe/Helper.php:308
+#: Joe/Helper.php:316
 msgid "Day"
 msgstr ""
 
-#: Joe/Helper.php:309
+#: Joe/Helper.php:317
 msgid "Week"
 msgstr ""
 
-#: Joe/Helper.php:310
+#: Joe/Helper.php:318
 msgid "Month"
 msgstr ""
 
-#: Joe/Helper.php:311
+#: Joe/Helper.php:319
 msgid "Year"
 msgstr ""
 
-#: Joe/Helper.php:315
+#: Joe/Helper.php:323
 msgid "Seconds"
 msgstr ""
 
-#: Joe/Helper.php:316 Joe/Settings.php:61
+#: Joe/Helper.php:324 Joe/Settings.php:62
 msgid "Minutes"
 msgstr ""
 
-#: Joe/Helper.php:317
+#: Joe/Helper.php:325
 msgid "Hours"
 msgstr ""
 
-#: Joe/Helper.php:318
+#: Joe/Helper.php:326
 msgid "Days"
 msgstr ""
 
-#: Joe/Helper.php:319
+#: Joe/Helper.php:327
 msgid "Weeks"
 msgstr ""
 
-#: Joe/Helper.php:320
+#: Joe/Helper.php:328
 msgid "Months"
 msgstr ""
 
-#: Joe/Helper.php:321
+#: Joe/Helper.php:329
 msgid "Years"
 msgstr ""
 
-#: Joe/Helper.php:333
+#: Joe/Helper.php:341
 msgid "ago"
 msgstr ""
 
@@ -387,23 +387,23 @@ msgstr ""
 msgid "The file extension uploaded is not supported."
 msgstr ""
 
-#: Joe/Settings.php:56
+#: Joe/Settings.php:57
 msgid "Cache"
 msgstr ""
 
-#: Joe/Settings.php:62
+#: Joe/Settings.php:63
 msgid "How often the Cache updates."
 msgstr ""
 
-#: Joe/Settings.php:67
+#: Joe/Settings.php:68
 msgid "Debug"
 msgstr ""
 
-#: Joe/Settings.php:72
+#: Joe/Settings.php:73
 msgid "Enabled"
 msgstr ""
 
-#: Joe/Settings.php:73
+#: Joe/Settings.php:74
 msgid ""
 "Display useful infomation to administrators (admin notices and browser "
 "console logging)."

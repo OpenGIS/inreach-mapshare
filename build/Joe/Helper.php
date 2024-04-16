@@ -10,8 +10,16 @@ class Joe_v1_2_Helper {
 		return substr(md5($data), 0, $length);
 	}
 
+	static public function user_is_admin() {
+	  return in_array('administrator',  wp_get_current_user()->roles);
+	}
+
 	static public function site_url($url_path = '') {
 		return Joe_v1_2_Config::get_item('site_url') . $url_path;
+	}
+
+	static public function http_url($data = array()) {
+		return trim(add_query_arg(array_merge(array('joe_http' => '1'), $data), home_url('/')), '/');
 	}
 
 	static public function plugin_url($file_path = '', $plugin_slug = '') {	
@@ -70,7 +78,7 @@ class Joe_v1_2_Helper {
 		$out .= '				<ul>' . "\n";		
 	
 		//WP.org Directory Link
-		if($directory_url = parse_url(Joe_v1_2_Config::get_item('directory_url'))) {
+		if(Joe_v1_2_Config::get_item('directory_url') && $directory_url = parse_url(Joe_v1_2_Config::get_item('directory_url'))) {
 			if(isset($directory_url['host']) && ! empty($directory_url['host'])) {
 				$out .= '					<li><a href="' . Joe_v1_2_Config::get_item('directory_url') . '">' . $directory_url['host'] . '</a></li>' . "\n";						
 			}

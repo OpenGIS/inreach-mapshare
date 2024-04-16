@@ -4,7 +4,7 @@
  * ====================================
  */
 .joe-self-clear:after {
-  content: "";
+  content: '';
   display: table;
   clear: both;
 }
@@ -32,7 +32,7 @@ a.joe-tooltip {
   margin-right: 0.5%;
   text-decoration: none !important;
   cursor: help !important;
-  background: #F9F9F9;
+  background: #f9f9f9;
   color: #444 !important;
   border: 1px solid #ddd;
   border-radius: 50%;
@@ -62,7 +62,7 @@ div.joe-accordion-container {
 }
 div.joe-accordion-container .joe-accordion-group {
   width: 100%;
-  margin: 0 ;
+  margin: 0;
   margin-bottom: 10px;
 }
 div.joe-accordion-container .joe-accordion-group.joe-first {
@@ -191,18 +191,18 @@ div.joe-control-group .joe-controls select {
   width: 200px;
   border: 1px solid #ddd;
 }
-div.joe-control-group .joe-controls input[type="date"],
-div.joe-control-group .joe-controls input[type="datetime-local"],
-div.joe-control-group .joe-controls input[type="file"],
-div.joe-control-group .joe-controls input[type="text"] {
+div.joe-control-group .joe-controls input[type='date'],
+div.joe-control-group .joe-controls input[type='datetime-local'],
+div.joe-control-group .joe-controls input[type='file'],
+div.joe-control-group .joe-controls input[type='text'] {
   padding: 2px 8px;
   width: 200px;
   border: 1px solid #ddd;
 }
-div.joe-control-group .joe-controls input[type="file"] {
+div.joe-control-group .joe-controls input[type='file'] {
   font-size: 12px;
 }
-div.joe-control-group input[type="color"] {
+div.joe-control-group input[type='color'] {
   width: 100px;
   height: 32px;
 }
@@ -471,17 +471,17 @@ body.wp-admin div.joe-settings-tab table.form-table tr td {
   padding: 0;
 }
 body.wp-admin div.joe-settings-tab table.form-table tr td select,
-body.wp-admin div.joe-settings-tab table.form-table tr td input[type="file"],
-body.wp-admin div.joe-settings-tab table.form-table tr td input[type="text"] {
+body.wp-admin div.joe-settings-tab table.form-table tr td input[type='file'],
+body.wp-admin div.joe-settings-tab table.form-table tr td input[type='text'] {
   width: 200px;
   border-style: solid;
   border-width: 1px;
-  border-color: #DDDDDD;
+  border-color: #dddddd;
   box-shadow: 0 1px 2px rgba(0, 0, 0, 0.07) inset;
 }
 body.wp-admin div.joe-settings-tab table.form-table tr td .joe-short-input select,
-body.wp-admin div.joe-settings-tab table.form-table tr td .joe-short-input input[type="file"],
-body.wp-admin div.joe-settings-tab table.form-table tr td .joe-short-input input[type="text"] {
+body.wp-admin div.joe-settings-tab table.form-table tr td .joe-short-input input[type='file'],
+body.wp-admin div.joe-settings-tab table.form-table tr td .joe-short-input input[type='text'] {
   width: 100px;
 }
 body.wp-admin div.joe-settings-tab table.form-table tr td .joe-controls {
