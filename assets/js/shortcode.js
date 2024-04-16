@@ -6,15 +6,29 @@ const inmap_create_map = function(map_hash = null, map_geojson = null, route_jso
 		return false;
 	}
 	
-	var map_id = 'inmap-' + map_hash;
+
+	// Leaflet Map options
+	var map_options = {
+		attributionControl: false
+	}
 	
-	//Map Container
+	// Map Container
+	var map_id = 'inmap-' + map_hash;
+
 	var map_jq = jQuery('#' + map_id);
 	if(! map_jq.length) {
 		return false;
 	}
 	
-	var map_l = inmap_L.map(map_id);
+	// Leaflet Map object
+	var map_l = inmap_L.map(map_id, map_options);
+
+	// Add attribution
+	var map_attribution = inmap_L.control.attribution({
+		prefix: false
+	});
+	map_attribution.addAttribution('<a href="https://github.com/OpenGIS/inreach-mapshare">Inreach Mapshare</a>');
+	map_attribution.addTo(map_l);
 
 	//Make accessible
 	map_jq.data('map_l', map_l)

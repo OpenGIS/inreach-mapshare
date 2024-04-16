@@ -47,10 +47,6 @@ module.exports = function(grunt) {
 		replace_files[to_path] = [ to_path ];		
 	}
 	
-// 	console.log(joe_replacements);
-// 	
-// 	return false;
-
 	//App
 
 	//Readme
@@ -168,24 +164,7 @@ module.exports = function(grunt) {
 					'assets/css/shortcode.css': 'assets/less/shortcode.less'					
 				}
 			}		
-		},
-		
-// 		concat: {
-// 			wp_css: {
-// 				files: {
-// 					'assets/css/admin.css': [
-// 						'assets/css/shared.css',
-// 						'assets/css/admin.css'],					
-// 				}
-// 			},
-// 			wp_js: {
-// 				files: {
-// 					'assets/js/admin.js': [
-// 						'assets/js/admin.js'
-// 					],					
-// 				}
-// 			}
-// 		},	
+		},	
 		
 		terser: {
 			wp_js: {
@@ -233,7 +212,6 @@ module.exports = function(grunt) {
 
  	grunt.loadNpmTasks('grunt-terser');
   grunt.loadNpmTasks('grunt-contrib-copy');  
-//   grunt.loadNpmTasks('grunt-contrib-concat');  
 	grunt.loadNpmTasks('grunt-contrib-cssmin');  
 	grunt.loadNpmTasks('grunt-contrib-less');  
 	grunt.loadNpmTasks('grunt-string-replace');  
@@ -244,12 +222,10 @@ module.exports = function(grunt) {
 
   grunt.registerTask('build_wp_css', [
    	'less:wp_css',
-//  		'concat:wp_css',   	
    	'cssmin:wp_css'
   ]); 
 
   grunt.registerTask('build_wp_js', [
-//  		'concat:wp_js',
    	'terser:wp_js'
   ]);           
   
