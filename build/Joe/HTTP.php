@@ -1,6 +1,6 @@
 <?php
 
-class Joe_v1_2_HTTP {
+class Joe_v1_3_HTTP {
 
 	protected $response = [];
 	protected $request = [];
@@ -17,8 +17,8 @@ class Joe_v1_2_HTTP {
 		add_action('template_redirect', array($this, 'template_redirect'));					
 		
 		//Setup AJAX
-		Joe_v1_2_Assets::js_inline('//HTTP' . "\n");					
-		Joe_v1_2_Assets::js_inline('var joe_http_endpoint = "' . Joe_v1_2_Helper::http_url() . '";');					
+		Joe_v1_3_Assets::js_inline('//HTTP' . "\n");					
+		Joe_v1_3_Assets::js_inline('var joe_http_endpoint = "' . Joe_v1_3_Helper::http_url() . '";');					
 	}
 
 	public function do_404() {
@@ -44,7 +44,7 @@ class Joe_v1_2_HTTP {
 			return;
 		}
 
-		// Joe_v1_2_Log::add(print_r($_REQUEST), 'info', 'request');			
+		// Joe_v1_3_Log::add(print_r($_REQUEST), 'info', 'request');			
 
 		//Action
 		if(array_key_exists('joe_action', $_REQUEST)) {	

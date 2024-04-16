@@ -1,6 +1,6 @@
 <?php
 
-class Joe_v1_2_Config {
+class Joe_v1_3_Config {
 	//Set defaults
 	protected static $fallback = [];
 	protected static $default = [];
@@ -50,7 +50,7 @@ class Joe_v1_2_Config {
 		return static::$data;
 	}
 
-	public static function set_item($key = null, $value) {
+	public static function set_item($key = null, $value = null) {
 		if(array_key_exists($key, static::$data)) {
 			static::$data[$key] = $value;
 		}
@@ -82,8 +82,8 @@ class Joe_v1_2_Config {
 						}
 					}
 					
-					$values = Joe_v1_2_Helper::convert_values_to_single_value($values);
-					$values = Joe_v1_2_Helper::convert_single_value_to_array($values);				
+					$values = Joe_v1_3_Helper::convert_values_to_single_value($values);
+					$values = Joe_v1_3_Helper::convert_single_value_to_array($values);				
 			
 					return $values;
 				}

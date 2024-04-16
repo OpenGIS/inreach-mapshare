@@ -1,6 +1,6 @@
 <?php 
 
-abstract class Joe_v1_2_Class {
+abstract class Joe_v1_3_Class {
 
 	protected $parameters = [];
 	

@@ -1,6 +1,6 @@
 <?php
 
-class InMap_Admin extends Joe_v1_2_Admin {
+class InMap_Admin extends Joe_v1_3_Admin {
 	
 	function __construct() {
 		parent::__construct();
@@ -15,14 +15,14 @@ class InMap_Admin extends Joe_v1_2_Admin {
 			
 		//Actions
 		add_action('admin_init', array($this, 'load_assets'));
-		add_filter('plugin_action_links_' . Joe_v1_2_Helper::plugin_file_path(), array($this, 'add_action_links'));				
+		add_filter('plugin_action_links_' . Joe_v1_3_Helper::plugin_file_path(), array($this, 'add_action_links'));				
 	}
 	
 	function add_action_links($links) {
 		$links_before = array();
 
 		$links_after = array(
-			'<a href="' . admin_url('options-general.php?page=' . Joe_v1_2_Helper::slug_prefix('settings', '-')) . '">' . esc_html__('Settings', Joe_v1_2_Config::get_item('plugin_text_domain')) . '</a>'
+			'<a href="' . admin_url('options-general.php?page=' . Joe_v1_3_Helper::slug_prefix('settings', '-')) . '">' . esc_html__('Settings', Joe_v1_3_Config::get_item('plugin_text_domain')) . '</a>'
 		);				
 		
 		return array_merge($links_before, $links, $links_after);
@@ -32,6 +32,6 @@ class InMap_Admin extends Joe_v1_2_Admin {
 		parent::load_assets();
 
 		//Joe CSS
-// 		Joe_v1_2_Assets::css_enqueue(Joe_v1_2_Helper::asset_url('css/admin.min.css'));	
+// 		Joe_v1_3_Assets::css_enqueue(Joe_v1_3_Helper::asset_url('css/admin.min.css'));	
 	}
 }

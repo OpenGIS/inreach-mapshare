@@ -43,8 +43,8 @@ add_action('init', function() {
 	$colour_primary = '#e524ab';
 	
 	//Icon URLs	
-	$message_icon = Joe_v1_2_Helper::asset_url('img/message.svg', $plugin_slug);
-	$tracking_icon = Joe_v1_2_Helper::asset_url('img/location-gps.svg', $plugin_slug);
+	$message_icon = Joe_v1_3_Helper::asset_url('img/message.svg', $plugin_slug);
+	$tracking_icon = Joe_v1_3_Helper::asset_url('img/location-gps.svg', $plugin_slug);
 
 	$config = [
 		'plugin_slug' => $plugin_slug,
@@ -58,9 +58,9 @@ add_action('init', function() {
 		'github_url' => 'https://github.com/morehawes/inreach-mapshare/',
 		'plugin_shortcode' => $plugin_slug,
 		'plugin_about' => '
-			<p class="joe-lead">' . sprintf(__('Display your live <a href="%s">MapShare</a> data with a simple Shortcode.', Joe_v1_2_Config::get_item('plugin_text_domain')), 'https://support.garmin.com/?faq=p2lncMOzqh71P06VifrQE7') . '</p>
+			<p class="joe-lead">' . sprintf(__('Display your live <a href="%s">MapShare</a> data with a simple Shortcode.', Joe_v1_3_Config::get_item('plugin_text_domain')), 'https://support.garmin.com/?faq=p2lncMOzqh71P06VifrQE7') . '</p>
 						
-			<p>' . sprintf(__('Enable and configure MapShare in the <a href="%s">Social</a> tab of your Garmin Explore Account.', Joe_v1_2_Config::get_item('plugin_text_domain')), 'https://explore.garmin.com/Social') . '</p>
+			<p>' . sprintf(__('Enable and configure MapShare in the <a href="%s">Social</a> tab of your Garmin Explore Account.', Joe_v1_3_Config::get_item('plugin_text_domain')), 'https://explore.garmin.com/Social') . '</p>
 		',
 	
 		//KML
@@ -114,7 +114,7 @@ add_action('init', function() {
 		]
 	];
 
-	Joe_v1_2_Config::init($config);
+	Joe_v1_3_Config::init($config);
 	
 	new InMap_Admin;
 	new InMap_Front;	
