@@ -12,6 +12,8 @@ Display Your Live inReach MapShare Data on Your WordPress Site.
 
 ## Description ##
 
+[View Example](https://www.morehawes.ca/trips/arizona-2024/)
+
 This plugin enables users of Garmin inReach devices to display their *live* <a href="https://support.garmin.com/?faq=p2lncMOzqh71P06VifrQE7">MapShare</a> data using a simple Shortcode:
 
 
