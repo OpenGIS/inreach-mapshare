@@ -78,6 +78,23 @@ Please report issues or make suggestions by creating a <a href="https://github.c
 - You should see your most recent location, or multiple locations if you supplied a date range.
 - Add the provided Shortcode anywhere Shortcodes are supported to display the content on your site.
 
+### Development
+
+> [!NOTE]
+> To develop locally you will need to have both Node.js and NPM [installed](https://docs.npmjs.com/downloading-and-installing-node-js-and-npm).
+
+[Grunt](https://gruntjs.com/) is used to run the build script, which compiles the JavaScript and CSS and performs some other tasks.
+
+```bash
+# Install dependencies
+npm install
+
+# Run build script
+grunt
+```
+
+Pull requests are welcome!
+
 ## Frequently Asked Questions
 
 ### What is an inReach device?
