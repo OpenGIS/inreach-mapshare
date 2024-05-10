@@ -90,7 +90,21 @@ class InMap_Settings extends Joe_Settings {
 							'output_processing' => array(
 								'encode_special'
 							)																						
-						]						
+						],
+						'location_precision' => [
+							'type' => 'select',
+							'default' => '10cm',
+							'options' => [
+								'6' => '10cm',
+								'5' => '1m',
+								'4' => '10m',
+								'3' => '100m',
+								'2' => '1km',
+								'1' => '10km',
+ 							],
+							'title' => esc_html__('Location Precision', Joe_Config::get_item('plugin_text_domain')),  
+							'tip' => esc_html__('Select the precision level of coordinates used to build the map. Garmin provides values to a precision of 10cm. Choose a larger value if you want the displayed coordinates to be less precise.', Joe_Config::get_item('plugin_text_domain')),  
+						]
 					]
 				],
 				'colours' => [		

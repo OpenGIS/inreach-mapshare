@@ -217,7 +217,14 @@ class InMap_Inreach extends Joe_Class {
 			Joe_Log::add(__('The KML response is invalid.', Joe_Config::get_item('plugin_text_domain')), 'error', 'empty_kml');
 		}
 	}
-	
+
+	private function truncateCoordinates($coordinates, $precision) {  
+		foreach ($coordinates as $key => $value) {  
+			$coordinates[$key] = round($value, $precision);  
+		}
+		return $coordinates;  
+	}
+
 	function build_geojson() {
 		$this->FeatureCollection = [
 			'type' => 'FeatureCollection',
@@ -226,6 +233,9 @@ class InMap_Inreach extends Joe_Class {
 		
 		//We have Points
 		if($this->point_count) {
+			// Get location precision from the plugin settings. Used for fuzzing below
+                        $precision = Joe_Config::get_setting('appearance', 'map', 'location_precision');
+			
 			//Each Placemark
 			for($i = 0; $i < sizeof($this->KML->Document->Folder->Placemark); $i++) {
 				$Placemark = $this->KML->Document->Folder->Placemark[$i];
@@ -261,6 +271,10 @@ class InMap_Inreach extends Joe_Class {
 						continue;						
 					}
 					
+					//fuzz the coordinates per settigs
+					// Truncate to precision decimal points.  
+					$coordinates = $this->truncateCoordinates($coordinates, $precision);  
+
 					$Feature['geometry']['type'] = 'Point';
 					$Feature['geometry']['coordinates'] = $coordinates;
 
@@ -393,6 +407,14 @@ class InMap_Inreach extends Joe_Class {
 					
 						//We have data														
 						if(sizeof($extended_data)) {
+							//fuzz the coordinates that are being displayed in the table
+							foreach ($extended_data as $key => $value) {  
+								// Check if key is 'latitude' or 'longitude', case insensitive.  
+								if (strtolower($key) === 'latitude' || strtolower($key) === 'longitude') {  
+									// Round the value to the number of decimal places stored in $precision.  
+									$extended_data[$key] = round($value, $precision);  
+								}
+							}
 							$description .= Joe_Helper::assoc_array_table($extended_data);
 	
 							$description .= '<div class="inmap-info-expand">' . __('More detail', Joe_Config::get_item('plugin_text_domain'))  . ' +</div>';
@@ -421,6 +443,10 @@ class InMap_Inreach extends Joe_Class {
 							if(sizeof($coords) < 2 || sizeof($coords) > 3) {
 								continue;						
 							}	
+		                                        //fuzz the coordinates per settings
+
+                                        		// Truncate to precision decimal points.
+                                        		$coords = $this->truncateCoordinates($coords, $precision);
 
 							$Feature['geometry']['coordinates'][] = $coords;
 						}
