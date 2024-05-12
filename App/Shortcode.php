@@ -1,9 +1,11 @@
 <?php
 
-class InMap_Shortcode extends Joe_Shortcode {
+class InMap_Shortcode {
 
 	function __construct() {
-		parent::__construct();
+		if ($shortcode = Joe_Config::get_item('plugin_shortcode')) {
+			add_shortcode($shortcode, [$this, 'handle_shortcode']);
+		}
 
 		$this->load_assets();
 	}
