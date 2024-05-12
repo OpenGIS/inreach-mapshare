@@ -1,12 +1,10 @@
 {
   "name": "inreach-mapshare",
   "private": true,
-  "version": "0.0.0",
+  "version": "2.0",
   "type": "module",
   "scripts": {
-    "dev": "vite",
-    "build": "vite build --watch",
-    "preview": "vite preview"
+    "build": "vite build --watch"
   },
   "devDependencies": {
     "vite": "^5.2.0"

@@ -1,6 +1,6 @@
 <?php
 
-class Joe_Config {
+class InMap_Config {
 	//Set defaults
 	protected static $fallback = [];
 	protected static $default = [];
@@ -82,8 +82,8 @@ class Joe_Config {
 						}
 					}
 
-					$values = Joe_Helper::convert_values_to_single_value($values);
-					$values = Joe_Helper::convert_single_value_to_array($values);
+					$values = InMap_Helper::convert_values_to_single_value($values);
+					$values = InMap_Helper::convert_single_value_to_array($values);
 
 					return $values;
 				}

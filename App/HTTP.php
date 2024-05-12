@@ -1,6 +1,6 @@
 <?php
 
-class Joe_HTTP {
+class InMap_HTTP {
 
 	protected $response = [];
 	protected $request = [];
@@ -17,8 +17,8 @@ class Joe_HTTP {
 		add_action('template_redirect', array($this, 'template_redirect'));
 
 		//Setup AJAX
-		Joe_Assets::js_inline('//HTTP' . "\n");
-		Joe_Assets::js_inline('var joe_http_endpoint = "' . Joe_Helper::http_url() . '";');
+		InMap_Assets::js_inline('//HTTP' . "\n");
+		InMap_Assets::js_inline('var joe_http_endpoint = "' . InMap_Helper::http_url() . '";');
 	}
 
 	public function do_404() {
@@ -44,7 +44,7 @@ class Joe_HTTP {
 			return;
 		}
 
-		// Joe_Log::add(print_r($_REQUEST), 'info', 'request');
+		// InMap_Log::add(print_r($_REQUEST), 'info', 'request');
 
 		//Action
 		if (array_key_exists('joe_action', $_REQUEST)) {

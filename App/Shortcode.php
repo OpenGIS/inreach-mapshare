@@ -3,7 +3,7 @@
 class InMap_Shortcode {
 
 	function __construct() {
-		if ($shortcode = Joe_Config::get_item('plugin_shortcode')) {
+		if ($shortcode = InMap_Config::get_item('plugin_shortcode')) {
 			add_shortcode($shortcode, [$this, 'handle_shortcode']);
 		}
 
@@ -12,11 +12,11 @@ class InMap_Shortcode {
 
 	function load_assets() {
 		//InMap CSS
-		Joe_Assets::css_enqueue(Joe_Helper::plugin_url('dist/inreach-mapshare.css'));
+		InMap_Assets::css_enqueue(InMap_Helper::plugin_url('dist/inreach-mapshare.css'));
 
 		//Message Icon
-		if ($message_icon = Joe_Config::get_setting('appearance', 'icons', 'message_icon')) {
-			Joe_Assets::css_inline('
+		if ($message_icon = InMap_Config::get_setting('appearance', 'icons', 'message_icon')) {
+			InMap_Assets::css_inline('
 				/* Icons */
 				.inmap-icon.inmap-icon-message {
 					-webkit-mask-image: url(' . $message_icon . ') !important;
@@ -26,8 +26,8 @@ class InMap_Shortcode {
 		}
 
 		//Tracking Icon
-		if ($tracking_icon = Joe_Config::get_setting('appearance', 'icons', 'tracking_icon')) {
-			Joe_Assets::css_inline('
+		if ($tracking_icon = InMap_Config::get_setting('appearance', 'icons', 'tracking_icon')) {
+			InMap_Assets::css_inline('
 				.inmap-icon.inmap-icon-gps {
 					-webkit-mask-image: url(' . $tracking_icon . ') !important;
 					mask-image: url(' . $tracking_icon . ') !important;
@@ -35,9 +35,9 @@ class InMap_Shortcode {
 			');
 		}
 
-		$primary_colour = Joe_Config::get_setting('appearance', 'colours', 'tracking_colour');
+		$primary_colour = InMap_Config::get_setting('appearance', 'colours', 'tracking_colour');
 		if ($primary_colour) {
-			Joe_Assets::css_inline('
+			InMap_Assets::css_inline('
 				/* Colours */
 				.inmap-wrap .inmap-map .inmap-marker.inmap-last {
 					background-color: ' . $primary_colour . ' !important;
@@ -68,14 +68,14 @@ class InMap_Shortcode {
 		}
 
 		//Leaflet CSS & JS
-		Joe_Assets::js_inline('
+		InMap_Assets::js_inline('
 			//Load Leaflet if not already loaded
 			if(typeof L !== "object" || L.version.indexOf("1") !== 1) {
 				//CSS & JS
 				jQuery("head")
 					.append(
 						jQuery("<link />").attr({
-							"href" : "' . Joe_Helper::plugin_url('dist/css/leaflet.css') . '",
+							"href" : "' . InMap_Helper::plugin_url('dist/css/leaflet.css') . '",
 
 							"rel" : "stylesheet",
 							"id" : "inmap_leaflet_css",
@@ -86,7 +86,7 @@ class InMap_Shortcode {
 					.append(
 						jQuery("<script />").attr({
 							"id" : "inmap_leaflet_js",
-							"src" : "' . Joe_Helper::plugin_url('dist/js/leaflet.js') . '",
+							"src" : "' . InMap_Helper::plugin_url('dist/js/leaflet.js') . '",
 							"type" : "text/javascript"
 						})
 					)
@@ -97,21 +97,21 @@ class InMap_Shortcode {
 		');
 
 		//InMap JS
-		Joe_Assets::js_enqueue([
+		InMap_Assets::js_enqueue([
 			'id' => 'inmap_shortcode_js',
-			'url' => Joe_Helper::plugin_url('dist/inreach-mapshare.js'),
+			'url' => InMap_Helper::plugin_url('dist/inreach-mapshare.js'),
 			'deps' => ['jquery'],
 			'data' => [
-				'basemap_url' => Joe_Config::get_setting('appearance', 'map', 'basemap_url'),
-				'basemap_attribution' => Joe_Config::get_setting('appearance', 'map', 'basemap_attribution'),
+				'basemap_url' => InMap_Config::get_setting('appearance', 'map', 'basemap_url'),
+				'basemap_attribution' => InMap_Config::get_setting('appearance', 'map', 'basemap_attribution'),
 			],
 		]);
 	}
 
 	public function handle_shortcode($shortcode_data, $content = null) {
-		Joe_Log::reset();
+		InMap_Log::reset();
 
-		$out = "\n" . '<!-- START ' . Joe_Config::get_name() . ' Shortcode -->' . "\n";
+		$out = "\n" . '<!-- START ' . InMap_Config::get_name() . ' Shortcode -->' . "\n";
 		$out .= '<div class="inmap-wrap">';
 
 		$shortcode_data = shortcode_atts(array(
@@ -120,37 +120,37 @@ class InMap_Shortcode {
 			'mapshare_date_start' => false,
 			'mapshare_date_end' => false,
 			'mapshare_route_url' => false,
-		), $shortcode_data, Joe_Config::get_item('plugin_shortcode'));
+		), $shortcode_data, InMap_Config::get_item('plugin_shortcode'));
 
 		if ($shortcode_data['mapshare_identifier']) {
 
 			$Inreach_Mapshare = new InMap_Inreach($shortcode_data);
 
 			//Error?
-			if ($error = Joe_Log::in_error()) {
-				Joe_Log::render_item($error, 'console');
+			if ($error = InMap_Log::in_error()) {
+				InMap_Log::render_item($error, 'console');
 				//Proceed
 			} else {
 				//Create *unqiue* Hash used to target Div
-				$hash = Joe_Helper::make_hash(
+				$hash = InMap_Helper::make_hash(
 					array_merge(
 						$Inreach_Mapshare->get_parameters(),
 						//Salty count
 						[
-							'count' => Joe_Log::get_data('shortcode_count'),
+							'count' => InMap_Log::get_data('shortcode_count'),
 						]
 					)
 				);
 				$map_div_id = 'inmap-' . $hash;
-				Joe_Log::add(__('Rendering Map', Joe_Config::get_item('plugin_text_domain')) . ' (in Div #' . $map_div_id . ')', 'info', 'map_hash');
+				InMap_Log::add(__('Rendering Map', InMap_Config::get_item('plugin_text_domain')) . ' (in Div #' . $map_div_id . ')', 'info', 'map_hash');
 
 				$geojson = $Inreach_Mapshare->get_geojson();
 
 				if (is_string($geojson) && !empty($geojson)) {
 					$point_count = $Inreach_Mapshare->get_point_count();
-					$point_text = ($point_count == 1) ? __('Point', Joe_Config::get_item('plugin_text_domain')) : __('Points', Joe_Config::get_item('plugin_text_domain'));
+					$point_text = ($point_count == 1) ? __('Point', InMap_Config::get_item('plugin_text_domain')) : __('Points', InMap_Config::get_item('plugin_text_domain'));
 
-					Joe_Log::add(sprintf(__('Displaying %s MapShare', Joe_Config::get_item('plugin_text_domain')), $point_count) . ' ' . $point_text, 'success', 'rendering_points');
+					InMap_Log::add(sprintf(__('Displaying %s MapShare', InMap_Config::get_item('plugin_text_domain')), $point_count) . ' ' . $point_text, 'success', 'rendering_points');
 
 					//Route?
 					$route_json = null;
@@ -159,14 +159,14 @@ class InMap_Shortcode {
 
 						//Valid
 						if (json_decode($route_json)) {
-							Joe_Log::add(__('Displaying route JSON.', Joe_Config::get_item('plugin_text_domain')), 'success', 'route_valid');
+							InMap_Log::add(__('Displaying route JSON.', InMap_Config::get_item('plugin_text_domain')), 'success', 'route_valid');
 						} else {
-							Joe_Log::add(__('Invalid route JSON.', Joe_Config::get_item('plugin_text_domain')), 'error', 'route_invalid');
+							InMap_Log::add(__('Invalid route JSON.', InMap_Config::get_item('plugin_text_domain')), 'error', 'route_invalid');
 						}
 					}
 
 					//JS
-					Joe_Assets::js_onready('
+					InMap_Assets::js_onready('
 						inmap_create_map(
 							"' . $hash . '",
 							' . $geojson . ',
@@ -178,28 +178,28 @@ class InMap_Shortcode {
 					$out .= '	<div class="inmap-info"></div>';
 
 					//Increment call counter
-					$shortcode_count = (int) Joe_Log::get_data('shortcode_count');
+					$shortcode_count = (int) InMap_Log::get_data('shortcode_count');
 					$shortcode_count++;
-					Joe_Log::set_data('shortcode_count', $shortcode_count);
+					InMap_Log::set_data('shortcode_count', $shortcode_count);
 				} else {
-					Joe_Log::add(__('GeoJSON contains no Points.', Joe_Config::get_item('plugin_text_domain')), 'error', 'empty_geojson');
+					InMap_Log::add(__('GeoJSON contains no Points.', InMap_Config::get_item('plugin_text_domain')), 'error', 'empty_geojson');
 				}
 			}
 		} else {
-			Joe_Log::add(__('MapShare Identifier not provided.', Joe_Config::get_item('plugin_text_domain')), 'error', 'missing_identifier');
+			InMap_Log::add(__('MapShare Identifier not provided.', InMap_Config::get_item('plugin_text_domain')), 'error', 'missing_identifier');
 		}
 
 		$out .= '</div>';
-		$out .= '<!-- END ' . Joe_Config::get_name() . ' Shortcode -->' . "\n\n";
+		$out .= '<!-- END ' . InMap_Config::get_name() . ' Shortcode -->' . "\n\n";
 
 		//Log?
 
 		//Display Full log to admin
-		if (Joe_Helper::do_debug() && current_user_can('administrator')) {
-			Joe_Log::render();
+		if (InMap_Helper::do_debug() && current_user_can('administrator')) {
+			InMap_Log::render();
 			//Error?
-		} elseif ($error = Joe_Log::in_error()) {
-			Joe_Log::render_item($error);
+		} elseif ($error = InMap_Log::in_error()) {
+			InMap_Log::render_item($error);
 		}
 
 		return $out;

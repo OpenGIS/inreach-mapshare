@@ -19,30 +19,30 @@ class InMap_Admin {
 
 		//Actions
 		add_action('admin_init', array($this, 'load_assets'));
-		add_filter('plugin_action_links_' . Joe_Helper::plugin_file_path(), array($this, 'add_action_links'));
+		add_filter('plugin_action_links_' . InMap_Helper::plugin_file_path(), array($this, 'add_action_links'));
 	}
 
 	function add_action_links($links) {
 		$links_before = array();
 
 		$links_after = array(
-			'<a href="' . admin_url('options-general.php?page=' . Joe_Helper::slug_prefix('settings', '-')) . '">' . esc_html__('Settings', Joe_Config::get_item('plugin_text_domain')) . '</a>',
+			'<a href="' . admin_url('options-general.php?page=' . InMap_Helper::slug_prefix('settings', '-')) . '">' . esc_html__('Settings', InMap_Config::get_item('plugin_text_domain')) . '</a>',
 		);
 
 		return array_merge($links_before, $links, $links_after);
 	}
 
 	function load_assets() {
-		Joe_Assets::js_onready('jQuery("body").addClass("joe-admin");');
+		InMap_Assets::js_onready('jQuery("body").addClass("joe-admin");');
 
 		//Enqueue
-		Joe_Assets::css_enqueue([
-			'url' => Joe_Helper::plugin_url('dist/inreach-mapshare.css'),
+		InMap_Assets::css_enqueue([
+			'url' => InMap_Helper::plugin_url('dist/inreach-mapshare.css'),
 		]);
 
-		Joe_Assets::js_enqueue([
+		InMap_Assets::js_enqueue([
 			'id' => 'joe_admin_js',
-			'url' => Joe_Helper::plugin_url('dist/inreach-mapshare.js'),
+			'url' => InMap_Helper::plugin_url('dist/inreach-mapshare.js'),
 
 			'deps' => [
 				'jquery',
@@ -51,14 +51,14 @@ class InMap_Admin {
 				'wp-color-picker',
 			],
 			'data' => [
-				'multi_value_seperator' => Joe_Config::get_item('multi_value_seperator'),
+				'multi_value_seperator' => InMap_Config::get_item('multi_value_seperator'),
 				'lang' => [
 					//Editor
-					'repeatable_delete_title' => esc_attr__('Remove!', Joe_Config::get_item('plugin_text_domain')),
-					'error_message_prefix' => esc_attr__('Error', Joe_Config::get_item('plugin_text_domain')),
-					'info_message_prefix' => esc_attr__('Info', Joe_Config::get_item('plugin_text_domain')),
-					'success_message_prefix' => esc_attr__('Success', Joe_Config::get_item('plugin_text_domain')),
-					'warning_message_prefix' => esc_attr__('Warning', Joe_Config::get_item('plugin_text_domain')),
+					'repeatable_delete_title' => esc_attr__('Remove!', InMap_Config::get_item('plugin_text_domain')),
+					'error_message_prefix' => esc_attr__('Error', InMap_Config::get_item('plugin_text_domain')),
+					'info_message_prefix' => esc_attr__('Info', InMap_Config::get_item('plugin_text_domain')),
+					'success_message_prefix' => esc_attr__('Success', InMap_Config::get_item('plugin_text_domain')),
+					'warning_message_prefix' => esc_attr__('Warning', InMap_Config::get_item('plugin_text_domain')),
 				],
 			],
 		]);
@@ -69,6 +69,6 @@ class InMap_Admin {
 	}
 
 	function admin_head() {
-		echo '<meta name="' . Joe_Config::get_name(true, true) . ' Version" content="' . Joe_Config::get_version() . '" />' . "\n";
+		echo '<meta name="' . InMap_Config::get_name(true, true) . ' Version" content="' . InMap_Config::get_version() . '" />' . "\n";
 	}
 }

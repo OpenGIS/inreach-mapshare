@@ -1,6 +1,6 @@
 <?php
 
-class Joe_Input {
+class InMap_Input {
 
 	private static $username_bad = array('.', "\$", '!', '*');
 	private static $username_good = array('__dot__', '__dollar__', '__bang__', '__star__');
@@ -28,12 +28,12 @@ class Joe_Input {
 			} else {
 				$field['class'] = '';
 			}
-			$field['class'] .= Joe_Helper::css_prefix() . 'short-input';
+			$field['class'] .= InMap_Helper::css_prefix() . 'short-input';
 
 			if (!array_key_exists('options', $field) || !is_array($field['options'])) {
 				$field['options'] = array(
-					'1' => esc_attr__('Yes', Joe_Config::get_item('plugin_text_domain')),
-					'0' => esc_attr__('No', Joe_Config::get_item('plugin_text_domain')),
+					'1' => esc_attr__('Yes', InMap_Config::get_item('plugin_text_domain')),
+					'0' => esc_attr__('No', InMap_Config::get_item('plugin_text_domain')),
 				);
 			}
 		}
@@ -46,13 +46,13 @@ class Joe_Input {
 		$add_class .= ' ' . $field['id'] . '-container';
 
 		//Container
-		$out .= '<div class="' . Joe_Helper::css_prefix() . 'control-group ' . Joe_Helper::css_prefix() . 'control-type-' . $field['type'] . $add_class . '">' . "\n";
+		$out .= '<div class="' . InMap_Helper::css_prefix() . 'control-group ' . InMap_Helper::css_prefix() . 'control-type-' . $field['type'] . $add_class . '">' . "\n";
 
 		//Label
 		if ($show_label && isset($field['title'])) {
-			$out .= '	<label class="' . Joe_Helper::css_prefix() . 'control-label" for="' . $field['name'] . '">' . $field['title'] . '</label>' . "\n";
+			$out .= '	<label class="' . InMap_Helper::css_prefix() . 'control-label" for="' . $field['name'] . '">' . $field['title'] . '</label>' . "\n";
 		}
-		$out .= '	<div class="' . Joe_Helper::css_prefix() . 'controls">' . "\n";
+		$out .= '	<div class="' . InMap_Helper::css_prefix() . 'controls">' . "\n";
 
 		//Prepend?
 		if (array_key_exists('prepend', $field)) {
@@ -80,7 +80,7 @@ class Joe_Input {
 					$field['tip'] = '';
 				}
 
-				$field['tip'] .= __('Leave blank to restore the default.', Joe_Config::get_item('plugin_text_domain'));
+				$field['tip'] .= __('Leave blank to restore the default.', InMap_Config::get_item('plugin_text_domain'));
 			}
 		}
 
@@ -93,9 +93,9 @@ class Joe_Input {
 
 			$out .= ' <a data-title="' . $field['tip'] . '';
 			if (array_key_exists('tip_link', $field)) {
-				$out .= ' ' . esc_attr__('Click here for more details.', Joe_Config::get_item('plugin_text_domain')) . '" href="' . $field['tip_link'] . '" target="_blank" class="' . Joe_Helper::css_prefix() . 'tooltip ' . Joe_Helper::css_prefix() . 'link"';
+				$out .= ' ' . esc_attr__('Click here for more details.', InMap_Config::get_item('plugin_text_domain')) . '" href="' . $field['tip_link'] . '" target="_blank" class="' . InMap_Helper::css_prefix() . 'tooltip ' . InMap_Helper::css_prefix() . 'link"';
 			} else {
-				$out .= '" href="#" onclick="return false;" class="' . Joe_Helper::css_prefix() . 'tooltip"';
+				$out .= '" href="#" onclick="return false;" class="' . InMap_Helper::css_prefix() . 'tooltip"';
 			}
 			$out .= '>?</a>';
 		}
@@ -122,7 +122,7 @@ class Joe_Input {
 		//Default
 		if (array_key_exists('default', $field)) {
 			if (is_array($field['default'])) {
-				$field['default'] = implode(Joe_Config::get_item('multi_value_seperator'), static::process_output($field, $field['default']));
+				$field['default'] = implode(InMap_Config::get_item('multi_value_seperator'), static::process_output($field, $field['default']));
 			} else {
 				$field['default'] = static::process_output($field, $field['default']);
 			}
@@ -131,7 +131,7 @@ class Joe_Input {
 		//Process set value?
 		if ($set_value !== null) {
 			if (is_array($set_value)) {
-				$set_value = implode(Joe_Config::get_item('multi_value_seperator'), static::process_output($field, $set_value));
+				$set_value = implode(InMap_Config::get_item('multi_value_seperator'), static::process_output($field, $set_value));
 			} else {
 				$set_value = static::process_output($field, $set_value);
 			}
@@ -154,7 +154,7 @@ class Joe_Input {
 				$set_value = $field['default'];
 			}
 
-			$out .= '		<select data-multi-value="' . $set_value . '" class="' . Joe_Helper::css_prefix() . 'input ' . Joe_Helper::css_prefix() . 'input-' . $field['id'] . '" name="' . $field['name'] . '" data-id="' . $field['id'] . '">' . "\n";
+			$out .= '		<select data-multi-value="' . $set_value . '" class="' . InMap_Helper::css_prefix() . 'input ' . InMap_Helper::css_prefix() . 'input-' . $field['id'] . '" name="' . $field['name'] . '" data-id="' . $field['id'] . '">' . "\n";
 			if (isset($field['options'])) {
 				foreach ($field['options'] as $value => $description) {
 					//Always use strings
@@ -184,11 +184,11 @@ class Joe_Input {
 			//Is multi?
 			if (is_string($set_value) && strpos($set_value, ',')) {
 				$set_value = explode(',', $field['default']);
-			} elseif (is_string($set_value) && strpos($set_value, Joe_Config::get_item('multi_value_seperator'))) {
-				$set_value = explode(Joe_Config::get_item('multi_value_seperator'), $field['default']);
+			} elseif (is_string($set_value) && strpos($set_value, InMap_Config::get_item('multi_value_seperator'))) {
+				$set_value = explode(InMap_Config::get_item('multi_value_seperator'), $field['default']);
 			}
 
-			$out .= '		<select multiple="multiple" class="' . Joe_Helper::css_prefix() . 'input ' . Joe_Helper::css_prefix() . 'input-' . $field['id'] . '" name="' . $field['name'] . '[]" data-id="' . $field['id'] . '">' . "\n";
+			$out .= '		<select multiple="multiple" class="' . InMap_Helper::css_prefix() . 'input ' . InMap_Helper::css_prefix() . 'input-' . $field['id'] . '" name="' . $field['name'] . '[]" data-id="' . $field['id'] . '">' . "\n";
 
 			//If we have options
 			if (isset($field['options'])) {
@@ -211,7 +211,7 @@ class Joe_Input {
 
 			break;
 		case 'textarea':
-			$out .= '		<textarea class="' . Joe_Helper::css_prefix() . 'input ' . Joe_Helper::css_prefix() . 'input-' . $field['id'] . '" name="' . $field['name'] . '" data-id="' . $field['id'] . '">';
+			$out .= '		<textarea class="' . InMap_Helper::css_prefix() . 'input ' . InMap_Helper::css_prefix() . 'input-' . $field['id'] . '" name="' . $field['name'] . '" data-id="' . $field['id'] . '">';
 			//Do we have a value for this post?
 			if ($value = htmlspecialchars($set_value)) {
 				$out .= $value;
@@ -245,11 +245,11 @@ class Joe_Input {
 			break;
 		case 'submit':
 			$value = explode(' ', $field['title'])[0];
-			$out .= '		<input type="submit" name="' . $field['name'] . '" value="' . $value . '" data-id="' . $field['id'] . '" class="' . Joe_Helper::css_prefix() . 'input ' . Joe_Helper::css_prefix() . 'input-' . $field['id'] . ' button-secondary" />' . "\n";
+			$out .= '		<input type="submit" name="' . $field['name'] . '" value="' . $value . '" data-id="' . $field['id'] . '" class="' . InMap_Helper::css_prefix() . 'input ' . InMap_Helper::css_prefix() . 'input-' . $field['id'] . ' button-secondary" />' . "\n";
 
 			break;
 		case 'file':
-			$out .= '		<input class="' . Joe_Helper::css_prefix() . 'input ' . Joe_Helper::css_prefix() . 'input-' . $field['id'] . '" type="file" name="' . $field['name'] . '" data-id="' . $field['id'] . '" />' . "\n";
+			$out .= '		<input class="' . InMap_Helper::css_prefix() . 'input ' . InMap_Helper::css_prefix() . 'input-' . $field['id'] . '" type="file" name="' . $field['name'] . '" data-id="' . $field['id'] . '" />' . "\n";
 
 			break;
 		case 'text':
@@ -259,8 +259,8 @@ class Joe_Input {
 			}
 
 			//Class
-			$class = Joe_Helper::css_prefix('input')
-			. ' ' . Joe_Helper::css_prefix('input-' . $field['id'])
+			$class = InMap_Helper::css_prefix('input')
+			. ' ' . InMap_Helper::css_prefix('input-' . $field['id'])
 			;
 
 			//Build Input
@@ -316,7 +316,7 @@ class Joe_Input {
 		$id = ($id) ? ' id="' . $id . '"' : '';
 		$class_append = ($class_append) ? ' ' . $class_append : '';
 
-		$out .= '<div' . $id . ' class="' . Joe_Helper::css_prefix() . 'parameters-container ' . Joe_Helper::css_prefix() . 'accordion-container' . $class_append . '">' . "\n";
+		$out .= '<div' . $id . ' class="' . InMap_Helper::css_prefix() . 'parameters-container ' . InMap_Helper::css_prefix() . 'accordion-container' . $class_append . '">' . "\n";
 
 		//Are we doing groups?
 		$by_group = false;
@@ -353,11 +353,11 @@ class Joe_Input {
 					$out .= '<!-- END Parameter Group -->' . "\n";
 				}
 				$out .= '<!-- START Parameter Group -->' . "\n";
-				$out .= '	<div class="' . Joe_Helper::css_prefix() . 'parameter-group ' . Joe_Helper::css_prefix() . 'accordion-group ' . Joe_Helper::css_prefix() . 'parameter-group-' . $group_id . '" id="' . Joe_Helper::css_prefix() . 'parameter-group-' . $group_id . '">' . "\n";
+				$out .= '	<div class="' . InMap_Helper::css_prefix() . 'parameter-group ' . InMap_Helper::css_prefix() . 'accordion-group ' . InMap_Helper::css_prefix() . 'parameter-group-' . $group_id . '" id="' . InMap_Helper::css_prefix() . 'parameter-group-' . $group_id . '">' . "\n";
 				$out .= '		<legend title="Click to expand">' . $group['group_title'] . '</legend>' . "\n";
-				$out .= '		<div class="' . Joe_Helper::css_prefix() . 'accordion-group-content">' . "\n";
+				$out .= '		<div class="' . InMap_Helper::css_prefix() . 'accordion-group-content">' . "\n";
 				if (array_key_exists('group_description', $group)) {
-					$out .= '			<p class="' . Joe_Helper::css_prefix() . 'parameter-group-description">' . $group['group_description'] . '</p>' . "\n";
+					$out .= '			<p class="' . InMap_Helper::css_prefix() . 'parameter-group-description">' . $group['group_description'] . '</p>' . "\n";
 				}
 				$current_group = $group_id;
 			}
@@ -480,7 +480,7 @@ class Joe_Input {
 				));
 				//Not allowable file
 			} else {
-				$response['error'] = esc_html__('The file extension uploaded is not supported.', Joe_Config::get_item('plugin_text_domain'));
+				$response['error'] = esc_html__('The file extension uploaded is not supported.', InMap_Config::get_item('plugin_text_domain'));
 				$response['file_ext'] = $file_ext;
 				$response['file_mime'] = $file_mime;
 			}
@@ -490,7 +490,7 @@ class Joe_Input {
 	}
 
 	public static function allowable_file($ext = '', $mime = '', $file_image = 'file') {
-		$allowable_mimes = Joe_Config::get_item('mimes', $file_image);
+		$allowable_mimes = InMap_Config::get_item('mimes', $file_image);
 
 		//Valid extension
 		if (array_key_exists($ext, $allowable_mimes)) {

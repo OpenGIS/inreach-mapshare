@@ -14,6 +14,6 @@ class InMap_Front {
 	}
 
 	function wp_head() {
-		echo '<meta name="' . Joe_Config::get_name(true, true) . ' Version" content="' . Joe_Config::get_version() . '" />' . "\n";
+		echo '<meta name="' . InMap_Config::get_name(true, true) . ' Version" content="' . InMap_Config::get_version() . '" />' . "\n";
 	}
 }

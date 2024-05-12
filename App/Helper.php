@@ -1,6 +1,6 @@
 <?php
 
-class Joe_Helper {
+class InMap_Helper {
 
 	static public function make_hash($data, $length = 6) {
 		if (!is_string($data)) {
@@ -15,7 +15,7 @@ class Joe_Helper {
 	}
 
 	static public function site_url($url_path = '') {
-		return Joe_Config::get_item('site_url') . $url_path;
+		return InMap_Config::get_item('site_url') . $url_path;
 	}
 
 	static public function http_url($data = array()) {
@@ -24,7 +24,7 @@ class Joe_Helper {
 
 	static public function plugin_url($file_path = '', $plugin_slug = '') {
 		if (!$plugin_slug) {
-			$plugin_slug = Joe_Config::get_item('plugin_slug');
+			$plugin_slug = InMap_Config::get_item('plugin_slug');
 		}
 
 		return plugin_dir_url('') . $plugin_slug . '/' . $file_path;
@@ -32,11 +32,11 @@ class Joe_Helper {
 
 	static public function plugin_file_path($file_path = '', $plugin_slug = '') {
 		if (!$file_path) {
-			$file_path = Joe_Config::get_item('plugin_slug') . '.php';
+			$file_path = InMap_Config::get_item('plugin_slug') . '.php';
 		}
 
 		if (!$plugin_slug) {
-			$plugin_slug = Joe_Config::get_item('plugin_slug');
+			$plugin_slug = InMap_Config::get_item('plugin_slug');
 		}
 
 		return $plugin_slug . '/' . $file_path;
@@ -44,7 +44,7 @@ class Joe_Helper {
 
 	static public function asset_url($file_path = '', $plugin_slug = '') {
 		if (!$plugin_slug) {
-			$plugin_slug = Joe_Config::get_item('plugin_slug');
+			$plugin_slug = InMap_Config::get_item('plugin_slug');
 		}
 
 		return plugin_dir_url('') . $plugin_slug . '/dist/' . $file_path;
@@ -52,47 +52,47 @@ class Joe_Helper {
 
 	static public function plugin_name($short = false) {
 		if (!$short) {
-			return Joe_Config::get_item('plugin_name');
+			return InMap_Config::get_item('plugin_name');
 		} else {
-			return Joe_Config::get_item('plugin_name_short');
+			return InMap_Config::get_item('plugin_name_short');
 		}
 	}
 
 	static public function plugin_about() {
-		$out = '	<div id="' . Joe_Helper::css_prefix('about') . '">' . "\n";
+		$out = '	<div id="' . InMap_Helper::css_prefix('about') . '">' . "\n";
 
-		$out .= '		<h1>' . Joe_Config::get_item('plugin_name') . '</h1>' . "\n";
+		$out .= '		<h1>' . InMap_Config::get_item('plugin_name') . '</h1>' . "\n";
 
-		$out .= Joe_Config::get_item('plugin_about');
+		$out .= InMap_Config::get_item('plugin_about');
 
-		$out .= '		<div class="' . Joe_Helper::css_prefix('footer') . '">' . "\n";
-		$out .= '			<div class="' . Joe_Helper::css_prefix('joe') . '">' . "\n";
+		$out .= '		<div class="' . InMap_Helper::css_prefix('footer') . '">' . "\n";
+		$out .= '			<div class="' . InMap_Helper::css_prefix('joe') . '">' . "\n";
 		$out .= '				<img alt="Joe\'s mug" src="https://www.morehawes.co.uk/assets/images/Joe1BW.jpg" />' . "\n";
 
-		$out .= '				<p class="joe-lead">' . sprintf(__('Hi, I\'m <a href="%s">Joe</a>', Joe_Config::get_item('plugin_text_domain')), 'https://www.morehawes.co.uk/') . '</p>' . "\n";
+		$out .= '				<p class="joe-lead">' . sprintf(__('Hi, I\'m <a href="%s">Joe</a>', InMap_Config::get_item('plugin_text_domain')), 'https://www.morehawes.co.uk/') . '</p>' . "\n";
 
-		$out .= '				<p>' . __('This software is open source and maintained voluntarily, please help by contributing however you can.', Joe_Config::get_item('plugin_text_domain')) . '</p>' . "\n";
-		$out .= '				<p>' . __('Each question, suggestion, bug report, review, translation and pull request is greatly appreciated.', Joe_Config::get_item('plugin_text_domain')) . '</p>' . "\n";
+		$out .= '				<p>' . __('This software is open source and maintained voluntarily, please help by contributing however you can.', InMap_Config::get_item('plugin_text_domain')) . '</p>' . "\n";
+		$out .= '				<p>' . __('Each question, suggestion, bug report, review, translation and pull request is greatly appreciated.', InMap_Config::get_item('plugin_text_domain')) . '</p>' . "\n";
 
 		$out .= '				<ul>' . "\n";
 
 		//WP.org Directory Link
-		if (Joe_Config::get_item('directory_url') && $directory_url = parse_url(Joe_Config::get_item('directory_url'))) {
+		if (InMap_Config::get_item('directory_url') && $directory_url = parse_url(InMap_Config::get_item('directory_url'))) {
 			if (isset($directory_url['host']) && !empty($directory_url['host'])) {
-				$out .= '					<li><a href="' . Joe_Config::get_item('directory_url') . '">' . $directory_url['host'] . '</a></li>' . "\n";
+				$out .= '					<li><a href="' . InMap_Config::get_item('directory_url') . '">' . $directory_url['host'] . '</a></li>' . "\n";
 			}
 		}
 
 		//GitHub Repo Link
-		if ($github_url = parse_url(Joe_Config::get_item('github_url'))) {
+		if ($github_url = parse_url(InMap_Config::get_item('github_url'))) {
 			if (isset($github_url['host']) && !empty($github_url['host'])) {
-				$out .= '					<li><a href="' . Joe_Config::get_item('github_url') . '">' . $github_url['host'] . '</a></li>' . "\n";
+				$out .= '					<li><a href="' . InMap_Config::get_item('github_url') . '">' . $github_url['host'] . '</a></li>' . "\n";
 			}
 		}
 
 		$out .= '				</ul>' . "\n";
 
-		$out .= '				<small>v' . Joe_Config::get_item('plugin_version') . '</small>' . "\n";
+		$out .= '				<small>v' . InMap_Config::get_item('plugin_version') . '</small>' . "\n";
 		$out .= '			</div>' . "\n";
 		$out .= '		</div>' . "\n";
 		$out .= '	</div>' . "\n";
@@ -104,7 +104,7 @@ class Joe_Helper {
 		return
 			(defined('WP_DEBUG') && WP_DEBUG == true)
 			||
-			(Joe_Config::get_setting('joe', 'debug', 'enabled') == 1)
+			(InMap_Config::get_setting('joe', 'debug', 'enabled') == 1)
 		;
 	}
 
@@ -164,7 +164,7 @@ class Joe_Helper {
 				//Multiple values
 			} else {
 				//Single value, use that
-				$array_out[$key] = implode(Joe_Config::get_item('multi_value_seperator'), $value);
+				$array_out[$key] = implode(InMap_Config::get_item('multi_value_seperator'), $value);
 			}
 		}
 
@@ -177,7 +177,7 @@ class Joe_Helper {
 			$array_out = array();
 
 			foreach ($value_in as $key => $value) {
-				$multi = explode(Joe_Config::get_item('multi_value_seperator'), $value);
+				$multi = explode(InMap_Config::get_item('multi_value_seperator'), $value);
 
 				$count = 0;
 				foreach ($multi as $m) {
@@ -190,7 +190,7 @@ class Joe_Helper {
 			return $array_out;
 			//String
 		} else {
-			return explode(Joe_Config::get_item('multi_value_seperator'), $value_in);
+			return explode(InMap_Config::get_item('multi_value_seperator'), $value_in);
 		}
 	}
 
@@ -205,11 +205,11 @@ class Joe_Helper {
 	}
 
 	public static function css_prefix($text = '') {
-		return Joe_Config::get_item('css_prefix') . $text;
+		return InMap_Config::get_item('css_prefix') . $text;
 	}
 
 	public static function slug_prefix($text = '', $sep = '_', $hyphen = true) {
-		$out = Joe_Config::get_item('plugin_slug') . $sep . $text;
+		$out = InMap_Config::get_item('plugin_slug') . $sep . $text;
 
 		if (!$hyphen) {
 			$out = str_replace('-', '_', $out);
@@ -271,7 +271,7 @@ class Joe_Helper {
 
 	static public function repeatable_setting_option_array($tab, $section, $key) {
 		$options_array = array();
-		$values = Joe_Config::get_item($tab, $section, true);
+		$values = InMap_Config::get_item($tab, $section, true);
 
 		if (!is_array($values)) {
 			return null;
@@ -281,7 +281,7 @@ class Joe_Helper {
 			//If exists
 			if (array_key_exists($key, $s)) {
 				//Add as option
-				$options_array[Joe_Helper::make_key($s[$key])] = $s[$key];
+				$options_array[InMap_Helper::make_key($s[$key])] = $s[$key];
 			}
 		}
 
@@ -293,10 +293,10 @@ class Joe_Helper {
 			return false;
 		}
 
-		$table = '<table class="' . Joe_Helper::css_prefix('assoc_array') . '">';
+		$table = '<table class="' . InMap_Helper::css_prefix('assoc_array') . '">';
 
 		foreach ($assoc_array as $key => $value) {
-			$table .= '<tr class="' . Joe_Helper::css_prefix('assoc_array-' . Joe_Helper::make_key($key)) . '">';
+			$table .= '<tr class="' . InMap_Helper::css_prefix('assoc_array-' . InMap_Helper::make_key($key)) . '">';
 			$table .= '<th>' . $key . '</th>';
 			$table .= '<td>' . $value . '</td>';
 			$table .= '</tr>';
@@ -309,23 +309,23 @@ class Joe_Helper {
 
 	static function time_ago($time = '0', $comparison = false) {
 		$periods_singular = [
-			__('Second', Joe_Config::get_item('plugin_text_domain')),
-			__('Minute', Joe_Config::get_item('plugin_text_domain')),
-			__('Hour', Joe_Config::get_item('plugin_text_domain')),
-			__('Day', Joe_Config::get_item('plugin_text_domain')),
-			__('Week', Joe_Config::get_item('plugin_text_domain')),
-			__('Month', Joe_Config::get_item('plugin_text_domain')),
-			__('Year', Joe_Config::get_item('plugin_text_domain')),
+			__('Second', InMap_Config::get_item('plugin_text_domain')),
+			__('Minute', InMap_Config::get_item('plugin_text_domain')),
+			__('Hour', InMap_Config::get_item('plugin_text_domain')),
+			__('Day', InMap_Config::get_item('plugin_text_domain')),
+			__('Week', InMap_Config::get_item('plugin_text_domain')),
+			__('Month', InMap_Config::get_item('plugin_text_domain')),
+			__('Year', InMap_Config::get_item('plugin_text_domain')),
 		];
 
 		$periods_plural = [
-			__('Seconds', Joe_Config::get_item('plugin_text_domain')),
-			__('Minutes', Joe_Config::get_item('plugin_text_domain')),
-			__('Hours', Joe_Config::get_item('plugin_text_domain')),
-			__('Days', Joe_Config::get_item('plugin_text_domain')),
-			__('Weeks', Joe_Config::get_item('plugin_text_domain')),
-			__('Months', Joe_Config::get_item('plugin_text_domain')),
-			__('Years', Joe_Config::get_item('plugin_text_domain')),
+			__('Seconds', InMap_Config::get_item('plugin_text_domain')),
+			__('Minutes', InMap_Config::get_item('plugin_text_domain')),
+			__('Hours', InMap_Config::get_item('plugin_text_domain')),
+			__('Days', InMap_Config::get_item('plugin_text_domain')),
+			__('Weeks', InMap_Config::get_item('plugin_text_domain')),
+			__('Months', InMap_Config::get_item('plugin_text_domain')),
+			__('Years', InMap_Config::get_item('plugin_text_domain')),
 		];
 
 		$lengths = array("60", "60", "24", "7", "4.35", "12", "365");
@@ -337,7 +337,7 @@ class Joe_Helper {
 			$difference = $now - $time;
 		}
 
-		$tense = __('ago', Joe_Config::get_item('plugin_text_domain'));
+		$tense = __('ago', InMap_Config::get_item('plugin_text_domain'));
 
 		for ($j = 0; $difference >= $lengths[$j] && $j < count($lengths) - 1; $j++) {
 			$difference /= $lengths[$j];

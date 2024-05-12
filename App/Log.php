@@ -1,6 +1,6 @@
 <?php
 
-class Joe_Log {
+class InMap_Log {
 
 	private static $log = [];
 	private static $by_type = [];
@@ -29,19 +29,19 @@ class Joe_Log {
 	public static function out($content = '') {
 		switch (static::$output_type) {
 		case 'notice':
-			$latest = Joe_Log::latest();
+			$latest = InMap_Log::latest();
 			$type = isset($latest['type']) ? $latest['type'] : '';
 			if (static::$in_success && static::latest_warning()) {
 				$type = 'warning';
 			}
 
-			Joe_Assets::js_onready('joe_admin_message("' . $content . '", "' . $type . '")');
+			InMap_Assets::js_onready('joe_admin_message("' . $content . '", "' . $type . '")');
 
 			break;
 
 		default:
 		case 'console':
-			Joe_Assets::js_inline('console.log("' . strip_tags($content) . '");');
+			InMap_Assets::js_inline('console.log("' . strip_tags($content) . '");');
 
 			break;
 
@@ -152,7 +152,7 @@ class Joe_Log {
 		$log_content = '';
 
 		//Not debugging
-		if (!Joe_Helper::do_debug() && $latest = Joe_Log::latest()) {
+		if (!InMap_Helper::do_debug() && $latest = InMap_Log::latest()) {
 			//Success with warningS
 			if (static::$in_success && static::latest_warning()) {
 				for ($i = 0; $i < sizeof(static::$by_type['warning']); $i++) {
@@ -198,7 +198,7 @@ class Joe_Log {
 		case 'notice':
 			$out = '<b>[' . ucwords($item['type']) . ']</b> ' . $item['message'];
 
-			if (Joe_Helper::do_debug()) {
+			if (InMap_Helper::do_debug()) {
 				$out .= ' (' . $code . ')';
 			}
 
@@ -209,7 +209,7 @@ class Joe_Log {
 			if ($code) {
 				$code = '=' . $code;
 			}
-			return '[' . Joe_Config::get_name() . ' ' . ucwords($item['type']) . $code . '] ' . $item['message'] . '\n';
+			return '[' . InMap_Config::get_name() . ' ' . ucwords($item['type']) . $code . '] ' . $item['message'] . '\n';
 		}
 
 		return false;

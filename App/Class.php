@@ -1,6 +1,6 @@
 <?php
 
-abstract class Joe_Class {
+abstract class InMap_Class {
 
 	protected $parameters = [];
 

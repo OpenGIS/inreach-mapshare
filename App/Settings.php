@@ -24,10 +24,10 @@ class InMap_Settings {
 		}
 
 		//Determine page slug
-		if (!$this->slug = Joe_Config::get_item('settings_menu_slug')) {
+		if (!$this->slug = InMap_Config::get_item('settings_menu_slug')) {
 			$this->slug = $this->default_slug;
 		}
-		$this->submenu_slug = Joe_Helper::slug_prefix('settings', '-');
+		$this->submenu_slug = InMap_Helper::slug_prefix('settings', '-');
 
 		//Add Menu link
 		add_action('admin_menu', [$this, 'admin_menu']);
@@ -48,7 +48,7 @@ class InMap_Settings {
 			//Post
 		} else {
 			//Check submission
-			if (!isset($_POST['option_page']) || $_POST['option_page'] != Joe_Config::get_item('settings_id')) {
+			if (!isset($_POST['option_page']) || $_POST['option_page'] != InMap_Config::get_item('settings_id')) {
 				return false;
 			}
 		}
@@ -57,24 +57,24 @@ class InMap_Settings {
 		$this->add_setting_tab('joe', [
 			'sections' => [
 				'cache' => [
-					'title' => esc_html__('Cache', Joe_Config::get_item('plugin_text_domain')),
+					'title' => esc_html__('Cache', InMap_Config::get_item('plugin_text_domain')),
 					'fields' => [
 						'minutes' => [
-							'required' => Joe_Config::get_fallback('joe', 'cache', 'minutes'),
+							'required' => InMap_Config::get_fallback('joe', 'cache', 'minutes'),
 							'class' => 'joe-short-input',
-							'title' => esc_html__('Minutes', Joe_Config::get_item('plugin_text_domain')),
-							'tip' => esc_attr__('How often the Cache updates.', Joe_Config::get_item('plugin_text_domain')),
+							'title' => esc_html__('Minutes', InMap_Config::get_item('plugin_text_domain')),
+							'tip' => esc_attr__('How often the Cache updates.', InMap_Config::get_item('plugin_text_domain')),
 						],
 					],
 				],
 				'debug' => [
-					'title' => esc_html__('Debug', Joe_Config::get_item('plugin_text_domain')),
+					'title' => esc_html__('Debug', InMap_Config::get_item('plugin_text_domain')),
 					'fields' => [
 						'enabled' => [
-							'required' => Joe_Config::get_fallback('joe', 'debug', 'enabled'),
+							'required' => InMap_Config::get_fallback('joe', 'debug', 'enabled'),
 							'type' => 'boolean',
-							'title' => esc_html__('Enabled', Joe_Config::get_item('plugin_text_domain')),
-							'tip' => esc_attr__('Display useful infomation to administrators (admin notices and browser console logging).', Joe_Config::get_item('plugin_text_domain')),
+							'title' => esc_html__('Enabled', InMap_Config::get_item('plugin_text_domain')),
+							'tip' => esc_attr__('Display useful infomation to administrators (admin notices and browser console logging).', InMap_Config::get_item('plugin_text_domain')),
 						],
 					],
 				],
@@ -82,7 +82,7 @@ class InMap_Settings {
 		]);
 
 		//Get current settings from DB
-		$current_settings = get_option(Joe_Config::get_item('settings_id'));
+		$current_settings = get_option(InMap_Config::get_item('settings_id'));
 		if (is_array($current_settings) && sizeof($current_settings)) {
 			$this->current_settings = $current_settings;
 		}
@@ -90,14 +90,14 @@ class InMap_Settings {
 		$this->do_shortcode();
 
 		$this->settings_nav = [
-			'joe-settings-tab-shortcode' => '-- ' . esc_html__('Shortcodes', Joe_Config::get_item('plugin_text_domain')),
-			'joe-settings-tab-appearance' => '-- ' . esc_html__('Appearance', Joe_Config::get_item('plugin_text_domain')),
-			'joe-settings-tab-joe' => '-- ' . esc_html__('Advanced', Joe_Config::get_item('plugin_text_domain')),
+			'joe-settings-tab-shortcode' => '-- ' . esc_html__('Shortcodes', InMap_Config::get_item('plugin_text_domain')),
+			'joe-settings-tab-appearance' => '-- ' . esc_html__('Appearance', InMap_Config::get_item('plugin_text_domain')),
+			'joe-settings-tab-joe' => '-- ' . esc_html__('Advanced', InMap_Config::get_item('plugin_text_domain')),
 		];
 
 		//Switch tabs
-		if (Joe_Config::get_setting('mapshare', 'defaults', 'mapshare_identifier')) {
-			Joe_Config::set_item('settings_default_tab', 'joe-settings-tab-shortcode');
+		if (InMap_Config::get_setting('mapshare', 'defaults', 'mapshare_identifier')) {
+			InMap_Config::set_item('settings_default_tab', 'joe-settings-tab-shortcode');
 		}
 
 		//Text
@@ -109,13 +109,13 @@ class InMap_Settings {
 		$this->tabs['shortcode'] = [
 			'sections' => [
 				'build' => [
-					'title' => esc_html__('Shortcodes', Joe_Config::get_item('plugin_text_domain')),
+					'title' => esc_html__('Shortcodes', InMap_Config::get_item('plugin_text_domain')),
 					'fields' => [
 						'mapshare_identifier' => [
 							'required' => 'demo',
 							'id' => 'mapshare_identifier',
-							'title' => esc_html__('MapShare Identifier', Joe_Config::get_item('plugin_text_domain')),
-							'tip' => esc_attr__('This is found in the Social tab of your Garmin Explore acount.', Joe_Config::get_item('plugin_text_domain')),
+							'title' => esc_html__('MapShare Identifier', InMap_Config::get_item('plugin_text_domain')),
+							'tip' => esc_attr__('This is found in the Social tab of your Garmin Explore acount.', InMap_Config::get_item('plugin_text_domain')),
 							'tip_link' => 'https://explore.garmin.com/Social',
 							'prepend' => 'share.garmin.com/',
 							//Remove all non-alphanemeric
@@ -124,20 +124,20 @@ class InMap_Settings {
 							],
 						],
 						'mapshare_password' => [
-							'title' => esc_html__('MapShare Password', Joe_Config::get_item('plugin_text_domain')),
-							'tip' => esc_attr__('It is recommended that you protect your MapShare page from public access by setting a password. This plugin requires that password request your MapShare data, ***HOWEVER*** it does not protect it from public access.', Joe_Config::get_item('plugin_text_domain')),
+							'title' => esc_html__('MapShare Password', InMap_Config::get_item('plugin_text_domain')),
+							'tip' => esc_attr__('It is recommended that you protect your MapShare page from public access by setting a password. This plugin requires that password request your MapShare data, ***HOWEVER*** it does not protect it from public access.', InMap_Config::get_item('plugin_text_domain')),
 							'tip_link' => 'https://explore.garmin.com/Social',
 						],
 						'mapshare_date_start' => [
 							'type' => 'datetime-local',
-							'title' => esc_html__('Start Date', Joe_Config::get_item('plugin_text_domain')),
-							'tip' => esc_html__('Display data starting from this date and time (UTC time yyyy-mm-ddThh:mm, e.g. 2022-12-31T00:00). Leave both Start and End date/time blank to only display your most recent MapShare location.', Joe_Config::get_item('plugin_text_domain')),
+							'title' => esc_html__('Start Date', InMap_Config::get_item('plugin_text_domain')),
+							'tip' => esc_html__('Display data starting from this date and time (UTC time yyyy-mm-ddThh:mm, e.g. 2022-12-31T00:00). Leave both Start and End date/time blank to only display your most recent MapShare location.', InMap_Config::get_item('plugin_text_domain')),
 						],
 						'mapshare_date_end' => [
 							'id' => 'mapshare_date_end',
 							'type' => 'datetime-local',
-							'title' => esc_html__('End Date', Joe_Config::get_item('plugin_text_domain')),
-							'tip' => esc_html__('Strongly recommended! Display data until this date and time (UTC time yyyy-mm-ddThh:mm, e.g. 2022-12-31T23:59). Be careful when creating Shortcodes with no end date, all future MapShare data will be displayed!', Joe_Config::get_item('plugin_text_domain')),
+							'title' => esc_html__('End Date', InMap_Config::get_item('plugin_text_domain')),
+							'tip' => esc_html__('Strongly recommended! Display data until this date and time (UTC time yyyy-mm-ddThh:mm, e.g. 2022-12-31T23:59). Be careful when creating Shortcodes with no end date, all future MapShare data will be displayed!', InMap_Config::get_item('plugin_text_domain')),
 						],
 					],
 				],
@@ -148,18 +148,18 @@ class InMap_Settings {
 		$this->tabs['appearance'] = [
 			'sections' => [
 				'map' => [
-					'title' => esc_html__('Map', Joe_Config::get_item('plugin_text_domain')),
+					'title' => esc_html__('Map', InMap_Config::get_item('plugin_text_domain')),
 					'fields' => [
 						'basemap_url' => [
-							'required' => Joe_Config::get_fallback('appearance', 'map', 'basemap_url'),
-							'title' => esc_html__('Basemap URL', Joe_Config::get_item('plugin_text_domain')),
-							'tip' => esc_html__('The URL to a "slippy map" tile service, this needs to contain the characters {z},{x} and {y}. OpenStreetMap is used by default.', Joe_Config::get_item('plugin_text_domain')),
+							'required' => InMap_Config::get_fallback('appearance', 'map', 'basemap_url'),
+							'title' => esc_html__('Basemap URL', InMap_Config::get_item('plugin_text_domain')),
+							'tip' => esc_html__('The URL to a "slippy map" tile service, this needs to contain the characters {z},{x} and {y}. OpenStreetMap is used by default.', InMap_Config::get_item('plugin_text_domain')),
 							'tip_link' => 'https://leaflet-extras.github.io/leaflet-providers/preview/',
 						],
 						'basemap_attribution' => [
-							'required' => Joe_Config::get_fallback('appearance', 'map', 'basemap_attribution'),
-							'title' => esc_html__('Basemap Attribution', Joe_Config::get_item('plugin_text_domain')),
-							'tip' => esc_html__('Mapping services often have the requirement that attribution is displayed by the map. Text and HTML links are supported.', Joe_Config::get_item('plugin_text_domain')),
+							'required' => InMap_Config::get_fallback('appearance', 'map', 'basemap_attribution'),
+							'title' => esc_html__('Basemap Attribution', InMap_Config::get_item('plugin_text_domain')),
+							'tip' => esc_html__('Mapping services often have the requirement that attribution is displayed by the map. Text and HTML links are supported.', InMap_Config::get_item('plugin_text_domain')),
 							'input_processing' => array(
 								'encode_special',
 							),
@@ -170,31 +170,31 @@ class InMap_Settings {
 					],
 				],
 				'colours' => [
-					'title' => esc_html__('Colours', Joe_Config::get_item('plugin_text_domain')),
+					'title' => esc_html__('Colours', InMap_Config::get_item('plugin_text_domain')),
 					'fields' => [
 						'tracking_colour' => [
 							'type' => 'text',
 							'class' => 'color joe-colour-picker',
-							'required' => Joe_Config::get_fallback('appearance', 'colours', 'tracking_colour'),
-							'title' => esc_html__('Tracking Colour', Joe_Config::get_item('plugin_text_domain')),
-							'tip' => esc_attr__('This is the primary colour used. Customise further by adding custom CSS rules.', Joe_Config::get_item('plugin_text_domain')),
+							'required' => InMap_Config::get_fallback('appearance', 'colours', 'tracking_colour'),
+							'title' => esc_html__('Tracking Colour', InMap_Config::get_item('plugin_text_domain')),
+							'tip' => esc_attr__('This is the primary colour used. Customise further by adding custom CSS rules.', InMap_Config::get_item('plugin_text_domain')),
 							'tip_link' => 'https://wordpress.org/support/article/css/#custom-css-in-wordpress',
 						],
 					],
 				],
 				'icons' => [
-					'title' => esc_html__('Icons', Joe_Config::get_item('plugin_text_domain')),
+					'title' => esc_html__('Icons', InMap_Config::get_item('plugin_text_domain')),
 					'fields' => [
 						'tracking_icon' => [
-							'required' => Joe_Config::get_fallback('appearance', 'icons', 'tracking_icon'),
-							'title' => esc_html__('Tracking Icon', Joe_Config::get_item('plugin_text_domain')),
-							'tip' => esc_attr__('The URL to a SVG image file to use as an icon for tracking points.', Joe_Config::get_item('plugin_text_domain')),
+							'required' => InMap_Config::get_fallback('appearance', 'icons', 'tracking_icon'),
+							'title' => esc_html__('Tracking Icon', InMap_Config::get_item('plugin_text_domain')),
+							'tip' => esc_attr__('The URL to a SVG image file to use as an icon for tracking points.', InMap_Config::get_item('plugin_text_domain')),
 							'tip_link' => 'https://www.svgrepo.com/vectors/location/',
 						],
 						'message_icon' => [
-							'required' => Joe_Config::get_fallback('appearance', 'icons', 'message_icon'),
-							'title' => esc_html__('Message Icon', Joe_Config::get_item('plugin_text_domain')),
-							'tip' => esc_attr__('The URL to a SVG image file to use as an icon for message points.', Joe_Config::get_item('plugin_text_domain')),
+							'required' => InMap_Config::get_fallback('appearance', 'icons', 'message_icon'),
+							'title' => esc_html__('Message Icon', InMap_Config::get_item('plugin_text_domain')),
+							'tip' => esc_attr__('The URL to a SVG image file to use as an icon for message points.', InMap_Config::get_item('plugin_text_domain')),
 							'tip_link' => 'https://www.svgrepo.com/vectors/envelope/',
 						],
 					],
@@ -204,21 +204,21 @@ class InMap_Settings {
 	}
 
 	function do_shortcode() {
-		Joe_Log::reset();
-		Joe_Log::set_output_type('notice');
+		InMap_Log::reset();
+		InMap_Log::set_output_type('notice');
 
 		$this->shortcode = '[';
-		$this->shortcode .= Joe_Config::get_item('plugin_shortcode');
+		$this->shortcode .= InMap_Config::get_item('plugin_shortcode');
 		foreach ([
 			'mapshare_identifier',
 			'mapshare_password',
 			'mapshare_date_start',
 			'mapshare_date_end',
 		] as $key) {
-			$value = Joe_Config::get_setting('shortcode', 'build', $key);
+			$value = InMap_Config::get_setting('shortcode', 'build', $key);
 
 			if (!empty($value)) {
-				$this->shortcode .= ' ' . $key . '="' . Joe_Config::get_setting('shortcode', 'build', $key) . '"';
+				$this->shortcode .= ' ' . $key . '="' . InMap_Config::get_setting('shortcode', 'build', $key) . '"';
 			}
 		}
 		$this->shortcode .= ']';
@@ -226,18 +226,18 @@ class InMap_Settings {
 		//Execute Shortcode (and Garmin request)
 		$this->shortcode_output = do_shortcode($this->shortcode);
 
-		if (Joe_Log::has('do_demo')) {
-			$this->shortcode = '[' . Joe_Config::get_item('plugin_shortcode') . ' mapshare_identifier="demo"]';
+		if (InMap_Log::has('do_demo')) {
+			$this->shortcode = '[' . InMap_Config::get_item('plugin_shortcode') . ' mapshare_identifier="demo"]';
 		}
 
-		Joe_Log::render();
+		InMap_Log::render();
 	}
 
 	function joe_admin_after_form($out) {
 		//Success
-		if (!Joe_Log::in_error()) {
+		if (!InMap_Log::in_error()) {
 			//Shortcode output
-			$out .= '<p class="joe-lead">' . __('Add wherever Shortcodes are supported.', Joe_Config::get_item('plugin_text_domain')) . '</p>';
+			$out .= '<p class="joe-lead">' . __('Add wherever Shortcodes are supported.', InMap_Config::get_item('plugin_text_domain')) . '</p>';
 			$out .= '<div class="joe-shortcode">' . $this->shortcode . '</div>';
 
 			//Actual output
@@ -249,10 +249,10 @@ class InMap_Settings {
 
 	function joe_admin_before_form($out) {
 		//Demo
-		if (Joe_Log::has('do_demo')) {
-			$out .= '<p class="joe-lead">' . sprintf(__('Configure MapShare in the <a href="%s">Social</a> tab of your Garmin Explore Account.', Joe_Config::get_item('plugin_text_domain')), 'https://explore.garmin.com/Social') . '</p>';
+		if (InMap_Log::has('do_demo')) {
+			$out .= '<p class="joe-lead">' . sprintf(__('Configure MapShare in the <a href="%s">Social</a> tab of your Garmin Explore Account.', InMap_Config::get_item('plugin_text_domain')), 'https://explore.garmin.com/Social') . '</p>';
 
-			$out .= '<p>' . sprintf(__('<strong>Important!</strong> Even if you have a MapShare password set, <em>this plugin</em> simply uses it to request your data; it <strong>does not</strong> protect it from being viewed. You are responsible for <a href="%s">protecting access</a> if needed.', Joe_Config::get_item('plugin_text_domain')), 'https://wordpress.org/support/article/using-password-protection/') . '</p>';
+			$out .= '<p>' . sprintf(__('<strong>Important!</strong> Even if you have a MapShare password set, <em>this plugin</em> simply uses it to request your data; it <strong>does not</strong> protect it from being viewed. You are responsible for <a href="%s">protecting access</a> if needed.', InMap_Config::get_item('plugin_text_domain')), 'https://wordpress.org/support/article/using-password-protection/') . '</p>';
 		}
 
 		return $out;
@@ -275,9 +275,9 @@ class InMap_Settings {
 	//Menu link
 	public function admin_menu() {
 		if ($this->slug != $this->default_slug) {
-			$text = esc_html__('Settings', Joe_Config::get_item('plugin_text_domain'));
+			$text = esc_html__('Settings', InMap_Config::get_item('plugin_text_domain'));
 		} else {
-			$text = Joe_Helper::plugin_name();
+			$text = InMap_Helper::plugin_name();
 		}
 
 		add_submenu_page($this->slug, $text, $text, 'manage_options', $this->submenu_slug, array($this, 'content_admin_page'));
@@ -288,7 +288,7 @@ class InMap_Settings {
 	}
 
 	public function register_settings() {
-		register_setting(Joe_Config::get_item('settings_id'), Joe_Config::get_item('settings_id'), [$this, 'sanitize_callback']);
+		register_setting(InMap_Config::get_item('settings_id'), InMap_Config::get_item('settings_id'), [$this, 'sanitize_callback']);
 
 		//For each tab
 		foreach ($this->tabs as $tab_key => $tab_data) {
@@ -298,7 +298,7 @@ class InMap_Settings {
 				$section_data['title'] = (isset($section_data['title'])) ? $section_data['title'] : '';
 
 				//Create section
-				add_settings_section($section_key, $section_data['title'], [$this, 'section_text'], Joe_Config::get_item('settings_id'));
+				add_settings_section($section_key, $section_data['title'], [$this, 'section_text'], InMap_Config::get_item('settings_id'));
 
 				//For each field in section
 				if (isset($section_data['fields']) && is_array($section_data['fields']) && sizeof($section_data['fields'])) {
@@ -321,7 +321,7 @@ class InMap_Settings {
 								//Check for empty
 								if (empty($setting_val) && isset($field['required']) && $field['required']) {
 									//Use fallback
-									$field['set_value'] = Joe_Config::get_setting($tab_key, $section_key, $field['name'], true);
+									$field['set_value'] = InMap_Config::get_setting($tab_key, $section_key, $field['name'], true);
 								} else {
 									$field['set_value'] = $setting_val;
 								}
@@ -329,17 +329,17 @@ class InMap_Settings {
 						}
 
 						//Modify name for multi-dimensional array
-						$field['name'] = Joe_Config::get_item('settings_id') . '[' . $tab_key . '][' . $section_key . '][' . $field['name'] . ']';
+						$field['name'] = InMap_Config::get_item('settings_id') . '[' . $tab_key . '][' . $section_key . '][' . $field['name'] . ']';
 
 						//Repeatable section
 						if (isset($section_data['repeatable']) && $section_data['repeatable']) {
 							//Get count
-							$repeatable_count = Joe_Helper::get_section_repeatable_count($section_data);
+							$repeatable_count = InMap_Helper::get_section_repeatable_count($section_data);
 
 							//Must be an array
 							if (!is_array($field['default'])) {
 								//Make array
-								$field['default'] = Joe_Helper::convert_single_value_to_array($field['default']);
+								$field['default'] = InMap_Helper::convert_single_value_to_array($field['default']);
 							}
 
 							//Array size must match
@@ -349,7 +349,7 @@ class InMap_Settings {
 							}
 						}
 
-						add_settings_field($field['name'], $field['title'], [$this, 'create_input'], Joe_Config::get_item('settings_id'), $section_key, $field);
+						add_settings_field($field['name'], $field['title'], [$this, 'create_input'], InMap_Config::get_item('settings_id'), $section_key, $field);
 					}
 				}
 			}
@@ -357,14 +357,14 @@ class InMap_Settings {
 	}
 
 	public function content_admin_page() {
-		echo '<div id="' . Joe_Helper::css_prefix() . 'admin-container">' . "\n";
+		echo '<div id="' . InMap_Helper::css_prefix() . 'admin-container">' . "\n";
 
-		echo Joe_Helper::plugin_about();
+		echo InMap_Helper::plugin_about();
 
 		echo '	<div class="card">' . "\n";
 
 		//Tabs
-		$active_content = (isset($_GET['content'])) ? $_GET['content'] : Joe_Config::get_item('settings_default_tab');
+		$active_content = (isset($_GET['content'])) ? $_GET['content'] : InMap_Config::get_item('settings_default_tab');
 		$this->settings_nav($active_content);
 
 		//Prepend?
@@ -372,34 +372,34 @@ class InMap_Settings {
 
 		//Open form
 		echo '		<form action="' . admin_url('options.php') . '" method="post">' . "\n";
-		settings_fields(Joe_Config::get_item('settings_id'));
+		settings_fields(InMap_Config::get_item('settings_id'));
 
 		//For each tab
 		foreach ($this->tabs as $tab_key => $tab_data) {
-			echo '	<div class="' . Joe_Helper::css_prefix() . 'settings-tab ' . Joe_Helper::css_prefix() . 'settings-tab-' . esc_attr($tab_key) . '">' . "\n";
+			echo '	<div class="' . InMap_Helper::css_prefix() . 'settings-tab ' . InMap_Helper::css_prefix() . 'settings-tab-' . esc_attr($tab_key) . '">' . "\n";
 
 			//Tab title?
 			if (array_key_exists('name', $tab_data)) {
-				echo '	<h2 class="' . Joe_Helper::css_prefix() . 'settings-tab-title">' . $tab_data['name'] . '</h2>' . "\n";
+				echo '	<h2 class="' . InMap_Helper::css_prefix() . 'settings-tab-title">' . $tab_data['name'] . '</h2>' . "\n";
 			}
 
 			//Tab description?
 			if (array_key_exists('description', $tab_data)) {
 				$tab_description = $tab_data['description'];
 
-				echo '	<div class="' . Joe_Helper::css_prefix() . 'settings-tab-description">' . $tab_description . '</div>' . "\n";
+				echo '	<div class="' . InMap_Helper::css_prefix() . 'settings-tab-description">' . $tab_description . '</div>' . "\n";
 			}
 
 			//For each section
 			foreach ($tab_data['sections'] as $section_key => $section_data) {
 				$class = (isset($section_data['class'])) ? ' ' . $section_data['class'] : '';
-				echo '		<div class="' . Joe_Helper::css_prefix('settings-section') . ' ' . Joe_Helper::css_prefix('settings-section-' . $section_key . $class) . '">' . "\n";
+				echo '		<div class="' . InMap_Helper::css_prefix('settings-section') . ' ' . InMap_Helper::css_prefix('settings-section-' . $section_key . $class) . '">' . "\n";
 
 				//Help
 				if (array_key_exists('help', $section_data) && isset($section_data['help']['url'])) {
 					$help_text = (isset($section_data['help']['text'])) ? $section_data['help']['text'] : 'View Help &raquo;';
 
-					echo '		<a class="' . Joe_Helper::css_prefix('docs-link button') . '" href="' . esc_url_raw($section_data['help']['url']) . '" target="_blank">' . $help_text . '</a>' . "\n";
+					echo '		<a class="' . InMap_Helper::css_prefix('docs-link button') . '" href="' . esc_url_raw($section_data['help']['url']) . '" target="_blank">' . $help_text . '</a>' . "\n";
 				}
 
 				//Title
@@ -409,16 +409,16 @@ class InMap_Settings {
 
 				//Description
 				if (array_key_exists('description', $section_data)) {
-					echo '		<div class="' . Joe_Helper::css_prefix() . 'settings-section-description">' . $section_data['description'] . '</div>' . "\n";
+					echo '		<div class="' . InMap_Helper::css_prefix() . 'settings-section-description">' . $section_data['description'] . '</div>' . "\n";
 				}
 
 				//Repeatable?
 				if (array_key_exists('repeatable', $section_data) && $section_data['repeatable']) {
-					echo '<div class="' . Joe_Helper::css_prefix() . 'repeatable" data-count="0">' . "\n";
+					echo '<div class="' . InMap_Helper::css_prefix() . 'repeatable" data-count="0">' . "\n";
 				}
 
 				echo '		<table class="form-table">' . "\n";
-				do_settings_fields(Joe_Config::get_item('settings_id'), $section_key);
+				do_settings_fields(InMap_Config::get_item('settings_id'), $section_key);
 				echo '		</table>' . "\n";
 
 				//Repeatable?
@@ -428,7 +428,7 @@ class InMap_Settings {
 
 				//Footer
 				if (array_key_exists('footer', $section_data)) {
-					echo '	<div class="' . Joe_Helper::css_prefix() . 'settings-section-footer">' . $section_data['footer'] . '</div>' . "\n";
+					echo '	<div class="' . InMap_Helper::css_prefix() . 'settings-section-footer">' . $section_data['footer'] . '</div>' . "\n";
 				}
 
 				echo '</div>' . "\n";
@@ -455,7 +455,7 @@ class InMap_Settings {
 			$set_value = null;
 		}
 
-		echo Joe_Input::create_field($field, $set_value, false);
+		echo InMap_Input::create_field($field, $set_value, false);
 	}
 
 	public function section_text($args) {
@@ -489,7 +489,7 @@ class InMap_Settings {
 								}
 
 								//Process the input
-								$input_data[$tab_key][$section_key][$field_definition['name']] = Joe_Input::process_input($field_definition, $value);
+								$input_data[$tab_key][$section_key][$field_definition['name']] = InMap_Input::process_input($field_definition, $value);
 							}
 						}
 					}
@@ -505,7 +505,7 @@ class InMap_Settings {
 			return;
 		}
 
-		echo '<div id="' . Joe_Helper::css_prefix() . 'settings-nav" data-init_tab_key="' . esc_attr($current) . '">' . "\n";
+		echo '<div id="' . InMap_Helper::css_prefix() . 'settings-nav" data-init_tab_key="' . esc_attr($current) . '">' . "\n";
 		echo '	<select>' . "\n";
 
 		foreach ($this->settings_nav as $content_id => $content_title) {

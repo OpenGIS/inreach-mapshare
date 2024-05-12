@@ -1,6 +1,6 @@
 <?php
 
-class Joe_Assets {
+class InMap_Assets {
 
 	static private $head = [
 		'css' => [
@@ -86,17 +86,17 @@ class Joe_Assets {
 			return;
 		}
 
-		echo "\n" . '<!-- START ' . Joe_Config::get_name(true, true) . ' Head CSS -->' . "\n";
+		echo "\n" . '<!-- START ' . InMap_Config::get_name(true, true) . ' Head CSS -->' . "\n";
 		echo '<style type="text/css">' . "\n";
 
-		echo '/* ' . Joe_Config::get_name(true, true) . ' v' . Joe_Config::get_version() . ' */' . "\n";
+		echo '/* ' . InMap_Config::get_name(true, true) . ' v' . InMap_Config::get_version() . ' */' . "\n";
 
 		foreach (static::$head['css']['inline'] as $css) {
 			echo $css;
 		}
 
 		echo '</style>' . "\n";
-		echo '<!-- END ' . Joe_Config::get_name(true, true) . ' Head CSS -->' . "\n\n";
+		echo '<!-- END ' . InMap_Config::get_name(true, true) . ' Head CSS -->' . "\n\n";
 	}
 
 	static function footer() {
@@ -105,10 +105,10 @@ class Joe_Assets {
 			return;
 		}
 
-		echo "\n" . '<!-- START ' . Joe_Config::get_name(true, true) . ' Footer JS -->' . "\n";
+		echo "\n" . '<!-- START ' . InMap_Config::get_name(true, true) . ' Footer JS -->' . "\n";
 		echo '<script type="text/javascript">' . "\n";
 
-		echo '	//' . Joe_Config::get_name(true, true) . ' v' . Joe_Config::get_version() . "\n";
+		echo '	//' . InMap_Config::get_name(true, true) . ' v' . InMap_Config::get_version() . "\n";
 
 		//Inline
 		foreach (static::$foot['js']['inline'] as $js) {
@@ -124,7 +124,7 @@ class Joe_Assets {
 			echo '});' . "\n";
 		}
 		echo '</script>' . "\n";
-		echo '<!-- END ' . Joe_Config::get_name(true, true) . ' Footer JS -->' . "\n\n";
+		echo '<!-- END ' . InMap_Config::get_name(true, true) . ' Footer JS -->' . "\n\n";
 	}
 
 	static function enqueue_styles() {
@@ -157,9 +157,9 @@ class Joe_Assets {
 				}
 			}
 
-			$id = Joe_Helper::slug_prefix($count);
+			$id = InMap_Helper::slug_prefix($count);
 
-			wp_register_style($id, $url, $deps, Joe_Config::get_version());
+			wp_register_style($id, $url, $deps, InMap_Config::get_version());
 			wp_enqueue_style($id);
 
 			$count++;
@@ -185,13 +185,13 @@ class Joe_Assets {
 			}
 
 			//Don't cache when debugging
-			if (Joe_Helper::do_debug()) {
+			if (InMap_Helper::do_debug()) {
 				$enqueue['url'] = add_query_arg('no_cache', rand(0, 99999999), $enqueue['url']);
 			}
 
 			//ID
 			if (!isset($enqueue['id']) || !$enqueue['id']) {
-				$enqueue['id'] = Joe_Helper::slug_prefix($count);
+				$enqueue['id'] = InMap_Helper::slug_prefix($count);
 			}
 
 			//Deps
@@ -205,7 +205,7 @@ class Joe_Assets {
 			}
 
 			//Register
-			wp_register_script($enqueue['id'], $enqueue['url'], $enqueue['deps'], Joe_Config::get_version(), $enqueue['in_footer']);
+			wp_register_script($enqueue['id'], $enqueue['url'], $enqueue['deps'], InMap_Config::get_version(), $enqueue['in_footer']);
 
 			//Localize
 			if (isset($enqueue['data']) && sizeof($enqueue['data'])) {
@@ -219,4 +219,4 @@ class Joe_Assets {
 		}
 	}
 }
-Joe_Assets::init();
+InMap_Assets::init();
