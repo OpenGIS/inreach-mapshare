@@ -18,7 +18,7 @@ spl_autoload_register(function ($class_name) {
 	switch (true) {
 	//App
 	case strpos($class_name, 'InMap_') === 0:
-		require 'App/' . $file_name;
+		require 'src/php/' . $file_name;
 
 		break;
 	}
