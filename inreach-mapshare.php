@@ -48,7 +48,6 @@ add_action('init', function () {
 		'settings_id' => 'inmap_settings',
 		'settings_default_tab' => 'joe-settings-tab-mapshare',
 		'site_url' => 'https://github.com/morehawes/inreach-mapshare/',
-// 		'directory_url' => 'https://wordpress.org/plugins/' . $plugin_slug . '/',
 		'github_url' => 'https://github.com/morehawes/inreach-mapshare/',
 		'plugin_shortcode' => $plugin_slug,
 		'plugin_about' => '
