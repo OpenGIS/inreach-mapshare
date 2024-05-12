@@ -18,7 +18,7 @@ spl_autoload_register(function ($class_name) {
 	switch (true) {
 	//Joe Build
 	case strpos($class_name, 'Joe_') === 0:
-		require 'Joe/' . $file_name;
+		require 'Base/' . $file_name;
 
 		break;
 
