@@ -3,43 +3,13 @@
   <head>
     <meta charset="UTF-8" />
 
-    <!-- Stylesheets -->
-    <link rel="stylesheet" href="/assets/css/leaflet.css" />
-    <link rel="stylesheet" href="/assets/less/shortcode.less" />
-    <link rel="stylesheet" href="/assets/less/admin.less" />
-
-    <!--     <link rel="icon" type="image/svg+xml" href="/vite.svg" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
- -->
-
     <title>inReach MapShare</title>
+
+    <link rel="stylesheet" href="/css/leaflet.css" />
   </head>
   <body>
-    <!-- START inReach MapShare Shortcode -->
-    <div class="inmap-wrap">
-      <div id="inmap-map" class="inmap-map"></div>
-      <div class="inmap-info"></div>
-    </div>
-    <!-- END inReach MapShare Shortcode -->
+    <script src="/js/leaflet.js"></script>
 
-    <script src="/assets/js/jquery.js"></script>
-    <script src="/assets/js/leaflet.js"></script>
-    <!-- <script src="/assets/js/admin.js"></script> -->
-    <script src="/assets/js/shortcode.js"></script>
-
-    <script>
-      const inmap_L = L.noConflict();
-
-      var inmap_shortcode_js = {"basemap_url":"https:\/\/{s}.tile.openstreetmap.org\/{z}\/{x}\/{y}.png","basemap_attribution":"\u00a9 <a href=\"https:\/\/www.openstreetmap.org\/copyright\">OpenStreetMap<\/a> contributors"};
-
-      jQuery(document).ready(function () {
-
-        // Fetch demo data
-        jQuery.get("/assets/geo/demo.json", function (data) {
-          // Create Map and pass data
-          inmap_create_map("map", data);
-        });        
-      });
-    </script>
+    <script type="module" src="./main.js"></script>
   </body>
 </html>

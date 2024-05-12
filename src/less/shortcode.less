@@ -14,31 +14,37 @@
 	min-height: 160px;
 	min-width: 160px;
 	overflow: hidden;
-	font-family: "Inter var", -apple-system, BlinkMacSystemFont, "Helvetica Neue", Helvetica, sans-serif;
-	z-index: +1000;		
+	font-family:
+		"Inter var",
+		-apple-system,
+		BlinkMacSystemFont,
+		"Helvetica Neue",
+		Helvetica,
+		sans-serif;
+	z-index: +1000;
 	margin-bottom: 1.5rem;
 	border: 1px solid @grey-dark;
 
 	@media @break-sm {
-		max-height: 320px;			
+		max-height: 320px;
 	}
 
 	@media @break-md {
-// 		max-height: 480px;			
+		// 		max-height: 480px;
 	}
 
 	@media @break-lg {
-		max-height: 480px;			
+		max-height: 480px;
 	}
 
 	@media @break-xl {
-		min-height: 500px;			
-	}	
+		min-height: 500px;
+	}
 
-	// ===========================		
+	// ===========================
 	// ========== LAYOUT =========
 	// ===========================
-	
+
 	.inmap-map,
 	.inmap-info {
 		width: 100%;
@@ -46,35 +52,35 @@
 		max-height: 160px;
 		height: 50%;
 		overflow: hidden;
-		
+
 		@media @break-sm {
-			width: 50%;	
+			width: 50%;
 			height: 100%;
- 			min-height: 320px;			
+			min-height: 320px;
 		}
 
 		@media @break-md {
-//  			min-height: 400px;			
+			//  			min-height: 400px;
 		}
 
 		@media @break-lg {
- 			min-height: 480px;			
+			min-height: 480px;
 		}
-		
+
 		&.inmap-map {
-// 			height: 240px;
+			// 			height: 240px;
 			@media @break-sm {
 				float: left;
 			}
 
 			@media @break-xl {
 				width: 60%;
-				min-height: 500px;			
+				min-height: 500px;
 			}
 		}
 
 		&.inmap-info {
- 			overflow-y: auto;
+			overflow-y: auto;
 
 			@media @break-sm {
 				.inmap-info-item {
@@ -83,7 +89,7 @@
 					}
 				}
 			}
-			
+
 			@media @break-xl {
 				width: 40%;
 			}
@@ -95,79 +101,79 @@
 
 				&.inmap-only {
 					max-height: inherit !important;
-					
+
 					@media @break-sm {
 						height: 100%;
-						max-height: unset !important;					
+						max-height: unset !important;
 					}
 
 					.inmap-info-desc {
 						height: 100%;
 					}
 				}
-			
+
 				&.inmap-active {
 					max-height: 110px;
 
 					@media @break-sm {
 						max-height: 50%;
-					}					
-				}	
+					}
+				}
 
 				&.inmap-last {
 					position: absolute;
 					top: 50%;
-					width: inherit;	
-				}			
+					width: inherit;
+				}
 			}
 		}
 	}
 
-	// ===========================		
+	// ===========================
 	// ========== ICONS ==========
 	// ===========================
 
 	.inmap-icon {
 		margin-left: 0;
-		margin-top: 0;		
+		margin-top: 0;
 		background-color: @primary;
 		-webkit-mask-repeat: no-repeat;
-		-webkit-mask-position: center; 
-		-webkit-mask-image: url(../img/location.svg);	
+		-webkit-mask-position: center;
+		-webkit-mask-image: url(/img/location.svg);
 		mask-repeat: no-repeat;
-		mask-position: center; 
-		mask-image: url(../img/location.svg);			
-	
+		mask-position: center;
+		mask-image: url(/img/location.svg);
+
 		//GPS
 		&.inmap-icon-gps {
-			-webkit-mask-image: url(../img/location-gps.svg);	
-			mask-image: url(../img/location-gps.svg);			
+			-webkit-mask-image: url(/img/location-gps.svg);
+			mask-image: url(/img/location-gps.svg);
 		}
 
 		//Fullscreen
 		&.inmap-icon-fullscreen {
-			-webkit-mask-image: url(../img/fullscreen.svg);	
-			mask-image: url(../img/fullscreen.svg);		
+			-webkit-mask-image: url(/img/fullscreen.svg);
+			mask-image: url(/img/fullscreen.svg);
 		}
-	
+
 		//Messages
 		&.inmap-icon-message {
-			-webkit-mask-image: url(../img/message.svg);	
-			mask-image: url(../img/message.svg);
-			
+			-webkit-mask-image: url(/img/message.svg);
+			mask-image: url(/img/message.svg);
+
 			//Quick
-// 			&.inmap-icon-quick {
-// 				mask-image: url(../img/message-quick.svg);				
-// 			}
-// 	
-// 			//Custom	
-// 			&.inmap-icon-custom {
-// 				mask-image: url(../img/message-custom.svg);				
-// 			}
+			// 			&.inmap-icon-quick {
+			// 				mask-image: url(/img/message-quick.svg);
+			// 			}
+			//
+			// 			//Custom
+			// 			&.inmap-icon-custom {
+			// 				mask-image: url(/img/message-custom.svg);
+			// 			}
 		}
 	}
 
-	// ===========================		
+	// ===========================
 	// =========== MAP ===========
 	// ===========================
 
@@ -175,39 +181,39 @@
 		* {
 			box-sizing: unset;
 		}
-		
-		// ===========================		
+
+		// ===========================
 		// =========== UI ============
 		// ===========================
-			
+
 		.inmap-map-ui {
 			.inmap-control {
-// 				border: 1px solid blue;
+				// 				border: 1px solid blue;
 				background: #fff;
-				
+
 				&:hover {
 					background: #f4f4f4;
 				}
-				
+
 				.inmap-button.inmap-icon {
 					-webkit-mask-size: 22px;
-					mask-size: 22px;				
-					background-color: black !important;				
+					mask-size: 22px;
+					background-color: black !important;
 				}
 			}
 		}
 
-		// ===========================		
+		// ===========================
 		// ========= MARKERS =========
 		// ===========================
 
-		.inmap-marker	 {
+		.inmap-marker {
 			width: 5px !important;
-			height: 5px !important;	
+			height: 5px !important;
 			margin-left: -2.5px !important;
-			margin-top: -2.5px !important;				
+			margin-top: -2.5px !important;
 			background: @primary;
-			
+
 			text-align: center;
 			border-radius: 50%;
 			.inmap-icon {
@@ -219,7 +225,7 @@
 
 			&.inmap-last,
 			&.inmap-active {
- 				z-index: +1200;			
+				z-index: +1200;
 			}
 
 			&.inmap-last {
@@ -227,13 +233,13 @@
 				background: @primary !important;
 				.inmap-icon {
 					background: #fff !important;
-				}		
+				}
 			}
-			
+
 			&.inmap-icon-message,
 			&.inmap-hover,
 			&.inmap-active {
-//  				z-index: +1200 !important;
+				//  				z-index: +1200 !important;
 				width: 15px !important;
 				height: 15px !important;
 				margin-left: -7.5px !important;
@@ -242,43 +248,42 @@
 				border: 1px solid @primary;
 				.inmap-icon {
 					display: inline-block;
- 					width: 100%;
+					width: 100%;
 					height: inherit;
-// 					margin-left: -0.5px;
-// 					margin-top: -1px;					
+					// 					margin-left: -0.5px;
+					// 					margin-top: -1px;
 					-webkit-mask-size: 9px;
 					mask-size: 9px;
 					background: @primary;
-				}				
+				}
 			}
 
 			&.inmap-icon-message {
 				&.inmap-active,
 				&.inmap-hover {
-					background: @primary;				
+					background: @primary;
 					.inmap-icon {
-						background: #fff;					
+						background: #fff;
 					}
 				}
 			}
 		}
 	}
-	
-	// ===========================		
+
+	// ===========================
 	// ========== INFO ===========
 	// ===========================
 
 	.inmap-info {
 		position: initial;
-		font-size: 13px;													
-		
-		
-		// ===========================		
+		font-size: 13px;
+
+		// ===========================
 		// ======= LIST VIEW =========
 		// ===========================
 
 		background: #fff;
-		
+
 		//Alternating BG
 		&:nth-child(odd) {
 			background-color: @grey-light;
@@ -286,49 +291,48 @@
 
 		//Info items
 		.inmap-info-item {
-
-// 			transition: max-height 0.25s cubic-bezier(0, 1, 0, 1); 			
+			// 			transition: max-height 0.25s cubic-bezier(0, 1, 0, 1);
 
 			&.inmap-active {
 				overflow-y: auto;
 				max-height: 320px;
-// 				transition: max-height 1s ease-in-out;
+				// 				transition: max-height 1s ease-in-out;
 			}
-			
-// 			&.inmap-demo {
-// 				.inmap-info-desc {	
-// 					td {
-// // 						&::after {
-// // 							content: '[Demo] ';
-// // 						}
-// 					}
-// 				}
-// 			}			
+
+			// 			&.inmap-demo {
+			// 				.inmap-info-desc {
+			// 					td {
+			// // 						&::after {
+			// // 							content: '[Demo] ';
+			// // 						}
+			// 					}
+			// 				}
+			// 			}
 
 			padding: 0;
 			padding-left: 0;
-//  			font-size: 12px;
+			//  			font-size: 12px;
 			border-bottom: 1px solid @grey-dark;
-	
+
 			.inmap-icon {
 				position: absolute;
 				width: 20px;
 				height: 20px;
-				mask-size: 20px;				
+				mask-size: 20px;
 				top: 7.5px;
 				left: 7.5px;
 			}
 
 			//Description
-			.inmap-info-desc {	
+			.inmap-info-desc {
 				padding: 8px;
 				padding-left: 15px;
-				
+
 				overflow-y: auto;
 
 				margin-left: 17px;
-				border-left: 1px solid @primary;					
-				.inmap-info-title {	
+				border-left: 1px solid @primary;
+				.inmap-info-title {
 					span {
 						float: right;
 						color: @grey-dark;
@@ -337,11 +341,11 @@
 
 				.inmap-info-expand {
 					display: none;
-				}				
+				}
 
 				.inmap-info-title {
 					font-weight: bold;
-		 			font-size: 13px !important;											
+					font-size: 13px !important;
 				}
 
 				table {
@@ -355,13 +359,14 @@
 					border: none;
 					tr {
 						display: none;
- 						background: none;
- 						
- 						&.joe-assoc_array-id {
- 							display: none !important;
- 						}
+						background: none;
 
-						th,td {
+						&.joe-assoc_array-id {
+							display: none !important;
+						}
+
+						th,
+						td {
 							vertical-align: top;
 							text-align: left;
 							border: none;
@@ -370,31 +375,30 @@
 						//Table Font sizes....
 						th {
 							width: 80px;
-				 			font-size: 12px;																				
+							font-size: 12px;
 						}
-						
+
 						td {
-				 			font-size: 11px;						
+							font-size: 11px;
 						}
 						@media @break-sm {
 							th {
 								width: 80px;
-								font-size: 13px;																				
+								font-size: 13px;
 							}
-						
+
 							td {
-								font-size: 12px;						
-							}	
+								font-size: 12px;
+							}
 						}
 					}
 				}
 			}
 
-
-			// ===========================		
+			// ===========================
 			// ========= ACTIVE ==========
 			// ===========================
-			
+
 			&.inmap-active {
 				cursor: unset;
 				max-height: inherit;
@@ -403,39 +407,40 @@
 					background: @primary;
 				}
 
-// 				.inmap-info-title {
-// 					position: fixed;				
-// 					margin-bottom: 5px;
-// 					padding-bottom: 5px;
-// 					border-bottom: 1px solid @primary;					
-// 				}
+				// 				.inmap-info-title {
+				// 					position: fixed;
+				// 					margin-bottom: 5px;
+				// 					padding-bottom: 5px;
+				// 					border-bottom: 1px solid @primary;
+				// 				}
 
 				.inmap-info-desc {
 					.inmap-info-title {
-// 						margin-bottom: 5px;
-// 						padding-bottom: 5px;
-						border-bottom: 1px solid @primary;		
-						
+						// 						margin-bottom: 5px;
+						// 						padding-bottom: 5px;
+						border-bottom: 1px solid @primary;
+
 						span {
-// 							float: right;
-						}			
+							// 							float: right;
+						}
 					}
 					table {
 						tr {
 							display: table-row;
-							th, td {
- 								padding: 3px 0;
+							th,
+							td {
+								padding: 3px 0;
 
 								@media @break-sm {
 									padding: 5px 0;
-								} 								
+								}
 							}
 						}
 					}
 				}
-				
-				// ===========================		
-				// ========= COLLAPSED =======			
+
+				// ===========================
+				// ========= COLLAPSED =======
 				// ===========================
 
 				&.inmap-hide-extended {
@@ -448,56 +453,55 @@
 							color: @primary;
 							background: @grey-light;
 						}
-						
+
 						tr {
 							th {
 								min-width: 80px;
 								@media @break-sm {
 									width: 90px;
-								}								
+								}
 							}
-					
-							th, td {
-// 								padding: 3px 5px !important;
+
+							th,
+							td {
+								// 								padding: 3px 5px !important;
 							}
 
 							//Hide...
 							&.joe-assoc_array-latitude,
 							&.joe-assoc_array-longitude,
-					
 							&.joe-assoc_array-event,
 							&.joe-assoc_array-elevation,
 							&.joe-assoc_array-velocity,
 							&.joe-assoc_array-valid_gps_fix,
 							&.joe-assoc_array-time_utc {
 								display: none !important;
-							}		
-							
-						}						
+							}
+						}
 					}
-				}				
+				}
 			}
 
-			// ===========================		
+			// ===========================
 			// ========= LATEST ==========
 			// ===========================
 
 			&.inmap-last {
 				z-index: +1100;
-				background-color: @primary;		
+				background-color: @primary;
 				color: #fff;
 
 				.inmap-icon {
 					background-color: #fff !important;
 				}
-				
+
 				.inmap-info-desc {
 					padding-right: 7px;
-					border-color: #fff;				
+					border-color: #fff;
 					.inmap-info-title {
 						span {
 							color: #fff !important;
-						}							
+						}
 					}
 					table {
 						* {
@@ -510,18 +514,18 @@
 			&.inmap-active,
 			&.inmap-hover {
 				background-color: @grey-dark;
-				cursor: pointer;		
+				cursor: pointer;
 				.inmap-info-title {
 					span {
 						color: #fff !important;
-					}								
+					}
 				}
 			}
 		}
 	}
 }
 
-// ===========================		
+// ===========================
 // ======== FULLSCREEN =======
 // ===========================
 body.inmap-has-single {
@@ -534,7 +538,7 @@ body.inmap-has-single {
 		&.inmap-fullscreen {
 			display: block;
 		}
-	}	
+	}
 	&.admin-bar {
 		#adminmenu,
 		#wpadminbar {
@@ -546,29 +550,29 @@ body.inmap-has-single {
 	&.inmap-fullscreen {
 		position: fixed !important;
 		top: 0 !important;
-		left: 0 !important;	
-		width: 100% !important;		
+		left: 0 !important;
+		width: 100% !important;
 		height: 100% !important;
-		min-width: unset !important;		
-		min-height: unset !important;		
-		max-width: unset !important;		
-		max-height: unset !important;		
+		min-width: unset !important;
+		min-height: unset !important;
+		max-width: unset !important;
+		max-height: unset !important;
 		overflow: hidden !important;
-		margin: 0 !important;		
-				
+		margin: 0 !important;
+
 		.inmap-map,
-		.inmap-info {		
-			width: 50% !important;		
-			height: 100% !important;		
-			max-height: unset !important;			
-			
+		.inmap-info {
+			width: 50% !important;
+			height: 100% !important;
+			max-height: unset !important;
+
 			&.inmap-map {
-				float: left;		
+				float: left;
 				.leaflet-top,
 				.leaflet-bottom {
 					z-index: +1200;
 				}
-			}			
+			}
 
 			&.inmap-info {
 				.inmap-info-item {
@@ -584,10 +588,10 @@ body.inmap-has-single {
 		.inmap-map-ui {
 			.inmap-icon {
 				&.inmap-icon-fullscreen {
-					-webkit-mask-image: url(../img/minimise.svg) !important;	
-					mask-image: url(../img/minimise.svg) !important;					
+					-webkit-mask-image: url(/img/minimise.svg) !important;
+					mask-image: url(/img/minimise.svg) !important;
 					-webkit-mask-size: 18px !important;
-					mask-size: 18px !important;				
+					mask-size: 18px !important;
 				}
 			}
 		}
