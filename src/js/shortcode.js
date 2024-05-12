@@ -1,7 +1,7 @@
 //Leaflet
-const inmap_maps = [];
+window.inmap_maps = [];
 
-const inmap_create_map = function (
+window.inmap_create_map = function (
 	map_hash = null,
 	map_geojson = null,
 	route_json = null,

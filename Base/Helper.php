@@ -47,7 +47,7 @@ class Joe_Helper {
 			$plugin_slug = Joe_Config::get_item('plugin_slug');
 		}
 
-		return plugin_dir_url('') . $plugin_slug . '/assets/' . $file_path;
+		return plugin_dir_url('') . $plugin_slug . '/dist/' . $file_path;
 	}
 
 	static public function plugin_name($short = false) {

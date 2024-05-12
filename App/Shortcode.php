@@ -10,7 +10,7 @@ class InMap_Shortcode extends Joe_Shortcode {
 
 	function load_assets() {
 		//InMap CSS
-		Joe_Assets::css_enqueue(Joe_Helper::plugin_url('assets/css/shortcode.min.css'));
+		Joe_Assets::css_enqueue(Joe_Helper::plugin_url('dist/inreach-mapshare.css'));
 
 		//Message Icon
 		if ($message_icon = Joe_Config::get_setting('appearance', 'icons', 'message_icon')) {
@@ -73,7 +73,8 @@ class InMap_Shortcode extends Joe_Shortcode {
 				jQuery("head")
 					.append(
 						jQuery("<link />").attr({
-							"href" : "' . Joe_Helper::plugin_url('assets/css/leaflet.min.css') . '",
+							"href" : "' . Joe_Helper::plugin_url('dist/css/leaflet.css') . '",
+
 							"rel" : "stylesheet",
 							"id" : "inmap_leaflet_css",
 							"type" : "text/css",
@@ -83,7 +84,7 @@ class InMap_Shortcode extends Joe_Shortcode {
 					.append(
 						jQuery("<script />").attr({
 							"id" : "inmap_leaflet_js",
-							"src" : "' . Joe_Helper::plugin_url('assets/js/leaflet.min.js') . '",
+							"src" : "' . Joe_Helper::plugin_url('dist/js/leaflet.js') . '",
 							"type" : "text/javascript"
 						})
 					)
@@ -96,7 +97,7 @@ class InMap_Shortcode extends Joe_Shortcode {
 		//InMap JS
 		Joe_Assets::js_enqueue([
 			'id' => 'inmap_shortcode_js',
-			'url' => Joe_Helper::plugin_url('assets/js/shortcode.min.js'),
+			'url' => Joe_Helper::plugin_url('dist/inreach-mapshare.js'),
 			'deps' => ['jquery'],
 			'data' => [
 				'basemap_url' => Joe_Config::get_setting('appearance', 'map', 'basemap_url'),

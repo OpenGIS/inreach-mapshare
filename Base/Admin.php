@@ -20,7 +20,7 @@ class Joe_Admin {
 
 		//Enqueue
 		Joe_Assets::css_enqueue([
-			'url' => Joe_Helper::plugin_url('assets/css/joe-admin.min.css'),
+			'url' => Joe_Helper::plugin_url('dist/inreach-mapshare.css'),
 			'deps' => [
 // 				'jquery-ui-datepicker'
 			],
@@ -28,7 +28,8 @@ class Joe_Admin {
 
 		Joe_Assets::js_enqueue([
 			'id' => 'joe_admin_js',
-			'url' => Joe_Helper::plugin_url('assets/js/joe-admin.min.js'),
+			'url' => Joe_Helper::plugin_url('dist/inreach-mapshare.js'),
+
 			'deps' => [
 				'jquery',
 				'jquery-ui-sortable',
