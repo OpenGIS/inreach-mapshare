@@ -21,9 +21,6 @@ class Joe_Admin {
 		//Enqueue
 		Joe_Assets::css_enqueue([
 			'url' => Joe_Helper::plugin_url('dist/inreach-mapshare.css'),
-			'deps' => [
-// 				'jquery-ui-datepicker'
-			],
 		]);
 
 		Joe_Assets::js_enqueue([
