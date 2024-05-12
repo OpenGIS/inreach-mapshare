@@ -1,0 +1,532 @@
+/**
+ * ====================================
+ * ============ VARIABLES =============
+ * ====================================
+ */
+@joe-primary: #b42714;
+@joe-grey: #f1f1f1;
+
+/**
+ * ====================================
+ * ============== GLOBAL ==============
+ * ====================================
+ */
+.joe-primary {
+	color: @joe-primary;
+}
+.joe-invisible {
+	visibility: hidden;
+}
+.joe-hidden {
+	display: none !important;
+}
+.joe-icon {
+	background-image: url("../img/joe-icon-primary.png");
+	background-size: 20px 20px;
+	background-position: left center;
+	background-repeat: no-repeat;
+}
+.joe-lead {
+	font-size: 1.3em;
+}
+.joe-right {
+	float: right;
+}
+.joe-left {
+	float: left;
+}
+.joe-self-clear {
+	overflow: hidden;
+}
+* html .joe-self-clear {
+	height: 1%;
+}
+.joe-shortcode {
+	padding: 15px 0;
+	margin-bottom: 15px;
+	font-size: 14px;
+	text-align: center;
+	background: @joe-grey;
+	font-family: monospace;
+	border: 1px solid #8c8f94;
+}
+
+/**
+ * ====================================
+ * ============ PARAMETERS ============
+ * ====================================
+ */
+div.joe-control-group {
+	padding: 1%;
+	clear: both;
+	overflow: hidden;
+	border-bottom: 1px solid @joe-grey;
+	&:nth-child(even) {
+		background: #f9f9f9;
+	}
+	.joe-control-label {
+		display: block;
+		padding-top: 12px;
+		float: left;
+		width: 160px;
+		font-weight: bold;
+		font-size: 1.1em;
+	}
+	.joe-controls {
+		padding: 5px 0;
+		.joe-input {
+			&.joe-error {
+				border: 1px solid red !important;
+			}
+
+			&.joe-disabled {
+				opacity: 0.5;
+				&:hover {
+					cursor: not-allowed;
+				}
+			}
+		}
+		select {
+			width: 200px;
+			border: 1px solid #ddd;
+		}
+		input[type="date"],
+		input[type="datetime-local"],
+		input[type="file"],
+		input[type="text"] {
+			padding: 2px 8px;
+			width: 200px;
+			border: 1px solid #ddd;
+		}
+		input[type="file"] {
+			font-size: 12px;
+		}
+	}
+
+	//Shorties
+	input[type="color"] {
+		width: 100px;
+		height: 32px;
+	}
+	&.joe-short-input {
+		div.joe-controls {
+			select,
+			input {
+				width: 80px;
+			}
+		}
+	}
+	&.joe-control-type-select_multi {
+		option {
+			padding-top: 3px;
+			padding-bottom: 3px;
+		}
+	}
+	&.joe-control-type-textarea_rich,
+	&.joe-control-type-textarea {
+		position: relative;
+		//background-color: transparent !important;
+		border: none !important;
+		.joe-controls {
+			width: 100%;
+		}
+		label {
+			float: none;
+		}
+		.joe-tooltip {
+			position: absolute;
+			top: 5px;
+			right: 5px;
+		}
+		textarea {
+			width: 100%;
+			height: 200px;
+		}
+	}
+
+	/* Inline - All */
+	&.joe-inline {
+		padding: 1% 0;
+		float: left;
+		background: transparent;
+
+		/* First Column */
+		&:nth-child(even) {
+			padding-left: 1%;
+			padding-right: 0;
+			width: 49%;
+			label.joe-control-label {
+				width: 120px;
+			}
+			/*
+			select.joe-input {
+				width: 100px;
+			}			
+*/
+		}
+
+		/* Second Column */
+		&:nth-child(odd) {
+			width: 49%;
+			padding-right: 1%;
+			float: left;
+			clear: none;
+			.joe-control-label {
+				width: auto;
+				margin-right: 10px;
+			}
+		}
+
+		/* Alternating Rows */
+		&:nth-child(4n-1),
+		&:nth-child(4n-2) {
+			background: #f9f9f9;
+		}
+	}
+
+	.joe-controls {
+		float: none;
+	}
+}
+p + div.joe-control-group {
+	border-top: 1px solid @joe-grey;
+}
+
+/**
+ * ====================================
+ * ============= SETTINGS =============
+ * ====================================
+ */
+body.wp-admin {
+	div#joe-admin-container {
+		position: relative;
+		padding-right: 230px;
+		// 		max-width: 600px;
+		&.joe-top {
+			h2 {
+				&.promo {
+					padding: 40px 0;
+					font-size: 2.6em;
+				}
+				&.lead {
+					font-size: 1.4em;
+					margin-top: 60px;
+					margin-bottom: 30px;
+				}
+			}
+			p {
+				&.lead {
+					margin-left: 20px;
+					small {
+						font-size: 0.7em;
+					}
+				}
+			}
+		}
+		h1 {
+			padding-bottom: 9px;
+			background-size: 30px 30px;
+			background-position: left center;
+			background-repeat: no-repeat;
+		}
+		.notice {
+			background-color: #f9f9f9;
+		}
+		.card {
+			min-width: 266px;
+			max-width: none;
+			.notice {
+				display: none;
+				&.joe-notice {
+					display: block;
+					margin-left: 0;
+				}
+			}
+			.lead {
+				font-size: 1.2em;
+			}
+		}
+		.joe-video {
+			iframe {
+				width: 550px;
+				height: 308px;
+			}
+		}
+		.button-primary.button-large {
+			font-size: 15px;
+		}
+
+		/* About */
+		#joe-about {
+			position: absolute;
+			top: 0;
+			right: 20px;
+			width: 180px;
+			// 			max-height: 555px;
+			overflow-y: scroll;
+			padding: 15px;
+			border: 1px solid #ccc;
+			background: #f7f7f7;
+			h1 {
+				margin: 0 0 10px 0;
+				line-height: initial;
+			}
+			ul {
+				padding-left: 15px;
+				list-style: circle;
+				li {
+					&.joe-multi {
+						a {
+							margin-right: -4px;
+						}
+					}
+				}
+			}
+			p {
+				margin-top: 0;
+				font-size: 14px;
+				line-height: 18px;
+				&.joe-lead {
+					font-size: 16px;
+					line-height: 20px;
+				}
+			}
+			a.button {
+				margin-bottom: 5px;
+			}
+			.joe-footer {
+				padding-top: 15px;
+				margin-top: 15px;
+				margin-bottom: 0;
+				border-top: 1px solid @joe-grey;
+				.joe-joe {
+					position: relative;
+					img {
+						width: 80px;
+						height: 80px;
+						margin-bottom: 10px;
+						border-radius: 50%;
+						border: 1px solid #999;
+					}
+					p {
+						font-size: 14px;
+						line-height: 16px;
+						&.joe-lead {
+							margin: 0;
+							position: absolute;
+							top: 18px;
+							left: 90px;
+							max-width: 80px;
+							font-size: 24px;
+							line-height: 25px;
+						}
+					}
+					ul {
+						margin-top: 10px;
+					}
+					small {
+						display: block;
+						float: right;
+					}
+				}
+			}
+		}
+	}
+
+	//Nav
+	div#joe-settings-nav {
+		margin-top: 10px;
+		height: 35px;
+		margin-bottom: 5px;
+		background-size: 35px 35px;
+		background-position: center left;
+		background-repeat: no-repeat;
+		select {
+			position: absolute;
+			padding: 0;
+			z-index: +1100;
+			font-size: 16px;
+			min-width: 240px;
+			&:hover {
+				background: #fff;
+			}
+			option {
+				padding: 10px 20px;
+				&[disabled] {
+					color: #000 !important;
+					background: #f7f7f7;
+				}
+				&:hover {
+					color: #0073aa;
+				}
+			}
+		}
+	}
+
+	/*
+
+	.joe-settings-tab {
+		max-width: 520px;
+
+		table.form-table {
+
+		}
+	}
+
+*/
+
+	//Tabs
+	div.joe-settings-tab {
+		//Help
+		.joe-docs-link {
+			position: absolute;
+			top: 20px;
+			right: 20px;
+		}
+		//Pro Tip
+		> small {
+			display: block;
+			margin-top: 20px;
+			font-size: 0.9em;
+		}
+
+		.joe-settings-tab-description {
+			font-size: 1.1em;
+			h2 {
+				display: none;
+			}
+		}
+
+		//Form Tables
+		table.form-table {
+			tr {
+				&.joe-align-top {
+					th {
+						vertical-align: top;
+					}
+				}
+				th {
+					padding: 18px 20px 10px 20px;
+					width: 160px;
+					//  					vertical-align: initial;
+				}
+				td {
+					padding: 0;
+
+					select,
+					input[type="file"],
+					input[type="text"] {
+						width: 200px;
+						border-style: solid;
+						border-width: 1px;
+						border-color: #dddddd;
+						box-shadow: 0 1px 2px rgba(0, 0, 0, 0.07) inset;
+					}
+					.joe-short-input {
+						select,
+						input[type="file"],
+						input[type="text"] {
+							width: 100px;
+						}
+					}
+					.joe-controls {
+						position: relative;
+						.joe-tooltip {
+							position: absolute;
+							top: 5px;
+							right: 0;
+							margin: 0;
+						}
+					}
+				}
+			}
+		}
+
+		//Repeatable
+		.joe-repeatable {
+			.form-table {
+				position: relative;
+				margin-bottom: 30px;
+				box-shadow: 1px 1px 3px 0px rgba(0, 0, 0, 0.25);
+				&:hover {
+					div.joe-delete {
+						visibility: visible;
+					}
+				}
+				&.ui-sortable-handle {
+					cursor: move;
+				}
+			}
+
+			button.joe-add {
+				display: block;
+				width: 100%;
+				opacity: 0.7;
+			}
+			div.joe-delete {
+				position: absolute;
+				top: 2px;
+				left: 2px;
+				padding: 0 5px 2px 5px;
+				background: #ac2b2b;
+				color: white;
+				cursor: pointer;
+				visibility: hidden;
+			}
+		}
+
+		//Colour Pickers
+		.wp-picker-container {
+			display: inline-block;
+			button {
+				span {
+					color: #444;
+					text-shadow: 1px 1px 0px #ddd;
+					opacity: 0.8;
+				}
+			}
+		}
+
+		div.joe-settings-section-description {
+			margin-bottom: 15px;
+			font-size: 1.1em;
+			ul {
+				margin: 20px 0 40px 0;
+				li {
+					margin: 15px 0;
+					padding-left: 20px;
+				}
+			}
+		}
+		div.joe-settings-section-footer {
+			margin-top: 20px;
+			margin-bottom: 20px;
+		}
+		table.form-table {
+			.joe-control-group {
+				border: none;
+			}
+			tr {
+				th,
+				td {
+					background: #f9f9f9;
+					border-bottom: 1px solid @joe-grey;
+				}
+
+				&:first-child {
+					th,
+					td {
+						border-top: 1px solid @joe-grey;
+					}
+				}
+
+				&:nth-child(even) {
+					th,
+					td {
+						background: #fff;
+					}
+				}
+			}
+		}
+	}
+}
