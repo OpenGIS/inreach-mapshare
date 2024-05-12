@@ -68,10 +68,4 @@ class Joe_Cache {
 	static function do_hash($string) {
 		return md5($string);
 	}
-
-// 	static function flush() {
-// 		global $wpdb;
-//
-// 		$wpdb->query("DELETE FROM " . $wpdb->options . " WHERE option_name LIKE '_transient_%" . self::$cache_prefix . "%'");
-// 	}
 }

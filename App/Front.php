@@ -1,9 +1,8 @@
 <?php
 
-class InMap_Front extends Joe_Front {
-	function __construct() {
-		parent::__construct();
+class InMap_Front {
 
+	function __construct() {
 		//Front only
 		if (is_admin()) {
 			return;
