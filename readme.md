@@ -61,7 +61,7 @@ Please report issues or make suggestions by creating a <a href="https://github.c
 
 ## Installation
 
-1. Download the [inreach-mapshare.zip](https://github.com/OpenGIS/inreach-mapshare/raw/master/inreach-mapshare.zip) plugin file.
+1. [Download the plugin (.zip)](https://github.com/OpenGIS/inreach-mapshare/archive/refs/heads/master.zip).
 2. In your WordPress Admin, go to Plugins > Add New Plugin.
 3. Click the "Upload Plugin" button.
 4. Upload the `inreach-mapshare.zip` file.
