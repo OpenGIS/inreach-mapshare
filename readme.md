@@ -83,14 +83,14 @@ Please report issues or make suggestions by creating a <a href="https://github.c
 > [!NOTE]
 > To develop locally you will need to have both Node.js and NPM [installed](https://docs.npmjs.com/downloading-and-installing-node-js-and-npm).
 
-[Grunt](https://gruntjs.com/) is used to run the build script, which compiles the JavaScript and CSS and performs some other tasks.
+[Vite](https://vitejs.dev/) is used to run the build script, which compiles the JavaScript and CSS and performs some other tasks.
 
 ```bash
 # Install dependencies
 npm install
 
-# Run build script
-grunt
+# Run build script (will watch for changes)
+npm run build
 ```
 
 Pull requests are welcome!
@@ -136,6 +136,10 @@ This plugin requests data from your MapShare page and embeds it anywhere Shortco
 ![Advanced Options (WP Admin > Settings > inReach MapShare)](https://raw.githubusercontent.com/morehawes/inreach-mapshare/master/src/img/screenshot-6.png)
 
 ## Changelog
+
+### 2.0.0
+
+Major plugin overhaul, mostly focusing on simplifying the build process and improving the development experience. Grunt has been removed and [Vite](https://vitejs.dev/) is now used to build plugin assets.
 
 ### 1.3
 
