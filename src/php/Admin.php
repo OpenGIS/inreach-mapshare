@@ -33,7 +33,7 @@ class InMap_Admin {
 	}
 
 	function load_assets() {
-		InMap_Assets::js_onready('jQuery("body").addClass("joe-admin");');
+		InMap_Assets::js_onready('jQuery("body").addClass("inmap-admin");');
 
 		//Enqueue
 		InMap_Assets::css_enqueue([

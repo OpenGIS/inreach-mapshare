@@ -10,7 +10,6 @@ Author: Joe Hawes
 Author URI: https://www.morehawes.ca/
  */
 
-//Joe App
 spl_autoload_register(function ($class_name) {
 	$file_name = substr($class_name, strripos($class_name, '_') + 1);
 	$file_name .= '.php';
@@ -40,12 +39,12 @@ add_action('init', function () {
 		'plugin_name' => $plugin_name,
 		'plugin_version' => '2.0.0',
 		'settings_id' => 'inmap_settings',
-		'settings_default_tab' => 'joe-settings-tab-mapshare',
+		'settings_default_tab' => 'inmap-settings-tab-mapshare',
 		'site_url' => 'https://github.com/morehawes/inreach-mapshare/',
 		'github_url' => 'https://github.com/morehawes/inreach-mapshare/',
 		'plugin_shortcode' => $plugin_slug,
 		'plugin_about' => '
-			<p class="joe-lead">' . sprintf(__('Display your live <a href="%s">MapShare</a> data with a simple Shortcode.', InMap_Config::get_item('plugin_text_domain')), 'https://support.garmin.com/?faq=p2lncMOzqh71P06VifrQE7') . '</p>
+			<p class="inmap-lead">' . sprintf(__('Display your live <a href="%s">MapShare</a> data with a simple Shortcode.', InMap_Config::get_item('plugin_text_domain')), 'https://support.garmin.com/?faq=p2lncMOzqh71P06VifrQE7') . '</p>
 
 			<p>' . sprintf(__('Enable and configure MapShare in the <a href="%s">Social</a> tab of your Garmin Explore Account.', InMap_Config::get_item('plugin_text_domain')), 'https://explore.garmin.com/Social') . '</p>
 		',

@@ -151,7 +151,7 @@ window.inmap_create_map = function (
 				var tr = jQuery(this);
 				var td = jQuery("td", tr);
 				jQuery("th", tr).addClass("inmap-info-extended");
-				var key = tr.attr("class").replace("joe-assoc_array-", "");
+				var key = tr.attr("class").replace("inmap-assoc_array-", "");
 				var value = td.text();
 
 				switch (key) {

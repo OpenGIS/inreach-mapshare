@@ -61,7 +61,7 @@ class InMap_Settings {
 					'fields' => [
 						'minutes' => [
 							'required' => InMap_Config::get_fallback('joe', 'cache', 'minutes'),
-							'class' => 'joe-short-input',
+							'class' => 'inmap-short-input',
 							'title' => esc_html__('Minutes', InMap_Config::get_item('plugin_text_domain')),
 							'tip' => esc_attr__('How often the Cache updates.', InMap_Config::get_item('plugin_text_domain')),
 						],
@@ -90,14 +90,14 @@ class InMap_Settings {
 		$this->do_shortcode();
 
 		$this->settings_nav = [
-			'joe-settings-tab-shortcode' => '-- ' . esc_html__('Shortcodes', InMap_Config::get_item('plugin_text_domain')),
-			'joe-settings-tab-appearance' => '-- ' . esc_html__('Appearance', InMap_Config::get_item('plugin_text_domain')),
-			'joe-settings-tab-joe' => '-- ' . esc_html__('Advanced', InMap_Config::get_item('plugin_text_domain')),
+			'inmap-settings-tab-shortcode' => '-- ' . esc_html__('Shortcodes', InMap_Config::get_item('plugin_text_domain')),
+			'inmap-settings-tab-appearance' => '-- ' . esc_html__('Appearance', InMap_Config::get_item('plugin_text_domain')),
+			'inmap-settings-tab-joe' => '-- ' . esc_html__('Advanced', InMap_Config::get_item('plugin_text_domain')),
 		];
 
 		//Switch tabs
 		if (InMap_Config::get_setting('mapshare', 'defaults', 'mapshare_identifier')) {
-			InMap_Config::set_item('settings_default_tab', 'joe-settings-tab-shortcode');
+			InMap_Config::set_item('settings_default_tab', 'inmap-settings-tab-shortcode');
 		}
 
 		//Text
@@ -174,7 +174,7 @@ class InMap_Settings {
 					'fields' => [
 						'tracking_colour' => [
 							'type' => 'text',
-							'class' => 'color joe-colour-picker',
+							'class' => 'color inmap-colour-picker',
 							'required' => InMap_Config::get_fallback('appearance', 'colours', 'tracking_colour'),
 							'title' => esc_html__('Tracking Colour', InMap_Config::get_item('plugin_text_domain')),
 							'tip' => esc_attr__('This is the primary colour used. Customise further by adding custom CSS rules.', InMap_Config::get_item('plugin_text_domain')),
@@ -237,8 +237,8 @@ class InMap_Settings {
 		//Success
 		if (!InMap_Log::in_error()) {
 			//Shortcode output
-			$out .= '<p class="joe-lead">' . __('Add wherever Shortcodes are supported.', InMap_Config::get_item('plugin_text_domain')) . '</p>';
-			$out .= '<div class="joe-shortcode">' . $this->shortcode . '</div>';
+			$out .= '<p class="inmap-lead">' . __('Add wherever Shortcodes are supported.', InMap_Config::get_item('plugin_text_domain')) . '</p>';
+			$out .= '<div class="inmap-shortcode">' . $this->shortcode . '</div>';
 
 			//Actual output
 			$out .= $this->shortcode_output;
@@ -250,7 +250,7 @@ class InMap_Settings {
 	function joe_admin_before_form($out) {
 		//Demo
 		if (InMap_Log::has('do_demo')) {
-			$out .= '<p class="joe-lead">' . sprintf(__('Configure MapShare in the <a href="%s">Social</a> tab of your Garmin Explore Account.', InMap_Config::get_item('plugin_text_domain')), 'https://explore.garmin.com/Social') . '</p>';
+			$out .= '<p class="inmap-lead">' . sprintf(__('Configure MapShare in the <a href="%s">Social</a> tab of your Garmin Explore Account.', InMap_Config::get_item('plugin_text_domain')), 'https://explore.garmin.com/Social') . '</p>';
 
 			$out .= '<p>' . sprintf(__('<strong>Important!</strong> Even if you have a MapShare password set, <em>this plugin</em> simply uses it to request your data; it <strong>does not</strong> protect it from being viewed. You are responsible for <a href="%s">protecting access</a> if needed.', InMap_Config::get_item('plugin_text_domain')), 'https://wordpress.org/support/article/using-password-protection/') . '</p>';
 		}

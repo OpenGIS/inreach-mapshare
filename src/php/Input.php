@@ -71,7 +71,7 @@ class InMap_Input {
 
 		//Auto-for required
 		if (isset($field['required']) && $field['required']) {
-			$is_colour = isset($field['class']) && strpos($field['class'], 'joe-colour-picker') !== -1;
+			$is_colour = isset($field['class']) && strpos($field['class'], 'inmap-colour-picker') !== -1;
 
 			if (in_array($field['type'], ['text']) && !$is_colour) {
 				if (isset($field['tip'])) {

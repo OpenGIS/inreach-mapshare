@@ -10,8 +10,8 @@ class InMap_Config {
 		'plugin_name_short' => 'Joe',
 		'plugin_version' => '1.0',
 		'plugin_text_domain' => 'joe',
-		'css_prefix' => 'joe-',
-		'plugin_about' => '<img alt="Joe\'s mug" src="//www.josephhawes.co.uk/assets/images/Joe1BW.jpg" /><p class="joe-first"><b>Joe</b></p>',
+		'css_prefix' => 'inmap-',
+		'plugin_about' => '<img alt="Joe\'s mug" src="//www.josephhawes.co.uk/assets/images/Joe1BW.jpg" /><p class="inmap-first"><b>Joe</b></p>',
 		'multi_value_seperator' => '__multi__',
 		'joe' => [
 			'debug' => [

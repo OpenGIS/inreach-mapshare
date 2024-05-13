@@ -3,44 +3,44 @@
  * ============ VARIABLES =============
  * ====================================
  */
-@joe-primary: #b42714;
-@joe-grey: #f1f1f1;
+@inmap-primary: #b42714;
+@inmap-grey: #f1f1f1;
 
 /**
  * ====================================
  * ============== GLOBAL ==============
  * ====================================
  */
-.joe-primary {
-	color: @joe-primary;
+.inmap-primary {
+	color: @inmap-primary;
 }
-.joe-invisible {
+.inmap-invisible {
 	visibility: hidden;
 }
-.joe-hidden {
+.inmap-hidden {
 	display: none !important;
 }
-.joe-lead {
+.inmap-lead {
 	font-size: 1.3em;
 }
-.joe-right {
+.inmap-right {
 	float: right;
 }
-.joe-left {
+.inmap-left {
 	float: left;
 }
-.joe-self-clear {
+.inmap-self-clear {
 	overflow: hidden;
 }
-* html .joe-self-clear {
+* html .inmap-self-clear {
 	height: 1%;
 }
-.joe-shortcode {
+.inmap-shortcode {
 	padding: 15px 0;
 	margin-bottom: 15px;
 	font-size: 14px;
 	text-align: center;
-	background: @joe-grey;
+	background: @inmap-grey;
 	font-family: monospace;
 	border: 1px solid #8c8f94;
 }
@@ -50,15 +50,15 @@
  * ============ PARAMETERS ============
  * ====================================
  */
-div.joe-control-group {
+div.inmap-control-group {
 	padding: 1%;
 	clear: both;
 	overflow: hidden;
-	border-bottom: 1px solid @joe-grey;
+	border-bottom: 1px solid @inmap-grey;
 	&:nth-child(even) {
 		background: #f9f9f9;
 	}
-	.joe-control-label {
+	.inmap-control-label {
 		display: block;
 		padding-top: 12px;
 		float: left;
@@ -66,14 +66,14 @@ div.joe-control-group {
 		font-weight: bold;
 		font-size: 1.1em;
 	}
-	.joe-controls {
+	.inmap-controls {
 		padding: 5px 0;
-		.joe-input {
-			&.joe-error {
+		.inmap-input {
+			&.inmap-error {
 				border: 1px solid red !important;
 			}
 
-			&.joe-disabled {
+			&.inmap-disabled {
 				opacity: 0.5;
 				&:hover {
 					cursor: not-allowed;
@@ -102,32 +102,32 @@ div.joe-control-group {
 		width: 100px;
 		height: 32px;
 	}
-	&.joe-short-input {
-		div.joe-controls {
+	&.inmap-short-input {
+		div.inmap-controls {
 			select,
 			input {
 				width: 80px;
 			}
 		}
 	}
-	&.joe-control-type-select_multi {
+	&.inmap-control-type-select_multi {
 		option {
 			padding-top: 3px;
 			padding-bottom: 3px;
 		}
 	}
-	&.joe-control-type-textarea_rich,
-	&.joe-control-type-textarea {
+	&.inmap-control-type-textarea_rich,
+	&.inmap-control-type-textarea {
 		position: relative;
 		//background-color: transparent !important;
 		border: none !important;
-		.joe-controls {
+		.inmap-controls {
 			width: 100%;
 		}
 		label {
 			float: none;
 		}
-		.joe-tooltip {
+		.inmap-tooltip {
 			position: absolute;
 			top: 5px;
 			right: 5px;
@@ -139,7 +139,7 @@ div.joe-control-group {
 	}
 
 	/* Inline - All */
-	&.joe-inline {
+	&.inmap-inline {
 		padding: 1% 0;
 		float: left;
 		background: transparent;
@@ -149,11 +149,11 @@ div.joe-control-group {
 			padding-left: 1%;
 			padding-right: 0;
 			width: 49%;
-			label.joe-control-label {
+			label.inmap-control-label {
 				width: 120px;
 			}
 			/*
-			select.joe-input {
+			select.inmap-input {
 				width: 100px;
 			}			
 */
@@ -165,7 +165,7 @@ div.joe-control-group {
 			padding-right: 1%;
 			float: left;
 			clear: none;
-			.joe-control-label {
+			.inmap-control-label {
 				width: auto;
 				margin-right: 10px;
 			}
@@ -178,12 +178,12 @@ div.joe-control-group {
 		}
 	}
 
-	.joe-controls {
+	.inmap-controls {
 		float: none;
 	}
 }
-p + div.joe-control-group {
-	border-top: 1px solid @joe-grey;
+p + div.inmap-control-group {
+	border-top: 1px solid @inmap-grey;
 }
 
 /**
@@ -192,11 +192,11 @@ p + div.joe-control-group {
  * ====================================
  */
 body.wp-admin {
-	div#joe-admin-container {
+	div#inmap-admin-container {
 		position: relative;
 		padding-right: 230px;
 		// 		max-width: 600px;
-		&.joe-top {
+		&.inmap-top {
 			h2 {
 				&.promo {
 					padding: 40px 0;
@@ -231,7 +231,7 @@ body.wp-admin {
 			max-width: none;
 			.notice {
 				display: none;
-				&.joe-notice {
+				&.inmap-notice {
 					display: block;
 					margin-left: 0;
 				}
@@ -240,7 +240,7 @@ body.wp-admin {
 				font-size: 1.2em;
 			}
 		}
-		.joe-video {
+		.inmap-video {
 			iframe {
 				width: 550px;
 				height: 308px;
@@ -251,7 +251,7 @@ body.wp-admin {
 		}
 
 		/* About */
-		#joe-about {
+		#inmap-about {
 			position: absolute;
 			top: 0;
 			right: 20px;
@@ -269,7 +269,7 @@ body.wp-admin {
 				padding-left: 15px;
 				list-style: circle;
 				li {
-					&.joe-multi {
+					&.inmap-multi {
 						a {
 							margin-right: -4px;
 						}
@@ -280,7 +280,7 @@ body.wp-admin {
 				margin-top: 0;
 				font-size: 14px;
 				line-height: 18px;
-				&.joe-lead {
+				&.inmap-lead {
 					font-size: 16px;
 					line-height: 20px;
 				}
@@ -288,12 +288,12 @@ body.wp-admin {
 			a.button {
 				margin-bottom: 5px;
 			}
-			.joe-footer {
+			.inmap-footer {
 				padding-top: 15px;
 				margin-top: 15px;
 				margin-bottom: 0;
-				border-top: 1px solid @joe-grey;
-				.joe-joe {
+				border-top: 1px solid @inmap-grey;
+				.inmap-joe {
 					position: relative;
 					img {
 						width: 80px;
@@ -305,7 +305,7 @@ body.wp-admin {
 					p {
 						font-size: 14px;
 						line-height: 16px;
-						&.joe-lead {
+						&.inmap-lead {
 							margin: 0;
 							position: absolute;
 							top: 18px;
@@ -328,7 +328,7 @@ body.wp-admin {
 	}
 
 	//Nav
-	div#joe-settings-nav {
+	div#inmap-settings-nav {
 		margin-top: 10px;
 		height: 35px;
 		margin-bottom: 5px;
@@ -359,7 +359,7 @@ body.wp-admin {
 
 	/*
 
-	.joe-settings-tab {
+	.inmap-settings-tab {
 		max-width: 520px;
 
 		table.form-table {
@@ -370,9 +370,9 @@ body.wp-admin {
 */
 
 	//Tabs
-	div.joe-settings-tab {
+	div.inmap-settings-tab {
 		//Help
-		.joe-docs-link {
+		.inmap-docs-link {
 			position: absolute;
 			top: 20px;
 			right: 20px;
@@ -384,7 +384,7 @@ body.wp-admin {
 			font-size: 0.9em;
 		}
 
-		.joe-settings-tab-description {
+		.inmap-settings-tab-description {
 			font-size: 1.1em;
 			h2 {
 				display: none;
@@ -394,7 +394,7 @@ body.wp-admin {
 		//Form Tables
 		table.form-table {
 			tr {
-				&.joe-align-top {
+				&.inmap-align-top {
 					th {
 						vertical-align: top;
 					}
@@ -416,16 +416,16 @@ body.wp-admin {
 						border-color: #dddddd;
 						box-shadow: 0 1px 2px rgba(0, 0, 0, 0.07) inset;
 					}
-					.joe-short-input {
+					.inmap-short-input {
 						select,
 						input[type="file"],
 						input[type="text"] {
 							width: 100px;
 						}
 					}
-					.joe-controls {
+					.inmap-controls {
 						position: relative;
-						.joe-tooltip {
+						.inmap-tooltip {
 							position: absolute;
 							top: 5px;
 							right: 0;
@@ -437,13 +437,13 @@ body.wp-admin {
 		}
 
 		//Repeatable
-		.joe-repeatable {
+		.inmap-repeatable {
 			.form-table {
 				position: relative;
 				margin-bottom: 30px;
 				box-shadow: 1px 1px 3px 0px rgba(0, 0, 0, 0.25);
 				&:hover {
-					div.joe-delete {
+					div.inmap-delete {
 						visibility: visible;
 					}
 				}
@@ -452,12 +452,12 @@ body.wp-admin {
 				}
 			}
 
-			button.joe-add {
+			button.inmap-add {
 				display: block;
 				width: 100%;
 				opacity: 0.7;
 			}
-			div.joe-delete {
+			div.inmap-delete {
 				position: absolute;
 				top: 2px;
 				left: 2px;
@@ -481,7 +481,7 @@ body.wp-admin {
 			}
 		}
 
-		div.joe-settings-section-description {
+		div.inmap-settings-section-description {
 			margin-bottom: 15px;
 			font-size: 1.1em;
 			ul {
@@ -492,25 +492,25 @@ body.wp-admin {
 				}
 			}
 		}
-		div.joe-settings-section-footer {
+		div.inmap-settings-section-footer {
 			margin-top: 20px;
 			margin-bottom: 20px;
 		}
 		table.form-table {
-			.joe-control-group {
+			.inmap-control-group {
 				border: none;
 			}
 			tr {
 				th,
 				td {
 					background: #f9f9f9;
-					border-bottom: 1px solid @joe-grey;
+					border-bottom: 1px solid @inmap-grey;
 				}
 
 				&:first-child {
 					th,
 					td {
-						border-top: 1px solid @joe-grey;
+						border-top: 1px solid @inmap-grey;
 					}
 				}
 

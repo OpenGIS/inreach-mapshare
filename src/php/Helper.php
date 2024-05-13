@@ -69,7 +69,7 @@ class InMap_Helper {
 		$out .= '			<div class="' . InMap_Helper::css_prefix('joe') . '">' . "\n";
 		$out .= '				<img alt="Joe\'s mug" src="https://www.morehawes.co.uk/assets/images/Joe1BW.jpg" />' . "\n";
 
-		$out .= '				<p class="joe-lead">' . sprintf(__('Hi, I\'m <a href="%s">Joe</a>', InMap_Config::get_item('plugin_text_domain')), 'https://www.morehawes.co.uk/') . '</p>' . "\n";
+		$out .= '				<p class="inmap-lead">' . sprintf(__('Hi, I\'m <a href="%s">Joe</a>', InMap_Config::get_item('plugin_text_domain')), 'https://www.morehawes.co.uk/') . '</p>' . "\n";
 
 		$out .= '				<p>' . __('This software is open source and maintained voluntarily, please help by contributing however you can.', InMap_Config::get_item('plugin_text_domain')) . '</p>' . "\n";
 		$out .= '				<p>' . __('Each question, suggestion, bug report, review, translation and pull request is greatly appreciated.', InMap_Config::get_item('plugin_text_domain')) . '</p>' . "\n";

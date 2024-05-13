@@ -1,15 +1,15 @@
 //Tooltips
 window.joe_setup_parameter_tooltips = function () {
-  jQuery("a.joe-tooltip").on({
+  jQuery("a.inmap-tooltip").on({
     mouseenter: function (e) {
       var title = jQuery(this).data("title");
-      jQuery('<p id="joe-tooltip-active"></p>')
+      jQuery('<p id="inmap-tooltip-active"></p>')
         .text(title)
         .appendTo("body")
         .fadeIn("slow");
     },
     mouseleave: function (e) {
-      jQuery("#joe-tooltip-active").remove();
+      jQuery("#inmap-tooltip-active").remove();
     },
     mousemove: function (e) {
       if (joe_is_touch_device()) {
@@ -19,7 +19,7 @@ window.joe_setup_parameter_tooltips = function () {
       }
 
       var mousey = e.pageY + 5;
-      jQuery("#joe-tooltip-active").css({ top: mousey, left: mousex });
+      jQuery("#inmap-tooltip-active").css({ top: mousey, left: mousex });
     },
   });
 };
@@ -48,13 +48,13 @@ window.joe_is_touch_device = function () {
 };
 
 window.joe_setup_accordions = function () {
-  var accordion_container = jQuery(".joe-accordion-container");
+  var accordion_container = jQuery(".inmap-accordion-container");
 
   if (!accordion_container.length) {
     return;
   }
 
-  accordion_container.addClass("joe-self-clear");
+  accordion_container.addClass("inmap-self-clear");
 
   //For each accordion
   accordion_container.each(function () {
@@ -62,17 +62,17 @@ window.joe_setup_accordions = function () {
     var group_index = 0;
 
     //Each group
-    jQuery(".joe-accordion-group", jQuery(this)).each(function () {
+    jQuery(".inmap-accordion-group", jQuery(this)).each(function () {
       var group = jQuery(this);
 
-      group.addClass("joe-self-clear");
-      group.data("joe-index", group_index);
+      group.addClass("inmap-self-clear");
+      group.data("inmap-index", group_index);
 
-      var group_content = jQuery(".joe-accordion-group-content", group);
+      var group_content = jQuery(".inmap-accordion-group-content", group);
 
       //Show first
       if (group_index == 0) {
-        group.addClass("joe-first joe-active");
+        group.addClass("inmap-first inmap-active");
 
         group_content.show().addClass(group_index);
         //Hide others
@@ -95,44 +95,47 @@ window.joe_setup_accordions = function () {
         //Slide
         jQuery(this).click(function () {
           var clicked_group_index = jQuery(this)
-            .parents(".joe-accordion-group")
-            .data("joe-index");
+            .parents(".inmap-accordion-group")
+            .data("inmap-index");
 
           //For each parameter group
           jQuery(
-            ".joe-accordion-group",
-            jQuery(this).parents(".joe-accordion-container"),
+            ".inmap-accordion-group",
+            jQuery(this).parents(".inmap-accordion-container"),
           ).each(function () {
             //If this was clicked
-            if (jQuery(this).data("joe-index") == clicked_group_index) {
+            if (jQuery(this).data("inmap-index") == clicked_group_index) {
               var legend = jQuery("legend", jQuery(this));
 
               //Is it active?
-              if (jQuery(this).hasClass("joe-active")) {
+              if (jQuery(this).hasClass("inmap-active")) {
                 legend.html(legend.html().replace("[-]", "[+]"));
 
-                jQuery(this).removeClass("joe-active");
+                jQuery(this).removeClass("inmap-active");
 
-                jQuery(".joe-accordion-group-content", jQuery(this)).slideUp();
+                jQuery(
+                  ".inmap-accordion-group-content",
+                  jQuery(this),
+                ).slideUp();
                 //Not active (yet)
               } else {
                 legend.html(legend.html().replace("[+]", "[-]"));
 
-                jQuery(this).addClass("joe-active");
+                jQuery(this).addClass("inmap-active");
 
                 jQuery(
-                  ".joe-accordion-group-content",
+                  ".inmap-accordion-group-content",
                   jQuery(this),
                 ).slideDown();
               }
               //Hide others
             } else {
-              jQuery(this).removeClass("joe-active");
+              jQuery(this).removeClass("inmap-active");
 
               var legend = jQuery("legend", jQuery(this));
               legend.html(legend.html().replace("[-]", "[+]"));
 
-              jQuery(".joe-accordion-group-content", jQuery(this)).slideUp();
+              jQuery(".inmap-accordion-group-content", jQuery(this)).slideUp();
             }
           });
         });
@@ -145,7 +148,7 @@ window.joe_setup_accordions = function () {
 
 window.joe_setup_repeatable_settings = function () {
   //Each container
-  jQuery(".joe-settings-tab .joe-repeatable").each(function () {
+  jQuery(".inmap-settings-tab .inmap-repeatable").each(function () {
     var container = jQuery(this);
 
     //Each form table
@@ -156,10 +159,10 @@ window.joe_setup_repeatable_settings = function () {
       form.remove();
 
       //Each input
-      jQuery(".joe-input", form).each(function () {
+      jQuery(".inmap-input", form).each(function () {
         var input = jQuery(this);
         //Copy ID to class
-        input.addClass("joe-" + input.data("id"));
+        input.addClass("inmap-" + input.data("id"));
 
         //Get values
         if (input.get(0).nodeName != "SELECT") {
@@ -191,7 +194,7 @@ window.joe_setup_repeatable_settings = function () {
         for (j in clones[i]) {
           var set_value = clones[i][j];
 
-          var input = jQuery(".joe-input-" + j, clone);
+          var input = jQuery(".inmap-input-" + j, clone);
           input.attr("name", input.attr("name") + "[" + i + "]");
 
           //This is a Select without a valid option
@@ -207,7 +210,9 @@ window.joe_setup_repeatable_settings = function () {
           input.attr("value", set_value).val(set_value);
 
           //Make uneditable
-          if (input.parents(".joe-control-group").hasClass("joe-uneditable")) {
+          if (
+            input.parents(".inmap-control-group").hasClass("inmap-uneditable")
+          ) {
             input.attr("readonly", "readonly");
           }
         }
@@ -216,7 +221,7 @@ window.joe_setup_repeatable_settings = function () {
         var delete_button = jQuery("<div />")
           .text("x")
           .attr("title", joe_admin_js.lang.repeatable_delete_title)
-          .addClass("joe-delete")
+          .addClass("inmap-delete")
           .on("click", function (e) {
             e.preventDefault();
 
@@ -234,19 +239,19 @@ window.joe_setup_repeatable_settings = function () {
 
       var add_button = jQuery("<button />")
         .html('<i class="ion ion-plus"></i>')
-        .addClass("button joe-add")
+        .addClass("button inmap-add")
         .on("click", function (e) {
           e.preventDefault();
 
           //Increment count
-          var container = jQuery(this).parents(".joe-repeatable");
+          var container = jQuery(this).parents(".inmap-repeatable");
           var count_old = parseInt(container.attr("data-count"));
           var count_new = count_old + 1;
           container.attr("data-count", count_new);
 
           //Modify clone
           var clone = form.clone();
-          jQuery(".joe-input", clone).each(function () {
+          jQuery(".inmap-input", clone).each(function () {
             var input = jQuery(this);
             var input_name = input.attr("name") + "[" + count_new + "]";
 
@@ -275,12 +280,12 @@ window.joe_setup_repeatable_settings = function () {
 };
 
 window.joe_setup_dropdowns = function () {
-  jQuery(".joe-parameters-container").each(function () {
+  jQuery(".inmap-parameters-container").each(function () {
     var container = jQuery(this);
 
     jQuery("select", container).each(function () {
       //Prefix
-      var class_string = "joe-dropdown-" + jQuery(this).data("id") + "-";
+      var class_string = "inmap-dropdown-" + jQuery(this).data("id") + "-";
 
       //Add new
       class_string += jQuery(this).val();
@@ -289,7 +294,7 @@ window.joe_setup_dropdowns = function () {
       //On Change
       jQuery(this).on("change", function () {
         //Prefix
-        var class_string = "joe-dropdown-" + jQuery(this).data("id") + "-";
+        var class_string = "inmap-dropdown-" + jQuery(this).data("id") + "-";
 
         //Remove old
         jQuery("option", jQuery(this)).each(function () {
@@ -305,16 +310,16 @@ window.joe_setup_dropdowns = function () {
 };
 
 window.joe_setup_settings_nav = function () {
-  var nav_container = jQuery("body.wp-admin #joe-settings-nav");
+  var nav_container = jQuery("body.wp-admin #inmap-settings-nav");
 
   if (!nav_container) {
     return false;
   }
 
-  var admin_container = jQuery("#joe-admin-container");
+  var admin_container = jQuery("#inmap-admin-container");
   var form = jQuery("form", admin_container);
 
-  var tabs = jQuery(".joe-settings-tab", admin_container);
+  var tabs = jQuery(".inmap-settings-tab", admin_container);
   var init_tab_key = nav_container.data("init_tab_key");
 
   //Change
@@ -350,7 +355,7 @@ window.joe_setup_settings_nav = function () {
     var show_content = jQuery("." + selected_content_id).first();
 
     //Each Tab
-    jQuery(".joe-settings-tab").each(function () {
+    jQuery(".inmap-settings-tab").each(function () {
       var tab = jQuery(this);
       tab.hide();
 
@@ -359,12 +364,12 @@ window.joe_setup_settings_nav = function () {
         //Selected
         if (tab.hasClass(selected_content_id)) {
           tab.show();
-          admin_container.addClass("joe-active-" + selected_content_id);
+          admin_container.addClass("inmap-active-" + selected_content_id);
         }
       }
 
       //Each Section
-      jQuery(".joe-settings-section", tab).each(function () {
+      jQuery(".inmap-settings-section", tab).each(function () {
         var section = jQuery(this);
 
         if (selected_content_id.indexOf("settings-tab") > 0) {
@@ -376,7 +381,7 @@ window.joe_setup_settings_nav = function () {
           if (section.hasClass(selected_content_id)) {
             tab.show();
             section.show();
-            admin_container.addClass("joe-active-" + selected_content_id);
+            admin_container.addClass("inmap-active-" + selected_content_id);
           }
         }
       });
@@ -388,7 +393,7 @@ window.joe_setup_settings_nav = function () {
 window.joe_admin_message = function (
   message = null,
   type = "info",
-  container_selector = "#joe-admin-container .card",
+  container_selector = "#inmap-admin-container .card",
 ) {
   if (message) {
     switch (type) {
@@ -417,7 +422,7 @@ window.joe_admin_message = function (
       });
 
       var notice_div = jQuery("<div />").attr({
-        class: "joe-notice notice notice-" + type,
+        class: "inmap-notice notice notice-" + type,
       });
       var notice_p = jQuery("<p />").html(message);
       //Put together
@@ -432,7 +437,7 @@ window.joe_admin_message = function (
 };
 
 window.joe_setup_colour_pickers = function () {
-  jQuery(".joe-colour-picker .joe-input").wpColorPicker();
+  jQuery(".inmap-colour-picker .inmap-input").wpColorPicker();
 };
 
 jQuery(document).ready(function () {
