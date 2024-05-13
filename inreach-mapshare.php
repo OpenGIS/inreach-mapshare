@@ -37,6 +37,7 @@ add_action('init', function () {
 		'plugin_slug' => $plugin_slug,
 		'plugin_text_domain' => $plugin_slug,
 		'plugin_name' => $plugin_name,
+		'plugin_name_short' => $plugin_name,
 		'plugin_version' => '2.0.0',
 		'settings_id' => 'inmap_settings',
 		'settings_default_tab' => 'inmap-settings-tab-mapshare',

@@ -5,15 +5,9 @@ class InMap_Config {
 	protected static $fallback = [];
 	protected static $default = [];
 	protected static $data = [
-		'plugin_slug' => 'joe',
-		'plugin_name' => 'Joe',
-		'plugin_name_short' => 'Joe',
-		'plugin_version' => '1.0',
-		'plugin_text_domain' => 'joe',
 		'css_prefix' => 'inmap-',
-		'plugin_about' => '<img alt="Joe\'s mug" src="//www.josephhawes.co.uk/assets/images/Joe1BW.jpg" /><p class="inmap-first"><b>Joe</b></p>',
 		'multi_value_seperator' => '__multi__',
-		'joe' => [
+		'inmap' => [
 			'debug' => [
 				'enabled' => '0',
 			],

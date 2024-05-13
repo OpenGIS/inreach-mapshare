@@ -54,13 +54,13 @@ class InMap_Settings {
 		}
 
 		//Joe Plugin
-		$this->add_setting_tab('joe', [
+		$this->add_setting_tab('inmap', [
 			'sections' => [
 				'cache' => [
 					'title' => esc_html__('Cache', InMap_Config::get_item('plugin_text_domain')),
 					'fields' => [
 						'minutes' => [
-							'required' => InMap_Config::get_fallback('joe', 'cache', 'minutes'),
+							'required' => InMap_Config::get_fallback('inmap', 'cache', 'minutes'),
 							'class' => 'inmap-short-input',
 							'title' => esc_html__('Minutes', InMap_Config::get_item('plugin_text_domain')),
 							'tip' => esc_attr__('How often the Cache updates.', InMap_Config::get_item('plugin_text_domain')),
@@ -71,7 +71,7 @@ class InMap_Settings {
 					'title' => esc_html__('Debug', InMap_Config::get_item('plugin_text_domain')),
 					'fields' => [
 						'enabled' => [
-							'required' => InMap_Config::get_fallback('joe', 'debug', 'enabled'),
+							'required' => InMap_Config::get_fallback('inmap', 'debug', 'enabled'),
 							'type' => 'boolean',
 							'title' => esc_html__('Enabled', InMap_Config::get_item('plugin_text_domain')),
 							'tip' => esc_attr__('Display useful infomation to administrators (admin notices and browser console logging).', InMap_Config::get_item('plugin_text_domain')),
@@ -92,7 +92,7 @@ class InMap_Settings {
 		$this->settings_nav = [
 			'inmap-settings-tab-shortcode' => '-- ' . esc_html__('Shortcodes', InMap_Config::get_item('plugin_text_domain')),
 			'inmap-settings-tab-appearance' => '-- ' . esc_html__('Appearance', InMap_Config::get_item('plugin_text_domain')),
-			'inmap-settings-tab-joe' => '-- ' . esc_html__('Advanced', InMap_Config::get_item('plugin_text_domain')),
+			'inmap-settings-tab-inmap' => '-- ' . esc_html__('Advanced', InMap_Config::get_item('plugin_text_domain')),
 		];
 
 		//Switch tabs
