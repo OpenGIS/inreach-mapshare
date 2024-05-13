@@ -4,7 +4,7 @@ import { defineConfig } from "vite";
 export default defineConfig({
 	build: {
 		rollupOptions: {
-			input: "main.js",
+			input: "./src/main.js",
 			output: {
 				entryFileNames: "inreach-mapshare.js",
 				chunkFileNames: "inreach-mapshare.js",

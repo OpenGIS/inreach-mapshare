@@ -44,8 +44,6 @@ class InMap_HTTP {
 			return;
 		}
 
-		// InMap_Log::add(print_r($_REQUEST), 'info', 'request');
-
 		//Action
 		if (array_key_exists('inmap_action', $_REQUEST)) {
 			$this->execute_action();
