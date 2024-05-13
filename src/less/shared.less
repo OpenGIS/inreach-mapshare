@@ -1,0 +1,147 @@
+@inmap-grey-light: #f7f7f7;
+@inmap-grey-dark: #ddd;
+
+/**
+ * ====================================
+ * ============= UTILITY ==============
+ * ====================================
+ */
+.inmap-self-clear:after {
+  content: "";
+  display: table;
+  clear: both;
+}
+
+.inmap-code {
+  display: inline-block;
+  margin: 0 3px;
+  padding: 3px;
+  font-size: 90%;
+  color: #999;
+  border: 1px solid @inmap-grey-dark;
+  background: @inmap-grey-light;
+}
+
+/**
+ * ====================================
+ * ============= TOOLTIPS =============
+ * ====================================
+ */
+
+a.inmap-tooltip {
+  display: inline-block;
+  padding: 1px 5px;
+  float: right;
+  font-size: 13px !important;
+  line-height: 16px;
+  margin-top: 5px;
+  margin-right: 0.5%;
+  text-decoration: none !important;
+  cursor: help !important;
+  background: #f9f9f9;
+  color: #444 !important;
+  border: 1px solid @inmap-grey-dark;
+  border-radius: 50%;
+  &.inmap-link {
+    cursor: pointer !important;
+  }
+}
+p#inmap-tooltip-active {
+  position: absolute;
+  z-index: +10000000000;
+  width: 200px;
+  background: rgba(255, 255, 255, 0.7);
+  border-radius: 5px;
+  padding: 10px;
+  color: #333;
+  font-size: 13px;
+  border: 1px solid #999;
+}
+
+/**
+ * ====================================
+ * ============ PARAMETERS ============
+ * ====================================
+ */
+div.inmap-accordion-container {
+  padding-top: 2%;
+  padding-bottom: 2%;
+  //  max-width: 494px;
+  //  .inmap-parameters-tabs {
+  //    padding-left: 10px;
+  //    border-bottom: 1px solid @inmap-grey-dark;
+  //    .inmap-parameters-tab {
+  //      margin-right: 10px;
+  //      padding: 10px 15px;
+  //      display: inline-block;
+  //      font-weight: bold;
+  //      font-size: 1.2em;
+  //      border: 1px solid @inmap-grey-dark;
+  //      background: #f1f1f1;
+  //      border-bottom: none;
+  //      border-top-left-radius: 5px;
+  //      border-top-right-radius: 5px;
+  //      opacity: 0.7;
+  //      cursor: pointer;
+  //      &.inmap-active {
+  //        margin-bottom: -1px;
+  //        background: #fff;
+  //        opacity: 1;
+  //        border-bottom: 1px solid #fff;
+  //      }
+  //    }
+  //  }
+  .inmap-accordion-group {
+    width: 100%;
+    margin: 0;
+    margin-bottom: 10px;
+    &.inmap-first {
+      margin-top: 15px;
+    }
+    legend {
+      display: block;
+      padding: 10px;
+      width: -webkit-fill-available;
+      font-weight: bold;
+      font-size: 1.2em;
+      border: 1px solid @inmap-grey-dark;
+      background: #f1f1f1;
+      border-radius: 5px;
+      cursor: pointer;
+      span {
+        float: right;
+        opacity: 0.7;
+      }
+    }
+    .inmap-accordion-group-content {
+      padding: 0 10px;
+      //min-height: 300px;
+    }
+    .inmap-parameter-group-description {
+      margin: 5px 0 15px 0;
+      font-size: 1.15em;
+    }
+  }
+}
+
+/**
+ * ====================================
+ * ============ PARAMETERS ============
+ * ====================================
+ */
+table.inmap-assoc_array {
+  tr {
+    &:nth-child(odd) {
+      background: @inmap-grey-light;
+    }
+    th,
+    td {
+      padding: 5px 10px;
+    }
+    th {
+    }
+
+    td {
+    }
+  }
+}

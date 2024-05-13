@@ -1,0 +1,526 @@
+/**
+ * ====================================
+ * ============ VARIABLES =============
+ * ====================================
+ */
+@inmap-primary: #b42714;
+@inmap-grey: #f1f1f1;
+
+/**
+ * ====================================
+ * ============== GLOBAL ==============
+ * ====================================
+ */
+.inmap-primary {
+	color: @inmap-primary;
+}
+.inmap-invisible {
+	visibility: hidden;
+}
+.inmap-hidden {
+	display: none !important;
+}
+.inmap-lead {
+	font-size: 1.3em;
+}
+.inmap-right {
+	float: right;
+}
+.inmap-left {
+	float: left;
+}
+.inmap-self-clear {
+	overflow: hidden;
+}
+* html .inmap-self-clear {
+	height: 1%;
+}
+.inmap-shortcode {
+	padding: 15px 0;
+	margin-bottom: 15px;
+	font-size: 14px;
+	text-align: center;
+	background: @inmap-grey;
+	font-family: monospace;
+	border: 1px solid #8c8f94;
+}
+
+/**
+ * ====================================
+ * ============ PARAMETERS ============
+ * ====================================
+ */
+div.inmap-control-group {
+	padding: 1%;
+	clear: both;
+	overflow: hidden;
+	border-bottom: 1px solid @inmap-grey;
+	&:nth-child(even) {
+		background: #f9f9f9;
+	}
+	.inmap-control-label {
+		display: block;
+		padding-top: 12px;
+		float: left;
+		width: 160px;
+		font-weight: bold;
+		font-size: 1.1em;
+	}
+	.inmap-controls {
+		padding: 5px 0;
+		.inmap-input {
+			&.inmap-error {
+				border: 1px solid red !important;
+			}
+
+			&.inmap-disabled {
+				opacity: 0.5;
+				&:hover {
+					cursor: not-allowed;
+				}
+			}
+		}
+		select {
+			width: 200px;
+			border: 1px solid #ddd;
+		}
+		input[type="date"],
+		input[type="datetime-local"],
+		input[type="file"],
+		input[type="text"] {
+			padding: 2px 8px;
+			width: 200px;
+			border: 1px solid #ddd;
+		}
+		input[type="file"] {
+			font-size: 12px;
+		}
+	}
+
+	//Shorties
+	input[type="color"] {
+		width: 100px;
+		height: 32px;
+	}
+	&.inmap-short-input {
+		div.inmap-controls {
+			select,
+			input {
+				width: 80px;
+			}
+		}
+	}
+	&.inmap-control-type-select_multi {
+		option {
+			padding-top: 3px;
+			padding-bottom: 3px;
+		}
+	}
+	&.inmap-control-type-textarea_rich,
+	&.inmap-control-type-textarea {
+		position: relative;
+		//background-color: transparent !important;
+		border: none !important;
+		.inmap-controls {
+			width: 100%;
+		}
+		label {
+			float: none;
+		}
+		.inmap-tooltip {
+			position: absolute;
+			top: 5px;
+			right: 5px;
+		}
+		textarea {
+			width: 100%;
+			height: 200px;
+		}
+	}
+
+	/* Inline - All */
+	&.inmap-inline {
+		padding: 1% 0;
+		float: left;
+		background: transparent;
+
+		/* First Column */
+		&:nth-child(even) {
+			padding-left: 1%;
+			padding-right: 0;
+			width: 49%;
+			label.inmap-control-label {
+				width: 120px;
+			}
+			/*
+			select.inmap-input {
+				width: 100px;
+			}			
+*/
+		}
+
+		/* Second Column */
+		&:nth-child(odd) {
+			width: 49%;
+			padding-right: 1%;
+			float: left;
+			clear: none;
+			.inmap-control-label {
+				width: auto;
+				margin-right: 10px;
+			}
+		}
+
+		/* Alternating Rows */
+		&:nth-child(4n-1),
+		&:nth-child(4n-2) {
+			background: #f9f9f9;
+		}
+	}
+
+	.inmap-controls {
+		float: none;
+	}
+}
+p + div.inmap-control-group {
+	border-top: 1px solid @inmap-grey;
+}
+
+/**
+ * ====================================
+ * ============= SETTINGS =============
+ * ====================================
+ */
+body.wp-admin {
+	div#inmap-admin-container {
+		position: relative;
+		padding-right: 230px;
+		// 		max-width: 600px;
+		&.inmap-top {
+			h2 {
+				&.promo {
+					padding: 40px 0;
+					font-size: 2.6em;
+				}
+				&.lead {
+					font-size: 1.4em;
+					margin-top: 60px;
+					margin-bottom: 30px;
+				}
+			}
+			p {
+				&.lead {
+					margin-left: 20px;
+					small {
+						font-size: 0.7em;
+					}
+				}
+			}
+		}
+		h1 {
+			padding-bottom: 9px;
+			background-size: 30px 30px;
+			background-position: left center;
+			background-repeat: no-repeat;
+		}
+		.notice {
+			background-color: #f9f9f9;
+		}
+		.card {
+			min-width: 266px;
+			max-width: none;
+			.notice {
+				display: none;
+				&.inmap-notice {
+					display: block;
+					margin-left: 0;
+				}
+			}
+			.lead {
+				font-size: 1.2em;
+			}
+		}
+		.inmap-video {
+			iframe {
+				width: 550px;
+				height: 308px;
+			}
+		}
+		.button-primary.button-large {
+			font-size: 15px;
+		}
+
+		/* About */
+		#inmap-about {
+			position: absolute;
+			top: 0;
+			right: 20px;
+			width: 180px;
+			// 			max-height: 555px;
+			overflow-y: scroll;
+			padding: 15px;
+			border: 1px solid #ccc;
+			background: #f7f7f7;
+			h1 {
+				margin: 0 0 10px 0;
+				line-height: initial;
+			}
+			ul {
+				padding-left: 15px;
+				list-style: circle;
+				li {
+					&.inmap-multi {
+						a {
+							margin-right: -4px;
+						}
+					}
+				}
+			}
+			p {
+				margin-top: 0;
+				font-size: 14px;
+				line-height: 18px;
+				&.inmap-lead {
+					font-size: 16px;
+					line-height: 20px;
+				}
+			}
+			a.button {
+				margin-bottom: 5px;
+			}
+			.inmap-footer {
+				padding-top: 15px;
+				margin-top: 15px;
+				margin-bottom: 0;
+				border-top: 1px solid @inmap-grey;
+				.inmap-joe {
+					position: relative;
+					img {
+						width: 80px;
+						height: 80px;
+						margin-bottom: 10px;
+						border-radius: 50%;
+						border: 1px solid #999;
+					}
+					p {
+						font-size: 14px;
+						line-height: 16px;
+						&.inmap-lead {
+							margin: 0;
+							position: absolute;
+							top: 18px;
+							left: 90px;
+							max-width: 80px;
+							font-size: 24px;
+							line-height: 25px;
+						}
+					}
+					ul {
+						margin-top: 10px;
+					}
+					small {
+						display: block;
+						float: right;
+					}
+				}
+			}
+		}
+	}
+
+	//Nav
+	div#inmap-settings-nav {
+		margin-top: 10px;
+		height: 35px;
+		margin-bottom: 5px;
+		background-size: 35px 35px;
+		background-position: center left;
+		background-repeat: no-repeat;
+		select {
+			position: absolute;
+			padding: 0;
+			z-index: +1100;
+			font-size: 16px;
+			min-width: 240px;
+			&:hover {
+				background: #fff;
+			}
+			option {
+				padding: 10px 20px;
+				&[disabled] {
+					color: #000 !important;
+					background: #f7f7f7;
+				}
+				&:hover {
+					color: #0073aa;
+				}
+			}
+		}
+	}
+
+	/*
+
+	.inmap-settings-tab {
+		max-width: 520px;
+
+		table.form-table {
+
+		}
+	}
+
+*/
+
+	//Tabs
+	div.inmap-settings-tab {
+		//Help
+		.inmap-docs-link {
+			position: absolute;
+			top: 20px;
+			right: 20px;
+		}
+		//Pro Tip
+		> small {
+			display: block;
+			margin-top: 20px;
+			font-size: 0.9em;
+		}
+
+		.inmap-settings-tab-description {
+			font-size: 1.1em;
+			h2 {
+				display: none;
+			}
+		}
+
+		//Form Tables
+		table.form-table {
+			tr {
+				&.inmap-align-top {
+					th {
+						vertical-align: top;
+					}
+				}
+				th {
+					padding: 18px 20px 10px 20px;
+					width: 160px;
+					//  					vertical-align: initial;
+				}
+				td {
+					padding: 0;
+
+					select,
+					input[type="file"],
+					input[type="text"] {
+						width: 200px;
+						border-style: solid;
+						border-width: 1px;
+						border-color: #dddddd;
+						box-shadow: 0 1px 2px rgba(0, 0, 0, 0.07) inset;
+					}
+					.inmap-short-input {
+						select,
+						input[type="file"],
+						input[type="text"] {
+							width: 100px;
+						}
+					}
+					.inmap-controls {
+						position: relative;
+						.inmap-tooltip {
+							position: absolute;
+							top: 5px;
+							right: 0;
+							margin: 0;
+						}
+					}
+				}
+			}
+		}
+
+		//Repeatable
+		.inmap-repeatable {
+			.form-table {
+				position: relative;
+				margin-bottom: 30px;
+				box-shadow: 1px 1px 3px 0px rgba(0, 0, 0, 0.25);
+				&:hover {
+					div.inmap-delete {
+						visibility: visible;
+					}
+				}
+				&.ui-sortable-handle {
+					cursor: move;
+				}
+			}
+
+			button.inmap-add {
+				display: block;
+				width: 100%;
+				opacity: 0.7;
+			}
+			div.inmap-delete {
+				position: absolute;
+				top: 2px;
+				left: 2px;
+				padding: 0 5px 2px 5px;
+				background: #ac2b2b;
+				color: white;
+				cursor: pointer;
+				visibility: hidden;
+			}
+		}
+
+		//Colour Pickers
+		.wp-picker-container {
+			display: inline-block;
+			button {
+				span {
+					color: #444;
+					text-shadow: 1px 1px 0px #ddd;
+					opacity: 0.8;
+				}
+			}
+		}
+
+		div.inmap-settings-section-description {
+			margin-bottom: 15px;
+			font-size: 1.1em;
+			ul {
+				margin: 20px 0 40px 0;
+				li {
+					margin: 15px 0;
+					padding-left: 20px;
+				}
+			}
+		}
+		div.inmap-settings-section-footer {
+			margin-top: 20px;
+			margin-bottom: 20px;
+		}
+		table.form-table {
+			.inmap-control-group {
+				border: none;
+			}
+			tr {
+				th,
+				td {
+					background: #f9f9f9;
+					border-bottom: 1px solid @inmap-grey;
+				}
+
+				&:first-child {
+					th,
+					td {
+						border-top: 1px solid @inmap-grey;
+					}
+				}
+
+				&:nth-child(even) {
+					th,
+					td {
+						background: #fff;
+					}
+				}
+			}
+		}
+	}
+}
