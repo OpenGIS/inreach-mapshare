@@ -49,6 +49,7 @@ window.inmap_create_map = function (
 	var info_last_jq = {};
 	var info_active_jq = {};
 	var map_ui_jq = {};
+	var marker_active_l = {};
 
 	//Resize Latest
 	var redraw_last = function () {
@@ -96,6 +97,11 @@ window.inmap_create_map = function (
 
 		//Redraw inmap_L
 		map_l.invalidateSize();
+
+		// If valid Leaflet Marker
+		if (marker_active_l && marker_active_l.getLatLng) {
+			map_l.setView(marker_active_l.getLatLng());
+		}
 	};
 
 	var setup_map_ui = function () {
@@ -308,6 +314,11 @@ window.inmap_create_map = function (
 
 		//Active only
 		if (update_status == "active") {
+			// Set last active marker
+			if (update_id) {
+				marker_active_l = markers_l[update_id];
+			}
+
 			redraw_last();
 		}
 
