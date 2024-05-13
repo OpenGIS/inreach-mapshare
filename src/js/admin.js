@@ -1,5 +1,5 @@
 //Tooltips
-window.joe_setup_parameter_tooltips = function () {
+window.inmap_setup_parameter_tooltips = function () {
   jQuery("a.inmap-tooltip").on({
     mouseenter: function (e) {
       var title = jQuery(this).data("title");
@@ -12,7 +12,7 @@ window.joe_setup_parameter_tooltips = function () {
       jQuery("#inmap-tooltip-active").remove();
     },
     mousemove: function (e) {
-      if (joe_is_touch_device()) {
+      if (inmap_is_touch_device()) {
         var mousex = e.pageX - 250;
       } else {
         var mousex = e.pageX - 220;
@@ -26,7 +26,7 @@ window.joe_setup_parameter_tooltips = function () {
 
 //Touch device?
 //Thanks https://stackoverflow.com/questions/4817029/whats-the-best-way-to-detect-a-touch-screen-device-using-javascript/4819886#4819886
-window.joe_is_touch_device = function () {
+window.inmap_is_touch_device = function () {
   var prefixes = " -webkit- -moz- -o- -ms- ".split(" ");
   var mq = function (media_qry) {
     return window.matchMedia(media_qry).matches;
@@ -47,7 +47,7 @@ window.joe_is_touch_device = function () {
   return mq(media_qry);
 };
 
-window.joe_setup_accordions = function () {
+window.inmap_setup_accordions = function () {
   var accordion_container = jQuery(".inmap-accordion-container");
 
   if (!accordion_container.length) {
@@ -146,7 +146,7 @@ window.joe_setup_accordions = function () {
   });
 };
 
-window.joe_setup_repeatable_settings = function () {
+window.inmap_setup_repeatable_settings = function () {
   //Each container
   jQuery(".inmap-settings-tab .inmap-repeatable").each(function () {
     var container = jQuery(this);
@@ -177,7 +177,7 @@ window.joe_setup_repeatable_settings = function () {
         }
 
         //Determine clone values
-        values = values.split(joe_admin_js.multi_value_seperator);
+        values = values.split(inmap_admin_js.multi_value_seperator);
         for (i in values) {
           if (typeof clones[i] !== "object") {
             clones[i] = {};
@@ -220,7 +220,7 @@ window.joe_setup_repeatable_settings = function () {
         //Delete button
         var delete_button = jQuery("<div />")
           .text("x")
-          .attr("title", joe_admin_js.lang.repeatable_delete_title)
+          .attr("title", inmap_admin_js.lang.repeatable_delete_title)
           .addClass("inmap-delete")
           .on("click", function (e) {
             e.preventDefault();
@@ -234,7 +234,7 @@ window.joe_setup_repeatable_settings = function () {
 
         container.append(clone);
         container.attr("data-count", i);
-        joe_setup_parameter_tooltips();
+        inmap_setup_parameter_tooltips();
       }
 
       var add_button = jQuery("<button />")
@@ -267,8 +267,8 @@ window.joe_setup_repeatable_settings = function () {
 
           jQuery(this).before(clone);
 
-          joe_setup_parameter_tooltips();
-          joe_setup_colour_pickers();
+          inmap_setup_parameter_tooltips();
+          inmap_setup_colour_pickers();
 
           return false;
         });
@@ -279,7 +279,7 @@ window.joe_setup_repeatable_settings = function () {
   });
 };
 
-window.joe_setup_dropdowns = function () {
+window.inmap_setup_dropdowns = function () {
   jQuery(".inmap-parameters-container").each(function () {
     var container = jQuery(this);
 
@@ -309,7 +309,7 @@ window.joe_setup_dropdowns = function () {
   });
 };
 
-window.joe_setup_settings_nav = function () {
+window.inmap_setup_settings_nav = function () {
   var nav_container = jQuery("body.wp-admin #inmap-settings-nav");
 
   if (!nav_container) {
@@ -390,7 +390,7 @@ window.joe_setup_settings_nav = function () {
   select.trigger("change");
 };
 
-window.joe_admin_message = function (
+window.inmap_admin_message = function (
   message = null,
   type = "info",
   container_selector = "#inmap-admin-container .card",
@@ -436,16 +436,16 @@ window.joe_admin_message = function (
   }
 };
 
-window.joe_setup_colour_pickers = function () {
+window.inmap_setup_colour_pickers = function () {
   jQuery(".inmap-colour-picker .inmap-input").wpColorPicker();
 };
 
 jQuery(document).ready(function () {
-  joe_setup_parameter_tooltips();
-  joe_setup_accordions();
+  inmap_setup_parameter_tooltips();
+  inmap_setup_accordions();
 
-  joe_setup_settings_nav();
-  joe_setup_repeatable_settings();
-  joe_setup_dropdowns();
-  joe_setup_colour_pickers();
+  inmap_setup_settings_nav();
+  inmap_setup_repeatable_settings();
+  inmap_setup_dropdowns();
+  inmap_setup_colour_pickers();
 });

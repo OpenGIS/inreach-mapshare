@@ -35,7 +35,7 @@ class InMap_Log {
 				$type = 'warning';
 			}
 
-			InMap_Assets::js_onready('joe_admin_message("' . $content . '", "' . $type . '")');
+			InMap_Assets::js_onready('inmap_admin_message("' . $content . '", "' . $type . '")');
 
 			break;
 

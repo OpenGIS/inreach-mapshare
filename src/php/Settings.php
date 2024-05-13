@@ -101,10 +101,10 @@ class InMap_Settings {
 		}
 
 		//Text
-		add_filter('joe_admin_before_form', [$this, 'joe_admin_before_form']);
+		add_filter('inmap_admin_before_form', [$this, 'inmap_admin_before_form']);
 
 		//Build shortcode
-		add_filter('joe_admin_after_form', [$this, 'joe_admin_after_form']);
+		add_filter('inmap_admin_after_form', [$this, 'inmap_admin_after_form']);
 
 		$this->tabs['shortcode'] = [
 			'sections' => [
@@ -233,7 +233,7 @@ class InMap_Settings {
 		InMap_Log::render();
 	}
 
-	function joe_admin_after_form($out) {
+	function inmap_admin_after_form($out) {
 		//Success
 		if (!InMap_Log::in_error()) {
 			//Shortcode output
@@ -247,7 +247,7 @@ class InMap_Settings {
 		return $out;
 	}
 
-	function joe_admin_before_form($out) {
+	function inmap_admin_before_form($out) {
 		//Demo
 		if (InMap_Log::has('do_demo')) {
 			$out .= '<p class="inmap-lead">' . sprintf(__('Configure MapShare in the <a href="%s">Social</a> tab of your Garmin Explore Account.', InMap_Config::get_item('plugin_text_domain')), 'https://explore.garmin.com/Social') . '</p>';
@@ -368,7 +368,7 @@ class InMap_Settings {
 		$this->settings_nav($active_content);
 
 		//Prepend?
-		echo apply_filters('joe_admin_before_form', '');
+		echo apply_filters('inmap_admin_before_form', '');
 
 		//Open form
 		echo '		<form action="' . admin_url('options.php') . '" method="post">' . "\n";
@@ -441,7 +441,7 @@ class InMap_Settings {
 		echo '		</form>' . "\n";
 
 		//Append?
-		echo apply_filters('joe_admin_after_form', '');
+		echo apply_filters('inmap_admin_after_form', '');
 
 		echo '	</div>' . "\n";
 		echo '</div>' . "\n";

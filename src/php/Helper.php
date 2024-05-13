@@ -19,7 +19,7 @@ class InMap_Helper {
 	}
 
 	static public function http_url($data = array()) {
-		return trim(add_query_arg(array_merge(array('joe_http' => '1'), $data), home_url('/')), '/');
+		return trim(add_query_arg(array_merge(array('inmap_http' => '1'), $data), home_url('/')), '/');
 	}
 
 	static public function plugin_url($file_path = '', $plugin_slug = '') {

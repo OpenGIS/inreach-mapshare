@@ -18,7 +18,7 @@ class InMap_HTTP {
 
 		//Setup AJAX
 		InMap_Assets::js_inline('//HTTP' . "\n");
-		InMap_Assets::js_inline('var joe_http_endpoint = "' . InMap_Helper::http_url() . '";');
+		InMap_Assets::js_inline('var inmap_http_endpoint = "' . InMap_Helper::http_url() . '";');
 	}
 
 	public function do_404() {
@@ -32,14 +32,14 @@ class InMap_HTTP {
 	}
 
 	public function query_vars($vars) {
-		$vars[] = 'joe_http';
+		$vars[] = 'inmap_http';
 
 		return $vars;
 	}
 
 	public function template_redirect() {
 		//If not HTTP request
-		if (!get_query_var('joe_http')) {
+		if (!get_query_var('inmap_http')) {
 			//WP loads normally
 			return;
 		}
@@ -47,7 +47,7 @@ class InMap_HTTP {
 		// InMap_Log::add(print_r($_REQUEST), 'info', 'request');
 
 		//Action
-		if (array_key_exists('joe_action', $_REQUEST)) {
+		if (array_key_exists('inmap_action', $_REQUEST)) {
 			$this->execute_action();
 		}
 

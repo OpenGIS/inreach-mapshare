@@ -41,7 +41,7 @@ class InMap_Admin {
 		]);
 
 		InMap_Assets::js_enqueue([
-			'id' => 'joe_admin_js',
+			'id' => 'inmap_admin_js',
 			'url' => InMap_Helper::plugin_url('dist/inreach-mapshare.js'),
 
 			'deps' => [
