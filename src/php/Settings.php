@@ -53,7 +53,6 @@ class InMap_Settings {
 			}
 		}
 
-		//Joe Plugin
 		$this->add_setting_tab('inmap', [
 			'sections' => [
 				'cache' => [

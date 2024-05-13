@@ -67,7 +67,7 @@ class InMap_Helper {
 
 		$out .= '		<div class="' . InMap_Helper::css_prefix('footer') . '">' . "\n";
 		$out .= '			<div class="' . InMap_Helper::css_prefix('joe') . '">' . "\n";
-		$out .= '				<img alt="Joe\'s mug" src="https://www.morehawes.co.uk/assets/images/Joe1BW.jpg" />' . "\n";
+		$out .= '				<img alt="Joe\'s mug" src="https://www.morehawes.ca/assets/images/Joe1BW.jpg" />' . "\n";
 
 		$out .= '				<p class="inmap-lead">' . sprintf(__('Hi, I\'m <a href="%s">Joe</a>', InMap_Config::get_item('plugin_text_domain')), 'https://www.morehawes.co.uk/') . '</p>' . "\n";
 
@@ -104,7 +104,7 @@ class InMap_Helper {
 		return
 			(defined('WP_DEBUG') && WP_DEBUG == true)
 			||
-			(InMap_Config::get_setting('joe', 'debug', 'enabled') == 1)
+			(InMap_Config::get_setting('inmap', 'debug', 'enabled') == 1)
 		;
 	}
 
