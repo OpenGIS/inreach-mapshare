@@ -90,6 +90,7 @@ add_action('init', function () {
 			'map' => [
 				'basemap_url' => 'https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png',
 				'basemap_attribution' => '© &lt;a href=&quot;https://www.openstreetmap.org/copyright&quot;&gt;OpenStreetMap&lt;/a&gt; contributors',
+				'detail_expanded' => '1',
 			],
 			'colours' => [
 				'tracking_colour' => $colour_primary,

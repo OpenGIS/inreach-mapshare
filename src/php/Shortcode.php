@@ -104,6 +104,7 @@ class InMap_Shortcode {
 			'data' => [
 				'basemap_url' => InMap_Config::get_setting('appearance', 'map', 'basemap_url'),
 				'basemap_attribution' => InMap_Config::get_setting('appearance', 'map', 'basemap_attribution'),
+				'detail_expanded' => InMap_Config::get_setting('appearance', 'map', 'detail_expanded'),
 			],
 		]);
 	}

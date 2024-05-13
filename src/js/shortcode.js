@@ -103,6 +103,7 @@ window.inmap_create_map = function (
 			map_jq,
 		).first();
 
+		// Fullscreen
 		var fullscreen_control = jQuery("<div />")
 			.attr({
 				class: "inmap-control leaflet-bar leaflet-control",
@@ -127,6 +128,28 @@ window.inmap_create_map = function (
 					}),
 			);
 		map_ui_jq.addClass("inmap-map-ui").append(fullscreen_control);
+
+		// Details Expand
+		var details_control = jQuery("<div />")
+			.attr({
+				class: "inmap-control leaflet-bar leaflet-control",
+			})
+			.append(
+				jQuery("<a />")
+					.attr({
+						class: "inmap-button inmap-icon inmap-icon-details",
+						href: "#",
+						title: "Details",
+						role: "button",
+						"aria-label": "Details",
+					})
+					.on("click", function (e) {
+						e.preventDefault();
+
+						info_jq.toggleClass("inmap-hidden");
+					}),
+			);
+		map_ui_jq.append(details_control);
 	};
 
 	var setup_info_ui = function () {
