@@ -170,11 +170,12 @@ class InMap_Settings {
 							'required' => InMap_Config::get_fallback('appearance', 'map', 'detail_expanded'),
 							'type' => 'select',
 							'options' => [
-								'true' => esc_html__('Yes', InMap_Config::get_item('plugin_text_domain')),
-								'false' => esc_html__('No', InMap_Config::get_item('plugin_text_domain')),
+								'true' => esc_html__('Expanded', InMap_Config::get_item('plugin_text_domain')),
+								'false' => esc_html__('Collapsed', InMap_Config::get_item('plugin_text_domain')),
 							],
-							'title' => esc_html__('Detail Expanded', InMap_Config::get_item('plugin_text_domain')),
-							'tip' => esc_html__('Expand the detail panel by default.', InMap_Config::get_item('plugin_text_domain')),
+							'title' => esc_html__('Detail Panel', InMap_Config::get_item('plugin_text_domain')),
+							'tip' => esc_html__('The Detail panel provides infomation for each point and can be collapsed/expanded in order to increase/decrease the size of the Map. This option determines if the panel is expanded by default.', InMap_Config::get_item('plugin_text_domain')),
+
 							'class' => 'inmap-short-input',
 						],
 					],
