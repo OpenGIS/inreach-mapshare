@@ -167,9 +167,15 @@ class InMap_Settings {
 							),
 						],
 						'detail_expanded' => [
-							'type' => 'boolean',
+							'required' => InMap_Config::get_fallback('appearance', 'map', 'detail_expanded'),
+							'type' => 'select',
+							'options' => [
+								'true' => esc_html__('Yes', InMap_Config::get_item('plugin_text_domain')),
+								'false' => esc_html__('No', InMap_Config::get_item('plugin_text_domain')),
+							],
 							'title' => esc_html__('Detail Expanded', InMap_Config::get_item('plugin_text_domain')),
 							'tip' => esc_html__('Expand the detail panel by default.', InMap_Config::get_item('plugin_text_domain')),
+							'class' => 'inmap-short-input',
 						],
 					],
 				],

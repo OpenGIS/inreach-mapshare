@@ -79,6 +79,7 @@ window.inmap_create_map = function (
 			wrap_jq.css({
 				width: body_jq.width() + "px",
 				height: body_jq.height() + "px",
+				zIndex: 9999999999999,
 			});
 		} else {
 			wrap_jq.removeAttr("style");
@@ -137,7 +138,7 @@ window.inmap_create_map = function (
 			.append(
 				jQuery("<a />")
 					.attr({
-						class: "inmap-button inmap-icon inmap-icon-details",
+						class: "inmap-button inmap-icon inmap-icon-detail",
 						href: "#",
 						title: "Details",
 						role: "button",
@@ -146,7 +147,10 @@ window.inmap_create_map = function (
 					.on("click", function (e) {
 						e.preventDefault();
 
-						info_jq.toggleClass("inmap-hidden");
+						wrap_jq.toggleClass("inmap-info-hidden");
+
+						//Redraw
+						redraw_ui();
 					}),
 			);
 		map_ui_jq.append(details_control);
@@ -227,6 +231,11 @@ window.inmap_create_map = function (
 				info_last_jq = infos_jq[id];
 			}
 		}
+
+		// Hide if not expanded initially
+		if (inmap_shortcode_js.detail_expanded === "false") {
+			wrap_jq.addClass("inmap-info-hidden");
+		}
 	};
 
 	var update_point_status = function (
@@ -264,6 +273,9 @@ window.inmap_create_map = function (
 
 				//Active only
 				if (update_status == "active") {
+					// Ensure Details are shown
+					wrap_jq.removeClass("inmap-info-hidden");
+
 					if (scroll_to) {
 						infos_jq[this_id].get(0).scrollIntoView({
 							behaviour: "smooth",
@@ -298,6 +310,9 @@ window.inmap_create_map = function (
 		if (update_status == "active") {
 			redraw_last();
 		}
+
+		// Redraw UI
+		redraw_ui();
 	};
 
 	var display_geojson = function (geojson) {

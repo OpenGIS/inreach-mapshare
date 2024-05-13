@@ -130,6 +130,21 @@
 	}
 
 	// ===========================
+	// ===== DETAILS TOGGLE ======
+	// ===========================
+
+	&.inmap-info-hidden {
+		div.inmap-map {
+			width: 100% !important;
+			height: 100% !important;
+		}
+
+		div.inmap-info {
+			display: none !important;
+		}
+	}
+
+	// ===========================
 	// ========== ICONS ==========
 	// ===========================
 
@@ -154,6 +169,12 @@
 		&.inmap-icon-fullscreen {
 			-webkit-mask-image: url(/dist/img/fullscreen.svg);
 			mask-image: url(/dist/img/fullscreen.svg);
+		}
+
+		// Detail
+		&.inmap-icon-detail {
+			-webkit-mask-image: url(/dist/img/detail.svg);
+			mask-image: url(/dist/img/detail.svg);
 		}
 
 		//Messages
