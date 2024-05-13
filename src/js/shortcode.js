@@ -320,6 +320,9 @@ window.inmap_create_map = function (
 			}
 
 			redraw_last();
+		} else {
+			// Unset active marker
+			marker_active_l = {};
 		}
 
 		// Redraw UI

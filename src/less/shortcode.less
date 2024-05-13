@@ -173,8 +173,10 @@
 
 		// Detail
 		&.inmap-icon-detail {
-			-webkit-mask-image: url(/dist/img/detail.svg);
-			mask-image: url(/dist/img/detail.svg);
+			-webkit-mask-image: url(/dist/img/detail-contract.svg);
+			mask-image: url(/dist/img/detail-contract.svg);
+			-webkit-mask-size: 26px !important;
+			mask-size: 26px !important;
 		}
 
 		//Messages
@@ -568,6 +570,7 @@ body.inmap-has-single {
 	}
 }
 .inmap-wrap {
+	// Fullscreen
 	&.inmap-fullscreen {
 		position: fixed !important;
 		top: 0 !important;
@@ -580,6 +583,7 @@ body.inmap-has-single {
 		max-height: unset !important;
 		overflow: hidden !important;
 		margin: 0 !important;
+		z-index: +100000000000 !important;
 
 		.inmap-map,
 		.inmap-info {
@@ -614,6 +618,16 @@ body.inmap-has-single {
 					-webkit-mask-size: 18px !important;
 					mask-size: 18px !important;
 				}
+			}
+		}
+	}
+
+	// Detail
+	&.inmap-info-hidden {
+		.inmap-icon {
+			&.inmap-icon-detail {
+				-webkit-mask-image: url(/dist/img/detail-expand.svg) !important;
+				mask-image: url(/dist/img/detail-expand.svg) !important;
 			}
 		}
 	}
