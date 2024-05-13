@@ -166,6 +166,11 @@ class InMap_Settings {
 								'encode_special',
 							),
 						],
+						'detail_expanded' => [
+							'type' => 'boolean',
+							'title' => esc_html__('Detail Expanded', InMap_Config::get_item('plugin_text_domain')),
+							'tip' => esc_html__('Expand the detail panel by default.', InMap_Config::get_item('plugin_text_domain')),
+						],
 					],
 				],
 				'colours' => [
