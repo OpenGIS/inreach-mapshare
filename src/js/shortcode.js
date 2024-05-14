@@ -329,9 +329,9 @@ window.inmap_create_map = function (
 		redraw_ui();
 	};
 
-	var display_geojson = function (geojson) {
+	var display_route_geojson = function (geojson) {
 		//JSON layer
-		inmap_L
+		var route_layer = inmap_L
 			.geoJSON(geojson, {
 				//Style
 				style: {
@@ -339,11 +339,17 @@ window.inmap_create_map = function (
 					weight: 3,
 					opacity: 0.5,
 				},
+				pointToLayer: function (feature, latlng) {
+					// Skip points
+				},
 				onEachFeature: function (feature, layer) {
 					layer.bindTooltip("Planned Route");
 				},
 			})
 			.addTo(map_l);
+
+		// Extend bounds to include data_layer.getBounds() and route
+		map_l.fitBounds(data_layer.getBounds().extend(route_layer.getBounds()));
 	};
 
 	// Create Tile Layer
@@ -456,6 +462,6 @@ window.inmap_create_map = function (
 
 	//Route? (must be valid JSON)
 	if (route_json && JSON.stringify(route_json)) {
-		display_geojson(route_json);
+		display_route_geojson(route_json);
 	}
 };
