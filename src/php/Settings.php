@@ -206,8 +206,27 @@ class InMap_Settings {
 						'cache_minutes' => [
 							'required' => InMap_Config::get_fallback('advanced', 'request', 'cache_minutes'),
 							'class' => 'inmap-short-input',
-							'title' => esc_html__('Cache minutes', InMap_Config::get_item('plugin_text_domain')),
+							'title' => esc_html__('Cache', InMap_Config::get_item('plugin_text_domain')),
 							'tip' => esc_attr__('How often the Cache updates.', InMap_Config::get_item('plugin_text_domain')),
+							'appended' => 'minutes',
+						],
+					],
+				],
+
+				'response' => [
+					'title' => esc_html__('Tracking', InMap_Config::get_item('plugin_text_domain')),
+					'fields' => [
+						'precision' => [
+							'required' => InMap_Config::get_fallback('advanced', 'response', 'precision'),
+							'type' => 'select',
+							'options' => [
+								'6' => 'Default (up to 10cm!!!)',
+								'3' => 'High (up to 100m)',
+								'2' => 'Medium (up to 1km)',
+								'1' => 'Low (up to 10km)',
+							],
+							'title' => esc_html__('Precision', InMap_Config::get_item('plugin_text_domain')),
+							'tip' => esc_attr__('Select the precision level of coordinates used to build the Map. By default, Garmin provides values to a precision of 10cm, lowering the level of precision will effectively fuzz locations, making them more generalised.', InMap_Config::get_item('plugin_text_domain')),
 						],
 					],
 				],

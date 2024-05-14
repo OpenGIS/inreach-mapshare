@@ -105,6 +105,10 @@ add_action('init', function () {
 			'request' => [
 				'cache_minutes' => '15',
 			],
+
+			'response' => [
+				'precision' => '3',
+			],
 		],
 
 	];
