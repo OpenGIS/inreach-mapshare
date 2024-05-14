@@ -53,33 +53,6 @@ class InMap_Settings {
 			}
 		}
 
-		$this->add_setting_tab('inmap', [
-			'sections' => [
-				'cache' => [
-					'title' => esc_html__('Cache', InMap_Config::get_item('plugin_text_domain')),
-					'fields' => [
-						'minutes' => [
-							'required' => InMap_Config::get_fallback('inmap', 'cache', 'minutes'),
-							'class' => 'inmap-short-input',
-							'title' => esc_html__('Minutes', InMap_Config::get_item('plugin_text_domain')),
-							'tip' => esc_attr__('How often the Cache updates.', InMap_Config::get_item('plugin_text_domain')),
-						],
-					],
-				],
-				'debug' => [
-					'title' => esc_html__('Debug', InMap_Config::get_item('plugin_text_domain')),
-					'fields' => [
-						'enabled' => [
-							'required' => InMap_Config::get_fallback('inmap', 'debug', 'enabled'),
-							'type' => 'boolean',
-							'title' => esc_html__('Enabled', InMap_Config::get_item('plugin_text_domain')),
-							'tip' => esc_attr__('Display useful infomation to administrators (admin notices and browser console logging).', InMap_Config::get_item('plugin_text_domain')),
-						],
-					],
-				],
-			],
-		]);
-
 		//Get current settings from DB
 		$current_settings = get_option(InMap_Config::get_item('settings_id'));
 		if (is_array($current_settings) && sizeof($current_settings)) {
@@ -91,7 +64,7 @@ class InMap_Settings {
 		$this->settings_nav = [
 			'inmap-settings-tab-shortcode' => '-- ' . esc_html__('Shortcodes', InMap_Config::get_item('plugin_text_domain')),
 			'inmap-settings-tab-appearance' => '-- ' . esc_html__('Appearance', InMap_Config::get_item('plugin_text_domain')),
-			'inmap-settings-tab-inmap' => '-- ' . esc_html__('Advanced', InMap_Config::get_item('plugin_text_domain')),
+			'inmap-settings-tab-advanced' => '-- ' . esc_html__('Advanced', InMap_Config::get_item('plugin_text_domain')),
 		];
 
 		//Switch tabs
@@ -140,7 +113,7 @@ class InMap_Settings {
 						],
 						'mapshare_route_url' => [
 							'title' => esc_html__('Route URL', InMap_Config::get_item('plugin_text_domain')),
-							'tip' => esc_html__('The URL to a KML file that contains a route. This will be displayed on the map.', InMap_Config::get_item('plugin_text_domain')),
+							'tip' => esc_html__('You can display a Route, which must be a GeoJSON file accessible via a URL.', InMap_Config::get_item('plugin_text_domain')),
 						],
 					],
 				],
@@ -216,6 +189,36 @@ class InMap_Settings {
 				],
 			],
 		];
+
+		// Advanced
+		$this->tabs['advanced'] = [
+			'sections' => [
+				'request' => [
+					'title' => esc_html__('Request', InMap_Config::get_item('plugin_text_domain')),
+					'fields' => [
+						'cache_minutes' => [
+							'required' => InMap_Config::get_fallback('advanced', 'request', 'cache_minutes'),
+							'class' => 'inmap-short-input',
+							'title' => esc_html__('Cache minutes', InMap_Config::get_item('plugin_text_domain')),
+							'tip' => esc_attr__('How often the Cache updates.', InMap_Config::get_item('plugin_text_domain')),
+						],
+					],
+				],
+
+				'debug' => [
+					'title' => esc_html__('Debug', InMap_Config::get_item('plugin_text_domain')),
+					'fields' => [
+						'enabled' => [
+							'required' => InMap_Config::get_fallback('inmap', 'debug', 'enabled'),
+							'type' => 'boolean',
+							'title' => esc_html__('Enabled', InMap_Config::get_item('plugin_text_domain')),
+							'tip' => esc_attr__('Display useful infomation to administrators (admin notices and browser console logging).', InMap_Config::get_item('plugin_text_domain')),
+						],
+					],
+				],
+			],
+		];
+
 	}
 
 	function do_shortcode() {

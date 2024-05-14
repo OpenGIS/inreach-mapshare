@@ -104,7 +104,7 @@ class InMap_Helper {
 		return
 			(defined('WP_DEBUG') && WP_DEBUG == true)
 			||
-			(InMap_Config::get_setting('inmap', 'debug', 'enabled') == 1)
+			(InMap_Config::get_setting('advanced', 'debug', 'enabled') == 1)
 		;
 	}
 

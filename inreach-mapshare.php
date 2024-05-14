@@ -100,6 +100,14 @@ add_action('init', function () {
 				'tracking_icon' => $tracking_icon,
 			],
 		],
+
+		// Advanced
+		'advanced' => [
+			'request' => [
+				'cache_minutes' => '15',
+			],
+		],
+
 	];
 
 	InMap_Config::init($config);

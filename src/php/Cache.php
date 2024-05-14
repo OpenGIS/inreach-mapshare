@@ -4,7 +4,7 @@ class InMap_Cache {
 
 	static function set_item($cache_id, string $cache_content, int $cache_minutes = 0) {
 		if (!$cache_minutes) {
-			$cache_minutes = (int) InMap_Config::get_setting('inmap', 'cache', 'minutes');
+			$cache_minutes = (int) InMap_Config::get_setting('advanced', 'request', 'cache_minutes');
 		}
 		$cache_seconds = $cache_minutes * 60;
 

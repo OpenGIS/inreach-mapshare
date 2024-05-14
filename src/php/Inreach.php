@@ -14,8 +14,10 @@ class InMap_Inreach extends InMap_Class {
 	private $response_string = '';
 
 	private $KML = null;
-	private $point_count = 0;
+	private $Points = [];
 	private $FeatureCollection = [];
+
+	public $point_count = 0;
 
 	function __construct($params_in = null) {
 		//Set parameters
@@ -204,7 +206,8 @@ class InMap_Inreach extends InMap_Class {
 		//Do we have a response?
 		if (is_string($this->response_string) && simplexml_load_string($this->response_string)) {
 			$this->KML = simplexml_load_string($this->response_string);
-			$this->get_point_count();
+
+			$this->process_points();
 
 			if ($this->point_count) {
 				$point_text = ($this->point_count == 1) ? __('Point', InMap_Config::get_item('plugin_text_domain')) : __('Points', InMap_Config::get_item('plugin_text_domain'));
@@ -216,6 +219,30 @@ class InMap_Inreach extends InMap_Class {
 		} else {
 			InMap_Log::add(__('The KML response is invalid.', InMap_Config::get_item('plugin_text_domain')), 'error', 'empty_kml');
 		}
+	}
+
+	function process_points() {
+		if ($this->point_count) {
+			return $this->point_count;
+		}
+
+		if (
+			is_object($this->KML)
+			&& isset($this->KML->Document->Folder->Placemark)
+			&& is_iterable($this->KML->Document->Folder->Placemark)
+		) {
+			foreach ($this->KML->Document->Folder->Placemark as $Placemark) {
+				if ($Placemark->Point->coordinates) {
+					// Store
+					$this->Points[] = $Placemark->Point;
+
+					// Count
+					$this->point_count++;
+				}
+			}
+		}
+
+		return $this->point_count;
 	}
 
 	function build_geojson() {
@@ -440,25 +467,5 @@ class InMap_Inreach extends InMap_Class {
 		} else {
 			InMap_Log::add(__('The KML response contains no Points.', InMap_Config::get_item('plugin_text_domain')), 'error', 'no_points');
 		}
-	}
-
-	function get_point_count() {
-		if ($this->point_count) {
-			return $this->point_count;
-		}
-
-		if (
-			is_object($this->KML)
-			&& isset($this->KML->Document->Folder->Placemark)
-			&& is_iterable($this->KML->Document->Folder->Placemark)
-		) {
-			foreach ($this->KML->Document->Folder->Placemark as $Placemark) {
-				if ($Placemark->Point->coordinates) {
-					$this->point_count++;
-				}
-			}
-		}
-
-		return $this->point_count;
 	}
 }

@@ -148,7 +148,7 @@ class InMap_Shortcode {
 				$geojson = $Inreach_Mapshare->get_geojson();
 
 				if (is_string($geojson) && !empty($geojson)) {
-					$point_count = $Inreach_Mapshare->get_point_count();
+					$point_count = $Inreach_Mapshare->point_count;
 					$point_text = ($point_count == 1) ? __('Point', InMap_Config::get_item('plugin_text_domain')) : __('Points', InMap_Config::get_item('plugin_text_domain'));
 
 					InMap_Log::add(sprintf(__('Displaying %s MapShare', InMap_Config::get_item('plugin_text_domain')), $point_count) . ' ' . $point_text, 'success', 'rendering_points');
