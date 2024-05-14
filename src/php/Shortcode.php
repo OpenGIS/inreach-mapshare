@@ -105,6 +105,7 @@ class InMap_Shortcode {
 				'basemap_url' => InMap_Config::get_setting('appearance', 'map', 'basemap_url'),
 				'basemap_attribution' => InMap_Config::get_setting('appearance', 'map', 'basemap_attribution'),
 				'detail_expanded' => InMap_Config::get_setting('appearance', 'map', 'detail_expanded'),
+				'route_colour' => InMap_Config::get_setting('appearance', 'colours', 'route_colour'),
 			],
 		]);
 	}
@@ -154,12 +155,12 @@ class InMap_Shortcode {
 					InMap_Log::add(sprintf(__('Displaying %s MapShare', InMap_Config::get_item('plugin_text_domain')), $point_count) . ' ' . $point_text, 'success', 'rendering_points');
 
 					//Route?
-					$route_json = null;
+					$route_geojson = null;
 					$route_url = filter_var($shortcode_data['mapshare_route_url'], FILTER_VALIDATE_URL);
-					if ($route_url && $route_json = file_get_contents($route_url)) {
+					if ($route_url && $route_geojson = file_get_contents($route_url)) {
 
 						//Valid
-						if (json_decode($route_json)) {
+						if (json_decode($route_geojson)) {
 							InMap_Log::add(__('Displaying route JSON.', InMap_Config::get_item('plugin_text_domain')), 'success', 'route_valid');
 						} else {
 							InMap_Log::add(__('Invalid route JSON.', InMap_Config::get_item('plugin_text_domain')), 'error', 'route_invalid');
@@ -171,7 +172,7 @@ class InMap_Shortcode {
 						inmap_create_map(
 							"' . $hash . '",
 							' . $geojson . ',
-							' . $route_json . '
+							' . $route_geojson . '
 						);
 					');
 

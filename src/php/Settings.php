@@ -168,6 +168,13 @@ class InMap_Settings {
 							'tip' => esc_attr__('This is the primary colour used. Customise further by adding custom CSS rules.', InMap_Config::get_item('plugin_text_domain')),
 							'tip_link' => 'https://wordpress.org/support/article/css/#custom-css-in-wordpress',
 						],
+						'route_colour' => [
+							'type' => 'text',
+							'class' => 'color inmap-colour-picker',
+							'required' => InMap_Config::get_fallback('appearance', 'colours', 'route_colour'),
+							'title' => esc_html__('Route Colour', InMap_Config::get_item('plugin_text_domain')),
+							'tip' => esc_attr__('If a Route is provided (using the mapshare_route_url Shortcode option), this colour will be used to distinguish the Route line.', InMap_Config::get_item('plugin_text_domain')),
+						],
 					],
 				],
 				'icons' => [

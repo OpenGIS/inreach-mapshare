@@ -4,7 +4,7 @@ window.inmap_maps = [];
 window.inmap_create_map = function (
 	map_hash = null,
 	map_geojson = null,
-	route_json = null,
+	route_geojson = null,
 ) {
 	if (!map_hash || !map_geojson || !jQuery || typeof inmap_L !== "object") {
 		return false;
@@ -329,16 +329,29 @@ window.inmap_create_map = function (
 		redraw_ui();
 	};
 
-	var display_route_geojson = function (geojson) {
+	var display_route = function () {
+		//Route? (must be valid JSON)
+		if (!route_geojson || !JSON.stringify(route_geojson)) {
+			return false;
+		}
+
+		// Style
+		var style = {
+			weight: 3,
+			opacity: 0.5,
+		};
+
+		if (
+			typeof inmap_shortcode_js.route_colour === "string" &&
+			inmap_shortcode_js.route_colour.length
+		) {
+			style.color = inmap_shortcode_js.route_colour;
+		}
+
 		//JSON layer
 		var route_layer = inmap_L
-			.geoJSON(geojson, {
-				//Style
-				style: {
-					color: "#ff7800",
-					weight: 3,
-					opacity: 0.5,
-				},
+			.geoJSON(route_geojson, {
+				style,
 				pointToLayer: function (feature, latlng) {
 					// Skip points
 				},
@@ -354,22 +367,29 @@ window.inmap_create_map = function (
 
 	// Create Tile Layer
 
-	//Basemap
+	// Default URL (OSM)
 	var basemap_url = "https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png";
+
+	// Custom URL
 	if (
 		typeof inmap_shortcode_js.basemap_url === "string" &&
 		inmap_shortcode_js.basemap_url.length
 	) {
 		var basemap_url = inmap_shortcode_js.basemap_url;
 	}
+
+	// Default Attribution
 	var basemap_attribution =
 		'&copy; <a href="http://www.openstreetmap.org/copyright">OpenStreetMap</a>';
+
+	// Custom Attribution
 	if (
 		typeof inmap_shortcode_js.basemap_attribution === "string" &&
 		inmap_shortcode_js.basemap_attribution.length
 	) {
 		var basemap_attribution = inmap_shortcode_js.basemap_attribution;
 	}
+
 	var tiles = inmap_L
 		.tileLayer(basemap_url, {
 			maxZoom: 19,
@@ -460,8 +480,6 @@ window.inmap_create_map = function (
 
 	map_l.fitBounds(data_layer.getBounds());
 
-	//Route? (must be valid JSON)
-	if (route_json && JSON.stringify(route_json)) {
-		display_route_geojson(route_json);
-	}
+	// Route?
+	display_route();
 };

@@ -27,8 +27,6 @@ add_action('init', function () {
 	$plugin_slug = 'inreach-mapshare';
 	$plugin_name = 'inReach MapShare';
 
-	$colour_primary = '#e524ab';
-
 	//Icon URLs
 	$message_icon = InMap_Helper::asset_url('img/message.svg', $plugin_slug);
 	$tracking_icon = InMap_Helper::asset_url('img/location-gps.svg', $plugin_slug);
@@ -93,7 +91,8 @@ add_action('init', function () {
 				'detail_expanded' => '1',
 			],
 			'colours' => [
-				'tracking_colour' => $colour_primary,
+				'tracking_colour' => '#e524ab',
+				'route_colour' => '#e29809',
 			],
 			'icons' => [
 				'message_icon' => $message_icon,
