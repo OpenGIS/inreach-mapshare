@@ -138,6 +138,10 @@ class InMap_Settings {
 							'title' => esc_html__('End Date', InMap_Config::get_item('plugin_text_domain')),
 							'tip' => esc_html__('Strongly recommended! Display data until this date and time (UTC time yyyy-mm-ddThh:mm, e.g. 2022-12-31T23:59). Be careful when creating Shortcodes with no end date, all future MapShare data will be displayed!', InMap_Config::get_item('plugin_text_domain')),
 						],
+						'mapshare_route_url' => [
+							'title' => esc_html__('Route URL', InMap_Config::get_item('plugin_text_domain')),
+							'tip' => esc_html__('The URL to a KML file that contains a route. This will be displayed on the map.', InMap_Config::get_item('plugin_text_domain')),
+						],
 					],
 				],
 			],
@@ -225,6 +229,7 @@ class InMap_Settings {
 			'mapshare_password',
 			'mapshare_date_start',
 			'mapshare_date_end',
+			'mapshare_route_url',
 		] as $key) {
 			$value = InMap_Config::get_setting('shortcode', 'build', $key);
 
