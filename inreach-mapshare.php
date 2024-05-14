@@ -107,7 +107,7 @@ add_action('init', function () {
 			],
 
 			'response' => [
-				'precision' => '3',
+				'precision' => '2',
 			],
 		],
 

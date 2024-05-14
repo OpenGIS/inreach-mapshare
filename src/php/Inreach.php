@@ -14,7 +14,7 @@ class InMap_Inreach extends InMap_Class {
 	private $response_string = '';
 
 	private $KML = null;
-	private $Points = [];
+	private $Placemarks = [];
 	private $FeatureCollection = [];
 
 	public $point_count = 0;
@@ -233,8 +233,32 @@ class InMap_Inreach extends InMap_Class {
 		) {
 			foreach ($this->KML->Document->Folder->Placemark as $Placemark) {
 				if ($Placemark->Point->coordinates) {
+					// Coordinates (WSG84)
+					$coords = $Placemark->Point->coordinates;
+					$coords = explode(',', $coords);
+					$coords = $this->fuzz_coordinates($coords);
+					$Placemark->Point->coordinates = implode(',', $coords);
+
+					// Extended Data
+					for ($j = 0; $j < sizeof($Placemark->ExtendedData->Data); $j++) {
+						$key = (string) $Placemark->ExtendedData->Data[$j]->attributes()->name;
+						$value = (string) $Placemark->ExtendedData->Data[$j]->value;
+
+						//By Key
+						switch ($key) {
+						case 'Latitude':
+							$Placemark->ExtendedData->Data[$j]->value = $coords[1];
+
+							break;
+						case 'Longitude':
+							$Placemark->ExtendedData->Data[$j]->value = $coords[0];
+							break;
+
+						}
+					}
+
 					// Store
-					$this->Points[] = $Placemark->Point;
+					$this->Placemarks[] = $Placemark;
 
 					// Count
 					$this->point_count++;
@@ -243,6 +267,21 @@ class InMap_Inreach extends InMap_Class {
 		}
 
 		return $this->point_count;
+	}
+
+	// WSG84
+	function fuzz_coordinates($coords) {
+		$precision = InMap_Config::get_setting('advanced', 'response', 'precision');
+
+		// Default, no fuzz
+		if ($precision == '6') {
+			return $coords;
+		}
+
+		$coords[1] = round($coords[1], $precision);
+		$coords[0] = round($coords[0], $precision);
+
+		return $coords;
 	}
 
 	function build_geojson() {
@@ -254,8 +293,7 @@ class InMap_Inreach extends InMap_Class {
 		//We have Points
 		if ($this->point_count) {
 			//Each Placemark
-			for ($i = 0; $i < sizeof($this->KML->Document->Folder->Placemark); $i++) {
-				$Placemark = $this->KML->Document->Folder->Placemark[$i];
+			foreach ($this->Placemarks as $i => $Placemark) {
 
 				//Create Feature
 				$Feature = [
@@ -362,7 +400,7 @@ class InMap_Inreach extends InMap_Class {
 						//Last - *LATEST*
 					} elseif (
 						//EOF array
-						$i === sizeof($this->KML->Document->Folder->Placemark) - 2
+						$i === ($this->point_count - 1)
 					) {
 						//Active
 						$class_append[] = 'inmap-last inmap-active';
