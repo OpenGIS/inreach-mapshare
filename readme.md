@@ -161,7 +161,11 @@ This plugin requests data from your MapShare page and embeds it anywhere Shortco
 
 ### 2.0.0
 
-Major plugin overhaul, mostly focusing on simplifying the build process and improving the development experience. Grunt has been removed and [Vite](https://vitejs.dev/) is now used to build plugin assets.
+- **Refactor** - Major plugin overhaul, mostly focusing on simplifying the build process and improving the development experience. Grunt has been removed and [Vite](https://vitejs.dev/) is now used to build plugin assets.
+- **Tracking Precision** - Select the precision level (Low/Medium/High) of coordinates used to build the Map. By default, Garmin provides values to a precision of 10cm, lowering the level of precision will effectively fuzz locations, making them more generalised. This Setting is available in Settings > inReach MapShare > Advanced. Thanks to [mmcc-xx](https://github.com/mmcc-xx) for the [suggestion](https://github.com/OpenGIS/inreach-mapshare/issues/5) and for working on the implementation.
+- **Detail Panel** - A button has been added to the Map to collapse/expand the Detail Panel in order to increase/decrease the size of the Map. A Setting has also been added to specify if the panel is expanded by default (Settings > inReach MapShare > Appearance). Thanks to [mmcc-xx](https://github.com/mmcc-xx) for the [suggestion](https://github.com/OpenGIS/inreach-mapshare/issues/9).
+- **Routes** - Added Route URL to Shortcode Generator (Settings > inReach MapShare), allowing users to display a planned route on the Map. Also added a Setting to specify the colour of the route (Settings > inReach MapShare > Appearance).
+- Minor UI improvements and bug fixes.
 
 ### 1.3
 
