@@ -1,3 +1,5 @@
+[Please Help Test Version 2.0!](https://github.com/orgs/OpenGIS/discussions/10)
+
 [View Example &raquo;](https://www.morehawes.ca/trips/arizona-2024/)
 
 Display _live_ Garmin inReach <a href="https://support.garmin.com/?faq=p2lncMOzqh71P06VifrQE7">MapShare</a> data on your WordPress site with a simple Shortcode:
