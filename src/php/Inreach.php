@@ -293,7 +293,8 @@ class InMap_Inreach extends InMap_Class {
 		//We have Points
 		if ($this->point_count) {
 			//Each Placemark
-			foreach ($this->Placemarks as $i => $Placemark) {
+			for ($i = 0; $i < sizeof($this->KML->Document->Folder->Placemark); $i++) {
+				$Placemark = $this->KML->Document->Folder->Placemark[$i];
 
 				//Create Feature
 				$Feature = [
@@ -400,7 +401,7 @@ class InMap_Inreach extends InMap_Class {
 						//Last - *LATEST*
 					} elseif (
 						//EOF array
-						$i === ($this->point_count - 1)
+						$i === sizeof($this->KML->Document->Folder->Placemark) - 2
 					) {
 						//Active
 						$class_append[] = 'inmap-last inmap-active';
@@ -486,6 +487,9 @@ class InMap_Inreach extends InMap_Class {
 							if (sizeof($coords) < 2 || sizeof($coords) > 3) {
 								continue;
 							}
+
+							// Fuzz
+							$coords = $this->fuzz_coordinates($coords);
 
 							$Feature['geometry']['coordinates'][] = $coords;
 						}

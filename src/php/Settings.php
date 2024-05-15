@@ -220,10 +220,9 @@ class InMap_Settings {
 							'required' => InMap_Config::get_fallback('advanced', 'response', 'precision'),
 							'type' => 'select',
 							'options' => [
-								'6' => 'Default (up to 10cm!!!)',
-								'3' => 'High (up to 100m)',
-								'2' => 'Medium (up to 1km)',
-								'1' => 'Low (up to 10km)',
+								'6' => 'High (up to 10cm!!!)',
+								'3' => 'Medium (up to 100m)',
+								'2' => 'Low (up to 1km)',
 							],
 							'title' => esc_html__('Precision', InMap_Config::get_item('plugin_text_domain')),
 							'tip' => esc_attr__('Select the precision level of coordinates used to build the Map. By default, Garmin provides values to a precision of 10cm, lowering the level of precision will effectively fuzz locations, making them more generalised.', InMap_Config::get_item('plugin_text_domain')),
