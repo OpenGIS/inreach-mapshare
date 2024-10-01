@@ -8,9 +8,11 @@ Display _live_ Garmin inReach <a href="https://support.garmin.com/?faq=p2lncMOzq
 [inreach-mapshare mapshare_identifier="your_identifier"]
 ```
 
-![Map embedded in WordPress page](https://raw.githubusercontent.com/morehawes/inreach-mapshare/master/assets/plugin/screenshot-1.png)
+![Map embedded in WordPress page](https://raw.githubusercontent.com/morehawes/inreach-mapshare/staging/src/img/screenshot-1.png)
 
 [View Example &raquo;](https://www.morehawes.ca/trips/arizona-2024/)
+
+**If you find value in this software please consider supporting it's continued development through [sponsorship](https://github.com/sponsors/OpenGIS). Any amount is appreciated.**
 
 By default only your most recent location is displayed. To display more data, Start and end dates can be provided through the Shortcode like this:
 
@@ -63,7 +65,7 @@ Please report issues or make suggestions by creating a <a href="https://github.c
 
 ## Installation
 
-1. Download the [inreach-mapshare.zip](https://github.com/OpenGIS/inreach-mapshare/raw/master/inreach-mapshare.zip) plugin file.
+1. [Download the plugin (.zip)](https://github.com/OpenGIS/inreach-mapshare/archive/refs/tags/2.0.1.zip).
 2. In your WordPress Admin, go to Plugins > Add New Plugin.
 3. Click the "Upload Plugin" button.
 4. Upload the `inreach-mapshare.zip` file.
@@ -85,14 +87,14 @@ Please report issues or make suggestions by creating a <a href="https://github.c
 > [!NOTE]
 > To develop locally you will need to have both Node.js and NPM [installed](https://docs.npmjs.com/downloading-and-installing-node-js-and-npm).
 
-[Grunt](https://gruntjs.com/) is used to run the build script, which compiles the JavaScript and CSS and performs some other tasks.
+[Vite](https://vitejs.dev/) is used to run the build script, which compiles the JavaScript and CSS and performs some other tasks.
 
 ```bash
 # Install dependencies
 npm install
 
-# Run build script
-grunt
+# Run build script (will watch for changes)
+npm run build
 ```
 
 Pull requests are welcome!
@@ -111,54 +113,50 @@ Pull requests are welcome!
 
 This plugin requests data from your MapShare page and embeds it anywhere Shortcodes are supported.
 
+### What are the KML Extended Data Fields?
+
+| Name             | Description                                                                                           | Example                   |
+| ---------------- | ----------------------------------------------------------------------------------------------------- | ------------------------- |
+| ID               | Garmin internal ID for the event                                                                      | 868926                    |
+| Time UTC         | US-formatted version of the event timestamp as UTC                                                    | 5/2/2020 6:01:30 AM       |
+| Time             | US-formatted version of the event timestamp in the preferred time zone of the account owner           | 5/2/2020 9:01:30 AM       |
+| Name             | First and last name of the user assigned to the device that sent the message                          | Joe User                  |
+| Map Display Name | Map Display Name for this user. This field is editable by the user in their Account or Settings page. | Joe the inReach User      |
+| Device Type      | The hardware type of the device in use                                                                | inReach 2.5               |
+| IMEI             | The IMEI of the device sending the message                                                            | 300000000000000           |
+| Incident ID      | The ID of the emergency event if there is one.                                                        | 1234                      |
+| Latitude         | Latitude in degrees WGS84 where negative is south of the equator                                      | 43.790485                 |
+| Longitude        | Longitude in degrees WGS84 where negative is west of the Prime Meridian                               | -70.192015                |
+| Elevation        | Value is always meters from Mean Sea Level                                                            | 120.39 m from MSL         |
+| Velocity         | Ground speed of the device. Value is always in kilometers per hour.                                   | 1.0 km/h                  |
+| Course           | Approximate direction of travel of the device, always in true degrees.                                | 292.50° True              |
+| Valid GPS Fix    | True if the device has a GPS fix. This not a measure of the quality of GPS fix.                       | True                      |
+| In Emergency     | True if the device is in SOS state.                                                                   | False                     |
+| Text             | Message text, if any, in Unicode                                                                      | I am doing good!          |
+| Event            | The event log type. See table below under Event Log Types                                             | Tracking Message Received |
+
 ## Screenshots
 
 ### 1. Map embedded in WordPress page
 
-![Map embedded in WordPress page](https://raw.githubusercontent.com/morehawes/inreach-mapshare/master/assets/plugin/screenshot-1.png)
+![Map embedded in WordPress page](https://raw.githubusercontent.com/morehawes/inreach-mapshare/staging/src/img/screenshot-1.png)
 
 ### 2. Responsive design shown on small screen
 
-![Responsive design shown on small screen](https://raw.githubusercontent.com/morehawes/inreach-mapshare/master/assets/plugin/screenshot-2.png)
+![Responsive design shown on small screen](https://raw.githubusercontent.com/morehawes/inreach-mapshare/staging/src/img/screenshot-2.png)
 
 ### 3. Responsive design shown on large screen
 
-![Responsive design shown on large screen](https://raw.githubusercontent.com/morehawes/inreach-mapshare/master/assets/plugin/screenshot-3.png)
+![Responsive design shown on large screen](https://raw.githubusercontent.com/morehawes/inreach-mapshare/staging/src/img/screenshot-3.png)
 
 ### 4. Shortcode Generator (WP Admin > Settings > inReach MapShare)
 
-![Shortcode Generator (WP Admin > Settings > inReach MapShare)](https://raw.githubusercontent.com/morehawes/inreach-mapshare/master/assets/plugin/screenshot-4.png)
+![Shortcode Generator (WP Admin > Settings > inReach MapShare)](https://raw.githubusercontent.com/morehawes/inreach-mapshare/staging/src/img/screenshot-4.png)
 
 ### 5. Appearance Options (WP Admin > Settings > inReach MapShare)
 
-![Appearance Options (WP Admin > Settings > inReach MapShare) ](https://raw.githubusercontent.com/morehawes/inreach-mapshare/master/assets/plugin/screenshot-5.png)
+![Appearance Options (WP Admin > Settings > inReach MapShare) ](https://raw.githubusercontent.com/morehawes/inreach-mapshare/staging/src/img/screenshot-5.png)
 
 ### 6. Advanced Options (WP Admin > Settings > inReach MapShare)
 
-![Advanced Options (WP Admin > Settings > inReach MapShare)](https://raw.githubusercontent.com/morehawes/inreach-mapshare/master/assets/plugin/screenshot-6.png)
-
-## Changelog
-
-### 1.3
-
-Minor fixes and improvements.
-
-### 1.2
-
-Updated Garmin request endpoint, as the existing one was not working for some users. Thanks to <a href="https://github.com/Lastone17">Lastone17</a> for <a href="https://github.com/morehawes/inreach-mapshare/issues/2">raising this issue</a>.
-
-### 1.1
-
-Display your planned route using the Shortcode (URL accessible GeoJSON supported).
-
-### 1.0.2
-
-Settings improvements.
-
-### 1.0.1
-
-Plugin review improvements.
-
-### 1.0
-
-Initial plugin release.
+![Advanced Options (WP Admin > Settings > inReach MapShare)](https://raw.githubusercontent.com/morehawes/inreach-mapshare/staging/src/img/screenshot-6.png)
