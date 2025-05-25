@@ -6,28 +6,26 @@ class InMap_Admin {
 
 	function __construct() {
 		//Admin only
-		if (!is_admin()) {
+		if (! is_admin()) {
 			return;
 		}
 
-		add_action('admin_init', array($this, 'load_assets'));
-		add_action('current_screen', array($this, 'get_current_screen'));
-		add_action('admin_head', array($this, 'admin_head'));
+		add_action('admin_init', [$this, 'load_assets']);
+		add_action('current_screen', [$this, 'get_current_screen']);
+		add_action('admin_head', [$this, 'admin_head']);
 
 		new InMap_Shortcode;
 		new InMap_Settings;
 
-		//Actions
-		add_action('admin_init', array($this, 'load_assets'));
-		add_filter('plugin_action_links_' . InMap_Helper::plugin_file_path(), array($this, 'add_action_links'));
+		// add_filter('plugin_action_links_' . InMap_Helper::plugin_file_path(), array($this, 'add_action_links'));
 	}
 
 	function add_action_links($links) {
-		$links_before = array();
+		$links_before = [];
 
-		$links_after = array(
+		$links_after = [
 			'<a href="' . admin_url('options-general.php?page=' . InMap_Helper::slug_prefix('settings', '-')) . '">' . esc_html__('Settings', InMap_Config::get_item('plugin_text_domain')) . '</a>',
-		);
+		];
 
 		return array_merge($links_before, $links, $links_after);
 	}
@@ -37,12 +35,12 @@ class InMap_Admin {
 
 		//Enqueue
 		InMap_Assets::css_enqueue([
-			'url' => InMap_Helper::plugin_url('dist/inreach-mapshare.css'),
+			'url' => InMap_Helper::asset_url('inreach-mapshare.css'),
 		]);
 
 		InMap_Assets::js_enqueue([
 			'id' => 'inmap_admin_js',
-			'url' => InMap_Helper::plugin_url('dist/inreach-mapshare.js'),
+			'url' => InMap_Helper::asset_url('inreach-mapshare.js'),
 
 			'deps' => [
 				'jquery',

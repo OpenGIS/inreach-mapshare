@@ -3,7 +3,7 @@
 class InMap_Helper {
 
 	static public function make_hash($data, $length = 6) {
-		if (!is_string($data)) {
+		if (! is_string($data)) {
 			$data = json_encode($data);
 		}
 
@@ -18,40 +18,20 @@ class InMap_Helper {
 		return InMap_Config::get_item('site_url') . $url_path;
 	}
 
-	static public function http_url($data = array()) {
-		return trim(add_query_arg(array_merge(array('inmap_http' => '1'), $data), home_url('/')), '/');
+	static public function http_url($data = []) {
+		return trim(add_query_arg(array_merge(['inmap_http' => '1'], $data), home_url('/')), '/');
 	}
 
-	static public function plugin_url($file_path = '', $plugin_slug = '') {
-		if (!$plugin_slug) {
-			$plugin_slug = InMap_Config::get_item('plugin_slug');
-		}
-
-		return plugin_dir_url('') . $plugin_slug . '/' . $file_path;
+	static public function plugin_url($file_path = '') {
+		return dirname(plugin_dir_url(__DIR__)) . '/' . $file_path;
 	}
 
-	static public function plugin_file_path($file_path = '', $plugin_slug = '') {
-		if (!$file_path) {
-			$file_path = InMap_Config::get_item('plugin_slug') . '.php';
-		}
-
-		if (!$plugin_slug) {
-			$plugin_slug = InMap_Config::get_item('plugin_slug');
-		}
-
-		return $plugin_slug . '/' . $file_path;
-	}
-
-	static public function asset_url($file_path = '', $plugin_slug = '') {
-		if (!$plugin_slug) {
-			$plugin_slug = InMap_Config::get_item('plugin_slug');
-		}
-
-		return plugin_dir_url('') . $plugin_slug . '/dist/' . $file_path;
+	static public function asset_url($file_path = '') {
+		return self::plugin_url('dist/' . $file_path);
 	}
 
 	static public function plugin_name($short = false) {
-		if (!$short) {
+		if (! $short) {
 			return InMap_Config::get_item('plugin_name');
 		} else {
 			return InMap_Config::get_item('plugin_name_short');
@@ -79,14 +59,14 @@ class InMap_Helper {
 
 		//WP.org Directory Link
 		if (InMap_Config::get_item('directory_url') && $directory_url = parse_url(InMap_Config::get_item('directory_url'))) {
-			if (isset($directory_url['host']) && !empty($directory_url['host'])) {
+			if (isset($directory_url['host']) && ! empty($directory_url['host'])) {
 				$out .= '					<li><a href="' . InMap_Config::get_item('directory_url') . '">' . $directory_url['host'] . '</a></li>' . "\n";
 			}
 		}
 
 		//GitHub Repo Link
 		if ($github_url = parse_url(InMap_Config::get_item('github_url'))) {
-			if (isset($github_url['host']) && !empty($github_url['host'])) {
+			if (isset($github_url['host']) && ! empty($github_url['host'])) {
 				$out .= '					<li><a href="' . InMap_Config::get_item('github_url') . '">' . $github_url['host'] . '</a></li>' . "\n";
 			}
 		}
@@ -110,17 +90,17 @@ class InMap_Helper {
 	}
 
 	static public function debug($thing, $die = false) {
-		if (!self::do_debug()) {
+		if (! self::do_debug()) {
 			return;
 		}
 
-		if (!$die) {
+		if (! $die) {
 			echo '<textarea onclick="jQuery(this).hide()" style="background:rgba(255,255,255,.8);position:absolute;top:30px;right:0;width:400px;height:400px;padding:15px;z-index:+10000000"><pre>';
 		}
 
 		print_r($thing);
 
-		if (!$die) {
+		if (! $die) {
 			echo '</pre></textarea>';
 		} else {
 			die;
@@ -135,7 +115,7 @@ class InMap_Helper {
 		}
 
 		//Like in JS
-		if (!$use_underscores) {
+		if (! $use_underscores) {
 			$str = str_replace('_', '', $str);
 		}
 
@@ -151,15 +131,15 @@ class InMap_Helper {
 	}
 
 	public static function convert_values_to_single_value($array_in) {
-		$array_out = array();
+		$array_out = [];
 
-		if (!is_array($array_in)) {
+		if (! is_array($array_in)) {
 			return $array_out;
 		}
 
 		foreach ($array_in as $key => $value) {
 			//Single value
-			if (!is_array($value)) {
+			if (! is_array($value)) {
 				//Use that
 				$array_out[$key] = $value;
 				//Multiple values
@@ -175,7 +155,7 @@ class InMap_Helper {
 	public static function convert_single_value_to_array($value_in) {
 		//Array
 		if (is_array($value_in)) {
-			$array_out = array();
+			$array_out = [];
 
 			foreach ($value_in as $key => $value) {
 				$multi = explode(InMap_Config::get_item('multi_value_seperator'), $value);
@@ -212,7 +192,7 @@ class InMap_Helper {
 	public static function slug_prefix($text = '', $sep = '_', $hyphen = true) {
 		$out = InMap_Config::get_item('plugin_slug') . $sep . $text;
 
-		if (!$hyphen) {
+		if (! $hyphen) {
 			$out = str_replace('-', '_', $out);
 		}
 
@@ -220,7 +200,7 @@ class InMap_Helper {
 	}
 
 	public static function array_string_to_array($string) {
-		$string = str_replace(array('[', ']', '"', '"'), array('', '', '', ''), $string);
+		$string = str_replace(['[', ']', '"', '"'], ['', '', '', ''], $string);
 
 		return self::comma_string_to_array($string);
 	}
@@ -228,7 +208,7 @@ class InMap_Helper {
 	public static function comma_string_to_array($string) {
 		//Process options
 		$options_exploded = explode(',', $string);
-		$options_array = array();
+		$options_array = [];
 		foreach ($options_exploded as $option) {
 			$value = trim($option);
 			$key = self::make_key($value);
@@ -240,7 +220,7 @@ class InMap_Helper {
 	}
 
 	public static function multi_use_as_key($array_in, $as_key = false) {
-		$array_out = array();
+		$array_out = [];
 
 		$count = 0;
 		foreach ($array_in as $data) {
@@ -259,7 +239,7 @@ class InMap_Helper {
 	}
 
 	static public function flatten_meta($data_in) {
-		$data_out = array();
+		$data_out = [];
 
 		if (is_array($data_in)) {
 			foreach ($data_in as $data_key => $data_value) {
@@ -271,10 +251,10 @@ class InMap_Helper {
 	}
 
 	static public function repeatable_setting_option_array($tab, $section, $key) {
-		$options_array = array();
+		$options_array = [];
 		$values = InMap_Config::get_item($tab, $section, true);
 
-		if (!is_array($values)) {
+		if (! is_array($values)) {
 			return null;
 		}
 
@@ -290,7 +270,7 @@ class InMap_Helper {
 	}
 
 	public static function assoc_array_table($assoc_array) {
-		if (!is_array($assoc_array) || !sizeof($assoc_array)) {
+		if (! is_array($assoc_array) || ! sizeof($assoc_array)) {
 			return false;
 		}
 
@@ -329,7 +309,7 @@ class InMap_Helper {
 			__('Years', InMap_Config::get_item('plugin_text_domain')),
 		];
 
-		$lengths = array("60", "60", "24", "7", "4.35", "12", "365");
+		$lengths = ["60", "60", "24", "7", "4.35", "12", "365"];
 
 		$now = time();
 		if ($comparison && ($now >= $comparison)) {

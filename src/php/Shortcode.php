@@ -12,7 +12,7 @@ class InMap_Shortcode {
 
 	function load_assets() {
 		//InMap CSS
-		InMap_Assets::css_enqueue(InMap_Helper::plugin_url('dist/inreach-mapshare.css'));
+		InMap_Assets::css_enqueue(InMap_Helper::asset_url('inreach-mapshare.css'));
 
 		//Message Icon
 		if ($message_icon = InMap_Config::get_setting('appearance', 'icons', 'message_icon')) {
@@ -75,7 +75,7 @@ class InMap_Shortcode {
 				jQuery("head")
 					.append(
 						jQuery("<link />").attr({
-							"href" : "' . InMap_Helper::plugin_url('dist/css/leaflet.css') . '",
+							"href" : "' . InMap_Helper::asset_url('css/leaflet.css') . '",
 
 							"rel" : "stylesheet",
 							"id" : "inmap_leaflet_css",
@@ -86,7 +86,7 @@ class InMap_Shortcode {
 					.append(
 						jQuery("<script />").attr({
 							"id" : "inmap_leaflet_js",
-							"src" : "' . InMap_Helper::plugin_url('dist/js/leaflet.js') . '",
+							"src" : "' . InMap_Helper::asset_url('js/leaflet.js') . '",
 							"type" : "text/javascript"
 						})
 					)
@@ -99,7 +99,7 @@ class InMap_Shortcode {
 		//InMap JS
 		InMap_Assets::js_enqueue([
 			'id' => 'inmap_shortcode_js',
-			'url' => InMap_Helper::plugin_url('dist/inreach-mapshare.js'),
+			'url' => InMap_Helper::asset_url('inreach-mapshare.js'),
 			'deps' => ['jquery'],
 			'data' => [
 				'basemap_url' => InMap_Config::get_setting('appearance', 'map', 'basemap_url'),
@@ -116,13 +116,13 @@ class InMap_Shortcode {
 		$out = "\n" . '<!-- START ' . InMap_Config::get_name() . ' Shortcode -->' . "\n";
 		$out .= '<div class="inmap-wrap">';
 
-		$shortcode_data = shortcode_atts(array(
+		$shortcode_data = shortcode_atts([
 			'mapshare_identifier' => 'demo',
 			'mapshare_password' => false,
 			'mapshare_date_start' => false,
 			'mapshare_date_end' => false,
 			'mapshare_route_url' => false,
-		), $shortcode_data, InMap_Config::get_item('plugin_shortcode'));
+		], $shortcode_data, InMap_Config::get_item('plugin_shortcode'));
 
 		if ($shortcode_data['mapshare_identifier']) {
 
@@ -148,7 +148,7 @@ class InMap_Shortcode {
 
 				$geojson = $Inreach_Mapshare->get_geojson();
 
-				if (is_string($geojson) && !empty($geojson)) {
+				if (is_string($geojson) && ! empty($geojson)) {
 					$point_count = $Inreach_Mapshare->point_count;
 					$point_text = ($point_count == 1) ? __('Point', InMap_Config::get_item('plugin_text_domain')) : __('Points', InMap_Config::get_item('plugin_text_domain'));
 
