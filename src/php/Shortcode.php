@@ -74,16 +74,6 @@ class InMap_Shortcode {
 				//CSS & JS
 				jQuery("head")
 					.append(
-						jQuery("<link />").attr({
-							"href" : "' . InMap_Helper::asset_url('css/leaflet.css') . '",
-
-							"rel" : "stylesheet",
-							"id" : "inmap_leaflet_css",
-							"type" : "text/css",
-							"media" : "all"
-						})
-					)
-					.append(
 						jQuery("<script />").attr({
 							"id" : "inmap_leaflet_js",
 							"src" : "' . InMap_Helper::asset_url('js/leaflet.js') . '",

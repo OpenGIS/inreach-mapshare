@@ -1,3 +1,4 @@
+import "./less/leaflet.less";
 import "./less/shared.less";
 import "./less/shortcode.less";
 import "./less/admin.less";
