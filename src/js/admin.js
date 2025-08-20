@@ -441,11 +441,14 @@ window.inmap_setup_colour_pickers = function () {
 };
 
 jQuery(document).ready(function () {
-  inmap_setup_parameter_tooltips();
-  inmap_setup_accordions();
+  // Only run on our settings page
+  if (jQuery("body").hasClass("settings_page_inreach-mapshare-settings")) {
+    inmap_setup_parameter_tooltips();
+    inmap_setup_accordions();
 
-  inmap_setup_settings_nav();
-  inmap_setup_repeatable_settings();
-  inmap_setup_dropdowns();
-  inmap_setup_colour_pickers();
+    inmap_setup_settings_nav();
+    inmap_setup_repeatable_settings();
+    inmap_setup_dropdowns();
+    inmap_setup_colour_pickers();
+  }
 });
