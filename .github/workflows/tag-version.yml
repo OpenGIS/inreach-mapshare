@@ -1,0 +1,47 @@
+# Creates an annotated tag on pushes to master where package.json version
+# has changed. Pairs with the manual release workflow for auto-tagging.
+#
+# Adapted from @ogis/icons publish.yml pattern.
+
+name: Tag new version
+
+on:
+  push:
+    branches:
+      - master
+
+permissions:
+  contents: write
+
+jobs:
+  tag:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 2
+
+      - name: Check if version changed
+        id: version
+        run: |
+          if git diff HEAD~1 HEAD -- package.json | grep -q '"version"'; then
+            echo "changed=true" >> $GITHUB_OUTPUT
+          else
+            echo "changed=false" >> $GITHUB_OUTPUT
+          fi
+
+      - name: Extract version from package.json
+        id: extract
+        if: steps.version.outputs.changed == 'true'
+        run: |
+          VERSION=v$(node -p "require('./package.json').version")
+          echo "tag=$VERSION" >> $GITHUB_OUTPUT
+
+      - name: Create annotated tag
+        if: steps.version.outputs.changed == 'true'
+        run: |
+          git config user.name "github-actions"
+          git config user.email "github-actions@github.com"
+          TAG="${{ steps.extract.outputs.tag }}"
+          git tag -a "$TAG" -m "Release $TAG"
+          git push origin "$TAG"

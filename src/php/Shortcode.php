@@ -11,93 +11,19 @@ class InMap_Shortcode {
 	}
 
 	function load_assets() {
+		//Waymark CSS (MapLibre base styles, controls, popups)
+		InMap_Assets::css_enqueue(InMap_Helper::asset_url('waymark.css'));
+
 		//InMap CSS
 		InMap_Assets::css_enqueue(InMap_Helper::asset_url('inreach-mapshare.css'));
 
-		//Message Icon
-		if ($message_icon = InMap_Config::get_setting('appearance', 'icons', 'message_icon')) {
-			InMap_Assets::css_inline('
-				/* Icons */
-				.inmap-icon.inmap-icon-message {
-					-webkit-mask-image: url(' . $message_icon . ') !important;
-					mask-image: url(' . $message_icon . ') !important;
-				}
-			');
-		}
-
-		//Tracking Icon
-		if ($tracking_icon = InMap_Config::get_setting('appearance', 'icons', 'tracking_icon')) {
-			InMap_Assets::css_inline('
-				.inmap-icon.inmap-icon-gps {
-					-webkit-mask-image: url(' . $tracking_icon . ') !important;
-					mask-image: url(' . $tracking_icon . ') !important;
-				}
-			');
-		}
-
-		$primary_colour = InMap_Config::get_setting('appearance', 'colours', 'tracking_colour');
-		if ($primary_colour) {
-			InMap_Assets::css_inline('
-				/* Colours */
-				.inmap-wrap .inmap-map .inmap-marker.inmap-last {
-					background-color: ' . $primary_colour . ' !important;
-				}
-				.inmap-wrap .inmap-map .inmap-marker.inmap-icon-message.inmap-active,
-				.inmap-wrap .inmap-map .inmap-marker.inmap-icon-message.inmap-hover,
-				.inmap-wrap .inmap-info .inmap-info-item.inmap-last,
-				.inmap-wrap .inmap-info .inmap-info-item.inmap-active .inmap-icon,
-				.inmap-wrap .inmap-map .inmap-marker.inmap-icon-message .inmap-icon,
-				.inmap-wrap .inmap-map .inmap-marker.inmap-hover .inmap-icon,
-				.inmap-wrap .inmap-map .inmap-marker.inmap-active .inmap-icon,
-				.inmap-wrap .inmap-map .inmap-marker,
-				.inmap-wrap .inmap-icon {
-					background-color: ' . $primary_colour . ';
-				}
-				.inmap-wrap .inmap-info .inmap-info-item.inmap-active .inmap-info-desc .inmap-info-title,
-				.inmap-wrap .inmap-info .inmap-info-item.inmap-active .inmap-info-title,
-				.inmap-wrap .inmap-info .inmap-info-item .inmap-info-desc,
-				.inmap-wrap .inmap-map .inmap-marker.inmap-icon-message,
-				.inmap-wrap .inmap-map .inmap-marker.inmap-hover,
-				.inmap-wrap .inmap-map .inmap-marker.inmap-active {
-					border-color: ' . $primary_colour . ';
-				}
-				.inmap-wrap .inmap-info .inmap-info-item.inmap-active.inmap-hide-extended .inmap-info-desc .inmap-info-expand {
-					color: ' . $primary_colour . ';
-				}
-			');
-		}
-
-		//Leaflet CSS & JS
-		InMap_Assets::js_inline('
-			//Load Leaflet if not already loaded
-			if(typeof L !== "object" || L.version.indexOf("1") !== 1) {
-				//CSS & JS
-				jQuery("head")
-					.append(
-						jQuery("<script />").attr({
-							"id" : "inmap_leaflet_js",
-							"src" : "' . InMap_Helper::asset_url('js/leaflet.js') . '",
-							"type" : "text/javascript"
-						})
-					)
-				;
+		//Minimal map container styling
+		InMap_Assets::css_inline('
+			.inmap-wrap .inmap-map {
+				min-height: 400px;
+				width: 100%;
 			}
-
-			const inmap_L = L.noConflict();
 		');
-
-		//InMap JS
-		InMap_Assets::js_enqueue([
-			'id' => 'inmap_shortcode_js',
-			'url' => InMap_Helper::asset_url('inreach-mapshare.js'),
-			'deps' => ['jquery'],
-			'data' => [
-				'basemap_url' => InMap_Config::get_setting('appearance', 'map', 'basemap_url'),
-				'basemap_attribution' => InMap_Config::get_setting('appearance', 'map', 'basemap_attribution'),
-				'detail_expanded' => InMap_Config::get_setting('appearance', 'map', 'detail_expanded'),
-				'route_colour' => InMap_Config::get_setting('appearance', 'colours', 'route_colour'),
-			],
-		]);
 	}
 
 	public function handle_shortcode($shortcode_data, $content = null) {
@@ -144,30 +70,39 @@ class InMap_Shortcode {
 
 					InMap_Log::add(sprintf(__('Displaying %s MapShare', InMap_Config::get_item('plugin_text_domain')), $point_count) . ' ' . $point_text, 'success', 'rendering_points');
 
-					//Route?
-					$route_geojson = null;
-					$route_url = filter_var($shortcode_data['mapshare_route_url'], FILTER_VALIDATE_URL);
-					if ($route_url && $route_geojson = file_get_contents($route_url)) {
+				//Route?
+				$route_geojson = null;
+				$route_url = filter_var($shortcode_data['mapshare_route_url'], FILTER_VALIDATE_URL);
+				if ($route_url && $route_geojson = file_get_contents($route_url)) {
 
-						//Valid
-						if (json_decode($route_geojson)) {
-							InMap_Log::add(__('Displaying route JSON.', InMap_Config::get_item('plugin_text_domain')), 'success', 'route_valid');
-						} else {
-							InMap_Log::add(__('Invalid route JSON.', InMap_Config::get_item('plugin_text_domain')), 'error', 'route_invalid');
-						}
+					//Valid
+					if (json_decode($route_geojson)) {
+						InMap_Log::add(__('Displaying route JSON.', InMap_Config::get_item('plugin_text_domain')), 'success', 'route_valid');
+					} else {
+						InMap_Log::add(__('Invalid route JSON.', InMap_Config::get_item('plugin_text_domain')), 'error', 'route_invalid');
 					}
-
-					//JS
-					InMap_Assets::js_onready('
-						inmap_create_map(
-							"' . $hash . '",
-							' . $geojson . ',
-							' . $route_geojson . '
-						);
-					');
+				}
 
 					$out .= '	<div id="' . $map_div_id . '" class="inmap-map"></div>';
-					$out .= '	<div class="inmap-info"></div>';
+
+				//Inline module — no jQuery dependency, no window globals
+				$out .= '<script type="module">' . "\n";
+				$out .= 'import { createMapInstance } from ' . json_encode(InMap_Helper::asset_url('create-map-instance.js')) . ";\n";
+				$out .= 'await createMapInstance({' . "\n";
+				$out .= '  hash: ' . json_encode($hash) . ",\n";
+				$out .= '  geojson: ' . $geojson . ",\n";
+				$out .= '  routeGeojson: ' . ($route_geojson ?: 'null') . ",\n";
+				$out .= '  waymarkUrl: ' . json_encode(InMap_Helper::asset_url('waymark.js')) . ",\n";
+				$out .= '  messageColour: ' . json_encode(InMap_Config::get_setting('appearance', 'colours', 'message_colour')) . ",\n";
+				$out .= '  trackingColour: ' . json_encode(InMap_Config::get_setting('appearance', 'colours', 'tracking_colour')) . ",\n";
+				$out .= '  routeColour: ' . json_encode(InMap_Config::get_setting('appearance', 'colours', 'route_colour')) . ",\n";
+				$out .= '  basemapUrl: ' . json_encode(InMap_Config::get_setting('appearance', 'map', 'basemap_url')) . ",\n";
+				$out .= '  basemapAttribution: ' . json_encode(html_entity_decode(InMap_Config::get_setting('appearance', 'map', 'basemap_attribution'), ENT_QUOTES | ENT_HTML5)) . ",\n";
+				$out .= '  basemapTitle: ' . json_encode(InMap_Config::get_setting('appearance', 'map', 'basemap_title')) . ",\n";
+				$out .= '  basemapOpacity: ' . json_encode(InMap_Config::get_setting('appearance', 'map', 'basemap_opacity')) . ",\n";
+				$out .= '  basemapMaxzoom: ' . json_encode(InMap_Config::get_setting('appearance', 'map', 'basemap_maxzoom')) . ",\n";
+				$out .= '});' . "\n";
+				$out .= '</script>';
 
 					//Increment call counter
 					$shortcode_count = (int) InMap_Log::get_data('shortcode_count');

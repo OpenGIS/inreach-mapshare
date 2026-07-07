@@ -126,40 +126,52 @@ class InMap_Settings {
 				'map' => [
 					'title' => esc_html__('Map', InMap_Config::get_item('plugin_text_domain')),
 					'fields' => [
+						'basemap_title' => [
+							'title' => esc_html__('Basemap Title', InMap_Config::get_item('plugin_text_domain')),
+							'tip' => esc_html__('A display name for the raster basemap shown in the basemap switcher.', InMap_Config::get_item('plugin_text_domain')),
+						],
 						'basemap_url' => [
 							'required' => InMap_Config::get_fallback('appearance', 'map', 'basemap_url'),
 							'title' => esc_html__('Basemap URL', InMap_Config::get_item('plugin_text_domain')),
-							'tip' => esc_html__('The URL to a "slippy map" tile service, this needs to contain the characters {z},{x} and {y}. OpenStreetMap is used by default.', InMap_Config::get_item('plugin_text_domain')),
+							'tip' => esc_html__('The URL to a "slippy map" tile service, this needs to contain the characters {z},{x} and {y}. OpenTopoMap is used by default.', InMap_Config::get_item('plugin_text_domain')),
 							'tip_link' => 'https://leaflet-extras.github.io/leaflet-providers/preview/',
 						],
 						'basemap_attribution' => [
 							'required' => InMap_Config::get_fallback('appearance', 'map', 'basemap_attribution'),
 							'title' => esc_html__('Basemap Attribution', InMap_Config::get_item('plugin_text_domain')),
 							'tip' => esc_html__('Mapping services often have the requirement that attribution is displayed by the map. Text and HTML links are supported.', InMap_Config::get_item('plugin_text_domain')),
-							'input_processing' => array(
-								'encode_special',
-							),
-							'output_processing' => array(
-								'encode_special',
-							),
 						],
-						'detail_expanded' => [
-							'required' => InMap_Config::get_fallback('appearance', 'map', 'detail_expanded'),
-							'type' => 'select',
-							'options' => [
-								'true' => esc_html__('Expanded', InMap_Config::get_item('plugin_text_domain')),
-								'false' => esc_html__('Collapsed', InMap_Config::get_item('plugin_text_domain')),
-							],
-							'title' => esc_html__('Detail Panel', InMap_Config::get_item('plugin_text_domain')),
-							'tip' => esc_html__('The Detail panel provides infomation for each point and can be collapsed/expanded in order to increase/decrease the size of the Map. This option determines if the panel is expanded by default.', InMap_Config::get_item('plugin_text_domain')),
-
+						'basemap_opacity' => [
+							'type' => 'number',
 							'class' => 'inmap-short-input',
+							'required' => InMap_Config::get_fallback('appearance', 'map', 'basemap_opacity'),
+							'title' => esc_html__('Basemap Opacity', InMap_Config::get_item('plugin_text_domain')),
+							'tip' => esc_html__('Raster tile opacity from 0 (fully transparent) to 1 (fully opaque). Leave empty for default.', InMap_Config::get_item('plugin_text_domain')),
+							'attributes' => [
+								'min' => '0',
+								'max' => '1',
+								'step' => '0.1',
+							],
+						],
+						'basemap_maxzoom' => [
+							'type' => 'number',
+							'class' => 'inmap-short-input',
+							'required' => InMap_Config::get_fallback('appearance', 'map', 'basemap_maxzoom'),
+							'title' => esc_html__('Basemap Max Zoom', InMap_Config::get_item('plugin_text_domain')),
+							'tip' => esc_html__('Maximum zoom level for the raster tiles. Leave empty for no limit.', InMap_Config::get_item('plugin_text_domain')),
 						],
 					],
 				],
 				'colours' => [
 					'title' => esc_html__('Colours', InMap_Config::get_item('plugin_text_domain')),
 					'fields' => [
+						'message_colour' => [
+							'type' => 'text',
+							'class' => 'color inmap-colour-picker',
+							'required' => InMap_Config::get_fallback('appearance', 'colours', 'message_colour'),
+							'title' => esc_html__('Message Colour', InMap_Config::get_item('plugin_text_domain')),
+							'tip' => esc_attr__('Colour for message points and their icon.', InMap_Config::get_item('plugin_text_domain')),
+						],
 						'tracking_colour' => [
 							'type' => 'text',
 							'class' => 'color inmap-colour-picker',
@@ -174,23 +186,6 @@ class InMap_Settings {
 							'required' => InMap_Config::get_fallback('appearance', 'colours', 'route_colour'),
 							'title' => esc_html__('Route Colour', InMap_Config::get_item('plugin_text_domain')),
 							'tip' => esc_attr__('If a Route is provided (using the mapshare_route_url Shortcode option), this colour will be used to distinguish the Route line.', InMap_Config::get_item('plugin_text_domain')),
-						],
-					],
-				],
-				'icons' => [
-					'title' => esc_html__('Icons', InMap_Config::get_item('plugin_text_domain')),
-					'fields' => [
-						'tracking_icon' => [
-							'required' => InMap_Config::get_fallback('appearance', 'icons', 'tracking_icon'),
-							'title' => esc_html__('Tracking Icon', InMap_Config::get_item('plugin_text_domain')),
-							'tip' => esc_attr__('The URL to a SVG image file to use as an icon for tracking points.', InMap_Config::get_item('plugin_text_domain')),
-							'tip_link' => 'https://www.svgrepo.com/vectors/location/',
-						],
-						'message_icon' => [
-							'required' => InMap_Config::get_fallback('appearance', 'icons', 'message_icon'),
-							'title' => esc_html__('Message Icon', InMap_Config::get_item('plugin_text_domain')),
-							'tip' => esc_attr__('The URL to a SVG image file to use as an icon for message points.', InMap_Config::get_item('plugin_text_domain')),
-							'tip_link' => 'https://www.svgrepo.com/vectors/envelope/',
 						],
 					],
 				],

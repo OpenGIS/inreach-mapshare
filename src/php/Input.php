@@ -514,7 +514,7 @@ class InMap_Input {
 	public static function do_processing($param_value = '', $process = '') {
 		switch ($process) {
 		case 'encode_special':
-			$param_value = (!strpos($param_value, "&")) ? htmlspecialchars($param_value) : $param_value;
+			$param_value = (strpos($param_value, "&") === false) ? htmlspecialchars($param_value) : $param_value;
 
 			break;
 		case 'strip_special':

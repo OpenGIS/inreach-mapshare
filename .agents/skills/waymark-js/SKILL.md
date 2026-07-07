@@ -1,0 +1,1 @@
+/Users/joe/Sites/inreach-mapshare/waymark-js/.agents/skills/waymark-js/SKILL.md

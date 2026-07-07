@@ -290,222 +290,111 @@ class InMap_Inreach extends InMap_Class {
 			'features' => [],
 		];
 
-		//We have Points
 		if ($this->point_count) {
-			//Each Placemark
 			for ($i = 0; $i < sizeof($this->KML->Document->Folder->Placemark); $i++) {
 				$Placemark = $this->KML->Document->Folder->Placemark[$i];
 
-				//Create Feature
 				$Feature = [
 					'type' => 'Feature',
-					'properties' => [
-						'className' => 'inmap-info-item',
-					],
+					'properties' => [],
 					'geometry' => [],
 				];
 
 				// =========== Point ===========
-
 				if ($Placemark->Point->coordinates) {
-					$class_append = [];
+					$coordinates = explode(',', (string) $Placemark->Point->coordinates);
 
-					//Demo!
-					if (!InMap_Log::has('do_demo')) {
-						$time_ago = InMap_Helper::time_ago(strtotime($Placemark->TimeStamp->when));
-					} else {
-						$class_append[] = 'inmap-demo';
-
-						$time_ago = InMap_Helper::time_ago(strtotime($Placemark->TimeStamp->when), strtotime('5/21/2022 11:04:30 PM'));
-					}
-
-					//Coordinates
-					$coordinates = explode(',', (String) $Placemark->Point->coordinates);
-
-					//Invalid
 					if (sizeof($coordinates) < 2 || sizeof($coordinates) > 3) {
 						continue;
 					}
 
 					$Feature['geometry']['type'] = 'Point';
-					$Feature['geometry']['coordinates'] = $coordinates;
+					$Feature['geometry']['coordinates'] = [
+						(float) $coordinates[0],
+						(float) $coordinates[1],
+					];
 
-					//Extended Data?
-					if (isset($Placemark->ExtendedData)) {
-						if (sizeof($Placemark->ExtendedData->Data)) {
-							$extended_data = [];
+					// Extended Data
+					if (isset($Placemark->ExtendedData) && sizeof($Placemark->ExtendedData->Data)) {
+						for ($j = 0; $j < sizeof($Placemark->ExtendedData->Data); $j++) {
+							$key = (string) $Placemark->ExtendedData->Data[$j]->attributes()->name;
+							$value = (string) $Placemark->ExtendedData->Data[$j]->value;
 
-							//Each
-							for ($j = 0; $j < sizeof($Placemark->ExtendedData->Data); $j++) {
-								$key = (string) $Placemark->ExtendedData->Data[$j]->attributes()->name;
+							if (!in_array($key, InMap_Config::get_item('kml_data_include'))) {
+								continue;
+							}
 
-								//Must be a key we are interested in
-								if (in_array($key, InMap_Config::get_item('kml_data_include'))) {
-									$value = (string) $Placemark->ExtendedData->Data[$j]->value;
-
-									//By Key
-									switch ($key) {
-									case 'Id':
-										$Feature['properties']['id'] = $value;
-
-										$extended_data[$key] = $value;
-
-										break;
-
-									case 'Text':
-										//Skip empty text
-										if (!empty($value)) {
-											$extended_data[$key] = $value;
-										}
-
-										break;
-									default:
-										$extended_data[$key] = $value;
-
-										break;
+							switch ($key) {
+								case 'Id':
+									$Feature['properties']['id'] = $value;
+									break;
+								case 'Time UTC':
+									$Feature['properties']['time_utc'] = $value;
+									break;
+								case 'Time':
+									$Feature['properties']['time'] = $value;
+									break;
+								case 'Elevation':
+									$Feature['properties']['elevation'] = (float) $value;
+									break;
+								case 'Velocity':
+									$Feature['properties']['velocity'] = (float) $value;
+									break;
+								case 'Valid GPS Fix':
+									$Feature['properties']['valid_gps_fix'] = ($value === 'True');
+									break;
+								case 'Text':
+									if (!empty($value)) {
+										$Feature['properties']['text'] = $value;
 									}
-								}
+									break;
+								case 'Event':
+									$Feature['properties']['event'] = $value;
+									break;
 							}
 						}
 					}
 
-					//Demo Time
-					if (InMap_Log::has('do_demo')) {
-						$key = esc_attr__('Demo', InMap_Config::get_item('plugin_text_domain'));
-						$extended_data[$key] = esc_attr__('This is a demo!', InMap_Config::get_item('plugin_text_domain'));
-					}
-
-					//Title
-					$title = '[' . ($i + 1) . '/' . $this->point_count . ']';
-					if (isset($Placemark->TimeStamp->when)) {
-						$title .= $time_ago;
-					}
-					$Feature['properties']['title'] = $title;
-
-					//Classes
-					//First (oldest)
-					if ($i === 0) {
-						$class_append[] = 'inmap-first';
-
-						//**Only**
-						if ($this->point_count === 1) {
-							$class_append[] = 'inmap-last inmap-active inmap-only';
-							$Feature['properties']['title'] = '[' . __('Latest', InMap_Config::get_item('plugin_text_domain')) . ']';
-							//First
+					// Determine waymarkType
+					if (isset($Feature['properties']['event'])) {
+						$event = $Feature['properties']['event'];
+						if (strpos($event, 'Msg to shared map received') !== false || strpos($event, 'Quick Text to MapShare received') !== false) {
+							$Feature['properties']['waymarkType'] = 'message';
 						} else {
-							$Feature['properties']['title'] = '[' . __('First', InMap_Config::get_item('plugin_text_domain')) . ']';
+							$Feature['properties']['waymarkType'] = 'tracking';
 						}
-
-						//Most recent
-						$Feature['properties']['title'] .= $time_ago;
-						//Last - *LATEST*
-					} elseif (
-						//EOF array
-						$i === sizeof($this->KML->Document->Folder->Placemark) - 2
-					) {
-						//Active
-						$class_append[] = 'inmap-last inmap-active';
-
-						//Most recent
-						$Feature['properties']['title'] = '[' . __('Latest', InMap_Config::get_item('plugin_text_domain')) . ']';
-						$Feature['properties']['title'] .= $time_ago;
+					} else {
+						$Feature['properties']['waymarkType'] = 'tracking';
 					}
 
-					//By event
-					if (isset($extended_data['Event'])) {
-						//Remove periods!
-						$extended_data['Event'] = trim($extended_data['Event'], '.');
-
-						switch ($extended_data['Event']) {
-						case 'Msg to shared map received':
-							$class_append[] = 'inmap-icon-message inmap-icon-custom';
-
-							break;
-						case 'Quick Text to MapShare received':
-							$class_append[] = 'inmap-icon-message inmap-icon-quick';
-
-							break;
-						case 'Tracking turned on from device':
-						case 'Tracking turned off from device':
-						case 'Tracking interval received':
-						case 'Tracking message received':
-						default:
-
-							//Valid GPS
-							if (isset($extended_data['Valid GPS Fix']) && 'True' === $extended_data['Valid GPS Fix']) {
-								$class_append[] = 'inmap-icon-gps';
-							}
-
-							break;
-						}
-
-						//Classes
-						$icon_class = 'inmap-icon';
-						foreach ($class_append as $append) {
-							$Feature['properties']['className'] .= ' ' . $append;
-							$icon_class .= ' ' . $append;
-						}
-
-						//Icon
-						$Feature['properties']['icon'] = [
-							'className' => 'inmap-marker',
-							'iconSize' => [15, 15],
-							'html' => '<div class="' . $icon_class . '"></div>',
-						];
-
-						//Description
-						$description = '<div class="inmap-info-desc">';
-						$description .= '<div class="inmap-info-title">' . $Feature['properties']['title'] . '</div>';
-
-						//We have data
-						if (sizeof($extended_data)) {
-							$description .= InMap_Helper::assoc_array_table($extended_data);
-
-							$description .= '<div class="inmap-info-expand">' . __('More detail', InMap_Config::get_item('plugin_text_domain')) . ' +</div>';
-						}
-						$description .= '</div>';
-
-						$Feature['properties']['description'] = $description;
-					}
-
-					// =========== LineString ===========
-
+				// =========== LineString ===========
 				} elseif ($Placemark->LineString->coordinates) {
 					$coordinates = (string) $Placemark->LineString->coordinates;
 					$coordinates = preg_split('/\r\n|\r|\n/', $coordinates);
 
-					//Valid array
 					if (sizeof($coordinates)) {
-
 						$Feature['geometry']['type'] = 'LineString';
+						$Feature['geometry']['coordinates'] = [];
 
-						//Each Coordinate
 						foreach ($coordinates as $point) {
 							$coords = explode(',', $point);
-
-							//Invalid
 							if (sizeof($coords) < 2 || sizeof($coords) > 3) {
 								continue;
 							}
-
-							// Fuzz
 							$coords = $this->fuzz_coordinates($coords);
-
-							$Feature['geometry']['coordinates'][] = $coords;
+							$Feature['geometry']['coordinates'][] = [
+								(float) $coords[0],
+								(float) $coords[1],
+							];
 						}
 					}
 				}
 
-				//Style
-				$Feature['properties']['style']['weight'] = 2;
-				$Feature['properties']['style']['color'] = InMap_Config::get_setting('appearance', 'colours', 'tracking_colour');
-
 				$this->FeatureCollection['features'][] = $Feature;
 			}
 
-			//Reverse order (most recent first)
+			// Reverse order (most recent first)
 			$this->FeatureCollection['features'] = array_reverse($this->FeatureCollection['features']);
-			//No points in KML
 		} else {
 			InMap_Log::add(__('The KML response contains no Points.', InMap_Config::get_item('plugin_text_domain')), 'error', 'no_points');
 		}
