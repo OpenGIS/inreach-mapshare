@@ -17,7 +17,7 @@ export async function createMapInstance({
   trackingColour,
   routeColour,
 }) {
-  if (!waymarkUrl || !hash || !geojson) {
+  if (!waymarkUrl || !hash || (!geojson && !routeGeojson)) {
     console.warn("inReach MapShare: missing required parameters");
     return;
   }

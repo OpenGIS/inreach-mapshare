@@ -63,25 +63,35 @@ class InMap_Shortcode {
 				InMap_Log::add(__('Rendering Map', InMap_Config::get_item('plugin_text_domain')) . ' (in Div #' . $map_div_id . ')', 'info', 'map_hash');
 
 				$geojson = $Inreach_Mapshare->get_geojson();
-
-				if (is_string($geojson) && ! empty($geojson)) {
-					$point_count = $Inreach_Mapshare->point_count;
-					$point_text = ($point_count == 1) ? __('Point', InMap_Config::get_item('plugin_text_domain')) : __('Points', InMap_Config::get_item('plugin_text_domain'));
-
-					InMap_Log::add(sprintf(__('Displaying %s MapShare', InMap_Config::get_item('plugin_text_domain')), $point_count) . ' ' . $point_text, 'success', 'rendering_points');
+				$has_tracking = (is_string($geojson) && ! empty($geojson));
 
 				//Route?
 				$route_geojson = null;
+				$route_valid = false;
 				$route_url = filter_var($shortcode_data['mapshare_route_url'], FILTER_VALIDATE_URL);
-				if ($route_url && $route_geojson = file_get_contents($route_url)) {
+				if ($route_url && $route_geojson_raw = file_get_contents($route_url)) {
 
 					//Valid
-					if (json_decode($route_geojson)) {
+					if (json_decode($route_geojson_raw)) {
+						$route_geojson = $route_geojson_raw;
+						$route_valid = true;
 						InMap_Log::add(__('Displaying route JSON.', InMap_Config::get_item('plugin_text_domain')), 'success', 'route_valid');
 					} else {
 						InMap_Log::add(__('Invalid route JSON.', InMap_Config::get_item('plugin_text_domain')), 'error', 'route_invalid');
 					}
 				}
+
+				if ($has_tracking || $route_valid) {
+					if ($has_tracking) {
+						$point_count = $Inreach_Mapshare->point_count;
+						$point_text = ($point_count == 1) ? __('Point', InMap_Config::get_item('plugin_text_domain')) : __('Points', InMap_Config::get_item('plugin_text_domain'));
+
+						InMap_Log::add(sprintf(__('Displaying %s MapShare', InMap_Config::get_item('plugin_text_domain')), $point_count) . ' ' . $point_text, 'success', 'rendering_points');
+					}
+
+					if (! $has_tracking && $route_valid) {
+						InMap_Log::add(__('Displaying route only — no tracking data.', InMap_Config::get_item('plugin_text_domain')), 'info', 'route_only');
+					}
 
 					$out .= '	<div id="' . $map_div_id . '" class="inmap-map"></div>';
 
@@ -90,7 +100,7 @@ class InMap_Shortcode {
 				$out .= 'import { createMapInstance } from ' . json_encode(InMap_Helper::asset_url('create-map-instance.js')) . ";\n";
 				$out .= 'await createMapInstance({' . "\n";
 				$out .= '  hash: ' . json_encode($hash) . ",\n";
-				$out .= '  geojson: ' . $geojson . ",\n";
+				$out .= '  geojson: ' . ($geojson ?: 'null') . ",\n";
 				$out .= '  routeGeojson: ' . ($route_geojson ?: 'null') . ",\n";
 				$out .= '  waymarkUrl: ' . json_encode(InMap_Helper::asset_url('waymark.js')) . ",\n";
 				$out .= '  messageColour: ' . json_encode(InMap_Config::get_setting('appearance', 'colours', 'message_colour')) . ",\n";
@@ -109,7 +119,7 @@ class InMap_Shortcode {
 					$shortcode_count++;
 					InMap_Log::set_data('shortcode_count', $shortcode_count);
 				} else {
-					InMap_Log::add(__('GeoJSON contains no Points.', InMap_Config::get_item('plugin_text_domain')), 'error', 'empty_geojson');
+					InMap_Log::add(__('No tracking or route data to display.', InMap_Config::get_item('plugin_text_domain')), 'error', 'empty_data');
 				}
 			}
 		} else {
