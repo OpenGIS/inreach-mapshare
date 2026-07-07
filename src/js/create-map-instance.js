@@ -230,5 +230,20 @@ export async function createMapInstance({
         { fitBounds: false },
       );
     }
+
+    // After the initial fitBounds animation completes, auto-open the
+    // most recent tracking point's popup and zoom in on it.
+    const trackingPoints = pointFeatures.filter(
+      (f) => f.properties?.waymarkType === "tracking",
+    );
+    if (trackingPoints.length) {
+      instance.once("waymark:map.moveend", () => {
+        // First point is the most recent (server reverses the feed)
+        const mostRecent = trackingPoints[0];
+        if (mostRecent) {
+          instance.data.featureProperties.showPopup(mostRecent);
+        }
+      });
+    }
   });
 }
