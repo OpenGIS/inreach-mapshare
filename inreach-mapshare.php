@@ -32,7 +32,7 @@ add_action('init', function () {
 		'plugin_text_domain' => $plugin_slug,
 		'plugin_name' => $plugin_name,
 		'plugin_name_short' => $plugin_name,
-		'plugin_version' => '3.0.0',
+		'plugin_version' => '3.0.1',
 		'settings_id' => 'inmap_settings',
 		'settings_default_tab' => 'inmap-settings-tab-mapshare',
 		'site_url' => 'https://github.com/morehawes/inreach-mapshare/',

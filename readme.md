@@ -48,14 +48,14 @@ See [docs/configuration.md](docs/configuration.md) for step-by-step setup instru
 
 ```bash
 # 1. Clone and enter the repo
-git clone https://github.com/OpenGIS/inreach-mapshare.git
+git clone --recurse-submodules https://github.com/OpenGIS/inreach-mapshare.git
 cd inreach-mapshare
 
 # 2. Install dependencies
 npm install
 
 # 3. Start the local WordPress environment
-#    (spins up MySQL + WordPress via Docker, activates the plugin)
+#    (Docker must be running — spins up MySQL + WordPress via Docker, activates the plugin)
 npm run dev
 
 # 4. Build assets (Vite compiles JS, CSS, LESS)

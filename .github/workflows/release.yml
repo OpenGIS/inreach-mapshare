@@ -3,7 +3,7 @@
 #
 # Adapted from @ogis/icons publish.yml pattern.
 
-name: Tag new version
+name: Release
 
 on:
   push:
@@ -38,6 +38,7 @@ jobs:
           echo "tag=$VERSION" >> $GITHUB_OUTPUT
 
       - name: Create annotated tag
+        id: tag
         if: steps.version.outputs.changed == 'true'
         run: |
           git config user.name "github-actions"
@@ -45,3 +46,14 @@ jobs:
           TAG="${{ steps.extract.outputs.tag }}"
           git tag -a "$TAG" -m "Release $TAG"
           git push origin "$TAG"
+          echo "tag=$TAG" >> $GITHUB_OUTPUT
+
+      - name: Create GitHub Release
+        if: steps.version.outputs.changed == 'true'
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: |
+          gh release create "${{ steps.tag.outputs.tag }}" \
+            --title "${{ steps.tag.outputs.tag }}" \
+            --generate-notes \
+            --verify-tag
