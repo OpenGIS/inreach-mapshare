@@ -22,16 +22,16 @@ last_commit: d59e8a7
 
 Each point displayed contains the following information:
 
-| Field         | Description                                                                                           |
-|---------------|-------------------------------------------------------------------------------------------------------|
-| Time UTC      | US-formatted version of the event timestamp as UTC                                                    |
-| Time (local)  | US-formatted version of the event timestamp in the preferred time zone of the account owner           |
-| Event         | The event log type (e.g. a message, or track point)                                                   |
-| Text          | Message text, if any, in Unicode                                                                      |
-| Latitude      | Latitude in degrees WGS84 where negative is south of the equator                                      |
-| Longitude     | Longitude in degrees WGS84 where negative is west of the Prime Meridian                               |
-| Elevation     | Value is always meters from Mean Sea Level                                                            |
-| Velocity      | Ground speed of the device. Value is always in kilometers per hour.                                   |
-| Valid GPS Fix | True if the device has a GPS fix. This not a measure of the quality of GPS fix.                       |
+| Field         | Description                                                                                 |
+| ------------- | ------------------------------------------------------------------------------------------- |
+| Time UTC      | US-formatted version of the event timestamp as UTC                                          |
+| Time (local)  | US-formatted version of the event timestamp in the preferred time zone of the account owner |
+| Event         | The event log type (e.g. a message, or track point)                                         |
+| Text          | Message text, if any, in Unicode                                                            |
+| Latitude      | Latitude in degrees WGS84 where negative is south of the equator                            |
+| Longitude     | Longitude in degrees WGS84 where negative is west of the Prime Meridian                     |
+| Elevation     | Value is always meters from Mean Sea Level                                                  |
+| Velocity      | Ground speed of the device. Value is always in kilometers per hour.                         |
+| Valid GPS Fix | True if the device has a GPS fix. This not a measure of the quality of GPS fix.             |
 
 For the full KML extended data reference, see [kml-fields.md](kml-fields.md).

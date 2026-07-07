@@ -214,7 +214,7 @@ class InMap_Inreach extends InMap_Class {
 
 				InMap_Log::add(__('The KML response contains ' . $this->point_count . ' ' . $point_text . '.', InMap_Config::get_item('plugin_text_domain')), 'info', 'has_points');
 			} else {
-				InMap_Log::add(__('The KML response contains no Points.', InMap_Config::get_item('plugin_text_domain')), 'error', 'no_points');
+			InMap_Log::add(__('The KML response contains no Points.', InMap_Config::get_item('plugin_text_domain')), 'warning', 'no_points');
 			}
 		} else {
 			InMap_Log::add(__('The KML response is invalid.', InMap_Config::get_item('plugin_text_domain')), 'error', 'empty_kml');
@@ -396,7 +396,7 @@ class InMap_Inreach extends InMap_Class {
 			// Reverse order (most recent first)
 			$this->FeatureCollection['features'] = array_reverse($this->FeatureCollection['features']);
 		} else {
-			InMap_Log::add(__('The KML response contains no Points.', InMap_Config::get_item('plugin_text_domain')), 'error', 'no_points');
+			InMap_Log::add(__('The KML response contains no Points.', InMap_Config::get_item('plugin_text_domain')), 'warning', 'no_points');
 		}
 	}
 }
