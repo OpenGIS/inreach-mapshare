@@ -232,14 +232,11 @@ export async function createMapInstance({
     }
 
     // After the initial fitBounds animation completes, auto-open the
-    // most recent tracking point's popup and zoom in on it.
-    const trackingPoints = pointFeatures.filter(
-      (f) => f.properties?.waymarkType === "tracking",
-    );
-    if (trackingPoints.length) {
+    // most recent point's popup and zoom in on it regardless of type.
+    if (pointFeatures.length) {
       instance.once("waymark:map.moveend", () => {
         // First point is the most recent (server reverses the feed)
-        const mostRecent = trackingPoints[0];
+        const mostRecent = pointFeatures[0];
         if (mostRecent) {
           instance.data.featureProperties.showPopup(mostRecent);
         }
