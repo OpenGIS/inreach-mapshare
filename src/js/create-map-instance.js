@@ -33,12 +33,23 @@ export async function createMapInstance({
   const pointFeatures = [];
   const lineFeatures = [];
 
+  /** A LineString is valid only when it has at least two coordinate positions. */
+  function isValidLineString(feature) {
+    return (
+      feature.geometry?.type !== "LineString" ||
+      (Array.isArray(feature.geometry.coordinates) &&
+        feature.geometry.coordinates.length >= 2)
+    );
+  }
+
   if (geojson?.features) {
     for (const feature of geojson.features) {
       if (feature.geometry?.type === "Point") {
         pointFeatures.push(feature);
       } else if (feature.geometry?.type === "LineString") {
-        lineFeatures.push(feature);
+        if (isValidLineString(feature)) {
+          lineFeatures.push(feature);
+        }
       }
     }
   }
@@ -176,7 +187,7 @@ export async function createMapInstance({
   }
 
   instance.on("waymark:map.load", () => {
-    const routeFeatures = extractFeatures(routeGeojson);
+    const routeFeatures = extractFeatures(routeGeojson).filter(isValidLineString);
     const allFeatures = [...pointFeatures, ...lineFeatures, ...routeFeatures];
 
     // Bounds-only layer: invisible, just sets the camera to encompass everything
