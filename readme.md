@@ -54,8 +54,7 @@ cd inreach-mapshare
 # 2. Install dependencies
 npm install
 
-# 3. Start the local WordPress environment
-#    (Docker must be running — spins up MySQL + WordPress via Docker, activates the plugin)
+# 3. Start the local WordPress environment (Docker must be running!)
 npm run dev
 
 # 4. Build assets (Vite compiles JS, CSS, LESS)
