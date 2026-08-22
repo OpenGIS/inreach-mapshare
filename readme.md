@@ -1,5 +1,5 @@
 ---
-last_commit: d59e8a7
+last_commit: 0bfa5d5
 ---
 
 # inReach MapShare
@@ -47,7 +47,7 @@ See [docs/configuration.md](docs/configuration.md) for step-by-step setup instru
 > **Development dependencies:** [Node.js and npm](https://docs.npmjs.com/downloading-and-installing-node-js-and-npm) and [Docker](https://docs.docker.com/engine/install/) are required.
 
 ```bash
-# 1. Clone and enter the repo
+# 1. Clone and enter the repo (includes the waymark-js submodule)
 git clone --recurse-submodules https://github.com/OpenGIS/inreach-mapshare.git
 cd inreach-mapshare
 
@@ -57,14 +57,17 @@ npm install
 # 3. Start the local WordPress environment (Docker must be running!)
 npm run dev
 
-# 4. Build assets (Vite compiles JS, CSS, LESS)
+# 4. Build the waymark-js map library (submodule)
+npm --prefix waymark-js run build
+
+# 5. Build plugin assets (Vite compiles JS, CSS, LESS and copies the waymark-js dist)
 npm run build
 
-# 5. Run browser tests (Playwright smoke suite)
+# 6. Run browser tests (Playwright smoke suite)
 npm run test:browser
 ```
 
-[Vite](https://vitejs.dev/) handles the build pipeline. The local dev environment uses [`wp-env`](https://developer.wordpress.org/block-editor/reference-guides/packages/packages-env/) which manages WordPress and MySQL in Docker containers.
+The map is rendered by [Waymark](https://github.com/OpenGIS/waymark-js), a git submodule (see [waymark-js/README.md](waymark-js/README.md)). The plugin's Vite build copies the pre-built `waymark-js/dist/waymark.js` and `waymark.css` into the plugin's `dist/`, so rebuild the submodule first whenever you update it. The local dev environment uses [`wp-env`](https://developer.wordpress.org/block-editor/reference-guides/packages/packages-env/) which manages WordPress and MySQL in Docker containers.
 
 Pull requests are welcome!
 

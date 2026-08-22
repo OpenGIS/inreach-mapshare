@@ -10,7 +10,6 @@ export async function createMapInstance({
   waymarkUrl,
   basemapUrl,
   basemapAttribution,
-  basemapTitle,
   basemapOpacity,
   basemapMaxzoom,
   messageColour,
@@ -54,58 +53,36 @@ export async function createMapInstance({
     }
   }
 
-  // Always include the vector basemap (OpenFreeMap liberty)
-  const basemaps = {
-    vector: [
-      {
-        title: "OpenFreeMap",
-        styleURL: "https://tiles.openfreemap.org/styles/liberty",
-        attributionHTML:
-          '&copy; <a href="https://www.openfreemap.org/">OpenFreeMap</a> &copy; <a href="https://openmaptiles.org/">OpenMapTiles</a> Data from <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a>',
-      },
-    ],
-  };
+  const basemaps = {};
 
-  // Build raster basemap entry
-  const rasterAttribution =
-    basemapAttribution &&
-    typeof basemapAttribution === "string" &&
-    basemapAttribution.length
-      ? basemapAttribution
-      : '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors, SRTM | &copy; <a href="https://opentopomap.org">OpenTopoMap</a> (<a href="https://creativecommons.org/licenses/by-sa/3.0/">CC-BY-SA</a>)';
+  // Build raster basemap entry (only when a URL is configured)
+  if (basemapUrl && typeof basemapUrl === "string" && basemapUrl.length) {
+    const rasterEntry = {
+      tileURLTemplates: [basemapUrl],
+    };
 
-  const rasterTitle =
-    basemapTitle && typeof basemapTitle === "string" && basemapTitle.length
-      ? basemapTitle
-      : undefined;
+    if (
+      basemapAttribution &&
+      typeof basemapAttribution === "string" &&
+      basemapAttribution.length
+    ) {
+      rasterEntry.attributionHTML = basemapAttribution;
+    }
 
-  const rasterUrl =
-    basemapUrl && typeof basemapUrl === "string" && basemapUrl.length
-      ? basemapUrl
-      : "https://tile.opentopomap.org/{z}/{x}/{y}.png";
+    // Parse opacity as float (0-1), only set if valid
+    const parsedOpacity = parseFloat(basemapOpacity);
+    if (!isNaN(parsedOpacity) && parsedOpacity >= 0 && parsedOpacity <= 1) {
+      rasterEntry.opacity = parsedOpacity;
+    }
 
-  const rasterEntry = {
-    tileURLTemplates: [rasterUrl],
-    attributionHTML: rasterAttribution,
-  };
+    // Parse maxzoom as integer, only set if valid positive number
+    const parsedMaxzoom = parseInt(basemapMaxzoom, 10);
+    if (!isNaN(parsedMaxzoom) && parsedMaxzoom > 0) {
+      rasterEntry.maxZoom = parsedMaxzoom;
+    }
 
-  if (rasterTitle) {
-    rasterEntry.title = rasterTitle;
+    basemaps.raster = [rasterEntry];
   }
-
-  // Parse opacity as float (0-1), only set if valid
-  const parsedOpacity = parseFloat(basemapOpacity);
-  if (!isNaN(parsedOpacity) && parsedOpacity >= 0 && parsedOpacity <= 1) {
-    rasterEntry.opacity = parsedOpacity;
-  }
-
-  // Parse maxzoom as integer, only set if valid positive number
-  const parsedMaxzoom = parseInt(basemapMaxzoom, 10);
-  if (!isNaN(parsedMaxzoom) && parsedMaxzoom > 0) {
-    rasterEntry.maxZoom = parsedMaxzoom;
-  }
-
-  basemaps.raster = [rasterEntry];
 
   const defaultMessageColour = messageColour || "#e524ab";
   const defaultTrackingColour = trackingColour || "#e524ab";

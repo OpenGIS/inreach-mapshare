@@ -126,27 +126,20 @@ class InMap_Settings {
 				'map' => [
 					'title' => esc_html__('Map', InMap_Config::get_item('plugin_text_domain')),
 					'fields' => [
-						'basemap_title' => [
-							'title' => esc_html__('Basemap Title', InMap_Config::get_item('plugin_text_domain')),
-							'tip' => esc_html__('A display name for the raster basemap shown in the basemap switcher.', InMap_Config::get_item('plugin_text_domain')),
-						],
 						'basemap_url' => [
-							'required' => InMap_Config::get_fallback('appearance', 'map', 'basemap_url'),
 							'title' => esc_html__('Basemap URL', InMap_Config::get_item('plugin_text_domain')),
-							'tip' => esc_html__('The URL to a "slippy map" tile service, this needs to contain the characters {z},{x} and {y}. OpenTopoMap is used by default.', InMap_Config::get_item('plugin_text_domain')),
+							'tip' => esc_html__('The URL to a "slippy map" tile service, this needs to contain the characters {z},{x} and {y}. Leave empty to use the default vector basemap.', InMap_Config::get_item('plugin_text_domain')),
 							'tip_link' => 'https://leaflet-extras.github.io/leaflet-providers/preview/',
 						],
 						'basemap_attribution' => [
-							'required' => InMap_Config::get_fallback('appearance', 'map', 'basemap_attribution'),
 							'title' => esc_html__('Basemap Attribution', InMap_Config::get_item('plugin_text_domain')),
 							'tip' => esc_html__('Mapping services often have the requirement that attribution is displayed by the map. Text and HTML links are supported.', InMap_Config::get_item('plugin_text_domain')),
 						],
 						'basemap_opacity' => [
 							'type' => 'number',
 							'class' => 'inmap-short-input',
-							'required' => InMap_Config::get_fallback('appearance', 'map', 'basemap_opacity'),
 							'title' => esc_html__('Basemap Opacity', InMap_Config::get_item('plugin_text_domain')),
-							'tip' => esc_html__('Raster tile opacity from 0 (fully transparent) to 1 (fully opaque). Leave empty for default.', InMap_Config::get_item('plugin_text_domain')),
+							'tip' => esc_html__('Raster tile opacity from 0 (fully transparent) to 1 (fully opaque). Leave empty to use full opacity.', InMap_Config::get_item('plugin_text_domain')),
 							'attributes' => [
 								'min' => '0',
 								'max' => '1',
@@ -156,7 +149,6 @@ class InMap_Settings {
 						'basemap_maxzoom' => [
 							'type' => 'number',
 							'class' => 'inmap-short-input',
-							'required' => InMap_Config::get_fallback('appearance', 'map', 'basemap_maxzoom'),
 							'title' => esc_html__('Basemap Max Zoom', InMap_Config::get_item('plugin_text_domain')),
 							'tip' => esc_html__('Maximum zoom level for the raster tiles. Leave empty for no limit.', InMap_Config::get_item('plugin_text_domain')),
 						],

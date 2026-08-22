@@ -108,7 +108,6 @@ class InMap_Shortcode {
 				$out .= '  routeColour: ' . json_encode(InMap_Config::get_setting('appearance', 'colours', 'route_colour')) . ",\n";
 				$out .= '  basemapUrl: ' . json_encode(InMap_Config::get_setting('appearance', 'map', 'basemap_url')) . ",\n";
 				$out .= '  basemapAttribution: ' . json_encode(html_entity_decode(InMap_Config::get_setting('appearance', 'map', 'basemap_attribution'), ENT_QUOTES | ENT_HTML5)) . ",\n";
-				$out .= '  basemapTitle: ' . json_encode(InMap_Config::get_setting('appearance', 'map', 'basemap_title')) . ",\n";
 				$out .= '  basemapOpacity: ' . json_encode(InMap_Config::get_setting('appearance', 'map', 'basemap_opacity')) . ",\n";
 				$out .= '  basemapMaxzoom: ' . json_encode(InMap_Config::get_setting('appearance', 'map', 'basemap_maxzoom')) . ",\n";
 				$out .= '});' . "\n";

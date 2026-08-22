@@ -1,5 +1,5 @@
 ---
-last_commit: d59e8a7
+last_commit: 0bfa5d5
 ---
 
 # Features & Data Fields
@@ -12,7 +12,7 @@ last_commit: d59e8a7
 - Use the in-built demo to preview how your MapShare will display (`[inreach-mapshare mapshare_identifier="demo"]`).
 - Customise in WP Admin > Settings > inReach MapShare.
 - Appearance settings:
-  - Basemap — [OpenTopoMap](https://opentopomap.org) raster by default (opacity 0.7), plus a vector OpenFreeMap basemap always available. Supports custom tile URLs, attribution, title, opacity, and max zoom.
+  - Basemap — the [Waymark](waymark-js/README.md) default vector basemap (Open GIS Outdoors) by default. Optionally set a Basemap URL in Settings to replace it with a raster tile service; attribution, opacity, and max zoom are configurable (no basemap title setting).
   - Colour — pick a colour to suit your theme.
 - Content is responsive and adapts to suit devices both small and large.
 - Customise content with your own CSS rules.
