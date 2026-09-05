@@ -63,11 +63,13 @@ npm --prefix waymark-js run build
 # 5. Build plugin assets (Vite compiles JS, CSS, LESS and copies the waymark-js dist)
 npm run build
 
-# 6. Run browser tests (Playwright smoke suite)
+# 6. Run browser tests (Playwright smoke suite; boots wp-env itself via dev:test)
 npm run test:browser
 ```
 
-The map is rendered by [Waymark](https://github.com/OpenGIS/waymark-js), a git submodule (see [waymark-js/README.md](waymark-js/README.md)). The plugin's Vite build copies the pre-built `waymark-js/dist/waymark.js` and `waymark.css` into the plugin's `dist/`, so rebuild the submodule first whenever you update it. The local dev environment uses [`wp-env`](https://developer.wordpress.org/block-editor/reference-guides/packages/packages-env/) which manages WordPress and MySQL in Docker containers.
+The map is rendered by [Waymark](https://github.com/OpenGIS/waymark-js), a git submodule (see [waymark-js/README.md](waymark-js/README.md)). The plugin's Vite build copies the pre-built `waymark-js/dist/waymark.js` and `waymark.css` (the MapLibre GL worker is inlined into `waymark.js`) into the plugin's `dist/`, so rebuild the submodule first whenever you update it. The local dev environment uses [`wp-env`](https://developer.wordpress.org/block-editor/reference-guides/packages/packages-env/) which manages WordPress and MySQL in Docker containers.
+
+The browser suite includes a shortcode integration test that creates a demo post via the wp-env CLI and asserts the full map pipeline renders in WordPress (map, popup, inlined worker, no console errors). `npm run test:browser` boots wp-env itself through the `dev:test` script, so it runs standalone from a cold start.
 
 Pull requests are welcome!
 

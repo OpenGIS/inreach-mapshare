@@ -1,11 +1,12 @@
 {
   "name": "inreach-mapshare",
   "private": true,
-  "version": "3.1.0",
+  "version": "3.2.0",
   "type": "module",
   "scripts": {
     "build": "vite build",
     "dev": "wp-env start && printf '\\n────────────────────────────────────\\n MySQL  127.0.0.1  root / password\\n Admin  http://localhost:8888/wp-admin  admin / password\\n────────────────────────────────────\\n'",
+    "dev:test": "wp-env start && node -e \"setInterval(()=>{},1<<30)\"",
     "test:browser": "playwright test"
   },
   "devDependencies": {

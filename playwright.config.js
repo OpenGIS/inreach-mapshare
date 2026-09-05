@@ -9,7 +9,7 @@ export default defineConfig({
     screenshot: "only-on-failure",
   },
   webServer: {
-    command: "npm run dev",
+    command: "npm run dev:test",
     url: "http://localhost:8888",
     reuseExistingServer: true,
   },
